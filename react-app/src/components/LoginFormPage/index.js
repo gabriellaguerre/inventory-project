@@ -7,7 +7,7 @@ import './LoginForm.css';
 function LoginFormPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
-  const [email, setEmail] = useState("");
+  const [employeeID, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
@@ -15,7 +15,7 @@ function LoginFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = await dispatch(login(email, password));
+    const data = await dispatch(login(employeeID, password));
     if (data) {
       setErrors(data);
     }
@@ -34,7 +34,7 @@ function LoginFormPage() {
           Email
           <input
             type="text"
-            value={email}
+            value={employeeID}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
