@@ -12,6 +12,7 @@ class Item(db.Model):
     description = db.Column(db.String(500), nullable=False)
     item_type = db.Column(db.String(500), nullable=False)
     unit_cost = db.Column(db.Integer, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
     manufacturer = db.Column(db.String(255), nullable=False)
     userId = db.Column(db.Integer, nullable=False)
     supplierId = db.Column(db.Integer, nullable=False)
@@ -24,6 +25,7 @@ class Item(db.Model):
             'code': self.code,
             'description': self.description,
             'unit_cost': self.unit_cost,
+            'quantity': self.quantity,
             'manufacturer': self.manufacturer,
             'userId': self.userId,
             'supplierId': self.supplierId,
