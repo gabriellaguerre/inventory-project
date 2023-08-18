@@ -3,6 +3,7 @@ from .users import seed_users, undo_users
 from .items import seed_items, undo_items
 from .suppliers import seed_suppliers, undo_suppliers
 from .requests import seed_requests, undo_requests
+from .purchase_orders import seed_purchase_orders, undo_purchase_orders
 
 from app.models.db import db, environment, SCHEMA
 
@@ -23,10 +24,12 @@ def seed():
         undo_items()
         undo_suppliers()
         undo_requests()
+        undo_purchase_orders()
     seed_users()
     seed_items()
     seed_suppliers()
     seed_requests()
+    seed_purchase_orders()
     # Add other seed functions here
 
 
@@ -37,4 +40,5 @@ def undo():
     undo_items()
     undo_suppliers()
     undo_requests()
+    undo_purchase_orders()
     # Add other undo functions here

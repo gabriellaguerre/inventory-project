@@ -1,8 +1,8 @@
-"""create request table
+"""create purchase order table
 
-Revision ID: 8cc452c54250
+Revision ID: 7d4689315e5e
 Revises: 
-Create Date: 2023-08-18 18:16:09.531415
+Create Date: 2023-08-18 19:21:35.968985
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '8cc452c54250'
+revision = '7d4689315e5e'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,6 +32,15 @@ def upgrade():
     sa.Column('updatedAt', sa.Date(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('code')
+    )
+    op.create_table('purchase_orders',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('quantity', sa.Integer(), nullable=False),
+    sa.Column('itemId', sa.Integer(), nullable=False),
+    sa.Column('userId', sa.Integer(), nullable=False),
+    sa.Column('createdAt', sa.Date(), nullable=True),
+    sa.Column('updatedAt', sa.Date(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('requests',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -71,5 +80,6 @@ def downgrade():
     op.drop_table('users')
     op.drop_table('suppliers')
     op.drop_table('requests')
+    op.drop_table('purchase_orders')
     op.drop_table('items')
     # ### end Alembic commands ###
