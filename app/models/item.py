@@ -13,7 +13,10 @@ class Item(db.Model):
     item_type = db.Column(db.String(500), nullable=False)
     unit_cost = db.Column(db.Integer, nullable=False)
     manufacturer = db.Column(db.String(255), nullable=False)
-    supplier = db.Column(db.String(255), nullable=False)
+    userId = db.Column(db.Integer, nullable=False)
+    supplierId = db.Column(db.Integer, nullable=False)
+    createdAt = db.Column(db.Date)
+    updatedAt = db.Column(db.Date)
 
     def to_dict(self):
         return {
@@ -22,5 +25,8 @@ class Item(db.Model):
             'description': self.description,
             'unit_cost': self.unit_cost,
             'manufacturer': self.manufacturer,
-            'supplier': self.supplier
+            'userId': self.userId,
+            'supplierId': self.supplierId,
+            'createdAt': self.createdAt,
+            'updatedAt': self.updatedAt
         }
