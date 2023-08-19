@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from datetime import datetime
 
 
 class Item(db.Model):
@@ -14,10 +15,17 @@ class Item(db.Model):
     unit_cost = db.Column(db.Integer, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     manufacturer = db.Column(db.String(255), nullable=False)
-    userId = db.Column(db.Integer, nullable=False)
-    supplierId = db.Column(db.Integer, nullable=False)
-    createdAt = db.Column(db.Date)
-    updatedAt = db.Column(db.Date)
+    userId = db.Column(db.Integer, db.Foreignkey(add_prefix_for_prod('users.id')), nullable=False)
+    supplierId = db.Column(db.Integer, db.Foreignkey(add_prefix_for_prod('suppliers.id')), nullable=False)
+    createdAt = db.Column(db.DateTime, default=datetime.now())
+    updatedAt = db.Column(db.DateTime, default=datetime.now())
+
+
+    user = db.relationship('User', back_populates = 'items')
+    supplier = db.relationshp('Supplier', back_populates = 'items')
+    purchase_order = db.relationship('PurchaseOrder', back_populates = 'items')
+    request = db.relationshipt('Request', back_populates = 'items')
+
 
     def to_dict(self):
         return {

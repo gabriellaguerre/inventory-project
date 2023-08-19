@@ -15,6 +15,12 @@ class User(db.Model, UserMixin):
     accessLevel = db.Column(db.String(255), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
 
+    items = db.relationship('Item', back_populates = 'user', cascade = 'all, delete')
+    purchase_orders = db.relationship('PurchaseOrder', back_populates = 'user', cascade = 'all, delete')
+    requests = db.relationship('Request', back_populates = 'user', cascade = 'all, delete')
+    suppliers = db.relationship('Supplier', back_populates = 'user', cascade = 'all, delete')
+    
+
     @property
     def password(self):
         return self.hashed_password

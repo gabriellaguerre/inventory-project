@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from datetime import datetime
 
 
 class Supplier(db.Model):
@@ -13,11 +14,14 @@ class Supplier(db.Model):
     contact = db.Column(db.String(255))
     email = db.Column(db.String(255))
     cell = db.Column(db.String(255))
-    itemId = db.Column(db.Integer, nullable=False)
-    userId = db.Column(db.Integer, nullable=False)
-    createdAt = db.Column(db.Date)
-    updatedAt = db.Column(db.Date)
+    itemId = db.Column(db.Integer, db.Foreignkey(add_prefix_for_prod('items.id')), nullable=False)
+    userId = db.Column(db.Integer, db.Foreignkey(add_prefix_for_prod('users.id')), nullable=False)
+    createdAt = db.Column(db.Date, default=datetime.now())
+    updatedAt = db.Column(db.Date, default=datetime.now())
 
+    items = db.relationship('Item', back_populates = 'supplier', cascade = 'all, delete')
+    user = db.relationship('User', back_populates = 'suppliers')
+    
 
     def to_dict(self):
         return {
