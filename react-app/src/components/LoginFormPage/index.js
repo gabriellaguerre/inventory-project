@@ -15,6 +15,17 @@ function LoginFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // let accessLevel
+
+    // if (employeeID[0] === 'E') {
+    //   accessLevel = 'employee'
+    // }
+    // if (employeeID[0] === 'D') {
+    //   accessLevel = 'admin'
+    // }
+
+
     const data = await dispatch(login(employeeID, password));
     if (data) {
       setErrors(data);
@@ -23,7 +34,7 @@ function LoginFormPage() {
 
   return (
     <>
-      <h1>Log In</h1>
+      <h1>Employee Log In</h1>
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
@@ -31,7 +42,7 @@ function LoginFormPage() {
           ))}
         </ul>
         <label>
-          Email
+          Employee ID:
           <input
             type="text"
             value={employeeID}

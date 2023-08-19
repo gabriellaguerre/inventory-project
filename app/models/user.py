@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     purchase_orders = db.relationship('PurchaseOrder', back_populates = 'user', cascade = 'all, delete')
     requests = db.relationship('Request', back_populates = 'user', cascade = 'all, delete')
     suppliers = db.relationship('Supplier', back_populates = 'user', cascade = 'all, delete')
-    
+
 
     @property
     def password(self):
@@ -36,6 +36,6 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'employeeID': self.employeeID,
-            'accessLevel': self.accessLevel
+            # 'accessLevel': self.accessLevel
             # 'email': self.email
         }

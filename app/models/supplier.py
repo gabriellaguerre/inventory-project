@@ -14,14 +14,28 @@ class Supplier(db.Model):
     contact = db.Column(db.String(255))
     email = db.Column(db.String(255))
     cell = db.Column(db.String(255))
-    itemId = db.Column(db.Integer, db.Foreignkey(add_prefix_for_prod('items.id')), nullable=False)
-    userId = db.Column(db.Integer, db.Foreignkey(add_prefix_for_prod('users.id')), nullable=False)
-    createdAt = db.Column(db.Date, default=datetime.now())
-    updatedAt = db.Column(db.Date, default=datetime.now())
+    # itemId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    createdAt = db.Column(db.DateTime, default=datetime.now())
+    updatedAt = db.Column(db.DateTime, default=datetime.now())
 
-    items = db.relationship('Item', back_populates = 'supplier', cascade = 'all, delete')
     user = db.relationship('User', back_populates = 'suppliers')
-    
+    items = db.relationship('Item', secondary = 'supplier_items', back_populates = 'suppliers')
+
+    supplier_items = db.Table("supplier_items",
+    db.Column(
+        "supplier_id",
+        db.Integer,
+        db.ForeignKey("suppliers.id"),
+        primary_key=True
+    ),
+    db.Column(
+        "item_id",
+        db.Integer,
+        db.ForeignKey("items.id"),
+        primary_key=True
+    ))
+
 
     def to_dict(self):
         return {

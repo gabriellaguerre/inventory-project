@@ -8,7 +8,9 @@ def user_exists(form, field):
     # Checking if user exists
     # email = field.data
     employeeID = field.data
+    # print(employeeID, 'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
     user = User.query.filter(User.employeeID == employeeID).first()
+    # print(user.employeeID, user.accessLevel, user.password, 'PPPPPPPPPPPPPPPPPPPPPPPPPP')
     if not user:
         raise ValidationError('EmployeeID provided not found.')
 
@@ -16,9 +18,12 @@ def user_exists(form, field):
 def password_matches(form, field):
     # Checking if password matches
     password = field.data
+    # print(password, 'OOOOOOOOOOOOOOOOO')
     # email = form.data['email']
-    employeeID = field.data
+    employeeID = form.data['employeeID']
+    # print(employeeID, 'MMMMMMMMMMMMMMMMMMMM')
     user = User.query.filter(User.employeeID == employeeID).first()
+    # print(user, 'PPPPPPPPPPPPPPPPPPPPPPPPP')
     if not user:
         raise ValidationError('No such employee exists.')
     if not user.check_password(password):
@@ -28,5 +33,5 @@ def password_matches(form, field):
 class LoginForm(FlaskForm):
     # email = StringField('email', validators=[DataRequired(), user_exists])
     employeeID = StringField('employeeID', validators=[DataRequired(), user_exists])
-    accessLevel = StringField('accessLevel', validators=[DataRequired()])
+    # accessLevel = StringField('accessLevel', validators=[DataRequired()])
     password = StringField('password', validators=[DataRequired(), password_matches])

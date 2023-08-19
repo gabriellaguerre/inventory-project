@@ -10,10 +10,10 @@ class Request(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer, nullable=False)
-    itemId = db.Column(db.Integer, db.Foreignkey(add_prefix_for_prod('items.id')), nullable=False)
-    userId = db.Column(db.Integer, db.Foreignkey(add_prefix_for_prod('users.id')), nullable=False)
-    createdAt = db.Column(db.Date, default=datetime.now())
-    updatedAt = db.Column(db.Date, default=datetime.now())
+    itemId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    createdAt = db.Column(db.DateTime, default=datetime.now())
+    updatedAt = db.Column(db.DateTime, default=datetime.now())
 
     items = db.relationship("Item", back_populates = 'request', cascade = 'all, delete')
     user = db.relationship('User', back_populates = 'requests')
