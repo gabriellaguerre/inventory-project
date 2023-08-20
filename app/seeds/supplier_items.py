@@ -13,26 +13,15 @@ def seed_supplier_items():
     sup1.items.append(item1)
     db.session.commit()
 
-#     supA.items.append(motor)
-#     db.session.commit()
-    # supItA = Supplier_Item(
-    #     supplierId = 1,
-    #     itemId = 1
-    # )
+    item2 = Item.query.filter(Item.id == 2).first()
+    sup2 = Supplier.query.filter(Supplier.id == 2).first()
+    sup2.items.append(item2)
+    db.session.commit()
 
-    # supItB = Supplier_Item(
-    #     supplierId = 2,
-    #     itemId = 2
-    # )
-
-    # supItC = Supplier_Item(
-    #     supplierId = 3,
-    #     itemId = 3
-    # )
-
-    # db.session.add(supItA)
-    # db.session.add(supItB)
-    # db.session.add(supItC)
+    item3 = Item.query.filter(Item.id == 3).first()
+    sup3 = Supplier.query.filter(Supplier.id == 3).first()
+    sup3.items.append(item3)
+    db.session.commit()
 
 
 
