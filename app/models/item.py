@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .supplier_item import supplier_items
 from datetime import datetime
 
 
@@ -24,7 +25,7 @@ class Item(db.Model):
     user = db.relationship('User', back_populates = 'items')
     purchase_order = db.relationship('PurchaseOrder', back_populates = 'items')
     request = db.relationship('Request', back_populates = 'items')
-    suppliers = db.relationship('Supplier', secondary = 'supplier_items', back_populates = 'items')
+    suppliers = db.relationship('Supplier', secondary=supplier_items, back_populates = 'items')
 
 
     def to_dict(self):

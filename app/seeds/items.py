@@ -10,7 +10,7 @@ def seed_items():
         quantity = 1,
         manufacturer = 'ABB',
         userId = 1,
-        supplierId = 1
+        # supplierId = 1
     )
 
     pt = Item(
@@ -21,7 +21,7 @@ def seed_items():
         quantity = 2,
         manufacturer = 'Danfoss',
         userId = 1,
-        supplierId = 2
+        # supplierId = 2
     )
 
     tt = Item(
@@ -32,7 +32,7 @@ def seed_items():
         quantity = 5,
         userId = 1,
         manufacturer = 'Uxcell',
-        supplierId = 3
+        # supplierId = 3
     )
 
     db.session.add(motor)

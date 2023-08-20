@@ -16,16 +16,7 @@ function LoginFormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // let accessLevel
-
-    // if (employeeID[0] === 'E') {
-    //   accessLevel = 'employee'
-    // }
-    // if (employeeID[0] === 'D') {
-    //   accessLevel = 'admin'
-    // }
-
-
+    
     const data = await dispatch(login(employeeID, password));
     if (data) {
       setErrors(data);

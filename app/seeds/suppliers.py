@@ -9,7 +9,7 @@ def seed_suppliers():
         contact = 'Joe Damon',
         email = 'jdamon@taw.com',
         cell = '555-222-3333',
-        itemId = 1,
+        # itemId = 1,
         userId = 1
     )
 
@@ -19,7 +19,7 @@ def seed_suppliers():
         contact = 'Lisa Svorsen',
         email = 'lisa@union.com',
         cell = '+45 11 22 33 44',
-        itemId = 2,
+        # itemId = 2,
         userId = 1
     )
 
@@ -29,7 +29,7 @@ def seed_suppliers():
         contact = 'Samuel Jones',
         email = 'sam@grainger.com',
         cell = '786-888-9999',
-        itemId = 3,
+        # itemId = 3,
         userId = 1
     )
 
