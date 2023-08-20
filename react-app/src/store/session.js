@@ -37,7 +37,7 @@ export const login = (employeeID, password) => async (dispatch) => {
 		},
 		body: JSON.stringify({
 			employeeID,
-			password,
+			password
 		}),
 	});
 

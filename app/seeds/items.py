@@ -7,8 +7,10 @@ def seed_items():
         description='ABB 3GBP281220-ADG Product: TEFC, 3-phase, squirrel cage induction motor Product code: 3GBP 281 220-ADG',
         item_type = 'Motor',
         unit_cost = 14980,
+        quantity = 1,
         manufacturer = 'ABB',
-        supplier = 'Tampa Armature Works (TAW)'
+        userId = 1,
+        # supplierId = 1
     )
 
     pt = Item(
@@ -16,8 +18,10 @@ def seed_items():
         description='MPM489 pressure transmitter 1bar, 2-wire 4mA~20mA DC, 3-wire 0/1V~5/10V DC and 0.5V~2.5/4.5V DC',
         item_type = 'Pressure Transmitter',
         unit_cost = 149,
+        quantity = 2,
         manufacturer = 'Danfoss',
-        supplier = 'Union Engineering'
+        userId = 1,
+        # supplierId = 2
     )
 
     tt = Item(
@@ -25,8 +29,10 @@ def seed_items():
         description='Temperature Sensor Transmitter 24V DC 4-20mA -50℃ to 200℃',
         item_type = 'Temperature Transmitter',
         unit_cost = 253,
+        quantity = 5,
+        userId = 1,
         manufacturer = 'Uxcell',
-        supplier = 'Grainger'
+        # supplierId = 3
     )
 
     db.session.add(motor)

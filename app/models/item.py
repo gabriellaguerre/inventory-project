@@ -1,4 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .supplier_item import supplier_items
+from datetime import datetime
 
 
 class Item(db.Model):
@@ -12,8 +14,19 @@ class Item(db.Model):
     description = db.Column(db.String(500), nullable=False)
     item_type = db.Column(db.String(500), nullable=False)
     unit_cost = db.Column(db.Integer, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
     manufacturer = db.Column(db.String(255), nullable=False)
-    supplier = db.Column(db.String(255), nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    # supplierId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('suppliers.id')), nullable=False)
+    createdAt = db.Column(db.DateTime, default=datetime.now())
+    updatedAt = db.Column(db.DateTime, default=datetime.now())
+
+
+    user = db.relationship('User', back_populates = 'items')
+    purchase_order = db.relationship('PurchaseOrder', back_populates = 'items')
+    request = db.relationship('Request', back_populates = 'items')
+    suppliers = db.relationship('Supplier', secondary=supplier_items, back_populates = 'items')
+
 
     def to_dict(self):
         return {
@@ -21,6 +34,10 @@ class Item(db.Model):
             'code': self.code,
             'description': self.description,
             'unit_cost': self.unit_cost,
+            'quantity': self.quantity,
             'manufacturer': self.manufacturer,
-            'supplier': self.supplier
+            'userId': self.userId,
+            'supplierId': self.supplierId,
+            'createdAt': self.createdAt,
+            'updatedAt': self.updatedAt
         }
