@@ -26,6 +26,9 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
+          <Route path='/items'>
+            {(user.accessLevel === 'admin') ? <ItemsAdmin /> : <ItemsEmp />}
+          </Route>
           <Route exact path="/">
             {(user) ? <Redirect to="/items" /> : <LoginFormPage />}
           </Route>
