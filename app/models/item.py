@@ -35,9 +35,9 @@ class Item(db.Model):
             'description': self.description,
             'unit_cost': self.unit_cost,
             'quantity': self.quantity,
+            'item_type': self.item_type,
             'manufacturer': self.manufacturer,
             'userId': self.userId,
-            'supplierId': self.supplierId,
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
         }

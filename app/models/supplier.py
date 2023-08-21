@@ -33,7 +33,6 @@ class Supplier(db.Model):
             'contact': self.contact,
             'email': self.email,
             'cell': self.cell,
-            'itemId': self.itemId,
             'userId': self.userId,
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt

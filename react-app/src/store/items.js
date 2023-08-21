@@ -11,7 +11,7 @@ export const getAllItems = () => async (dispatch) => {
     const response = await fetch ('/api/items', {
         headers: {'Content-Type': 'application/json'}
     })
-
+   
     if (response.ok) {
         const data = await response.json()
         dispatch(get_items(data))

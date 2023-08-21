@@ -36,6 +36,6 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'employeeID': self.employeeID,
-            # 'accessLevel': self.accessLevel
+            'accessLevel': self.accessLevel
             # 'email': self.email
         }
