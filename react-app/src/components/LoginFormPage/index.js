@@ -36,14 +36,17 @@ function LoginFormPage() {
 
   return (
     <>
-      <h1>Employee Log In</h1>
+    <div className='formBody'>
+      <div className='title'>Employee Log In</div>
       <form onSubmit={handleSubmit}>
+        <div>
         <ul>
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <li key={idx} style={{color:'red'}}>{error}</li>
           ))}
         </ul>
-        <label>
+        </div>
+        <div className='employeeID-DIV'>
           Employee ID:
           <input
             type="text"
@@ -51,20 +54,21 @@ function LoginFormPage() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Password
+        </div>
+        <div className='passwordDiv'>
+          Password:
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        <button type="submit">Log In</button>
-        <button onClick={Admin}>Demo Admin</button>
-        <button onClick={Employee}>Demo Employee</button>
+        </div>
+        <div className='submit'><button id='submit' type="submit">Log In</button></div>
+        <div className='admin'><button id='admin' onClick={Admin}>Demo Admin</button></div>
+        <div className='employee'><button id='employee'onClick={Employee}>Demo Employee</button></div>
       </form>
+    </div>
     </>
   );
 }

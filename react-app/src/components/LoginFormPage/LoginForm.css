@@ -1,0 +1,81 @@
+.formBody {
+    display: grid;
+    justify-items: center;
+    grid-template-rows: 1fr, 1fr, 1fr, 1fr, 1fr;
+}
+
+.title {
+    grid-row: 1/2;
+    font-weight: bold;
+    font-size: 30px;
+    color: orange;
+}
+
+.employeeID-DIV {
+    grid-row: 2/3;
+    margin: 10px;
+
+}
+
+.passwordDiv {
+    grid-row: 3/4;
+    margin: 10px;
+}
+
+.submit {
+    position: relative;
+    /* grid-row: 4/5; */
+    /* margin: 20px; */
+    left: 120px;
+
+}
+
+.admin {
+    position: relative;
+    /* grid-row: 5/6; */
+    left: 20px;
+    
+}
+
+.employee {
+    position: relative;
+    /* grid-row: 5/6; */
+    left: 220px;
+    bottom: 40px;
+}
+
+#submit {
+    background-color: white;
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#submit:hover {
+    background-color: orange;
+}
+
+#admin {
+    background-color: white;
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#admin:hover {
+    background-color: orange;
+}
+
+#employee {
+    background-color: white;
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#employee:hover {
+    background-color: orange;
+}
