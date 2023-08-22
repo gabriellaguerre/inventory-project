@@ -24,11 +24,13 @@ function LoginFormPage() {
   const Admin = async (e) => {
     e.preventDefault();
     await dispatch(login("Demo", "password"))
+    .then(<Redirect to='/items' />)
   }
 
   const Employee = async (e) => {
     e.preventDefault();
     await dispatch(login("marnie", "password"))
+    .then(<Redirect to='/items' />)
   }
 
 

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import * as ItemsActions from '../../store/items'
 import SuppliersList from '../SuppliersPage/SuppliersList';
+import OpenModalButton from '../OpenModalButton';
 import './ItemsAdmin.css'
 
 function ItemsAdmin() {
@@ -13,12 +14,18 @@ function ItemsAdmin() {
 
     const items = useSelector(state => Object.values(state.items))
 
+    // const supplierList = async (itemId) => {
+
+    //     await
+    // }
+
 
     return (
         <>
         {/* <h2>Inventory</h2> */}
     <table>
-        <tr>
+        <tbody>
+          <tr>
             <th>Code</th>
             <th>Description</th>
             <th>Type</th>
@@ -27,7 +34,7 @@ function ItemsAdmin() {
             <th>Total Value</th>
             <th>Manufacturer</th>
             <th>Suppliers</th>
-        </tr>
+          </tr>
              {items.map(item =>
              <tr key={item.id} className="item">
              <td>{item.code}</td>
@@ -37,8 +44,12 @@ function ItemsAdmin() {
              <td>{item.quantity}</td>
              <td>${item.unit_cost*item.quantity}</td>
              <td>{item.manufacturer}</td>
-             <td><button>View Supplier</button></td>
-             </tr>)}
+             <td><OpenModalButton
+                    buttonText='View Supplier'
+                    modalComponent={<SuppliersList itemId={item.id}/>}
+                    /></td>
+          </tr>)}
+        </tbody>
 
     </table>
         </>

@@ -7,9 +7,9 @@ const get_items = (items) => ({
     payload: items
 })
 
-const get_item_suppliers = (suppliersList) => ({
+const get_item_suppliers = (suppliers) => ({
     type: GET_SUPPLIERS,
-    payload: suppliersList
+    payload: suppliers
 })
 
 export const getAllItems = () => async (dispatch) => {
@@ -44,7 +44,7 @@ export default function reducer (state = initialState, action) {
             return newState;
         case GET_SUPPLIERS:
             console.log(action.payload, 'ZZZZZZZZZZ')
-            action.payload.suppliersList.forEach(supplierList => newState[supplierList.id] = supplierList)
+            action.payload.suppliers.forEach(supplier => newState[supplier.id] = supplier)
             return newState;
         default:
             return state

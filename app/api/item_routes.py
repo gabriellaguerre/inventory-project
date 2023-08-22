@@ -15,7 +15,7 @@ def get_items():
 # @login_required
 def get_suppliers_of_an_item(itemId):
     item = Item.query.get(itemId)
-    suppliersList = item.suppliers
+    suppliers = item.suppliers
     # print([supplier.to_dict() for supplier in suppliersList], 'OOOOOOOOOOOOOOOOOOOOOOOOOOOO')
 
-    return {'suppliersList':[supplier.to_dict() for supplier in suppliersList]}
+    return {'suppliers':[supplier.to_dict() for supplier in suppliers]}

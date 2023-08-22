@@ -1,19 +1,42 @@
 import React, { useEffect } from 'react';
+import { useModal } from "../../context/Modal";
 import {useSelector, useDispatch} from 'react-redux';
-import * as ItemsActions from '../../store/items'
+import * as SuppliersActions from '../../store/suppliers'
 
 
-function SuppliersList() {
-    const dispatch = useDispatch()
 
-    //  useEffect(() => {
-    dispatch(ItemsActions.getItemSuppliers(1))
-    // }, [dispatch, itemId])
+function SuppliersList(itemId) {
+    const dispatch = useDispatch();
+    const { closeModal } = useModal();
 
-    const supplierList = useSelector(state => state.supplierList)
-    console.log(supplierList, 'PPPPPPPPPPPPPPPPPPPP')
+    useEffect(()=> {
+    dispatch(SuppliersActions.getItemSuppliers(itemId))
+    },[dispatch])
 
-    return (<></>)
+    const supplierList = useSelector(state => Object.values(state.suppliers))
+    const theseSuppliers = supplierList.filter()
+
+    // const user = useSelector(state => state.user)
+
+
+
+    return (
+            <>
+            <div>Supplier List for Item Code: {}</div>
+            {supplierList.map(supplier =>
+                <div key={supplier.id}>
+                <div>Supplier Name: {supplier.name}</div>
+                <div>Address: {supplier.address}</div>
+                <div>Contact Person: {supplier.contact}</div>
+                <div>Contact Email: {supplier.email}</div>
+                <div>Contact Cell: {supplier.cell}</div>
+                {/* <div>{supplier.userId}</div> */}
+                <div>{supplier.createdAt}</div>
+                </div>)}
+            <button onClick={closeModal}>close</button>
+            </>
+
+            )
 }
 
 export default SuppliersList;
