@@ -4,7 +4,6 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import ItemsPage from './components/ItemsPage/ItemsPage';
-import ItemsEmp from './components/ItemsPage/ItemsEmp';
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 

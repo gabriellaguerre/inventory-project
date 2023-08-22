@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import * as ItemsActions from '../../store/items'
+import SuppliersList from '../SuppliersPage/SuppliersList';
 import './ItemsAdmin.css'
 
 function ItemsAdmin() {
@@ -25,6 +26,7 @@ function ItemsAdmin() {
             <th>Quantity</th>
             <th>Total Value</th>
             <th>Manufacturer</th>
+            <th>Suppliers</th>
         </tr>
              {items.map(item =>
              <tr key={item.id} className="item">
@@ -35,6 +37,7 @@ function ItemsAdmin() {
              <td>{item.quantity}</td>
              <td>${item.unit_cost*item.quantity}</td>
              <td>{item.manufacturer}</td>
+             <td><button>Supplier List</button></td>
              </tr>)}
 
     </table>

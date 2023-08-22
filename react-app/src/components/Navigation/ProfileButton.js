@@ -48,8 +48,8 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
+            <li>{user.employeeID}</li>
+            <li>{user.accessLevel}</li>
             <li>
               <button onClick={handleLogout}>Log Out</button>
             </li>

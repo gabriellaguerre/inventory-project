@@ -15,13 +15,22 @@ function LoginFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    
     const data = await dispatch(login(employeeID, password));
     if (data) {
       setErrors(data);
     }
   };
+
+  const Admin = async (e) => {
+    e.preventDefault();
+    await dispatch(login("Demo", "password"))
+  }
+
+  const Employee = async (e) => {
+    e.preventDefault();
+    await dispatch(login("marnie", "password"))
+  }
+
 
   return (
     <>
@@ -51,6 +60,8 @@ function LoginFormPage() {
           />
         </label>
         <button type="submit">Log In</button>
+        <button onClick={Admin}>Demo Admin</button>
+        <button onClick={Employee}>Demo Employee</button>
       </form>
     </>
   );
