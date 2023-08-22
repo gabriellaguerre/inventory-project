@@ -1,4 +1,5 @@
 const GET_ITEMS = 'items/GET_ITEMS'
+const GET_SUPPLIERS = 'items/GET_SUPPLIERS'
 
 
 const get_items = (items) => ({
@@ -6,6 +7,10 @@ const get_items = (items) => ({
     payload: items
 })
 
+const get_item_suppliers = (suppliers) => ({
+    type: GET_SUPPLIERS,
+    payload: suppliers
+})
 
 export const getAllItems = () => async (dispatch) => {
     const response = await fetch ('/api/items', {
@@ -18,6 +23,17 @@ export const getAllItems = () => async (dispatch) => {
     }
 }
 
+export const getItemSuppliers = ({itemId}) => async(dispatch) => {
+    const response = await fetch(`/api/items/${itemId}/suppliers`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(get_item_suppliers(data))
+    }
+}
+
 const initialState = {}
 
 export default function reducer (state = initialState, action) {
@@ -26,8 +42,11 @@ export default function reducer (state = initialState, action) {
         case GET_ITEMS:
             action.payload.items.forEach(item => newState[item.id] = item);
             return newState;
+        case GET_SUPPLIERS:
+            console.log(action.payload, 'ZZZZZZZZZZ')
+            action.payload.suppliers.forEach(supplier => newState[supplier.id] = supplier)
+            return newState;
         default:
             return state
     }
-
 }

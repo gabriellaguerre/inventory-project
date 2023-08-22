@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
+import ItemsPage from './components/ItemsPage/ItemsPage';
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -17,6 +18,7 @@ function App() {
 
   return (
     <>
+
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
@@ -26,8 +28,14 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
+          <Route path='/items'>
+            <ItemsPage user={user}/>
+          </Route>
           <Route exact path="/">
             {(user) ? <Redirect to="/items" /> : <LoginFormPage />}
+          </Route>
+          <Route>
+            <h1>404: Page not found</h1>
           </Route>
         </Switch>
       )}

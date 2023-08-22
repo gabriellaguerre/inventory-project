@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { Redirect } from 'react-router-dom'
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
@@ -31,7 +32,9 @@ function ProfileButton({ user }) {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    dispatch(logout());
+    dispatch(logout())
+    .then(<Redirect to="/" />)
+    .then(setShowMenu(false))
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -45,8 +48,8 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
+            <li>{user.employeeID}</li>
+            <li>{user.accessLevel}</li>
             <li>
               <button onClick={handleLogout}>Log Out</button>
             </li>
