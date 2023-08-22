@@ -37,7 +37,7 @@ function ItemsAdmin() {
              <td>{item.quantity}</td>
              <td>${item.unit_cost*item.quantity}</td>
              <td>{item.manufacturer}</td>
-             <td><button>Supplier List</button></td>
+             <td><button>View Supplier</button></td>
              </tr>)}
 
     </table>
