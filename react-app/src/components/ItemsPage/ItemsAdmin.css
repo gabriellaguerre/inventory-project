@@ -1,3 +1,7 @@
 th {
     background-color: orange;
 }
+
+td {
+    border-bottom: 1px solid orange;
+}

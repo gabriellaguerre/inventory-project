@@ -36,10 +36,11 @@ function LoginFormPage() {
 
   return (
     <>
+ <form onSubmit={handleSubmit}>
     <div className='formBody'>
       <div className='title'>Employee Log In</div>
-      <form onSubmit={handleSubmit}>
-        <div>
+
+        <div className='errors'>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx} style={{color:'red'}}>{error}</li>
@@ -64,11 +65,13 @@ function LoginFormPage() {
             required
           />
         </div>
-        <div className='submit'><button id='submit' type="submit">Log In</button></div>
-        <div className='admin'><button id='admin' onClick={Admin}>Demo Admin</button></div>
-        <div className='employee'><button id='employee'onClick={Employee}>Demo Employee</button></div>
-      </form>
+        <div className='buttons'>
+        <span className='submit'><button id='submit' type="submit">Log In</button></span>
+        <span className='admin'><button id='admin' onClick={Admin}>Demo Admin</button></span>
+        <span className='employee'><button id='employee'onClick={Employee}>Demo Employee</button></span>
     </div>
+    </div>
+    </form>
     </>
   );
 }

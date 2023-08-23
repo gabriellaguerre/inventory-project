@@ -9,10 +9,10 @@ function Navigation({ isLoaded }){
 
 	return (
 
-		<ul>
+		<ul className='navigation'>
 			{sessionUser && (
 			  <div>
-				<NavLink exact to="/">Home</NavLink>
+				IVY - Inventory Management System
 			  </div>
 			)}
 
