@@ -1,0 +1,32 @@
+.content {
+    background-color: red;
+
+.itemCode {
+    font-size: 50px;
+    color: red;
+}
+
+/* .name {
+
+}
+
+.address {
+
+}
+
+.email {
+
+}
+
+.cell {
+
+}
+
+.created {
+
+}
+*/
+button .close {
+    background-color: red;
+
+}

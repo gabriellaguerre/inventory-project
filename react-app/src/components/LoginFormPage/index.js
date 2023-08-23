@@ -36,6 +36,7 @@ function LoginFormPage() {
 
   return (
     <>
+<div className='allbody'>
  <form onSubmit={handleSubmit}>
     <div className='formBody'>
       <div className='title'>Employee Log In</div>
@@ -72,6 +73,7 @@ function LoginFormPage() {
     </div>
     </div>
     </form>
+    </div>
     </>
   );
 }

@@ -1,9 +1,26 @@
+.allbody {
+    height: 500px;
+    background-image: url('ivy_homepage.png');
+
+}
+
+/* form {
+    height: 100%;
+} */
+
 .formBody {
     position: relative;
     top: 150px;
     display: grid;
     justify-items: center;
     grid-template-rows: 50px, 50px, 50px, 50px, 50px;
+    width: 400px;
+    margin: auto;
+    width: 50%;
+    background-color: rgb(255,255,255,0.9);
+    border-radius: 15px;
+    border: 1px solid black;
+
 }
 
 .title {
@@ -15,7 +32,7 @@
 
 .errors {
     grid-row: 2/3;
-    height: 50px;
+    height: 80px;
 }
 
 .employeeID-DIV {
@@ -87,4 +104,8 @@
     background-color: orange;
     font-weight: bold;
     border: none;
+}
+
+.buttons {
+    height: 80px;
 }
