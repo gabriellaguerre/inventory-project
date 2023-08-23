@@ -42,16 +42,18 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
+      <button className='profileButton' onClick={openMenu}>
+         {/* <i className="fa-solid fa-user" ></i> */}
         <i className="fas fa-user-circle" />
+        {/* <i className="fa-solid fa-user-large"></i> */}
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.employeeID}</li>
-            <li>{user.accessLevel}</li>
+            <li>Employee: {user.employeeID}</li>
+            <li>Access: {user.accessLevel}</li>
             <li>
-              <button onClick={handleLogout}>Log Out</button>
+              <button className='logout' onClick={handleLogout}>Log Out</button>
             </li>
           </>
         ) : (

@@ -32,18 +32,19 @@ function SuppliersList({itemId}) {
 
     return (
             <>
-            <div>Supplier List for Item Code: {arr[0].code}</div>
+            <div className='content'>
+            <div className='itemCode'>Supplier List for Item Code: {arr[0].code}</div>
             {supplierList.map(supplier =>
                 <div key={supplier.id}>
-                <div>Supplier Name: {supplier.name}</div>
-                <div>Address: {supplier.address}</div>
-                <div>Contact Person: {supplier.contact}</div>
-                <div>Contact Email: {supplier.email}</div>
-                <div>Contact Cell: {supplier.cell}</div>
-                {/* <div>{supplier.userId}</div> */}
-                <div>{supplier.createdAt}</div>
+                <div className='name'>Supplier Name: {supplier.name}</div>
+                <div className='address'>Address: {supplier.address}</div>
+                <div className='person'>Contact Person: {supplier.contact}</div>
+                <div className='email'>Contact Email: {supplier.email}</div>
+                <div className='cell'>Contact Cell: {supplier.cell}</div>
+                <div className='created'>Created: {supplier.createdAt}</div>
                 </div>)}
-            <button onClick={closeModal}>close</button>
+            <button className='close'onClick={closeModal}>close</button>
+            </div>
             </>
 
             )

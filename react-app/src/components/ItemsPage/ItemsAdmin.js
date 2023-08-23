@@ -50,8 +50,8 @@ function ItemsAdmin() {
                     /></td>
           </tr>)}
         </tbody>
-
     </table>
+    
         </>
     )
 }

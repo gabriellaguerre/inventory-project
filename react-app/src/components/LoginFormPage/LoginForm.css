@@ -1,7 +1,26 @@
+.allbody {
+    height: 500px;
+    background-image: url('ivy_homepage.png');
+
+}
+
+/* form {
+    height: 100%;
+} */
+
 .formBody {
+    position: relative;
+    top: 150px;
     display: grid;
     justify-items: center;
-    grid-template-rows: 1fr, 1fr, 1fr, 1fr, 1fr;
+    grid-template-rows: 50px, 50px, 50px, 50px, 50px;
+    width: 400px;
+    margin: auto;
+    width: 50%;
+    background-color: rgb(255,255,255,0.9);
+    border-radius: 15px;
+    border: 1px solid black;
+
 }
 
 .title {
@@ -11,37 +30,38 @@
     color: orange;
 }
 
-.employeeID-DIV {
+.errors {
     grid-row: 2/3;
+    height: 80px;
+}
+
+.employeeID-DIV {
+    grid-row: 3/4;
     margin: 10px;
 
 }
 
 .passwordDiv {
-    grid-row: 3/4;
+    grid-row: 4/5;
     margin: 10px;
 }
 
 .submit {
+    grid-row: 5/6;
+}
+
+#submit {
     position: relative;
-    /* grid-row: 4/5; */
-    /* margin: 20px; */
-    left: 120px;
+    top: 7px;
 
 }
 
 .admin {
-    position: relative;
-    /* grid-row: 5/6; */
-    left: 20px;
-    
+    grid-row: 5/6;
 }
 
 .employee {
-    position: relative;
-    /* grid-row: 5/6; */
-    left: 220px;
-    bottom: 40px;
+    grid-row: 5/6;
 }
 
 #submit {
@@ -54,6 +74,8 @@
 
 #submit:hover {
     background-color: orange;
+    font-weight: bold;
+    border: none;
 }
 
 #admin {
@@ -66,6 +88,8 @@
 
 #admin:hover {
     background-color: orange;
+    font-weight: bold;
+    border: none;
 }
 
 #employee {
@@ -78,4 +102,10 @@
 
 #employee:hover {
     background-color: orange;
+    font-weight: bold;
+    border: none;
+}
+
+.buttons {
+    height: 80px;
 }
