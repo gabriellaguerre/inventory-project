@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useModal } from "../../context/Modal";
 import {useSelector, useDispatch} from 'react-redux';
 import * as SuppliersActions from '../../store/suppliers'
 import * as ItemsActions from '../../store/items'
+import './SuppliersList.css'
 
 
 
@@ -16,6 +17,8 @@ function SuppliersList({itemId}) {
     .then(dispatch(SuppliersActions.getItemSuppliers(itemId)))
     .then(dispatch(ItemsActions.getAllItems()))
     },[dispatch, itemId])
+
+    
 
     const supplierList = useSelector(state => Object.values(state.suppliers))
     const item1 = useSelector(state => (Object.values(state.items)));
@@ -32,11 +35,11 @@ function SuppliersList({itemId}) {
 
     return (
             <>
-            <div className='content'>
-            <div className='itemCode'>Supplier List for Item Code: {arr[0].code}</div>
+        <div className='modalContainer'>
+            <div className='itemCode'>Item Code: {arr[0].code}</div>
             {supplierList.map(supplier =>
-                <div key={supplier.id}>
-                <div className='name'>Supplier Name: {supplier.name}</div>
+                <div key={supplier.id} className='border'>
+                <div className='name'>Name: {supplier.name}</div>
                 <div className='address'>Address: {supplier.address}</div>
                 <div className='person'>Contact Person: {supplier.contact}</div>
                 <div className='email'>Contact Email: {supplier.email}</div>
@@ -44,6 +47,7 @@ function SuppliersList({itemId}) {
                 <div className='created'>Created: {supplier.createdAt}</div>
                 </div>)}
             <button className='close'onClick={closeModal}>close</button>
+
             </div>
             </>
 
