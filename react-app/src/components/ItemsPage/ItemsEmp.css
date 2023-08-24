@@ -5,3 +5,11 @@ th {
 td {
     border-bottom: 1px solid orange;
 }
+
+#description {
+    text-align: left;
+}
+
+table {
+    margin: 0 auto;
+}

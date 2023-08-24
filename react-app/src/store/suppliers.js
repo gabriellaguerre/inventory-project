@@ -1,8 +1,9 @@
 const GET_SUPPLIERS = 'suppliers/GET_SUPPLIERS'
 const GET_SUPPLIERLIST = 'suppliers/GET_SUPPLIERLIST'
 const RESET_STATE = 'suppliers/RESET_STATE'
+const CREATE_SUPPLIER = 'suppliers/CREATE_SUPPLIER'
 
-
+///////////////////////////////////////////////
 // const startingState = () => ({
 //     type: RESET_STATE
 // })
@@ -20,6 +21,13 @@ const get_item_suppliers = (suppliers) => ({
 const resettingState = () => ({
     type: RESET_STATE
 })
+
+const create_supplier = (supplier) => ({
+    type: CREATE_SUPPLIER,
+    payload: supplier
+})
+
+ ///////////////////////////////////////////////
 
 export const resetState = () => async (dispatch) => {
     const response = true
@@ -51,6 +59,21 @@ export const getItemSuppliers = (itemId) => async(dispatch) => {
     }
 }
 
+export const createSupplier = (supplier) => async(dispatch) => {
+    const response = await fetch('/api/suppliers', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: supplier
+    })
+
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(create_supplier(data))
+    }
+}
+
+
+////////////////////////////////////////////////////////
 const initialState = {}
 
 export default function reducer (state = initialState, action) {
@@ -60,10 +83,11 @@ export default function reducer (state = initialState, action) {
             action.payload.suppliers.forEach(supplier => newState[supplier.id] = supplier);
             return newState;
         case GET_SUPPLIERLIST:
-            // console.log(action.payload, 'OOOOOOOOOOOOOOOOO')
-            // action.payload.suppliers.forEach(supplier => newState[supplier.id] = supplier)
             newState[action.payload.suppliers] = action.payload.suppliers
             return newState;
+        case CREATE_SUPPLIER:
+            newState[action.payload.supplier] = action.payload.supplier
+            return newState
         case RESET_STATE:
             return initialState;
         default:

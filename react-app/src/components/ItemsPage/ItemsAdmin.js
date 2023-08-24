@@ -33,25 +33,26 @@ function ItemsAdmin() {
             <th>Quantity</th>
             <th>Total Value</th>
             <th>Manufacturer</th>
-            <th>Suppliers</th>
+            <th style={{width: '100px'}}>Suppliers</th>
           </tr>
              {items.map(item =>
              <tr key={item.id} className="item">
              <td>{item.code}</td>
-             <td>{item.description}</td>
+             <td id='description'>{item.description}</td>
              <td>{item.item_type}</td>
              <td>${item.unit_cost}</td>
              <td>{item.quantity}</td>
              <td>${item.unit_cost*item.quantity}</td>
              <td>{item.manufacturer}</td>
              <td><OpenModalButton
-                    buttonText='View Supplier'
+                    className='supList'
+                    buttonText='Supplier List'
                     modalComponent={<SuppliersList itemId={item.id}/>}
                     /></td>
           </tr>)}
         </tbody>
     </table>
-    
+
         </>
     )
 }

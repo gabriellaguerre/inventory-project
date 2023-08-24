@@ -1,32 +1,67 @@
-.content {
-    background-color: red;
+.modalContainer {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 300px;
+    border-radius: 60px;
+    background-color: rgba(238, 245, 202, 0.911);
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    padding: 25px;
 
-.itemCode {
-    font-size: 50px;
-    color: red;
+  }
+
+.border {
+    border: 2px solid orange;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow:2px 2px rgb(255, 166, 0)
 }
 
-/* .name {
+.content {
+    background-color: red;
+}
 
+.itemCode {
+    font-size: 30px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.name {
+    margin: 5px;
 }
 
 .address {
+    margin: 5px;
+}
 
+.person {
+    margin: 5px;
 }
 
 .email {
-
+    margin: 5px;
 }
 
 .cell {
-
+    margin: 5px;
 }
 
 .created {
-
+    margin: 5px;
 }
-*/
-button .close {
-    background-color: red;
 
+.close {
+    background-color: rgb(248, 177, 44);
+    width: 50px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    left: 165px;
+}
+
+.close:hover {
+    background-color: rgb(255, 166, 0);
+    border: none;
 }

@@ -28,7 +28,7 @@ function ItemsEmp() {
              {items.map(item =>
              <tr key={item.id} className="item">
              <td>{item.code}</td>
-             <td>{item.description}</td>
+             <td id='description'>{item.description}</td>
              <td>{item.item_type}</td>
              <td>{item.quantity}</td>
              <td>{item.manufacturer}</td>

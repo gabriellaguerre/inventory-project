@@ -4,4 +4,24 @@ th {
 
 td {
     border-bottom: 1px solid orange;
+    text-align: center;
+}
+
+#description {
+    text-align: left;
+}
+
+table {
+    margin: 0 auto;
+}
+
+td button {
+    background-color: white;
+    border: none;
+}
+
+td button:hover {
+    font-weight: bold;
+    cursor: pointer;
+    color: orange;
 }
