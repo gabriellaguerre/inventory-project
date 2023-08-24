@@ -31,7 +31,7 @@ def get_items():
 #     return {'suppliers':[supplier.to_dict() for supplier in suppliers]}
 
 # ------------------------------CREATE ITEM------------------------
-@item_routes.route('/', methods=['POST'])
+@item_routes.route('/>', methods=['POST'])
 @login_required
 def create_item():
     item_form = ItemForm()
@@ -47,6 +47,7 @@ def create_item():
 
         db.session.add(item)
         db.session.commit()
+
         return {'item': item.to_dict()}
 
     return validation_errors_to_error_messages(item_form.errors)

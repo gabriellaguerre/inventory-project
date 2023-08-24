@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import * as ItemsActions from '../../store/items'
 import SuppliersList from '../SuppliersPage/SuppliersList';
+import AddSupplier from '../SuppliersPage/AddSupplier';
 import OpenModalButton from '../OpenModalButton';
 import './ItemsAdmin.css'
 
@@ -48,7 +49,15 @@ function ItemsAdmin() {
                     className='supList'
                     buttonText='Supplier List'
                     modalComponent={<SuppliersList itemId={item.id}/>}
-                    /></td>
+                    />
+                  <OpenModalButton
+                    className='supList'
+                    buttonText='+ Supplier'
+                    modalComponent={<AddSupplier itemId={item.id}/>}
+                    />
+
+
+                    </td>
           </tr>)}
         </tbody>
     </table>

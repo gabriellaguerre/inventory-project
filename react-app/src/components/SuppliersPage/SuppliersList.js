@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useModal } from "../../context/Modal";
 import {useSelector, useDispatch} from 'react-redux';
 import * as SuppliersActions from '../../store/suppliers'
@@ -17,6 +17,8 @@ function SuppliersList({itemId}) {
     .then(dispatch(SuppliersActions.getItemSuppliers(itemId)))
     .then(dispatch(ItemsActions.getAllItems()))
     },[dispatch, itemId])
+
+    
 
     const supplierList = useSelector(state => Object.values(state.suppliers))
     const item1 = useSelector(state => (Object.values(state.items)));
@@ -45,6 +47,7 @@ function SuppliersList({itemId}) {
                 <div className='created'>Created: {supplier.createdAt}</div>
                 </div>)}
             <button className='close'onClick={closeModal}>close</button>
+
             </div>
             </>
 

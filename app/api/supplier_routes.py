@@ -40,3 +40,14 @@ def get_suppliers_of_an_item(itemId):
     item = Item.query.get(itemId)
     suppliers = item.suppliers
     return {'suppliers':[supplier.to_dict() for supplier in suppliers]}
+
+
+# ------------------------------CONNECT SUPPLIER TO ITEM------------------------
+@supplier_routes.route('/<int:supplierId>/<int:itemId>')
+# @login_required
+def connect_supplier_to_item(supplierId, itemId):
+    supplier = Supplier.query.get(supplierId)
+    item = Item.query.get(itemId)
+    supplier.items.append(item)
+    db.session.commit()
+    return {'message': 'successfully linked'}

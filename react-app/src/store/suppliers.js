@@ -2,8 +2,9 @@ const GET_SUPPLIERS = 'suppliers/GET_SUPPLIERS'
 const GET_SUPPLIERLIST = 'suppliers/GET_SUPPLIERLIST'
 const RESET_STATE = 'suppliers/RESET_STATE'
 const CREATE_SUPPLIER = 'suppliers/CREATE_SUPPLIER'
+const CONNECT_SUPPLIER_TO_ITEM = 'suppliers/CONNECT_SUPPLIER_TO_ITEM'
 
-///////////////////////////////////////////////
+//------------------------------DISPATCH VARIABLES-----------------------------
 // const startingState = () => ({
 //     type: RESET_STATE
 // })
@@ -27,8 +28,7 @@ const create_supplier = (supplier) => ({
     payload: supplier
 })
 
- ///////////////////////////////////////////////
-
+ //-------------------------------THUNKS-----------------------------------------
 export const resetState = () => async (dispatch) => {
     const response = true
     if (response) {
@@ -72,8 +72,17 @@ export const createSupplier = (supplier) => async(dispatch) => {
     }
 }
 
+export const connectSupplierToItem = (itemId, supplierId) => async() => {
+    const response = await fetch(`/api/suppliers/${supplierId}/${itemId}`, {
+        headers: {'Content-Type': 'application/json'}
+    })
 
-////////////////////////////////////////////////////////
+    if (response.ok) {
+        return
+    }
+}
+
+//------------------------------REDUCER FXN------------------------------------
 const initialState = {}
 
 export default function reducer (state = initialState, action) {
