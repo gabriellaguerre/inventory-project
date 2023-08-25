@@ -2,21 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { useModal } from "../../context/Modal";
 import {useSelector, useDispatch} from 'react-redux';
 import * as SuppliersActions from '../../store/suppliers'
-import * as ItemsActions from '../../store/items'
+// import * as ItemsActions from '../../store/items'
 import './SuppliersList.css'
 
 
 
 function SuppliersList({itemId}) {
-    
+
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
 
     useEffect(()=> {
-    dispatch(SuppliersActions.resetState())
-    .then(dispatch(SuppliersActions.getItemSuppliers(itemId)))
-    .then(dispatch(ItemsActions.getAllItems()))
+     dispatch(SuppliersActions.resetState())
+     dispatch(SuppliersActions.getItemSuppliers(itemId))
+    // .then(dispatch(ItemsActions.getAllItems()))
     },[dispatch, itemId])
 
 

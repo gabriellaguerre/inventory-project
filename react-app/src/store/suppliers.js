@@ -52,7 +52,7 @@ export const getItemSuppliers = (itemId) => async(dispatch) => {
     const response = await fetch(`/api/suppliers/${itemId}`, {
         headers: {'Content-Type': 'application/json'}
     })
-    console.log(response)
+
     if (response.ok) {
         const data = await response.json()
         dispatch(get_item_suppliers(data))
@@ -83,7 +83,7 @@ export const connectSupplierToItem = (itemId, supplierId) => async() => {
 }
 
 export const connectSupplierToNewItem = (supplierId) => async() => {
-    const response = await fetch(`/api/suppliers/${supplierId}`, {
+    const response = await fetch(`/api/suppliers/${supplierId}/newItem`, {
         headers: {'Content-Type': 'application/json'}
     })
 

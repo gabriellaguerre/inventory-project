@@ -37,7 +37,7 @@ def create_item():
     item_form = ItemForm()
     item_form['csrf_token'].data = request.cookies['csrf_token']
     if item_form.validate_on_submit():
-        new_item = Item(code = item_form.data['code'],
+        item = Item(code = item_form.data['code'],
                     description = item_form.data['description'],
                     item_type = item_form.data['item_type'],
                     quantity = item_form.data['quantity'],
@@ -46,8 +46,8 @@ def create_item():
                     userId = current_user.id)
 
 
-        db.session.add(new_item)
+        db.session.add(item)
         db.session.commit()
-        return {'item': new_item.to_dict()}
-
+        return item.to_dict()
+        # return {'message': 'successfully created item'}
     return validation_errors_to_error_messages(item_form.errors)

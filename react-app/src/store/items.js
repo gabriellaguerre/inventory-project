@@ -30,15 +30,15 @@ export const getAllItems = () => async (dispatch) => {
 }
 
 export const createItem = (item) => async (dispatch) => {
-    console.log(item, 'OOOOOOOOOOOOOOO')
+
     const response = await fetch ('/api/items', {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(item)
     })
-    // console.log(response, 'PPPPPPPPPPPPP')
+
     if (response.ok) {
-        // console.log('HEELLOOOO')
+
         const data = await response.json()
         dispatch(create_item(data))
     }

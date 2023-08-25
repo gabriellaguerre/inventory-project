@@ -53,12 +53,12 @@ def connect_supplier_to_item(supplierId, itemId):
     return {'message': 'successfully linked'}
 
 # ------------------------------CONNECT SUPPLIER TO NEW ITEM------------------------
-@supplier_routes.route('/<int:supplierId>')
+@supplier_routes.route('/<int:supplierId>/newItem')
 # @login_required
 def connect_supplier_to_new_item(supplierId):
     supplier = Supplier.query.get(supplierId)
     itemList = Item.query.all()
-    itemId = len(itemList)-1
+    itemId = len(itemList)
     item = Item.query.get(itemId)
     supplier.items.append(item)
     db.session.commit()
