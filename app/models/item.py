@@ -10,7 +10,7 @@ class Item(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    code = db.Column(db.Integer, nullable=False, unique=True)
+    code = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(500), nullable=False)
     item_type = db.Column(db.String(500), nullable=False)
     unit_cost = db.Column(db.Integer, nullable=False)

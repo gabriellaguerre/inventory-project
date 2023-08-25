@@ -1,10 +1,19 @@
 from flask import Blueprint, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import Supplier, Item, db
 from app.forms import SupplierForm
 
 supplier_routes = Blueprint('suppliers', __name__)
 
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f'{field} : {error}')
+    return errorMessages
 
 # ------------------------------GET SUPPLIERS------------------------
 @supplier_routes.route('/')
@@ -16,7 +25,7 @@ def get_suppliers():
 
 
 # ------------------------------CREATE SUPPLIERS------------------------
-@supplier_routes.route('/', methods=['POST'])
+@supplier_routes.route('', methods=['POST'])
 # @login_required
 def create_supplier():
     supplier_form = SupplierForm()
@@ -27,14 +36,16 @@ def create_supplier():
                             address = supplier_form.data['address'],
                             contact = supplier_form.data['contact'],
                             email = supplier_form.data['email'],
-                            cell = supplier_form.data['cell'])
+                            cell = supplier_form.data['cell'],
+                            userId = current_user.id)
+
         db.session.add(supplier)
         db.session.commit()
         return supplier.to_dict()
 
-
+    return validation_errors_to_error_messages(supplier_form.errors)
 # ------------------------------GET SUPPLIERS OF AN ITEM------------------------
-@supplier_routes.route('/<int:itemId>/')
+@supplier_routes.route('/<int:itemId>')
 # @login_required
 def get_suppliers_of_an_item(itemId):
     item = Item.query.get(itemId)
@@ -47,6 +58,18 @@ def get_suppliers_of_an_item(itemId):
 # @login_required
 def connect_supplier_to_item(supplierId, itemId):
     supplier = Supplier.query.get(supplierId)
+    item = Item.query.get(itemId)
+    supplier.items.append(item)
+    db.session.commit()
+    return {'message': 'successfully linked'}
+
+# ------------------------------CONNECT SUPPLIER TO NEW ITEM------------------------
+@supplier_routes.route('/<int:supplierId>/newItem')
+# @login_required
+def connect_supplier_to_new_item(supplierId):
+    supplier = Supplier.query.get(supplierId)
+    itemList = Item.query.all()
+    itemId = len(itemList)
     item = Item.query.get(itemId)
     supplier.items.append(item)
     db.session.commit()

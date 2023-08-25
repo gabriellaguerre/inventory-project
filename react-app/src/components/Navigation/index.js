@@ -1,10 +1,11 @@
 import React from 'react';
-// import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 
 function Navigation({ isLoaded }){
+
 	const sessionUser = useSelector(state => state.session.user);
 
 	return (
@@ -12,7 +13,7 @@ function Navigation({ isLoaded }){
 		<ul className='navigation'>
 			{sessionUser && (
 			  <div>
-				IVY - Inventory Management System
+				<NavLink to='/items'>IVY - Inventory Management System</NavLink>
 			  </div>
 			)}
 

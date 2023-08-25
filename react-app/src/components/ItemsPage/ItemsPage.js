@@ -17,21 +17,22 @@ function ItemsPage ({user}) {
 
     return (
         <>
-        <div>Inventory List</div>
+        <div className='homeTitle'>Inventory List</div>
         {(user.accessLevel === 'admin') ? (
             <>
-            <div><OpenModalButton
+            <div className='newRequest'><OpenModalButton
                     buttonText='Create New Request'
                     modalComponent={<NewRequestForm />}/>
-               <span><OpenModalButton
+               <span className='newPO'><OpenModalButton
                     buttonText='Create New PO'
                     modalComponent={<NewPOForm />}/></span>
-            <span><OpenModalButton
+            <span className='newIForm'><OpenModalButton
                     buttonText='Create New Item'
                     modalComponent={<NewItemForm />}/></span>
-                  <OpenModalButton
+             {/* <span className='newSForm'><OpenModalButton
                     buttonText='Create New Supplier'
-                    modalComponent={<NewSupplierForm />}/></div>
+                    modalComponent={<NewSupplierForm />}/></span> */}
+                     </div>
             <ItemsAdmin />
             </>
         ) : (

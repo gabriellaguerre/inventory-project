@@ -1,0 +1,77 @@
+.modalContainer {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: auto;
+    border-radius: 60px;
+    background-color: rgba(238, 245, 202, 0.911);
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    padding: 25px;
+  }
+
+.titleNewItem {
+    font-size: 25px;
+    text-align: center;
+    margin: 10px;
+  }
+
+.newItemCode {
+    margin: 10px;
+  }
+
+.newItemDes {
+    margin: 10px;
+}
+
+.newItemType {
+    margin: 10px;
+}
+
+.newUnitValue {
+    margin: 10px;
+}
+
+.newQuantity {
+    margin: 10px;
+}
+
+.newManufacturer {
+    margin: 10px;
+}
+
+.newSupplier {
+    margin: 10px;
+}
+
+.newSubmit {
+    text-align: center;
+}
+
+#newSubmit {
+    background-color: orange;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+#newSubmit:hover{
+    background-color: white;
+    border: 2px solid orange;
+    color: orange;
+    font-weight: bold;
+  }
+
+  .addNewSupplier button {
+    background-color: orange;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer
+  }
+
+  .addNewSupplier button:hover {
+    background-color: white;
+    border: 2px solid orange;
+    color: orange;
+    font-weight: bold;
+  }

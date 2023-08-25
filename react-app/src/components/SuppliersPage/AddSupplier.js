@@ -36,7 +36,7 @@ function AddSupplier({itemId}) {
                 onChange={e => setSupplierId(e.target.value)}>
                 <option value='' disabled>Select Supplier</option>
                 {supplierList.map(supplier =>
-                <><option value={supplier.id}>{supplier.name}</option></>)}
+                <><option key={supplier.id} value={supplier.id}>{supplier.name}</option></>)}
             </select>
             </div>
         <div className='addSupplier'><button id='addSupplier'onClick={()=> addSupplier()}>Add Supplier</button></div>

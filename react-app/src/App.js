@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import ItemsPage from './components/ItemsPage/ItemsPage';
+import SuppliersPage from './components/SuppliersPage/SuppliersPage'
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -30,6 +31,9 @@ function App() {
           </Route>
           <Route path='/items'>
             <ItemsPage user={user}/>
+          </Route>
+          <Route path='/suppliers'>
+            <SuppliersPage user={user}/>
           </Route>
           <Route exact path="/">
             {(user) ? <Redirect to="/items" /> : <LoginFormPage />}

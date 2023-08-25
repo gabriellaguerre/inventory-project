@@ -15,12 +15,7 @@ function ItemsAdmin() {
 
     const items = useSelector(state => Object.values(state.items))
 
-    // const supplierList = async (itemId) => {
-
-    //     await
-    // }
-
-
+    
     return (
         <>
         {/* <h2>Inventory</h2> */}
