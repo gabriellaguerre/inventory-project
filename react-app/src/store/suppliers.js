@@ -63,7 +63,7 @@ export const createSupplier = (supplier) => async(dispatch) => {
     const response = await fetch('/api/suppliers', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: supplier
+        body: JSON.stringify(supplier)
     })
 
     if (response.ok) {
@@ -105,7 +105,7 @@ export default function reducer (state = initialState, action) {
             newState[action.payload.suppliers] = action.payload.suppliers
             return newState;
         case CREATE_SUPPLIER:
-            newState[action.payload.supplier] = action.payload.supplier
+            newState[action.payload] = action.payload
             return newState
         case RESET_STATE:
             return initialState;

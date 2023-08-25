@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useModal } from "../../context/Modal";
 import {useSelector, useDispatch} from 'react-redux';
 import * as SuppliersActions from '../../store/suppliers'
-// import * as ItemsActions from '../../store/items'
 import './SuppliersList.css'
 
 
@@ -16,7 +15,6 @@ function SuppliersList({itemId}) {
     useEffect(()=> {
      dispatch(SuppliersActions.resetState())
      dispatch(SuppliersActions.getItemSuppliers(itemId))
-    // .then(dispatch(ItemsActions.getAllItems()))
     },[dispatch, itemId])
 
 

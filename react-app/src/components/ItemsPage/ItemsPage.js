@@ -29,9 +29,10 @@ function ItemsPage ({user}) {
             <span className='newIForm'><OpenModalButton
                     buttonText='Create New Item'
                     modalComponent={<NewItemForm />}/></span>
-             <span className='newSForm'><OpenModalButton
+             {/* <span className='newSForm'><OpenModalButton
                     buttonText='Create New Supplier'
-                    modalComponent={<NewSupplierForm />}/></span> </div>
+                    modalComponent={<NewSupplierForm />}/></span> */}
+                     </div>
             <ItemsAdmin />
             </>
         ) : (

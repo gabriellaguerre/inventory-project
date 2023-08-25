@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { Redirect } from 'react-router-dom'
+import { Redirect, NavLink } from 'react-router-dom'
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
@@ -50,11 +50,13 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>Employee: {user.employeeID}</li>
-            <li>Access: {user.accessLevel}</li>
-            <li>
+            <div><NavLink to='/items' onClick={()=>setShowMenu(false)}>View Items</NavLink></div>
+            <div><NavLink to='/suppliers' onClick={()=>setShowMenu(false)}>View Suppliers</NavLink></div>
+            <div>Employee: {user.employeeID}</div>
+            <div>Access: {user.accessLevel}</div>
+            <div>
               <button className='logout' onClick={handleLogout}>Log Out</button>
-            </li>
+            </div>
           </>
         ) : (
           <>
