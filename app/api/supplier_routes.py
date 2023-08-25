@@ -34,7 +34,7 @@ def create_supplier():
 
 
 # ------------------------------GET SUPPLIERS OF AN ITEM------------------------
-@supplier_routes.route('/<int:itemId>/')
+@supplier_routes.route('/<int:itemId>')
 # @login_required
 def get_suppliers_of_an_item(itemId):
     item = Item.query.get(itemId)
@@ -47,6 +47,18 @@ def get_suppliers_of_an_item(itemId):
 # @login_required
 def connect_supplier_to_item(supplierId, itemId):
     supplier = Supplier.query.get(supplierId)
+    item = Item.query.get(itemId)
+    supplier.items.append(item)
+    db.session.commit()
+    return {'message': 'successfully linked'}
+
+# ------------------------------CONNECT SUPPLIER TO NEW ITEM------------------------
+@supplier_routes.route('/<int:supplierId>')
+# @login_required
+def connect_supplier_to_new_item(supplierId):
+    supplier = Supplier.query.get(supplierId)
+    itemList = Item.query.all()
+    itemId = len(itemList)-1
     item = Item.query.get(itemId)
     supplier.items.append(item)
     db.session.commit()

@@ -8,6 +8,7 @@ import './SuppliersList.css'
 
 
 function SuppliersList({itemId}) {
+    
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
@@ -18,7 +19,7 @@ function SuppliersList({itemId}) {
     .then(dispatch(ItemsActions.getAllItems()))
     },[dispatch, itemId])
 
-    
+
 
     const supplierList = useSelector(state => Object.values(state.suppliers))
     const item1 = useSelector(state => (Object.values(state.items)));

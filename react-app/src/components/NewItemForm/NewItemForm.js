@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { useModal } from "../../context/Modal";
-// import ItemsActions from '../../store/items';
+import { useModal } from "../../context/Modal";
+import * as ItemsActions from '../../store/items';
 import * as SuppliersActions from '../../store/suppliers'
 import OpenModalButton from '../OpenModalButton';
 import NewSupplierForm from '../NewSupplierForm/NewSupplierForm';
+import './NewItemForm.css'
 
 function NewItemForm() {
     const dispatch = useDispatch();
-    // const {closeModal} = useModal();
+    const {closeModal} = useModal();
 
     useEffect(()=> {
         dispatch(SuppliersActions.getSuppliers())
@@ -25,35 +26,39 @@ function NewItemForm() {
     const [manufacturer, setManufacturer] = useState('')
     const [supplier, setSupplier] = useState('')
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
 
-        // await dispatch(ItemsActions.createItem(item))
+        const item = {code, description, item_type, unit_cost, quantity, manufacturer};
+        await dispatch(ItemsActions.createItem(item))
+            .then(dispatch(SuppliersActions.connectSupplierToNewItem(supplier)))
+            .then(closeModal())
     }
 
     return (
         <>
+        <div className='modalContainer'>
         <form onSubmit = {onSubmit}>
-         <div>Create New Item</div>
-         <div> Item Code:
+         <div className='titleNewItem'>Create New Item</div>
+         <div className='newItemCode'> Item Code:
             <input
-                type='text'
+
                 value={code}
                 placeholder='enter item code'
                 onChange={e => setCode(e.target.value)}>
             </input>
          </div>
-         <div> Description:
+         <div className='newItemDes'> Description:
             <textarea
-                type='text'
+
                 value={description}
                 placeholder='enter item description'
                 onChange={e => setDescription(e.target.value)}>
             </textarea>
          </div>
-         <div> Item Type:
+         <div className='newItemType'> Item Type:
             <select
-                type='text'
+
                 value={item_type}
                 onChange={e => setItem_Type(e.target.value)}>
                 <option value='' disabled>Select Type</option>
@@ -66,23 +71,23 @@ function NewItemForm() {
                 <option value='chemical'>Chemical</option>
             </select>
          </div>
-         <div> Unit Value:
+         <div className='newUnitValue'> Unit Value:
             <input
-                type='text'
+
                 value={unit_cost}
                 placeholder='enter item value'
                 onChange={e => setUnit_Cost(e.target.value)}>
             </input>
          </div>
-         <div> Quantity:
+         <div className='newQuantity'> Quantity:
             <input
-                type='text'
+
                 value={quantity}
                 placeholder='enter item quantity'
                 onChange={e => setQuantity(e.target.value)}>
             </input>
          </div>
-         <div> Manufacturer:
+         <div className='newManufacturer'> Manufacturer:
             <input
                 type='text'
                 value={manufacturer}
@@ -90,7 +95,7 @@ function NewItemForm() {
                 onChange={e => setManufacturer(e.target.value)}>
             </input>
          </div>
-         <div>Supplier:
+         <div className='newSupplier'>Supplier:
             <select
                 value={supplier}
                 onChange={e => setSupplier(e.target.value)}>
@@ -99,14 +104,15 @@ function NewItemForm() {
                 <><option value={supplier.id}>{supplier.name}</option></>)}
             </select>
          </div>
-         <div>
-            <button onClick={e => onSubmit(e)}>Submit</button>
-            <OpenModalButton
+         <div className='newSubmit'>
+            <button id='newSubmit' onClick={e => onSubmit(e)}>Submit</button>
+            <span className='addNewSupplier'><OpenModalButton
                     buttonText='Add New Supplier'
                     modalComponent={<NewSupplierForm />}
-                    />
+                    /></span>
          </div>
         </form>
+        </div>
         </>
     )
 }

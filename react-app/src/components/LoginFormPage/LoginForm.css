@@ -65,45 +65,51 @@
 }
 
 #submit {
-    background-color: white;
+    background-color: orange;
     width: 80px;
     height: 40px;
     border-radius: 20px;
     cursor: pointer;
+    margin: 10px;
 }
 
 #submit:hover {
-    background-color: orange;
+    background-color: white;
     font-weight: bold;
-    border: none;
+    border:2px solid orange;
+    color: orange;
 }
 
 #admin {
-    background-color: white;
+    background-color: orange;
     width: 80px;
     height: 40px;
     border-radius: 20px;
     cursor: pointer;
+    margin: 10px;
 }
 
 #admin:hover {
-    background-color: orange;
+    background-color: white;
     font-weight: bold;
-    border: none;
+    border:2px solid orange;
+    color: orange;
 }
 
 #employee {
-    background-color: white;
+    background-color: orange;
     width: 80px;
     height: 40px;
     border-radius: 20px;
     cursor: pointer;
+    margin: 10px;
 }
 
 #employee:hover {
-    background-color: orange;
+    background-color: white;
     font-weight: bold;
-    border: none;
+    border:2px solid orange;
+    color: orange;
 }
 
 .buttons {

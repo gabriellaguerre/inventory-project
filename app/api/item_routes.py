@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import Item, db
 from app.forms import ItemForm
 
@@ -31,23 +31,23 @@ def get_items():
 #     return {'suppliers':[supplier.to_dict() for supplier in suppliers]}
 
 # ------------------------------CREATE ITEM------------------------
-@item_routes.route('/>', methods=['POST'])
-@login_required
+@item_routes.route('', methods=['POST'])
+# @login_required
 def create_item():
     item_form = ItemForm()
     item_form['csrf_token'].data = request.cookies['csrf_token']
-
     if item_form.validate_on_submit():
-        item = Item(code = item_form.data['code'],
-                    description = item_form['description'],
-                    item_type=item_form.data['item_type'],
-                    quantity=item_form.data['quantity'],
-                    unit_cost=item_form.data['unit_cost'],
-                    manufacturer=item_form.data['manufacturer'])
+        new_item = Item(code = item_form.data['code'],
+                    description = item_form.data['description'],
+                    item_type = item_form.data['item_type'],
+                    quantity = item_form.data['quantity'],
+                    unit_cost = item_form.data['unit_cost'],
+                    manufacturer = item_form.data['manufacturer'],
+                    userId = current_user.id)
 
-        db.session.add(item)
+
+        db.session.add(new_item)
         db.session.commit()
-
-        return {'item': item.to_dict()}
+        return {'item': new_item.to_dict()}
 
     return validation_errors_to_error_messages(item_form.errors)

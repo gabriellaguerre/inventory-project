@@ -2,7 +2,7 @@ const GET_SUPPLIERS = 'suppliers/GET_SUPPLIERS'
 const GET_SUPPLIERLIST = 'suppliers/GET_SUPPLIERLIST'
 const RESET_STATE = 'suppliers/RESET_STATE'
 const CREATE_SUPPLIER = 'suppliers/CREATE_SUPPLIER'
-const CONNECT_SUPPLIER_TO_ITEM = 'suppliers/CONNECT_SUPPLIER_TO_ITEM'
+// const CONNECT_SUPPLIER_TO_ITEM = 'suppliers/CONNECT_SUPPLIER_TO_ITEM'
 
 //------------------------------DISPATCH VARIABLES-----------------------------
 // const startingState = () => ({
@@ -36,7 +36,6 @@ export const resetState = () => async (dispatch) => {
   }
 }
 
-
 export const getSuppliers = () => async (dispatch) => {
     const response = await fetch('/api/suppliers', {
         headers: {'Content-Type': 'application/json'}
@@ -49,10 +48,11 @@ export const getSuppliers = () => async (dispatch) => {
 }
 
 export const getItemSuppliers = (itemId) => async(dispatch) => {
+
     const response = await fetch(`/api/suppliers/${itemId}`, {
         headers: {'Content-Type': 'application/json'}
     })
-
+    console.log(response)
     if (response.ok) {
         const data = await response.json()
         dispatch(get_item_suppliers(data))
@@ -74,6 +74,16 @@ export const createSupplier = (supplier) => async(dispatch) => {
 
 export const connectSupplierToItem = (itemId, supplierId) => async() => {
     const response = await fetch(`/api/suppliers/${supplierId}/${itemId}`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+
+    if (response.ok) {
+        return
+    }
+}
+
+export const connectSupplierToNewItem = (supplierId) => async() => {
+    const response = await fetch(`/api/suppliers/${supplierId}`, {
         headers: {'Content-Type': 'application/json'}
     })
 
