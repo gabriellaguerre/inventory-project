@@ -1,4 +1,4 @@
-.modalDeleteSupplier {
+.modalDeleteItem {
     display: flex;
     flex-direction: column;
     width: 400px;
@@ -10,25 +10,25 @@
     border: 10px solid red;
   }
 
-  .titleDeleteSupplier {
+  .titleDeleteItem {
     font-size: 25px;
     text-align: center;
     margin: 10px;
   }
 
-  .dSupplierName {
+  .dItemCode {
     margin: 10px;
   }
 
-  .dSupplierAddress {
+  .dItemDes {
     margin: 10px;
   }
 
-  .deleteSupplierButton {
+  .deleteItemButton {
     text-align: center;
   }
 
-  #yesSupplier {
+  #yesItem {
     background-color: orange;
     height: 40px;
     width: 50px;
@@ -37,14 +37,14 @@
     margin: 10px;
   }
 
-  #yesSupplier:hover{
+  #yesItem:hover{
     background-color: white;
     border: 2px solid orange;
     color: orange;
     font-weight: bold;
   }
 
-  #noSupplier {
+  #noItem {
     background-color: orange;
     height: 40px;
     width: 50px;
@@ -53,7 +53,7 @@
     margin: 10px;
   }
 
-  #noSupplier:hover{
+  #noItem:hover{
     background-color: white;
     border: 2px solid orange;
     color: orange;

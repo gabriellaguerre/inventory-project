@@ -23,13 +23,6 @@ def get_items():
     return {'items': [item.to_dict() for item in items]}
 
 
-# @item_routes.route('/<int:itemId>/suppliers')
-# # @login_required
-# def get_suppliers_of_an_item(itemId):
-#     item = Item.query.get(itemId)
-#     suppliers = item.suppliers
-#     return {'suppliers':[supplier.to_dict() for supplier in suppliers]}
-
 # ------------------------------CREATE ITEM------------------------
 @item_routes.route('', methods=['POST'])
 # @login_required
@@ -51,3 +44,13 @@ def create_item():
         return item.to_dict()
         # return {'message': 'successfully created item'}
     return validation_errors_to_error_messages(item_form.errors)
+
+
+# ------------------------------------DELETE ITEM --------------------------------------
+@item_routes.route('/<int:itemId>', methods=['DELETE'])
+@login_required
+def delete_item(itemId):
+    item = Item.query.get(itemId)
+    db.session.delete(item)
+    db.session.commit()
+    return {'message': 'Successfully Deleted'}

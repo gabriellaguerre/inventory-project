@@ -3,6 +3,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import * as ItemsActions from '../../store/items'
 import SuppliersList from '../SuppliersPage/SuppliersList';
 import AddSupplier from '../SuppliersPage/AddSupplier';
+import EditItem from '../EditItem/EditItem';
+import DeleteItem from '../DeleteItem/DeleteItem';
 import OpenModalButton from '../OpenModalButton';
 import './ItemsAdmin.css'
 
@@ -15,7 +17,7 @@ function ItemsAdmin() {
 
     const items = useSelector(state => Object.values(state.items))
 
-    
+
     return (
         <>
         {/* <h2>Inventory</h2> */}
@@ -30,6 +32,8 @@ function ItemsAdmin() {
             <th>Total Value</th>
             <th>Manufacturer</th>
             <th style={{width: '100px'}}>Suppliers</th>
+            <th>Edit Item</th>
+            <th>Delete Item</th>
           </tr>
              {items.map(item =>
              <tr key={item.id} className="item">
@@ -50,9 +54,17 @@ function ItemsAdmin() {
                     buttonText='+ Supplier'
                     modalComponent={<AddSupplier itemId={item.id}/>}
                     />
-
-
                     </td>
+              <td><OpenModalButton
+                      className='editItem'
+                      buttonText= 'Edit Item'
+                      modalComponent={<EditItem itemId={item.id}/>}
+                      /></td>
+              <td><OpenModalButton
+                      className='deleteItem'
+                      buttonText= 'Delete Item'
+                      modalComponent={<DeleteItem itemId={item.id}/>}
+                      /></td>
           </tr>)}
         </tbody>
     </table>

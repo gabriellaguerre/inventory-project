@@ -4,7 +4,7 @@ import ItemsAdmin from './ItemsAdmin.js';
 import ItemsEmp from './ItemsEmp.js';
 import OpenModalButton from '../OpenModalButton';
 import NewItemForm from '../NewItemForm/NewItemForm.js'
-import NewSupplierForm from '../NewSupplierForm/NewSupplierForm.js';
+// import NewSupplierForm from '../NewSupplierForm/NewSupplierForm.js';
 import NewRequestForm from '../NewRequestForm/NewRequestForm.js';
 import NewPOForm from '../NewPOForm/NewPOForm.js';
 

@@ -1,6 +1,6 @@
 import React, {  useState }from 'react';
 import { useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom'
+// import { Redirect } from 'react-router-dom'
 import { useModal } from "../../context/Modal";
 import * as SuppliersActions from '../../store/suppliers'
 import './NewSupplierForm.css'

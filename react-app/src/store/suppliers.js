@@ -2,7 +2,7 @@ const GET_SUPPLIERS = 'suppliers/GET_SUPPLIERS'
 const GET_SUPPLIERLIST = 'suppliers/GET_SUPPLIERLIST'
 const RESET_STATE = 'suppliers/RESET_STATE'
 const CREATE_SUPPLIER = 'suppliers/CREATE_SUPPLIER'
-// const CONNECT_SUPPLIER_TO_ITEM = 'suppliers/CONNECT_SUPPLIER_TO_ITEM'
+const DELETE_SUPPLIER = 'suppliers/DELETE_SUPPLIER'
 
 //------------------------------DISPATCH VARIABLES-----------------------------
 // const startingState = () => ({
@@ -28,6 +28,10 @@ const create_supplier = (supplier) => ({
     payload: supplier
 })
 
+const delete_supplier = (supplierId) => ({
+    type: DELETE_SUPPLIER,
+    payload: supplierId
+})
  //-------------------------------THUNKS-----------------------------------------
 export const resetState = () => async (dispatch) => {
     const response = true
@@ -92,6 +96,17 @@ export const connectSupplierToNewItem = (supplierId) => async() => {
     }
 }
 
+export const deleteSupplier = (supplierId) => async (dispatch) => {
+    const response = await fetch(`/api/suppliers/${supplierId}`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'}
+    })
+    if (response.ok) {
+        dispatch(delete_supplier(supplierId))
+    }
+}
+
+
 //------------------------------REDUCER FXN------------------------------------
 const initialState = {}
 
@@ -109,6 +124,9 @@ export default function reducer (state = initialState, action) {
             return newState
         case RESET_STATE:
             return initialState;
+        case DELETE_SUPPLIER:
+            delete newState[action.payload]
+            return newState;
         default:
             return state
     }

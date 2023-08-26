@@ -44,6 +44,7 @@ def create_supplier():
         return supplier.to_dict()
 
     return validation_errors_to_error_messages(supplier_form.errors)
+
 # ------------------------------GET SUPPLIERS OF AN ITEM------------------------
 @supplier_routes.route('/<int:itemId>')
 # @login_required
@@ -74,3 +75,13 @@ def connect_supplier_to_new_item(supplierId):
     supplier.items.append(item)
     db.session.commit()
     return {'message': 'successfully linked'}
+
+
+# ------------------------------DELETE SUPPLIER------------------------
+@supplier_routes.route('/<int:supplierId>', methods=['DELETE'])
+@login_required
+def delete_suppier(supplierId):
+    supplier = Supplier.query.get(supplierId)
+    db.session.delete(supplier)
+    db.session.commit()
+    return {'message': 'Successfully Deleted'}
