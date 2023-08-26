@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Item, db
 from app.forms import ItemForm
+from datetime import datetime
 
 item_routes = Blueprint('items', __name__)
 
@@ -40,6 +41,30 @@ def create_item():
 
 
         db.session.add(item)
+        db.session.commit()
+        return item.to_dict()
+        # return {'message': 'successfully created item'}
+    return validation_errors_to_error_messages(item_form.errors)
+
+
+    # ------------------------------EDIT ITEM------------------------
+@item_routes.route('/<int:itemId>', methods=['PUT'])
+# @login_required
+def edit_item(itemId):
+    item_form = ItemForm()
+    item_form['csrf_token'].data = request.cookies['csrf_token']
+    if item_form.validate_on_submit():
+
+        item = Item.query.get(itemId)
+
+        item.code = item_form.data['code']
+        item.description = item_form.data['description']
+        item.item_type = item_form.data['item_type']
+        item.quantity = item_form.data['quantity']
+        item.unit_cost = item_form.data['unit_cost']
+        item.manufacturer = item_form.data['manufacturer']
+        item.updatedAt = datetime.now()
+
         db.session.commit()
         return item.to_dict()
         # return {'message': 'successfully created item'}

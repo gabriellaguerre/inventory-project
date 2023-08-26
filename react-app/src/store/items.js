@@ -1,5 +1,6 @@
 const GET_ITEMS = 'items/GET_ITEMS'
 const CREATE_ITEM = 'items/CREATE_ITEM'
+const EDIT_ITEM = 'items/EDIT_ITEM'
 const DELETE_ITEM = 'items/DELETE_ITEM'
 
 
@@ -10,6 +11,11 @@ const get_items = (items) => ({
 
 const create_item = (item) => ({
     type: CREATE_ITEM,
+    payload: item
+})
+
+const edit_item = (item) => ({
+    type: EDIT_ITEM,
     payload: item
 })
 
@@ -43,11 +49,24 @@ export const createItem = (item) => async (dispatch) => {
     })
 
     if (response.ok) {
-
         const data = await response.json()
         dispatch(create_item(data))
     }
 }
+
+export const editItem = (item, itemId) => async(dispatch) => {
+    const response = await fetch(`/api/items/${itemId}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(item)
+    })
+
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(edit_item(data))
+    }
+}
+
 
 export const deleteItem = (itemId) => async(dispatch) => {
     const response = await fetch(`/api/items/${itemId}`, {
@@ -70,6 +89,9 @@ export default function reducer (state = initialState, action) {
             return newState;
         case CREATE_ITEM:
             newState[action.payload] = action.payload;
+            return newState;
+        case EDIT_ITEM:
+            newState[action.payload.id] = action.payload;
             return newState;
         case DELETE_ITEM:
             delete newState[action.payload]
