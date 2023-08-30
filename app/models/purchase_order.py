@@ -10,7 +10,7 @@ class PurchaseOrder(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    quantity = db.Column(db.Integer, nullable=False)
+    # quantity = db.Column(db.Integer, nullable=False)
     # itemId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
     voided = db.Column(db.Boolean, nullable=False)
     received = db.Column(db.Boolean, nullable=False)

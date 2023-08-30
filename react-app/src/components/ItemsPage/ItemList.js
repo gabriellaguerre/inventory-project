@@ -20,17 +20,6 @@ function ItemList({requestId}) {
     const requestedItems = useSelector(state => (Object.values(state.items)));
     const request = useSelector(state=>state.requests[requestId])
 
-
-
-    // let arr = [];
-    // for(let i = 0; i < requestedItems.length; i++){
-    //     let item = requestedItems[i];
-    //     if (item.id === itemId) {
-    //         arr.push(item)
-    //     }
-    // }
-
-
     return (
             <>
             <div className='reqTableContainer'>
@@ -44,7 +33,7 @@ function ItemList({requestId}) {
                 <tr key={item.id} className='border'>
                 <td className='name'>{item.code}</td>
                 <td className='address'>{item.description}</td>
-                <td>{request.quantity}</td>
+                <td>{item.req_quantity}</td>
                 </tr>)}
             </table>
             <button className='void' >Void</button>

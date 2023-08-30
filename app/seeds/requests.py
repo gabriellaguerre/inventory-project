@@ -4,31 +4,28 @@ from sqlalchemy.sql import text
 
 def seed_requests():
     req1 = Request(
-        quantity = 3,
         userId = 2,
         voided = False,
         applied = True
     )
 
     req2 = Request(
-        quantity = 2,
         userId = 3,
         voided = False,
         applied = True
     )
 
-    req3 = Request(
-        quantity = 4,
-        userId = 2,
-        voided = False,
-        applied = True
-    )
+    # req3 = Request(
+    #     userId = 2,
+    #     voided = False,
+    #     applied = True
+    # )
 
 
 
     db.session.add(req1)
     db.session.add(req2)
-    db.session.add(req3)
+    # db.session.add(req3)
     db.session.commit()
 
 

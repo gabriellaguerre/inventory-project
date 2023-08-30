@@ -18,10 +18,11 @@ class Item(db.Model):
     unit_cost = db.Column(db.Integer, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     manufacturer = db.Column(db.String(255), nullable=False)
+    req_quantity = db.Column(db.Integer)
+    po_quantity = db.Column(db.Integer)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     requestId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('requests.id')))
     p_orderId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('purchase_orders.id')))
-    # supplierId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('suppliers.id')), nullable=False)
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
 
@@ -30,7 +31,7 @@ class Item(db.Model):
     purchase_order = db.relationship('PurchaseOrder', back_populates = 'items')
     request = db.relationship('Request', back_populates = 'items')
     suppliers = db.relationship('Supplier', secondary=supplier_items, back_populates = 'items')
-    # quantities = db.relationship("Quantity", secondary=request_items, back_populates = 'items')
+   
 
     def to_dict(self):
         return {
@@ -41,6 +42,8 @@ class Item(db.Model):
             'quantity': self.quantity,
             'item_type': self.item_type,
             'manufacturer': self.manufacturer,
+            'req_quantity': self.req_quantity,
+            'po_quantity': self.po_quantity,
             'requestId': self.requestId,
             'p_orderId': self.p_orderId,
             'userId': self.userId,

@@ -4,9 +4,10 @@ import session from './session'
 import items from './items'
 import suppliers from './suppliers'
 import requests from './requests'
+import user from './user';
 
 const rootReducer = combineReducers({
-  session, items, suppliers, requests
+  session, user, items, suppliers, requests
 });
 
 

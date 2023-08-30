@@ -27,7 +27,7 @@ function NewRequestForm() {
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        const req = {item, quantity};
+        const req = {itemCode, quantity};
 
 
     }
