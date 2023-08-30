@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Item, db
+from app.models import Item, Request,db
 from app.forms import ItemForm
 from datetime import datetime
 
@@ -47,7 +47,7 @@ def create_item():
     return validation_errors_to_error_messages(item_form.errors)
 
 
-    # ------------------------------EDIT ITEM------------------------
+# ------------------------------------EDIT ITEM------------------------
 @item_routes.route('/<int:itemId>', methods=['PUT'])
 # @login_required
 def edit_item(itemId):
@@ -69,6 +69,17 @@ def edit_item(itemId):
         return item.to_dict()
         # return {'message': 'successfully created item'}
     return validation_errors_to_error_messages(item_form.errors)
+
+
+
+# ------------------------------GET ITEMS OF A REQUEST------------------------
+@item_routes.route('/<int:requestId>')
+# @login_required
+def get_items_of_a_request(requestId):
+    request = Request.query.get(requestId)
+    items = request.items
+    return {'items': [item.to_dict() for item in items]}
+
 
 
 # ------------------------------------DELETE ITEM --------------------------------------

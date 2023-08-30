@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField
+from wtforms import IntegerField, StringField
 from wtforms.validators import DataRequired
-# from app.models import Request
+
 
 
 class RequestForm(FlaskForm):
-    quantity = IntegerField('quantity', validators=[DataRequired()])
+    item_code = IntegerField('item_code')
+    quantity = IntegerField('quantity')

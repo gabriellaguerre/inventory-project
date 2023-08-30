@@ -19,6 +19,7 @@ class User(db.Model, UserMixin):
     purchase_orders = db.relationship('PurchaseOrder', back_populates = 'user', cascade = 'all, delete')
     requests = db.relationship('Request', back_populates = 'user', cascade = 'all, delete')
     suppliers = db.relationship('Supplier', back_populates = 'user', cascade = 'all, delete')
+    # quantities = db.relationship('Quantity', back_populates = 'user', cascade = 'all, delete')
 
 
     @property

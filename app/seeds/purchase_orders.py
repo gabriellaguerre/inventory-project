@@ -4,20 +4,23 @@ from sqlalchemy.sql import text
 def seed_purchase_orders():
     po1 = PurchaseOrder(
         quantity = 1,
-        itemId = 1,
-        userId = 2
+        userId = 2,
+        voided = False,
+        received = True
     )
 
     po2 = PurchaseOrder(
         quantity = 5,
-        itemId = 2,
-        userId = 3
+        userId = 3,
+        voided = False,
+        received = True
     )
 
     po3 = PurchaseOrder(
         quantity = 10,
-        itemId = 3,
-        userId = 2
+        userId = 2,
+        voided = False,
+        received = True
     )
 
     db.session.add(po1)

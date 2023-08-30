@@ -1,29 +1,39 @@
-from app.models import db, Request, environment, SCHEMA
+from app.models import db, Request, Item, environment, SCHEMA
 from sqlalchemy.sql import text
 
 
 def seed_requests():
     req1 = Request(
-        quantity = 1,
-        itemId = 1,
-        userId = 2
+        quantity = 3,
+        userId = 2,
+        voided = False,
+        applied = True
     )
 
     req2 = Request(
         quantity = 2,
-        itemId = 2,
-        userId = 3
+        userId = 3,
+        voided = False,
+        applied = True
     )
 
     req3 = Request(
         quantity = 4,
-        itemId = 3,
-        userId = 2
+        userId = 2,
+        voided = False,
+        applied = True
     )
+
+
 
     db.session.add(req1)
     db.session.add(req2)
     db.session.add(req3)
+    db.session.commit()
+
+
+
+
     db.session.commit()
 
 def undo_requests():

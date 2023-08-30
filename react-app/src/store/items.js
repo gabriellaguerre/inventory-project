@@ -2,11 +2,17 @@ const GET_ITEMS = 'items/GET_ITEMS'
 const CREATE_ITEM = 'items/CREATE_ITEM'
 const EDIT_ITEM = 'items/EDIT_ITEM'
 const DELETE_ITEM = 'items/DELETE_ITEM'
-
-
+const RESET_STATE = 'items/RESET_STATE'
+const GET_REQUEST_ITEMS = 'items/GET_REQUEST_ITEMS'
+//------------------------------DISPATCH VARIABLES-----------------------------
 const get_items = (items) => ({
     type: GET_ITEMS,
     payload: items
+})
+
+const get_request_items = (item) => ({
+    type: GET_REQUEST_ITEMS,
+    payload: item
 })
 
 const create_item = (item) => ({
@@ -24,10 +30,19 @@ const delete_item = (itemId) => ({
     payload: itemId
 })
 
-// const get_item_suppliers = (suppliers) => ({
-//     type: GET_SUPPLIERS,
-//     payload: suppliers
-// })
+const resettingState = () => ({
+    type: RESET_STATE
+})
+
+
+//-------------------------------THUNKS-----------------------------------------
+
+export const resetState = () => async (dispatch) => {
+    const response = true
+    if (response) {
+        dispatch(resettingState())
+  }
+}
 
 export const getAllItems = () => async (dispatch) => {
     const response = await fetch ('/api/items', {
@@ -37,6 +52,16 @@ export const getAllItems = () => async (dispatch) => {
     if (response.ok) {
         const data = await response.json()
         dispatch(get_items(data))
+    }
+}
+
+export const getRequestItems = (requestId) => async(dispatch) => {
+    const response = await fetch(`/api/items/${requestId}`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(get_request_items(data))
     }
 }
 
@@ -79,12 +104,17 @@ export const deleteItem = (itemId) => async(dispatch) => {
     }
 }
 
+//------------------------------REDUCER FXN------------------------------------
+
 const initialState = {}
 
 export default function reducer (state = initialState, action) {
     const newState = {...state}
     switch(action.type) {
         case GET_ITEMS:
+            action.payload.items.forEach(item => newState[item.id] = item);
+            return newState;
+        case GET_REQUEST_ITEMS:
             action.payload.items.forEach(item => newState[item.id] = item);
             return newState;
         case CREATE_ITEM:
@@ -96,6 +126,8 @@ export default function reducer (state = initialState, action) {
         case DELETE_ITEM:
             delete newState[action.payload]
             return newState;
+        case RESET_STATE:
+            return initialState;
         default:
             return state
     }
