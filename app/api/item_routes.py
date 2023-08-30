@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Item, Request,db
+from app.models import Item, Request, PurchaseOrder, db
 from app.forms import ItemForm
 from datetime import datetime
 
@@ -78,6 +78,15 @@ def edit_item(itemId):
 def get_items_of_a_request(requestId):
     request = Request.query.get(requestId)
     items = request.items
+    return {'items': [item.to_dict() for item in items]}
+
+
+# ------------------------------GET ITEMS OF A PO------------------------
+@item_routes.route('/<int:posId>')
+# @login_required
+def get_items_of_a_po(posId):
+    po = PurchaseOrder.query.get(posId)
+    items = po.items
     return {'items': [item.to_dict() for item in items]}
 
 

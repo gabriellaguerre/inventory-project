@@ -50,6 +50,7 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
+            <div><NavLink to='/purchase_orders' onClick={()=>setShowMenu(false)}>View Purchase Orders</NavLink></div>
             <div><NavLink to='/requests' onClick={()=>setShowMenu(false)}>View Requests</NavLink></div>
             <div><NavLink to='/items' onClick={()=>setShowMenu(false)}>View Items</NavLink></div>
             <div><NavLink to='/suppliers' onClick={()=>setShowMenu(false)}>View Suppliers</NavLink></div>

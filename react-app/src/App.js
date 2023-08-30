@@ -6,6 +6,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import ItemsPage from './components/ItemsPage/ItemsPage';
 import SuppliersPage from './components/SuppliersPage/SuppliersPage'
 import RequestsPage from './components/RequestsPage/RequestsPage';
+import POPage from './components/PO-Page/POPage';
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -38,6 +39,9 @@ function App() {
           </Route>
           <Route path='/requests'>
             <RequestsPage />
+          </Route>
+          <Route path='/purchase_orders'>
+            <POPage />
           </Route>
           <Route exact path="/">
             {(user) ? <Redirect to="/items" /> : <LoginFormPage />}
