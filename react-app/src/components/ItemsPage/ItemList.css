@@ -1,7 +1,7 @@
 .reqTableContainer {
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 600px;
     height: auto;
     border-radius: 60px;
     background-color: rgba(238, 245, 202, 0.911);

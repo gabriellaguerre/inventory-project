@@ -6,13 +6,16 @@ def seed_requests():
     req1 = Request(
         userId = 2,
         voided = False,
-        applied = True
+        applied = True,
+        quantity1 = 3,
+        quantity2 = 8
     )
 
     req2 = Request(
         userId = 3,
         voided = False,
-        applied = True
+        applied = True,
+        quantity1 = 5
     )
 
     # req3 = Request(

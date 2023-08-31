@@ -100,7 +100,6 @@ export const signUp = (employeeID, accessLevel, password) => async (dispatch) =>
 };
 
 export default function reducer(state = initialState, action) {
-	const newState = {...state}
 	switch (action.type) {
 		case SET_USER:
 			return { user: action.payload };

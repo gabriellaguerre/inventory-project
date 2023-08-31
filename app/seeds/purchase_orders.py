@@ -5,13 +5,16 @@ def seed_purchase_orders():
     po1 = PurchaseOrder(
         userId = 2,
         voided = False,
-        received = True
+        received = True,
+        quantity1 = 3,
+        quantity2 = 8
     )
 
     po2 = PurchaseOrder(
         userId = 3,
         voided = False,
-        received = True
+        received = True,
+        quantity1 = 5
     )
 
     # po3 = PurchaseOrder(

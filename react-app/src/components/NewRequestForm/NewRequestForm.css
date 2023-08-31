@@ -1,0 +1,16 @@
+.reqformmodalContainer {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: auto;
+    border-radius: 60px;
+    background-color: rgba(238, 245, 202, 0.911);
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    padding: 25px;
+  }
+
+  .error {
+    color: red;
+    font-weight: bold;
+    margin-left: 80px;
+  }

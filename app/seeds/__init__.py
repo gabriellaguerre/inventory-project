@@ -31,7 +31,6 @@ def seed():
         undo_purchase_orders()
         undo_supplier_items()
 
-
     seed_users()
     seed_items()
     seed_suppliers()
@@ -53,6 +52,6 @@ def undo():
     undo_requests()
     undo_purchase_orders()
     undo_supplier_items()
-    
+
 
     # Add other undo functions here
