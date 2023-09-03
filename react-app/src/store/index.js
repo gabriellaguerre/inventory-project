@@ -6,9 +6,10 @@ import suppliers from './suppliers'
 import requests from './requests'
 import user from './user';
 import pos from './pos';
+import request_items from './request_items'
 
 const rootReducer = combineReducers({
-  session, user, items, suppliers, requests, pos
+  session, user, items, suppliers, requests, pos, request_items
 });
 
 

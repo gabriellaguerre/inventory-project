@@ -5,7 +5,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 
-db = SQLAlchemy()
+db = SQLAlchemy(session_options={"autoflush": False})
 
 # helper function for adding prefix to foreign key column references in production
 def add_prefix_for_prod(attr):

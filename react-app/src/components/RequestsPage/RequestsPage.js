@@ -22,18 +22,28 @@ const user = useSelector(state => state.user)
 
 return (
     <>
-
+        <table>
+            <th>Status</th>
+            <th>Request ID</th>
+            <th>Date Created</th>
+            <th>Created By</th>
+            <th>View Request</th>
          {requests.map(request =>
-         <div key={request.id} className='requestBox'>
-        <div>Request ID: {request.id}</div>
-        <div>Created: {request.createdAt}</div>
-        <div>Created By: {user[request.userId].employeeID}</div>
-        <div>
+         <tr key={request?.id} className='requestBox'>
+        {request?.voided ? (
+            <td>voided</td>
+        ):(
+            <td>applied</td>
+        )}
+        <td>{request?.id}</td>
+        <td>{request?.createdAt}</td>
+        <td>{user[request?.userId]?.employeeID}</td>
+        <td>
          <OpenModalButton
               buttonText='View request'
-              modalComponent={<ItemList requestId={request.id}/>}/></div>
-         </div>)}
-
+              modalComponent={<ItemList requestId={request?.id}/>}/></td>
+         </tr>)}
+     </table>
     </>
 )
 }

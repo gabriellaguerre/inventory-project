@@ -46,6 +46,19 @@ def create_item():
         # return {'message': 'successfully created item'}
     return validation_errors_to_error_messages(item_form.errors)
 
+# ------------------------------------EDIT REQITEM------------------------
+@item_routes.route('/<int:itemId>/<int:quantity>', methods=['PUT'])
+# @login_required
+def reqitem_edit(itemId, quantity):
+
+        item = Item.query.get(itemId)
+        item.quantity += quantity
+        item.updatedAt = datetime.now()
+
+        db.session.commit()
+        return item.to_dict()
+
+
 
 # ------------------------------------EDIT ITEM------------------------
 @item_routes.route('/<int:itemId>', methods=['PUT'])
@@ -73,12 +86,12 @@ def edit_item(itemId):
 
 
 # ------------------------------GET ITEMS OF A REQUEST------------------------
-@item_routes.route('/<int:requestId>')
-# @login_required
-def get_items_of_a_request(requestId):
-    request = Request.query.get(requestId)
-    items = request.items
-    return {'items': [item.to_dict() for item in items]}
+# @item_routes.route('/<int:requestId>')
+# # @login_required
+# def get_items_of_a_request(requestId):
+#     request = Request.query.get(requestId)
+#     items = request.items
+#     return {'items': [item.to_dict() for item in items]}
 
 
 # ------------------------------GET ITEMS OF A PO------------------------

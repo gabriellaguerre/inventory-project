@@ -11,6 +11,8 @@ from .api.item_routes import item_routes
 from .api.supplier_routes import supplier_routes
 from .api.request_routes import request_routes
 from .api.po_routes import po_routes
+from .api.req_items_routes import request_items_routes
+from .api.po_items_routes import purchase_order_items_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -36,6 +38,8 @@ app.register_blueprint(item_routes, url_prefix='/api/items')
 app.register_blueprint(supplier_routes, url_prefix='/api/suppliers')
 app.register_blueprint(request_routes, url_prefix='/api/requests')
 app.register_blueprint(po_routes, url_prefix='/api/purchase_orders')
+app.register_blueprint(request_items_routes, url_prefix='/api/request_items')
+app.register_blueprint(purchase_order_items_routes, url_prefix='/api/purchase_order_items')
 db.init_app(app)
 Migrate(app, db)
 

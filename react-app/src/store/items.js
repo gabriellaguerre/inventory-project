@@ -1,20 +1,19 @@
+//------------------------CONSTANTS---------------------------
 const GET_ITEMS = 'items/GET_ITEMS'
 const CREATE_ITEM = 'items/CREATE_ITEM'
 const EDIT_ITEM = 'items/EDIT_ITEM'
 const DELETE_ITEM = 'items/DELETE_ITEM'
 const RESET_STATE = 'items/RESET_STATE'
-const GET_REQUEST_ITEMS = 'items/GET_REQUEST_ITEMS'
 const GET_PO_ITEMS = 'items/GET_PO_ITEMS'
-//------------------------------DISPATCH VARIABLES-----------------------------
+
+
+//------------------------------DISPATCH FXNS-----------------------------
 const get_items = (items) => ({
     type: GET_ITEMS,
     payload: items
 })
 
-const get_request_items = (item) => ({
-    type: GET_REQUEST_ITEMS,
-    payload: item
-})
+
 
 const get_po_items = (item) => ({
     type: GET_PO_ITEMS,
@@ -27,6 +26,11 @@ const create_item = (item) => ({
 })
 
 const edit_item = (item) => ({
+    type: EDIT_ITEM,
+    payload: item
+})
+
+const reqitem_edit = (item) => ({
     type: EDIT_ITEM,
     payload: item
 })
@@ -61,15 +65,7 @@ export const getAllItems = () => async (dispatch) => {
     }
 }
 
-export const getRequestItems = (requestId) => async(dispatch) => {
-    const response = await fetch(`/api/items/${requestId}`, {
-        headers: {'Content-Type': 'application/json'}
-    })
-    if (response.ok) {
-        const data = await response.json()
-        dispatch(get_request_items(data))
-    }
-}
+
 
 export const getPOItems = (posId) => async(dispatch) => {
     const response = await fetch(`/api/items/${posId}`, {
@@ -108,6 +104,17 @@ export const editItem = (item, itemId) => async(dispatch) => {
     }
 }
 
+export const reqitemEdit = (itemId, quantity) => async(dispatch) => {
+    const response = await fetch(`/api/items/${itemId}/${quantity}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'}
+    })
+
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(reqitem_edit(data))
+    }
+}
 
 export const deleteItem = (itemId) => async(dispatch) => {
     const response = await fetch(`/api/items/${itemId}`, {
@@ -130,9 +137,9 @@ export default function reducer (state = initialState, action) {
         case GET_ITEMS:
             action.payload.items.forEach(item => newState[item.id] = item);
             return newState;
-        case GET_REQUEST_ITEMS:
-            action.payload.items.forEach(item => newState[item.id] = item);
-            return newState;
+        // case GET_REQUEST_ITEMS:
+        //     action.payload.items.forEach(item => newState[item.id] = item);
+        //     return newState;
         case GET_PO_ITEMS:
             action.payload.items.forEach(item => newState[item.id] = item);
             return newState;

@@ -6,16 +6,13 @@ def seed_purchase_orders():
         userId = 2,
         voided = False,
         received = True,
-        quantity1 = 3,
-        quantity2 = 8
     )
 
-    po2 = PurchaseOrder(
-        userId = 3,
-        voided = False,
-        received = True,
-        quantity1 = 5
-    )
+    # po2 = PurchaseOrder(
+    #     userId = 3,
+    #     voided = False,
+    #     received = True,
+    # )
 
     # po3 = PurchaseOrder(
     #     userId = 2,
@@ -24,7 +21,7 @@ def seed_purchase_orders():
     # )
 
     db.session.add(po1)
-    db.session.add(po2)
+    # db.session.add(po2)
     # db.session.add(po3)
     db.session.commit()
 

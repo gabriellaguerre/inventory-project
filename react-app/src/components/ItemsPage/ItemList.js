@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import * as RequestItemsActions from '../../store/request_items'
 import * as ItemsActions from '../../store/items'
+import * as RequestsActions from '../../store/requests'
 import { useModal } from "../../context/Modal";
 import './ItemList.css'
 
@@ -12,34 +14,24 @@ function ItemList({requestId}) {
 
 
     useEffect(()=> {
-     dispatch(ItemsActions.resetState())
-     dispatch(ItemsActions.getRequestItems(requestId))
+     dispatch(ItemsActions.getAllItems())
+     dispatch(RequestItemsActions.getRequestItems(requestId))
     },[dispatch, requestId])
 
 
-    const requestedItems = useSelector(state => (Object.values(state.items)));
+    const requestItems = useSelector(state => (Object.values(state.request_items)).filter(requestitem => requestitem.requestId === requestId));
     const request = useSelector(state=>state.requests[requestId])
+    const item = useSelector(state=> state.items)
 
 
-    let arr = [];
+    const handleVoid = (requestId) => {
+        dispatch(RequestsActions.editRequest(requestId))
+        .then(dispatch(RequestsActions.getRequests()))
+        requestItems.forEach(requestItem =>
+            dispatch(ItemsActions.reqitemEdit(requestItem.itemId, requestItem.quantity)))
 
-    if (requestedItems[0]) {
-    let convertObj = {...requestedItems[0]}
-    convertObj['reqQuantity'] = request.quantity1
-    arr.push(convertObj)
-    }
-
-    if (requestedItems[1]) {
-    let convertObj2 = {...requestedItems[1]}
-    convertObj2['reqQuantity'] = request.quantity2
-    arr.push(convertObj2)
-    }
-
-    if (requestedItems[2]) {
-    let convertObj3 = {...requestedItems[2]}
-    convertObj3['reqQuantity'] = request.quantity3
-    arr.push(convertObj3)
-    }
+        closeModal()
+        }
 
 
     return (
@@ -51,15 +43,20 @@ function ItemList({requestId}) {
                 <th>Item Code</th>
                 <th>Description</th>
                 <th>Quantity</th>
-            {arr.map(item =>
-                <tr key={item.id} className='reqborder'>
-                <td className='name'>{item.code}</td>
-                <td className='address'>{item.description}</td>
-                <td className='quantity'>{item.reqQuantity}</td>
+            {requestItems.map(requestitem =>
+                <tr key={requestitem.id} className='reqborder'>
+                <td className='name'>{item[requestitem.itemId]?.code}</td>
+                <td className='address'>{item[requestitem.itemId]?.description}</td>
+                <td className='quantity'>{requestitem.quantity}</td>
                 </tr>)}
 
             </table>
-            <button className='void' >Void</button>
+            {request?.voided ? (
+                <div className='voided'>VOIDED on {request.updatedAt}</div>
+            ) : (
+                <button className='void' onClick={()=>handleVoid(request.id)}>Void</button>
+            )}
+
             </div>
             </>
 

@@ -5,7 +5,8 @@ from .suppliers import seed_suppliers, undo_suppliers
 from .requests import seed_requests, undo_requests
 from .purchase_orders import seed_purchase_orders, undo_purchase_orders
 from .supplier_items import seed_supplier_items, undo_supplier_items
-# from .request_items import seed_request_items, undo_request_items
+from .request_items import seed_request_items, undo_request_items
+from .purchase_order_items import seed_purchase_order_items, undo_purchase_order_items
 # from .purchase_order_items import seed_purchase_order_items, undo_purchase_order_items
 
 
@@ -30,6 +31,8 @@ def seed():
         undo_requests()
         undo_purchase_orders()
         undo_supplier_items()
+        undo_request_items()
+        undo_purchase_order_items()
 
     seed_users()
     seed_items()
@@ -37,6 +40,9 @@ def seed():
     seed_requests()
     seed_purchase_orders()
     seed_supplier_items()
+    seed_request_items()
+    seed_purchase_order_items()
+
 
 
 
@@ -52,6 +58,7 @@ def undo():
     undo_requests()
     undo_purchase_orders()
     undo_supplier_items()
-
+    undo_request_items()
+    undo_purchase_order_items()
 
     # Add other undo functions here

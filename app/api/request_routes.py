@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Request, Item, db
-from app.forms import RequestForm
+from app.models import Request, Item, RequestItems, db
+from app.forms import RequestItemForm
 from datetime import datetime
 
 request_routes = Blueprint('requests', __name__)
@@ -24,63 +24,40 @@ def get_requests():
     return {'requests': [request.to_dict() for request in requests]}
 
 
+# ------------------------------GET ONE REQUEST------------------------
+@request_routes.route('/<int:requestId>')
+# @login_required
+def get_a_request(requestId):
+    request = Request.query.get(requestId)
+    return request.to_dict()
+
+
 #------------------------------CREATE REQUEST------------------------
 @request_routes.route('', methods=['POST'])
 # @login_required
 def create_request():
 
-    request_form = RequestForm()
-    request_form['csrf_token'].data = request.cookies['csrf_token']
-
-    if request_form.validate_on_submit():
-        request1 = Request(voided = False,
-                           applied = True,
-                           userId = current_user.id)
-
-        itemId = request_form.data['itemId']
-        quantity = request_form.data['quantity']
-
-        db.session.add(request1)
+        request = Request(voided = False,
+                      applied = True,
+                      userId = current_user.id)
+        db.session.add(request)
         db.session.commit()
 
-        all_requests = Request.query.all()
-        recent_request = all_requests[len(all_requests)-1]
+        # return {'message': 'successfull'}
+        return request.to_dict()
 
-        item = Item.query.get(itemId)
-        item.req_quantity = quantity
-        current_quantity = item.quantity
-        item.quantity = current_quantity - quantity
-        item.requestId = recent_request.id
-
-        print(request1.to_dict(), 'RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR')
-        print(item.to_dict(), 'IIIIIIIIIIIIIIIIIIIIIIII')
-
-    #   db.session.add(request)
-    #   db.session.commit()
-    #     return request.to_dict()
-    #     # return {'message': 'successfully created item'}
     # return validation_errors_to_error_messages(request_form.errors)
-        return {'message': 'success'}
 
-# # ------------------------------------EDIT REQUEST------------------------
-# @item_routes.route('/<int:itemId>', methods=['PUT'])
-# # @login_required
-# def edit_item(itemId):
-#     item_form = ItemForm()
-#     item_form['csrf_token'].data = request.cookies['csrf_token']
-#     if item_form.validate_on_submit():
 
-#         item = Item.query.get(itemId)
+# ------------------------------------EDIT REQUEST------------------------
+@request_routes.route('/<int:requestId>', methods=['PUT'])
+# @login_required
+def edit_request(requestId):
+    request = Request.query.get(requestId)
+    request.voided = True
+    request.updatedAt = datetime.now()
+    db.session.commit()
 
-#         item.code = item_form.data['code']
-#         item.description = item_form.data['description']
-#         item.item_type = item_form.data['item_type']
-#         item.quantity = item_form.data['quantity']
-#         item.unit_cost = item_form.data['unit_cost']
-#         item.manufacturer = item_form.data['manufacturer']
-#         item.updatedAt = datetime.now()
-
-#         db.session.commit()
-#         return item.to_dict()
-#         # return {'message': 'successfully created item'}
-#     return validation_errors_to_error_messages(item_form.errors)
+    return request.to_dict()
+        # return {'message': 'successfully created item'}
+    return validation_errors_to_error_messages(item_form.errors)

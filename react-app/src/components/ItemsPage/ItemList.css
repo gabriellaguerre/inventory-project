@@ -8,3 +8,10 @@
     /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     padding: 25px;
 }
+
+.voided {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px;
+}

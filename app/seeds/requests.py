@@ -7,16 +7,10 @@ def seed_requests():
         userId = 2,
         voided = False,
         applied = True,
-        quantity1 = 3,
-        quantity2 = 8
+
     )
 
-    req2 = Request(
-        userId = 3,
-        voided = False,
-        applied = True,
-        quantity1 = 5
-    )
+
 
     # req3 = Request(
     #     userId = 2,
@@ -27,7 +21,7 @@ def seed_requests():
 
 
     db.session.add(req1)
-    db.session.add(req2)
+    # db.session.add(req2)
     # db.session.add(req3)
     db.session.commit()
 
