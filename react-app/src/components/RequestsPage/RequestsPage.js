@@ -29,19 +29,19 @@ return (
             <th>Created By</th>
             <th>View Request</th>
          {requests.map(request =>
-         <tr key={request?.id} className='requestBox'>
-        {request?.voided ? (
+         <tr key={request.id} className='requestBox'>
+        {request.voided ? (
             <td>voided</td>
         ):(
             <td>applied</td>
         )}
-        <td>{request?.id}</td>
-        <td>{request?.createdAt}</td>
-        <td>{user[request?.userId]?.employeeID}</td>
+        <td>{request.id}</td>
+        <td>{request.createdAt}</td>
+        <td>{user[request.userId]?.employeeID}</td>
         <td>
          <OpenModalButton
               buttonText='View request'
-              modalComponent={<ItemList requestId={request?.id}/>}/></td>
+              modalComponent={<ItemList requestId={request.id}/>}/></td>
          </tr>)}
      </table>
     </>

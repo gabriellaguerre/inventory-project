@@ -45,8 +45,8 @@ function ItemList({requestId}) {
                 <th>Quantity</th>
             {requestItems.map(requestitem =>
                 <tr key={requestitem.id} className='reqborder'>
-                <td className='name'>{item[requestitem.itemId]?.code}</td>
-                <td className='address'>{item[requestitem.itemId]?.description}</td>
+                <td className='name'>{item[requestitem.itemId].code}</td>
+                <td className='address'>{item[requestitem.itemId].description}</td>
                 <td className='quantity'>{requestitem.quantity}</td>
                 </tr>)}
 

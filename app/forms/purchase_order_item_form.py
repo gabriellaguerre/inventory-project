@@ -3,5 +3,5 @@ from wtforms import IntegerField
 from wtforms.validators import DataRequired
 
 
-class PurchaseOrderForm(FlaskForm):
+class PurchaseOrderItemForm(FlaskForm):
    quantity = IntegerField('quantity')
