@@ -1,34 +1,16 @@
-th {
-    background-color: orange;
+.items-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    border-radius: 5px 5px 0 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1000px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
 }
 
-td {
-    text-align: center;
+button.requests {
+    text-align: right;
+    margin-left: 50px;
 }
-
-#description {
-    text-align: left;
-}
-
-table {
-    margin: 0 auto;
-}
-
-td button {
-    background-color: white;
-    border: none;
-}
-
-td button:hover {
-    font-weight: bold;
-    cursor: pointer;
-    color: orange;
-}
-
-tbody tr:nth-child(odd) {
-    background-color: rgb(248, 218, 161);
-  }
-
-  tbody tr:nth-child(even) {
-    background-color: white;
-  }
