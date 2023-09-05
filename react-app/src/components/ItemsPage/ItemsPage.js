@@ -19,33 +19,33 @@ function ItemsPage ({user}) {
         <>
         <div className='homeTitle'>Item List</div>
         {(user.accessLevel === 'admin') ? (
-            <>
-            <div className='headButtons'>
-                 <span className='newReq'>  <OpenModalButton
-                    buttonText='Create New Request'
-                    modalComponent={<NewRequestForm />}/></span>
-               <span className='newPO'><OpenModalButton
-                    buttonText='Create New PO'
-                    modalComponent={<NewPOForm />}/></span>
-            <span className='newIForm'><OpenModalButton
-                    buttonText='Create New Item'
-                    modalComponent={<NewItemForm />}/></span>
+            // <>
+            // <div className='headButtons'>
+            //      <span className='newReq'>  <OpenModalButton
+            //         buttonText=<div><i className="fa-regular fa-plus"></i> New Request</div>
+            //         modalComponent={<NewRequestForm />}/></span>
+            //    <span className='newPO'><OpenModalButton
+            //         buttonText=<div><i className="fa-regular fa-plus"></i> New PO</div>
+            //         modalComponent={<NewPOForm />}/></span>
+            // <span className='newIForm'><OpenModalButton
+            //         buttonText=<div><i className="fa-regular fa-plus"></i> New Item</div>
+            //         modalComponent={<NewItemForm />}/></span>
 
-             </div>
+            //  </div>
             <ItemsAdmin />
-            </>
+          //  </>
         ) : (
-            <>
-             <div className='headButtons'>
-                <span className='newReq'><OpenModalButton
-                    buttonText='Create New Request'
-                    modalComponent={<NewRequestForm />}/></span>
-               <span className='newPO'><OpenModalButton
-                    buttonText='Create New PO'
-                    modalComponent={<NewPOForm />}/></span>
-            </div>
+            // <>
+            //  <div className='headButtons'>
+            //     <span className='newReq'><OpenModalButton
+            //         buttonText='Create New Request'
+            //         modalComponent={<NewRequestForm />}/></span>
+            //    <span className='newPO'><OpenModalButton
+            //         buttonText='Create New PO'
+            //         modalComponent={<NewPOForm />}/></span>
+            // </div>
             <ItemsEmp />
-            </>
+          //  </>
         )}
 
 
