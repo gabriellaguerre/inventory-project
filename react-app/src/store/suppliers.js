@@ -2,7 +2,8 @@ const GET_SUPPLIERS = 'suppliers/GET_SUPPLIERS'
 const GET_SUPPLIERLIST = 'suppliers/GET_SUPPLIERLIST'
 const RESET_STATE = 'suppliers/RESET_STATE'
 const CREATE_SUPPLIER = 'suppliers/CREATE_SUPPLIER'
-// const CONNECT_SUPPLIER_TO_ITEM = 'suppliers/CONNECT_SUPPLIER_TO_ITEM'
+const EDIT_SUPPLIER = 'suppliers/EDIT_SUPPLIER'
+const DELETE_SUPPLIER = 'suppliers/DELETE_SUPPLIER'
 
 //------------------------------DISPATCH VARIABLES-----------------------------
 // const startingState = () => ({
@@ -28,6 +29,15 @@ const create_supplier = (supplier) => ({
     payload: supplier
 })
 
+const edit_supplier = (supplier) => ({
+    type: EDIT_SUPPLIER,
+    payload: supplier
+})
+
+const delete_supplier = (supplierId) => ({
+    type: DELETE_SUPPLIER,
+    payload: supplierId
+})
  //-------------------------------THUNKS-----------------------------------------
 export const resetState = () => async (dispatch) => {
     const response = true
@@ -92,6 +102,30 @@ export const connectSupplierToNewItem = (supplierId) => async() => {
     }
 }
 
+export const editSupplier = (supplier, supplierId) => async(dispatch) => {
+    const response = await fetch(`/api/suppliers/${supplierId}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(supplier)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(edit_supplier(data))
+    }
+}
+
+export const deleteSupplier = (supplierId) => async (dispatch) => {
+    const response = await fetch(`/api/suppliers/${supplierId}`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'}
+    })
+    if (response.ok) {
+        dispatch(delete_supplier(supplierId))
+    }
+}
+
+
 //------------------------------REDUCER FXN------------------------------------
 const initialState = {}
 
@@ -105,10 +139,16 @@ export default function reducer (state = initialState, action) {
             newState[action.payload.suppliers] = action.payload.suppliers
             return newState;
         case CREATE_SUPPLIER:
-            newState[action.payload] = action.payload
+            newState[action.payload.id] = action.payload;
             return newState
+        case EDIT_SUPPLIER:
+            newState[action.payload.id] = action.payload;
+            return newState;
         case RESET_STATE:
             return initialState;
+        case DELETE_SUPPLIER:
+            delete newState[action.payload]
+            return newState;
         default:
             return state
     }

@@ -3,9 +3,14 @@ import thunk from 'redux-thunk';
 import session from './session'
 import items from './items'
 import suppliers from './suppliers'
+import requests from './requests'
+import user from './user';
+import purchase_orders from './purchase_orders';
+import request_items from './request_items'
+import purchase_order_items from './purchase_order_items';
 
 const rootReducer = combineReducers({
-  session, items, suppliers
+  session, user, items, suppliers, requests, purchase_orders, request_items, purchase_order_items
 });
 
 

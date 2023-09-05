@@ -34,6 +34,6 @@ class Supplier(db.Model):
             'email': self.email,
             'cell': self.cell,
             'userId': self.userId,
-            'createdAt': self.createdAt,
-            'updatedAt': self.updatedAt
+            'createdAt': self.createdAt.strftime("%b %d %Y"),
+            'updatedAt': self.updatedAt.strftime("%b %d %Y")
         }

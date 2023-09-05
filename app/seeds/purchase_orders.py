@@ -3,26 +3,25 @@ from sqlalchemy.sql import text
 
 def seed_purchase_orders():
     po1 = PurchaseOrder(
-        quantity = 1,
-        itemId = 1,
-        userId = 2
+        userId = 2,
+        received = False,
     )
 
-    po2 = PurchaseOrder(
-        quantity = 5,
-        itemId = 2,
-        userId = 3
-    )
+    # po2 = PurchaseOrder(
+    #     userId = 3,
+    #     voided = False,
+    #     received = True,
+    # )
 
-    po3 = PurchaseOrder(
-        quantity = 10,
-        itemId = 3,
-        userId = 2
-    )
+    # po3 = PurchaseOrder(
+    #     userId = 2,
+    #     voided = False,
+    #     received = True
+    # )
 
     db.session.add(po1)
-    db.session.add(po2)
-    db.session.add(po3)
+    # db.session.add(po2)
+    # db.session.add(po3)
     db.session.commit()
 
 def undo_purchase_orders():

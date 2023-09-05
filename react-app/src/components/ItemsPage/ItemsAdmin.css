@@ -3,7 +3,6 @@ th {
 }
 
 td {
-    border-bottom: 1px solid orange;
     text-align: center;
 }
 
@@ -25,3 +24,11 @@ td button:hover {
     cursor: pointer;
     color: orange;
 }
+
+tbody tr:nth-child(odd) {
+    background-color: rgb(248, 218, 161);
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: white;
+  }

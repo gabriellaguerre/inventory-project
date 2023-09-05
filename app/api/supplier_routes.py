@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Supplier, Item, db
 from app.forms import SupplierForm
+from datetime import datetime
 
 supplier_routes = Blueprint('suppliers', __name__)
 
@@ -44,6 +45,31 @@ def create_supplier():
         return supplier.to_dict()
 
     return validation_errors_to_error_messages(supplier_form.errors)
+
+
+# ------------------------------EDIT SUPPLIERS------------------------
+@supplier_routes.route('/<int:supplierId>', methods=['PUT'])
+# @login_required
+def edit_supplier(supplierId):
+    supplier_form = SupplierForm()
+    supplier_form['csrf_token'].data = request.cookies['csrf_token']
+
+    if supplier_form.validate_on_submit():
+        supplier = Supplier.query.get(supplierId)
+
+        supplier.name = supplier_form.data['name']
+        supplier.address = supplier_form.data['address']
+        supplier.contact = supplier_form.data['contact']
+        supplier.email = supplier_form.data['email']
+        supplier.cell = supplier_form.data['cell']
+        supplier.updatedAt = datetime.now()
+
+        db.session.commit()
+        return supplier.to_dict()
+
+    return validation_errors_to_error_messages(supplier_form.errors)
+
+
 # ------------------------------GET SUPPLIERS OF AN ITEM------------------------
 @supplier_routes.route('/<int:itemId>')
 # @login_required
@@ -74,3 +100,13 @@ def connect_supplier_to_new_item(supplierId):
     supplier.items.append(item)
     db.session.commit()
     return {'message': 'successfully linked'}
+
+
+# ------------------------------DELETE SUPPLIER------------------------
+@supplier_routes.route('/<int:supplierId>', methods=['DELETE'])
+@login_required
+def delete_suppier(supplierId):
+    supplier = Supplier.query.get(supplierId)
+    db.session.delete(supplier)
+    db.session.commit()
+    return {'message': 'Successfully Deleted'}

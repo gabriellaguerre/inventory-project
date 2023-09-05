@@ -3,6 +3,11 @@ from wtforms import StringField, IntegerField, TextAreaField
 from wtforms.validators import DataRequired, ValidationError
 from app.models import Item
 
+def code_exists(form, field):
+    code = field.data
+    item = Item.query.filter(Item.code == code).first()
+    if item:
+        raise ValidationError('This code number cannot be used.  Enter new code')
 
 class ItemForm(FlaskForm):
     code = IntegerField('code', validators=[DataRequired()])
