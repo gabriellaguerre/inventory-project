@@ -14,7 +14,7 @@ class PurchaseOrder(db.Model):
     # quantity2 = db.Column(db.Integer)
     # quantity3 = db.Column(db.Integer)
     # itemId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
-    voided = db.Column(db.Boolean, nullable=False)
+    # voided = db.Column(db.Boolean, nullable=False)
     received = db.Column(db.Boolean, nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     createdAt = db.Column(db.DateTime, default=datetime.now())
@@ -28,7 +28,7 @@ class PurchaseOrder(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'voided': self.voided,
+            # 'voided': self.voided,
             'received': self.received,
             # 'quantity1': self.quantity1,
             # 'quantity2': self.quantity2,

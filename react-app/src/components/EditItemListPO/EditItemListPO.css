@@ -1,4 +1,4 @@
-.reqTableContainer {
+.poformmodalContainer {
     display: flex;
     flex-direction: column;
     width: 600px;
@@ -7,11 +7,10 @@
     background-color: rgba(238, 245, 202, 0.911);
     /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     padding: 25px;
-}
+  }
 
-.voided, .received{
+  .error {
     color: red;
     font-weight: bold;
-    text-align: center;
-    margin: 10px;
-}
+    margin-left: 80px;
+  }

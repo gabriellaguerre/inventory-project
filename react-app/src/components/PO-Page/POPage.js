@@ -31,14 +31,14 @@ return (
             <th>View Purchase Order</th>
          {purchase_orders.map(pos =>
          <tr key={pos.id} className='requestBox'>
-        {pos.voided ? (
-            <td>voided</td>
-        ): (
+        {pos.received ? (
             <td>received</td>
+        ): (
+            <td>open</td>
         )}
         <td>{pos.id}</td>
         <td>{pos.createdAt}</td>
-        <td>{user[pos.userId].employeeID}</td>
+        <td>{user[pos.userId]?.employeeID}</td>
         <div>
          <OpenModalButton
               buttonText='View purchase order'

@@ -23,7 +23,7 @@ function NewPOForm() {
     const [errors, setErrors] = useState({})
     const [disabled, setDisabled] = useState(false)
 
-    const itemList = useSelector(state => Object.values(state.items))
+    const itemList = useSelector(state => Object.values(state.items).filter(item => item.deleted === false))
     const thisItem1 = useSelector(state => state.items[itemId1])
     const thisItem2 = useSelector(state => state.items[itemId2])
     const thisItem3 = useSelector(state => state.items[itemId3])
@@ -61,18 +61,7 @@ function NewPOForm() {
             console.log('else')
         }
 
-        if(quantity1 > thisItem1?.quantity) {
-            validationErrors.errors = '*Quantity requested for item #1 is greater than quantity in stock'
-            setDisabled(true)
-        }
-        if(quantity2 > thisItem2?.quantity) {
-            validationErrors.errors = '*Quantity requested for item #2 is greater than quantity in stock'
-            setDisabled(true)
-        }
-        if(quantity3 > thisItem3?.quantity) {
-            validationErrors.errors = '*Quantity requested for item #3 is greater than quantity in stock'
-            setDisabled(true)
-        }
+
 
         if(validationErrors) {
             setErrors(validationErrors)

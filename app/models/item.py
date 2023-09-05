@@ -18,6 +18,7 @@ class Item(db.Model):
     unit_cost = db.Column(db.Integer, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     manufacturer = db.Column(db.String(255), nullable=False)
+    deleted = db.Column(db.Boolean, default=False)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
@@ -38,6 +39,7 @@ class Item(db.Model):
             'quantity': self.quantity,
             'item_type': self.item_type,
             'manufacturer': self.manufacturer,
+            'deleted': self.deleted,
             'userId': self.userId,
             'createdAt': self.createdAt.strftime("%b %d %Y"),
             'updatedAt': self.updatedAt.strftime("%b %d %Y")

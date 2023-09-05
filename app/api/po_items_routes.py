@@ -28,7 +28,7 @@ def get_items_of_a_purchase_order(purchaseOrderId):
 # ------------------------------CREATE PURCHASE ORDER ITEM------------------------
 @purchase_order_items_routes.route('/<int:itemId>', methods=['POST'])
 # @login_required
-def create_request_item(itemId):
+def create_purchase_order_item(itemId):
 
      all_purchase_orders = PurchaseOrder.query.all()
      recent_purchase_order = all_purchase_orders[len(all_purchase_orders)-1]
@@ -59,3 +59,25 @@ def create_request_item(itemId):
     #  return {'message': 'successful'}
 
      return validation_errors_to_error_messages(purchase_order_item_form.errors)
+
+
+#--------------------------EDIT PURCHASE ORDER ITEM-----------------------------------------------
+@purchase_order_items_routes.route('/<int:poId>/<int:itemId>', methods=['PUT'])
+# @login_required
+def edit_purchase_order_item(poId, itemId):
+
+    purchase_order_item_form = PurchaseOrderItemForm()
+    purchase_order_item_form['csrf_token'].data = request.cookies['csrf_token']
+    if purchase_order_item_form.validate_on_submit():
+         quantity = purchase_order_item_form.data['quantity']
+
+         po = PurchaseOrder.query.filter(PurchaseOrder.id == poId).first()
+
+         for poitem in po.items:
+             if(poitem.itemId==itemId and poitem.purchase_orderId==poId):
+                 thispo = poitem
+                 thispo.quantity = quantity
+                 db.session.commit()
+
+
+    return {'message': 'successful'}

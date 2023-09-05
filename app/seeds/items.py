@@ -9,6 +9,7 @@ def seed_items():
         unit_cost = 14980,
         quantity = 1,
         manufacturer = 'ABB',
+        deleted = False,
         userId = 1
     )
 
@@ -19,6 +20,7 @@ def seed_items():
         unit_cost = 149,
         quantity = 2,
         manufacturer = 'Danfoss',
+        deleted = False,
         userId = 1
     )
 
@@ -29,6 +31,7 @@ def seed_items():
         unit_cost = 253,
         quantity = 5,
         userId = 1,
+        deleted = False,
         manufacturer = 'Uxcell',
     )
 

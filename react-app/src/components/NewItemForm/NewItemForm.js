@@ -25,14 +25,30 @@ function NewItemForm() {
     const [quantity, setQuantity] = useState('')
     const [manufacturer, setManufacturer] = useState('')
     const [supplier, setSupplier] = useState('')
+    const [errors, setErrors] = useState([])
+
+    const item = useSelector(state => Object.values(state.items).filter(item => item.code === (+code)))
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
+        if((+code) === item[0]?.code) {
+            let errors = ['This code number cannot be used.  Enter new code']
+            setErrors(errors)
+         } else {
         const item = {code, description, item_type, unit_cost, quantity, manufacturer};
-        await dispatch(ItemsActions.createItem(item))
-            .then(dispatch(SuppliersActions.connectSupplierToNewItem(supplier)))
+        const data = await dispatch(ItemsActions.createItem(item));
+        if (data) {
+            setErrors(data)
+        } else {
+            // dispatch(ItemsActions.getAllItems())
+            closeModal()
+        }
+        if (supplier) {
+            dispatch(SuppliersActions.connectSupplierToNewItem(supplier))
             .then(closeModal())
+        }
+    }
     }
 
     return (
@@ -40,9 +56,15 @@ function NewItemForm() {
         <div className='modalContainer'>
         <form onSubmit = {onSubmit}>
          <div className='titleNewItem'>Create New Item</div>
+         <div className='errors'>
+        <ul>
+          {errors.map((error, idx) => (
+            <li key={idx} style={{color:'red'}}>{error}</li>
+          ))}
+        </ul>
+        </div>
          <div className='newItemCode'> Item Code:
             <input
-
                 value={code}
                 placeholder='enter item code'
                 onChange={e => setCode(e.target.value)}>
@@ -106,10 +128,10 @@ function NewItemForm() {
          </div>
          <div className='newSubmit'>
             <button id='newSubmit' onClick={e => onSubmit(e)}>Submit</button>
-            <span className='addNewSupplier'><OpenModalButton
+            {/* <span className='addNewSupplier'><OpenModalButton
                     buttonText='Add New Supplier'
                     modalComponent={<NewSupplierForm />}
-                    /></span>
+                    /></span> */}
          </div>
         </form>
         </div>

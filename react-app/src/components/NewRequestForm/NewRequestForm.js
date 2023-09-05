@@ -23,11 +23,11 @@ function NewRequestForm() {
     const [errors, setErrors] = useState({})
     const [disabled, setDisabled] = useState(false)
 
-    const itemList = useSelector(state => Object.values(state.items))
+    const itemList = useSelector(state => Object.values(state.items).filter(item => item.deleted === false))
     const thisItem1 = useSelector(state => state.items[itemId1])
     const thisItem2 = useSelector(state => state.items[itemId2])
     const thisItem3 = useSelector(state => state.items[itemId3])
-
+   
 
     useEffect(()=> {
         let validationErrors = {}

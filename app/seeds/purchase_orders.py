@@ -4,8 +4,7 @@ from sqlalchemy.sql import text
 def seed_purchase_orders():
     po1 = PurchaseOrder(
         userId = 2,
-        voided = False,
-        received = True,
+        received = False,
     )
 
     # po2 = PurchaseOrder(

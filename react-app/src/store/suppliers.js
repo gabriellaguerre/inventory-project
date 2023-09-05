@@ -139,7 +139,7 @@ export default function reducer (state = initialState, action) {
             newState[action.payload.suppliers] = action.payload.suppliers
             return newState;
         case CREATE_SUPPLIER:
-            newState[action.payload] = action.payload
+            newState[action.payload.id] = action.payload;
             return newState
         case EDIT_SUPPLIER:
             newState[action.payload.id] = action.payload;

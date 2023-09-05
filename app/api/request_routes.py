@@ -38,8 +38,7 @@ def get_a_request(requestId):
 def create_request():
 
         request = Request(voided = False,
-                      applied = True,
-                      userId = current_user.id)
+                          userId = current_user.id)
         db.session.add(request)
         db.session.commit()
 

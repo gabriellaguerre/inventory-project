@@ -6,7 +6,6 @@ def seed_requests():
     req1 = Request(
         userId = 2,
         voided = False,
-        applied = True,
 
     )
 

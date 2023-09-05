@@ -16,7 +16,7 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
-# ------------------------------GET REQUESTS------------------------
+# ------------------------------GET PURCHASE ORDERS------------------------
 @po_routes.route('/')
 # @login_required
 def get_purchase_orders():
@@ -29,11 +29,21 @@ def get_purchase_orders():
 # @login_required
 def create_purchase_order():
 
-        purchase_order = PurchaseOrder(voided = False,
-                                       received = True,
+        purchase_order = PurchaseOrder(received = False,
                                        userId = current_user.id)
         db.session.add(purchase_order)
         db.session.commit()
 
         # return {'message': 'successfull'}
         return purchase_order.to_dict()
+
+
+#------------------------------EDIT PURCHASE ORDER------------------------
+@po_routes.route('/<int:posId>', methods=['PUT'])
+# @login_required
+def edit_purchase_order(posId):
+     purchase_order = PurchaseOrder.query.get(posId)
+     purchase_order.received = True
+     db.session.commit()
+
+     return purchase_order.to_dict()

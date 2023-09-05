@@ -84,10 +84,13 @@ export const createItem = (item) => async (dispatch) => {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(item)
     })
-
     if (response.ok) {
         const data = await response.json()
-        dispatch(create_item(data))
+        if(data.errors) {
+            return data.errors
+        } else {
+            dispatch(create_item(data))
+        }
     }
 }
 
@@ -96,6 +99,19 @@ export const editItem = (item, itemId) => async(dispatch) => {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(item)
+    })
+
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(edit_item(data))
+    }
+}
+
+export const poeditItem = (itemId, quantity) => async(dispatch) => {
+    const response = await fetch(`/api/items/po_edit/${itemId}/${quantity}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'}
+        // body: JSON.stringify(quantity)
     })
 
     if (response.ok) {
@@ -117,13 +133,14 @@ export const reqitemEdit = (itemId, quantity) => async(dispatch) => {
 }
 
 export const deleteItem = (itemId) => async(dispatch) => {
-    const response = await fetch(`/api/items/${itemId}`, {
-        method: 'DELETE',
+    const response = await fetch(`/api/items/delete/${itemId}`, {
+        method: 'PUT',
         headers: {'Content-Type': 'application/json'}
     })
 
     if (response.ok) {
-        dispatch(delete_item(itemId))
+        const data = await response.json()
+        dispatch(edit_item(data))
     }
 }
 
@@ -144,7 +161,7 @@ export default function reducer (state = initialState, action) {
             action.payload.items.forEach(item => newState[item.id] = item);
             return newState;
         case CREATE_ITEM:
-            newState[action.payload] = action.payload;
+            newState[action.payload.id] = action.payload;
             return newState;
         case EDIT_ITEM:
             newState[action.payload.id] = action.payload;

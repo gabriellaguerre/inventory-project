@@ -34,12 +34,7 @@ function EditItem({itemId}) {
         <form onSubmit = {onSubmit}>
          <div className='titleNewItem'>Edit This Item</div>
          <div className='newItemCode'> Item Code:
-            <input
-
-                value={code}
-                placeholder='enter item code'
-                onChange={e => setCode(e.target.value)}>
-            </input>
+            <span>{code}</span>
          </div>
          <div className='newItemDes'> Description:
             <textarea

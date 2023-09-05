@@ -1,5 +1,6 @@
 const GET_PURCHASE_ORDERS = 'purchase_orders/GET_PURCHASE_ORDERS'
 const CREATE_PURCHASE_ORDER = 'purchase_orders/CREATE_PURCHASE_ORDER'
+const EDIT_PURCHASE_ORDER = 'purchase_orders/EDIT_PURCHASE_ORDER'
 
 
 //------------------------------DISPATCH VARIABLES-----------------------------
@@ -10,6 +11,11 @@ const get_pos = (purchase_orders) => ({
 
 const create_purchase_order = (purchase_order) => ({
     type: CREATE_PURCHASE_ORDER,
+    payload: purchase_order
+})
+
+const edit_purchase_order = (purchase_order) => ({
+    type: EDIT_PURCHASE_ORDER,
     payload: purchase_order
 })
 
@@ -38,6 +44,17 @@ export const createPurchaseOrder = () =>  async (dispatch) => {
     }
 }
 
+export const editPO = (posId) => async(dispatch) => {
+    const response = await fetch(`/api/purchase_orders/${posId}`, {
+        method:'PUT',
+        headers: {'Content-Type': 'application/json'}
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(edit_purchase_order(data))
+    }
+}
+
 //------------------------------REDUCER FXN------------------------------------
 const initialState = {}
 
@@ -48,6 +65,9 @@ export default function reducer(state = initialState, action) {
             action.payload.purchase_orders.forEach(purchase_order => newState[purchase_order.id] = purchase_order);
             return newState;
         case CREATE_PURCHASE_ORDER:
+            newState[action.payload.id] = action.payload;
+            return newState;
+        case EDIT_PURCHASE_ORDER:
             newState[action.payload.id] = action.payload;
             return newState;
         default:

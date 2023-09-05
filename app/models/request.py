@@ -17,7 +17,7 @@ class Request(db.Model):
     # item2 = db.Column(db.Integer)
     # item3 = db.Column(db.Integer)
     voided = db.Column(db.Boolean, nullable=False)
-    applied = db.Column(db.Boolean, nullable=False)
+    # applied = db.Column(db.Boolean, nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
@@ -37,7 +37,7 @@ class Request(db.Model):
             # 'item2': self.item2,
             # 'item3': self.item3,
             'voided': self.voided,
-            'applied': self.applied,
+            # 'applied': self.applied,
             # 'itemId': self.itemId,
             'userId': self.userId,
             'createdAt': self.createdAt.strftime("%b %d %Y"),

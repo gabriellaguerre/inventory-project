@@ -37,6 +37,7 @@ def create_item():
                     quantity = item_form.data['quantity'],
                     unit_cost = item_form.data['unit_cost'],
                     manufacturer = item_form.data['manufacturer'],
+                    deleted = False,
                     userId = current_user.id)
 
 
@@ -44,7 +45,18 @@ def create_item():
         db.session.commit()
         return item.to_dict()
         # return {'message': 'successfully created item'}
-    return validation_errors_to_error_messages(item_form.errors)
+    return {'errors':validation_errors_to_error_messages(item_form.errors)}
+
+#------------------------------EDIT ITEMS OF A PO------------------------
+@item_routes.route('/po_edit/<int:itemId>/<int:quantity>', methods=['PUT'])
+# @login_required
+def edit_quantity_of_an_item(itemId, quantity):
+
+    item = Item.query.get(itemId)
+    item.quantity = item.quantity + quantity
+
+    db.session.commit()
+    return item.to_dict()
 
 # ------------------------------------EDIT REQITEM------------------------
 @item_routes.route('/<int:itemId>/<int:quantity>', methods=['PUT'])
@@ -85,13 +97,7 @@ def edit_item(itemId):
 
 
 
-# ------------------------------GET ITEMS OF A REQUEST------------------------
-# @item_routes.route('/<int:requestId>')
-# # @login_required
-# def get_items_of_a_request(requestId):
-#     request = Request.query.get(requestId)
-#     items = request.items
-#     return {'items': [item.to_dict() for item in items]}
+
 
 
 # ------------------------------GET ITEMS OF A PO------------------------
@@ -105,10 +111,11 @@ def get_items_of_a_po(posId):
 
 
 # ------------------------------------DELETE ITEM --------------------------------------
-@item_routes.route('/<int:itemId>', methods=['DELETE'])
+@item_routes.route('/delete/<int:itemId>', methods=['PUT'])
 @login_required
 def delete_item(itemId):
     item = Item.query.get(itemId)
-    db.session.delete(item)
+    item.deleted = True
+
     db.session.commit()
-    return {'message': 'Successfully Deleted'}
+    return item.to_dict()

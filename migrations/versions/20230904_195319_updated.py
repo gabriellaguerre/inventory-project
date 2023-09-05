@@ -1,8 +1,8 @@
-"""po
+"""updated
 
-Revision ID: 0c756e231cd3
+Revision ID: d03f2ffae8dc
 Revises: 
-Create Date: 2023-09-03 16:26:08.244942
+Create Date: 2023-09-04 19:53:19.320034
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '0c756e231cd3'
+revision = 'd03f2ffae8dc'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -34,6 +34,7 @@ def upgrade():
     sa.Column('unit_cost', sa.Integer(), nullable=False),
     sa.Column('quantity', sa.Integer(), nullable=False),
     sa.Column('manufacturer', sa.String(length=255), nullable=False),
+    sa.Column('deleted', sa.Boolean(), nullable=True),
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('createdAt', sa.DateTime(), nullable=True),
     sa.Column('updatedAt', sa.DateTime(), nullable=True),
@@ -42,7 +43,6 @@ def upgrade():
     )
     op.create_table('purchase_orders',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('voided', sa.Boolean(), nullable=False),
     sa.Column('received', sa.Boolean(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('createdAt', sa.DateTime(), nullable=True),
@@ -53,7 +53,6 @@ def upgrade():
     op.create_table('requests',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('voided', sa.Boolean(), nullable=False),
-    sa.Column('applied', sa.Boolean(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('createdAt', sa.DateTime(), nullable=True),
     sa.Column('updatedAt', sa.DateTime(), nullable=True),
