@@ -48,3 +48,22 @@
   font-weight: bold;
   border: none;
 }
+
+.signup {
+  color: white;
+  position: relative;
+  border-radius: 5px;
+  height: 30px;
+  background-color: rgb(161, 139, 98);
+  left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.signup:hover {
+  background-color: white;
+  color: orange;
+  font-weight: bold;
+  border: none;
+}

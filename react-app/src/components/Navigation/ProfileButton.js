@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect, NavLink } from 'react-router-dom'
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
@@ -10,6 +10,7 @@ function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+
 
   const openMenu = () => {
     if (showMenu) return;
@@ -58,6 +59,14 @@ function ProfileButton({ user }) {
             <div>Access: {user.accessLevel}</div>
             <div>
               <button className='logout' onClick={handleLogout}>Log Out</button>
+              {user.accessLevel === 'admin' && (
+            <button className='signup'>
+              <OpenModalButton
+              buttonText="Add New Employee"
+              onItemClick={closeMenu}
+              modalComponent={<SignupFormModal />}/></button>
+              )}
+
             </div>
           </>
         ) : (
