@@ -32,14 +32,16 @@ body {
    cursor: pointer;
     width: 125px;
     border: 1px solid rgb(180, 180, 240);
+
 }
 
 .POs:hover, .requests:hover, .suppliers:hover {
-  background-color: rgb(180, 180, 240);
+  background-color: orange;
  }
 
 #POs, #requests, #suppliers {
     text-decoration: none;
+   font-weight: bold;
 }
 
 .items-table-admin thead tr.labels {
@@ -72,4 +74,55 @@ body {
 
 .items-table-admin thead tr td.header {
     background-color: rgb(1, 1, 46);
+}
+
+.items-table-admin tbody tr:hover {
+    background-color: white;
+    color: black;
+}
+
+.delete {
+    color: red;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.delete:hover {
+    background-color: red;
+    border-radius: 20px;
+    width: 15px;
+    height: 15px;
+}
+
+.edit {
+    cursor: pointer;
+}
+
+.edit:hover {
+    background-color: rgb(180, 180, 240);
+    border-radius: 20px;
+}
+
+.addsupplier {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.addsupplier:hover {
+    background-color: blue;
+    border-radius: 20px;
+    width: 15px;
+    height: 15px;
+}
+
+.supList {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.supList:hover {
+    background-color: orange;
+    border-radius: 20px;
+    width: 15px;
+    height: 15px;
 }

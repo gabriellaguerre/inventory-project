@@ -30,16 +30,16 @@ function ItemsAdmin() {
       <thead>
         <tr>
           <td className='header' style={{textAlign:'center'}} colSpan = '11'><button  id='requestForm'><OpenModalButton
-             buttonText=<div className='requestForm'><i className="fa-regular fa-plus"></i> New Request</div>
+             buttonText=<div className='requestForm'><i className="fa-solid fa-circle-plus"></i> New Request</div>
              modalComponent={<NewRequestForm />}/></button>
           <button id='poForm'><OpenModalButton
-                    buttonText=<span><i className="fa-regular fa-plus"></i> New PO</span>
+                    buttonText=<span><i className="fa-solid fa-circle-plus"></i> New PO</span>
                     modalComponent={<NewPOForm />}/></button>
           <button id='itemForm'><OpenModalButton
-                    buttonText=<span><i className="fa-regular fa-plus"></i> New Item</span>
+                    buttonText=<span><i className="fa-solid fa-circle-plus"></i> New Item</span>
                     modalComponent={<NewItemForm />}/></button>
          <button id='supplierForm'><OpenModalButton
-                    buttonText=<span><i className="fa-regular fa-plus"></i> New Supplier</span>
+                    buttonText=<span><i className="fa-solid fa-circle-plus"></i> New Supplier</span>
                     modalComponent={<NewSupplierForm />}/></button>
         {/* <button style={{width: 'auto', height: '15px', backgroundColor: 'white', border: 'none'}}></button> */}
         <button className='POs'>
@@ -77,19 +77,19 @@ function ItemsAdmin() {
              <td>{item.manufacturer}</td>
              <td><div id="supplierList"><OpenModalButton
                     id='suppbutton'
-                    buttonText=<div className='supList'><i className="fa-regular fa-eye"></i></div>
+                    buttonText=<div className='supList'><i id='eye'className="fa-regular fa-eye"></i></div>
                     modalComponent={<SuppliersList itemId={item.id}/>}
                     /></div></td>
              <td><OpenModalButton
-                    buttonText=<div><i className="fa-regular fa-plus"></i></div>
+                    buttonText=<div className='addsupplier'><i className="fa-solid fa-circle-plus"></i></div>
                     modalComponent={<AddSupplier itemId={item.id}/>}
                     /></td>
               <td><OpenModalButton
-                      buttonText=<div><i className="fa-solid fa-pencil"></i></div>
+                      buttonText=<div className='edit'><i className="fa-solid fa-pencil"></i></div>
                       modalComponent={<EditItem itemId={item.id}/>}
                       /></td>
               <td><OpenModalButton
-                      buttonText=<div><i className="fa-regular fa-trash-can"></i></div>
+                      buttonText=<div className='delete'><i className="fa-regular fa-trash-can"></i></div>
                       modalComponent={<DeleteItem itemId={item.id}/>}
                       /></td>
           </tr>)}

@@ -31,15 +31,19 @@ function SignupFormModal() {
 
 	return (
 		<>
-			<h1>Sign Up</h1>
+			<div className='modalContainer'>
+			<div className='signuptitle'><h1>Sign Up New Employee</h1></div>
 			<form onSubmit={handleSubmit}>
+				<div className='errors'>
 				<ul>
 					{errors.map((error, idx) => (
 						<li key={idx}>{error}</li>
 					))}
 				</ul>
+				</div>
+				<div className='employeeID'>
 				<label>
-					Employee ID
+					Employee ID:{" "}
 					<input
 						type="text"
 						value={employeeID}
@@ -47,17 +51,21 @@ function SignupFormModal() {
 						required
 					/>
 				</label>
-				<label>
-					Access Level
-					<input
-						type="text"
+				</div>
+				<div className='access'>Access Level:{' '}
+				<select
 						value={accessLevel}
 						onChange={(e) => setAccessLevel(e.target.value)}
 						required
-					/>
-				</label>
+						>
+				  <option value='' disabled>Select Type</option>
+                  <option value='admin'>Admin</option>
+                  <option value='employee'>Employee</option>
+				</select>
+				</div>
+				<div className='password'>
 				<label>
-					Password
+					Password:{' '}
 					<input
 						type="password"
 						value={password}
@@ -65,8 +73,10 @@ function SignupFormModal() {
 						required
 					/>
 				</label>
+				</div>
+				<div className='confirm'>
 				<label>
-					Confirm Password
+					Confirm Password:{' '}
 					<input
 						type="password"
 						value={confirmPassword}
@@ -74,8 +84,12 @@ function SignupFormModal() {
 						required
 					/>
 				</label>
+				</div>
+				<div className='submit'>
 				<button type="submit">Sign Up</button>
+				</div>
 			</form>
+			</div>
 		</>
 	);
 }
