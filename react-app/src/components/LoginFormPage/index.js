@@ -3,6 +3,7 @@ import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import './LoginForm.css';
+import ivy3 from '../Navigation/ivy3-modified2.png'
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -39,7 +40,10 @@ function LoginFormPage() {
 <div className='allbody'>
  <form onSubmit={handleSubmit}>
     <div className='formBody'>
-      <div className='title'>Employee Log In</div>
+      <div className='image'>
+      <img src={ivy3} alt="ivy-pic" width="130" height="100"></img>
+      </div>
+      <div className='title'>Log In</div>
         <div className='errors'>
         <ul>
           {errors.map((error, idx) => (
@@ -48,7 +52,7 @@ function LoginFormPage() {
         </ul>
         </div>
         <div className='employeeID-DIV'>
-          Employee ID:
+          Employee ID:{' '}
           <input
             type="text"
             value={employeeID}
@@ -57,7 +61,7 @@ function LoginFormPage() {
           />
         </div>
         <div className='passwordDiv'>
-          Password:
+          Password:{' '}
           <input
             type="password"
             value={password}

@@ -12,7 +12,7 @@
     top: 150px;
     display: grid;
     justify-items: center;
-    grid-template-rows: 50px, 50px, 50px, 50px, 50px;
+    grid-template-rows: 50px, 50px, 50px, 50px, 50px, 50px;
     width: 400px;
     margin: auto;
     width: 400px;
@@ -22,31 +22,36 @@
 
 }
 
-.title {
+.image {
     grid-row: 1/2;
+    margin: 10px;
+}
+
+.title {
+    grid-row: 2/3;
     font-weight: bold;
     font-size: 30px;
     color: orange;
 }
 
 .errors {
-    grid-row: 2/3;
+    grid-row: 3/4;
     height: 80px;
 }
 
 .employeeID-DIV {
-    grid-row: 3/4;
+    grid-row: 4/5;
     margin: 10px;
 
 }
 
 .passwordDiv {
-    grid-row: 4/5;
+    grid-row: 5/6;
     margin: 10px;
 }
 
 .submit {
-    grid-row: 5/6;
+    grid-row: 6/7;
 }
 
 #submit {
@@ -56,20 +61,22 @@
 }
 
 .admin {
-    grid-row: 5/6;
+    grid-row: 6/7;
 }
 
 .employee {
-    grid-row: 5/6;
+    grid-row: 6/7;
 }
 
 #submit {
-    background-color: orange;
+    background-color: rgb(137, 206, 206);
     width: 80px;
     height: 40px;
     border-radius: 20px;
     cursor: pointer;
     margin: 10px;
+    border: 2px solid rgb(0, 0, 73);
+    color: rgb(0, 0, 73);
 }
 
 #submit:hover {
@@ -80,12 +87,14 @@
 }
 
 #admin {
-    background-color: orange;
+    background-color: rgb(137, 206, 206);
     width: 80px;
     height: 40px;
     border-radius: 20px;
     cursor: pointer;
     margin: 10px;
+    border: 2px solid rgb(0, 0, 73);
+    color: rgb(0, 0, 73);
 }
 
 #admin:hover {
@@ -96,12 +105,14 @@
 }
 
 #employee {
-    background-color: orange;
+    background-color: rgb(137, 206, 206);
     width: 80px;
     height: 40px;
     border-radius: 20px;
     cursor: pointer;
     margin: 10px;
+    border: 2px solid rgb(0, 0, 73);
+    color: rgb(0, 0, 73);
 }
 
 #employee:hover {
