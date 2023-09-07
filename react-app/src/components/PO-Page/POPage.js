@@ -1,52 +1,28 @@
-import React, { useEffect } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import * as POsActions from '../../store/purchase_orders';
-import * as UsersActions from '../../store/user';
-import ItemListPO from '../ItemsPage/ItemListPO';
-import OpenModalButton from '../OpenModalButton';
-import '../RequestsPage/RequestsPage.css';
+import React from 'react';
+import { useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom';
+import POAdmin from './POAdmin';
+import POEmp from './POEmp';
+import './POPage.css';
 
 
 
-function POPage() {
+function POPage({user}) {
+    
+    if(!user) {
+        return <Redirect to="/" />
+    }
 
-const dispatch = useDispatch()
-
-useEffect(()=> {
-    dispatch(POsActions.getPOS())
-    dispatch(UsersActions.get_Users())
-}, [dispatch])
-
-const purchase_orders = useSelector(state => Object.values(state.purchase_orders))
-const user = useSelector(state => state.user)
-
-
-return (
-    <>
-        <table>
-            <th>Status</th>
-            <th>Purchase Order ID</th>
-            <th>Date Created</th>
-            <th>Created By</th>
-            <th>View Purchase Order</th>
-         {purchase_orders.map(pos =>
-         <tr key={pos.id} className='requestBox'>
-        {pos.received ? (
-            <td>received</td>
-        ): (
-            <td>open</td>
+    return (
+        <>
+        <div className='homeTitle'>Purchase Order List</div>
+        {(user.accessLevel === 'admin') ? (
+            <POAdmin />
+        ) : (
+            <POEmp />
         )}
-        <td>{pos.id}</td>
-        <td>{pos.createdAt}</td>
-        <td>{user[pos.userId]?.employeeID}</td>
-        <div>
-         <OpenModalButton
-              buttonText='View purchase order'
-              modalComponent={<ItemListPO posId={pos.id}/>}/></div>
-         </tr>)}
-        </table>
-    </>
-)
+        </>
+    )
 }
 
 export default POPage;

@@ -38,10 +38,10 @@ function App() {
             <SuppliersPage user={user}/>
           </Route>
           <Route path='/requests'>
-            <RequestsPage />
+            <RequestsPage user={user}/>
           </Route>
           <Route path='/purchase_orders'>
-            <POPage />
+            <POPage user={user}/>
           </Route>
           <Route exact path="/">
             {(user) ? <Redirect to="/items" /> : <LoginFormPage />}

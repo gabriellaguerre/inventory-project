@@ -20,30 +20,30 @@ function SuppliersPage ({user}) {
             <div className='homeTitle'>Supplier List</div>
             {(user.accessLevel === 'admin') ? (
                 <>
-                <div className='headButtons'>
+                {/* <div className='headButtons'>
                     <span className='newReq'><OpenModalButton
                         buttonText='Create New Request'
                         modalComponent={<NewRequestForm />}/></span>
                    <span className='newPO'><OpenModalButton
                         buttonText='Create New PO'
-                        modalComponent={<NewPOForm />}/></span>
+                        modalComponent={<NewPOForm />}/></span> */}
                 {/* <span className='newIForm'><OpenModalButton
                         buttonText='Create New Item'
                         modalComponent={<NewItemForm />}/></span> */}
-                 <span className='newSForm'><OpenModalButton
+                 {/* <span className='newSForm'><OpenModalButton
                         buttonText='Create New Supplier'
-                        modalComponent={<NewSupplierForm />}/></span> </div>
+                        modalComponent={<NewSupplierForm />}/></span> </div> */}
                 <SuppliersAdmin />
                 </>
             ) : (
                 <>
-                 <div className='headButtons'>
+                 {/* <div className='headButtons'>
                     <span className='newReq'><OpenModalButton
                         buttonText='Create New Request'
                         modalComponent={<NewRequestForm />}/></span>
                    <span className='newPO'><OpenModalButton
                         buttonText='Create New PO'
-                        modalComponent={<NewPOForm />}/></span></div>
+                        modalComponent={<NewPOForm />}/></span></div> */}
                 <SuppliersEmp />
                 </>
             )}

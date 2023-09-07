@@ -28,7 +28,7 @@ function EditSupplier({supplierId}) {
         <>
         <div className='modalSupplierContainer'>
         <form onSubmit = {onSubmit}>
-         <div className='titleNewSupplier'>Create New Supplier</div>
+         <div className='titleNewSupplier'>Edit New Supplier</div>
          <div className='newSupplierName'> Name:
             <input
                 type='text'

@@ -1,4 +1,8 @@
-.requestBox {
-    border: 1px solid black;
+.homeTitle {
+    text-align: center;
     margin: 10px;
+    font-size: 50px;
+    color: orange;
+    text-shadow: 2px 2px black;
+    font-weight: bold;
 }
