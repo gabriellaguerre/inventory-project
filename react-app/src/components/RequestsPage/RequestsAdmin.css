@@ -2,7 +2,7 @@ body {
     background-color: rgb(1, 1, 34);
 }
 
-.suppliers-table-admin {
+.request-table-admin {
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 0.9em;
@@ -13,6 +13,7 @@ body {
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
 }
+
 
 #requestForm,#poForm, #itemForm, #supplierForm {
     border-radius: 15px 0 0 0;
@@ -26,7 +27,7 @@ body {
     background-color:white;
 }
 
-.POs, .requests, .items {
+.POs, .requests, .suppliers {
    border-radius: 15px 0 0 0;
    cursor: pointer;
     width: 125px;
@@ -34,48 +35,48 @@ body {
 
 }
 
-.POs:hover, .requests:hover, .items:hover {
+.POs:hover, .requests:hover, .suppliers:hover {
   background-color: orange;
  }
 
-#POs, #requests, #items {
+#POs, #requests, #suppliers {
     text-decoration: none;
    font-weight: bold;
 }
 
-.suppliers-table-admin thead tr.labels {
+.request-table-admin thead tr.labels {
     background-color: rgb(0, 0, 95);
     color: rgb(180, 180, 240);
     font-family: sans-serif;
 }
 
-.suppliers-table-admin tbody {
+.request-table-admin tbody {
     font-family: sans-serif;
 }
 
-.suppliers-table-admin td {
+.request-table-admin td {
     padding: 12px 15px;
 }
 
-.suppliers-table-admin td.header {
+.request-table-admin td.header {
     padding: 1px 1px;;
 }
 
-.suppliers-table-admin tbody tr:nth-of-type(even) {
+.request-table-admin tbody tr:nth-of-type(even) {
     background-color: rgb(180, 180, 240);
     color:  rgb(0, 0, 95);
 }
 
-.suppliers-table-admin tbody tr:nth-of-type(odd) {
+.request-table-admin tbody tr:nth-of-type(odd) {
     background-color:rgb(76, 76, 109);
     color:  rgb(180, 180, 240);
 }
 
-.suppliers-table-admin thead tr td.header {
+.request-table-admin thead tr td.header {
     background-color: rgb(1, 1, 46);
 }
 
-.suppliers-table-admin tbody tr:hover {
+.request-table-admin tbody tr:hover {
     background-color: white;
     color: black;
 }

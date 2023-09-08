@@ -13,7 +13,7 @@ import NewItemForm from '../NewItemForm/NewItemForm.js'
 import NewSupplierForm from '../NewSupplierForm/NewSupplierForm'
 import './ItemsAdmin.css'
 
-function ItemsAdmin() {
+function ItemsAdmin({user}) {
     const dispatch = useDispatch()
 
     useEffect(()=> {

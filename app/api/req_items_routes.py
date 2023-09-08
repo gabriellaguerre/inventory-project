@@ -60,13 +60,10 @@ def create_request_item(itemId):
          thisItem = Item.query.get(itemId)
          thisItem.quantity = thisItem.quantity - quantity
          db.session.commit()
-         
+
          return {'request_items': [request_item.to_dict() for request_item in request_items]}
 
-
-    #  return {'message': 'successful'}
-
-     return validation_errors_to_error_messages(request_item_form.errors)
+     return {'errors':validation_errors_to_error_messages(request_item_form.errors)}
 
 
 # # ------------------------------------EDIT REQUEST------------------------

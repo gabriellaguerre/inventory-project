@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, TextAreaField
+from wtforms import StringField, IntegerField, TextAreaField, DecimalField
 from wtforms.validators import DataRequired, ValidationError
 from app.models import Item
 
@@ -14,6 +14,6 @@ class ItemForm(FlaskForm):
     description = TextAreaField('description', validators=[DataRequired()])
     item_type = StringField('item_type', validators=[DataRequired()])
     quantity = IntegerField('quantity', validators=[DataRequired()])
-    unit_cost = IntegerField('unit_cost', validators=[DataRequired()])
+    unit_cost = DecimalField('unit_cost', validators=[DataRequired()])
     manufacturer = StringField('manufacturer', validators=[DataRequired()])
     # supplier = StringField('supplier', validators=[DataRequired()])

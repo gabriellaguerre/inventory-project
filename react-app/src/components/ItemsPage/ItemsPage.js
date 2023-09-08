@@ -2,10 +2,10 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import ItemsAdmin from './ItemsAdmin.js';
 import ItemsEmp from './ItemsEmp.js';
-import OpenModalButton from '../OpenModalButton';
-import NewItemForm from '../NewItemForm/NewItemForm.js'
-import NewRequestForm from '../NewRequestForm/NewRequestForm.js';
-import NewPOForm from '../NewPOForm/NewPOForm.js';
+// import OpenModalButton from '../OpenModalButton';
+// import NewItemForm from '../NewItemForm/NewItemForm.js'
+// import NewRequestForm from '../NewRequestForm/NewRequestForm.js';
+// import NewPOForm from '../NewPOForm/NewPOForm.js';
 import './ItemsPage.css'
 
 
@@ -32,7 +32,7 @@ function ItemsPage ({user}) {
             //         modalComponent={<NewItemForm />}/></span>
 
             //  </div>
-            <ItemsAdmin />
+            <ItemsAdmin user={user}/>
           //  </>
         ) : (
             // <>
@@ -44,7 +44,7 @@ function ItemsPage ({user}) {
             //         buttonText='Create New PO'
             //         modalComponent={<NewPOForm />}/></span>
             // </div>
-            <ItemsEmp />
+            <ItemsEmp user={user}/>
           //  </>
         )}
 

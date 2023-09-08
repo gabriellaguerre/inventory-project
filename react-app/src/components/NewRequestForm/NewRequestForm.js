@@ -20,82 +20,85 @@ function NewRequestForm() {
     const [quantity1, setQuantity1] = useState('')
     const [quantity2, setQuantity2] = useState('')
     const [quantity3, setQuantity3] = useState('')
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState([])
     const [disabled, setDisabled] = useState(false)
 
     const itemList = useSelector(state => Object.values(state.items).filter(item => item.deleted === false))
     const thisItem1 = useSelector(state => state.items[itemId1])
     const thisItem2 = useSelector(state => state.items[itemId2])
     const thisItem3 = useSelector(state => state.items[itemId3])
-   
+
 
     useEffect(()=> {
-        let validationErrors = {}
 
         if (itemId1.length === 0 && itemId2.length === 0 && itemId3.length === 0) {
             setDisabled(true)
-            console.log('1st if')
+
         } else if (itemId1.length > 0 && quantity1.length === 0 && itemId2.length === 0 && itemId3.length === 0)  {
             setDisabled(true)
-            console.log('2nd if')
-        } else if (itemId1.length > 0 && quantity1.length > 0 && itemId2.length === 0 && itemId3.length === 0){
+
+        } else if (itemId1.length > 0 && quantity1.length > 0 && +quantity1 && itemId2.length === 0 && itemId3.length === 0 && quantity2.length === 0 && quantity3.length === 0){
             setDisabled(false)
-            console.log('3rd if')
-        } else if (itemId1.length > 0 && quantity1.length > 0 && itemId2.length > 0 && quantity2.length === 0 && itemId3.length === 0) {
+            setErrors([])
+
+        } else if (itemId1.length > 0 && quantity1.length > 0 && !+quantity1 && itemId2.length === 0 && itemId3.length === 0 && quantity2.length === 0 && quantity3.length === 0){
             setDisabled(true)
-            console.log('4th if')
-        } else if (itemId1.length > 0 && quantity1.length > 0 && itemId2.length > 0 && quantity2.length > 0 && itemId1 !== itemId2 && itemId3.length === 0) {
+            let errors = ['Enter a valid Quantity']
+            setErrors(errors)
+
+        } else if (itemId1.length > 0 && quantity1.length > 0 && itemId2.length > 0 && quantity2.length === 0 && itemId3.length === 0 && quantity3.length === 0 && itemId1 === itemId2) {
+            setDisabled(true)
+            let errors = ['*2 Items have the same Item Code']
+            setErrors(errors)
+
+        } else if (itemId1.length > 0 && quantity1.length > 0 && itemId2.length > 0 && quantity2.length === 0 && itemId3.length === 0 && quantity3.length === 0 && itemId1 !== itemId2) {
+            setDisabled(true)
+            setErrors([])
+
+        } else if (itemId1.length > 0 && quantity1.length > 0 && +quantity1 && itemId2.length > 0 && quantity2.length > 0 && +quantity2 && itemId1 !== itemId2 && itemId3.length === 0 && quantity3.length === 0) {
             setDisabled(false)
-            console.log('5th if')
+            setErrors([])
+
+        } else if (itemId1.length > 0 && quantity1.length > 0 && +quantity1 && itemId2.length > 0 && quantity2.length > 0 && !+quantity2 && itemId1 !== itemId2 && itemId3.length === 0 && quantity3.length === 0) {
+            setDisabled(true)
+            let errors = ['Enter a valid Quantity']
+            setErrors(errors)
+
+        } else if (itemId1.length > 0 && quantity1.length > 0 && +quantity1 && itemId2.length > 0 && quantity2.length > 0 && +quantity2 && itemId1 === itemId2 && itemId3.length === 0 && quantity3.length === 0) {
+            setDisabled(true)
+            let errors = ['*2 Items have the same Item Code']
+            setErrors(errors)
+
+        } else if (itemId1.length > 0 && quantity1.length > 0 && itemId2.length > 0 && quantity2.length > 0 && itemId3.length > 0 && quantity3.length === 0
+                    && itemId1 === itemId3 || itemId2 === itemId3) {
+            setDisabled(true)
+            let errors = ['*2 Items have the same Item Code']
+            setErrors(errors)
+
         } else if (itemId1.length > 0 && quantity1.length > 0 && itemId2.length > 0 && quantity2.length > 0 && itemId3.length > 0 && quantity3.length === 0) {
-            setDisabled(true)
-            console.log('6th if')
-        } else if (itemId1.length > 0 && quantity1.length > 0
-                && itemId2.length > 0 && quantity2.length > 0 &&
-                itemId3.length > 0 && quantity3.length > 0 && (itemId1 !== itemId2) && (itemId1 !== itemId3) && (itemId2 !== itemId3)) {
-                    setDisabled(false)
-                    console.log('7th if')
-        } else {
-            setDisabled(true)
-            validationErrors.errors = '*2 items on the list have the same code'
-            console.log('else')
-        }
+                setDisabled(true)
+                setErrors([])
 
-        if(quantity1 > thisItem1?.quantity) {
-            validationErrors.errors = '*Quantity requested for item #1 is greater than quantity in stock'
-            setDisabled(true)
-        }
-        if(quantity2 > thisItem2?.quantity) {
-            validationErrors.errors = '*Quantity requested for item #2 is greater than quantity in stock'
-            setDisabled(true)
-        }
-        if(quantity3 > thisItem3?.quantity) {
-            validationErrors.errors = '*Quantity requested for item #3 is greater than quantity in stock'
-            setDisabled(true)
-        }
+        } else if ((!+quantity1 && quantity1.length > 0) || (!+quantity2 && quantity2.length > 0)|| (!+quantity3 && quantity3.length > 0)) {
+                let errors = ['*Enter a valid Quantity']
+                setDisabled(true)
+                setErrors(errors)
 
-        if(validationErrors) {
-            setErrors(validationErrors)
         } else {
-            setErrors({})
+                setDisabled(false)
+                setErrors([])
         }
 
     }, [itemId2, itemId3, itemId1, quantity1, quantity2, quantity3, thisItem1, thisItem2, thisItem3, disabled])
 
 
-
-    // console.log(thisItem, 'ID IN CREATE REQUEST COMPONENT')
-
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        let info1 = {itemId1, quantity1}
-        let info2 = {itemId2, quantity2};
-        let info3 = {itemId3, quantity3};
         await dispatch(RequestsActions.createRequest())
 
 
-        if (itemId1 && quantity1 && itemId2 && quantity2 && itemId3 && quantity3) {
+        if (itemId1 && +quantity1 && itemId2 && +quantity2 && itemId3 && +quantity3) {
             let itemId = itemId1
             let quantity = quantity1
             await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity}))
@@ -103,38 +106,79 @@ function NewRequestForm() {
            .then(async ()=> {itemId = itemId3; quantity = quantity3; await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity})) })
            .then(dispatch(ItemsActions.getAllItems()))
            .then(closeModal())
-        } else if (itemId1 && quantity1 && itemId2 && quantity2) {
+
+        } else if (itemId1 && +quantity1 && itemId2 && +quantity2) {
             let itemId = itemId1
             let quantity = quantity1
             await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity}))
             .then(async ()=> {itemId = itemId2; quantity = quantity2; await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity})) })
            .then(dispatch(ItemsActions.getAllItems()))
            .then(closeModal())
-        } else if (itemId1 && quantity1 ) {
+
+        } else if (itemId1 && +quantity1 && itemId3 && +quantity3) {
+            let itemId = itemId1
+            let quantity = quantity1
+            await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity}))
+            .then(async ()=> {itemId = itemId3; quantity = quantity3; await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity})) })
+           .then(dispatch(ItemsActions.getAllItems()))
+           .then(closeModal())
+
+        } else if (itemId2 && +quantity2 && itemId3 && +quantity3) {
+            let itemId = itemId2
+            let quantity = quantity2
+            await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity}))
+            .then(async ()=> {itemId = itemId3; quantity = quantity3; await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity})) })
+           .then(dispatch(ItemsActions.getAllItems()))
+           .then(closeModal())
+
+        } else if (itemId1 && +quantity1 ) {
             let itemId = itemId1
             let quantity = quantity1
             await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity}))
             .then(dispatch(RequestsActions.getRequests()))
             .then(dispatch(ItemsActions.getAllItems()))
             .then(closeModal())
-        }
 
+        } else if (itemId2 && +quantity2 ) {
+            let itemId = itemId2
+            let quantity = quantity2
+            await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity}))
+            .then(dispatch(RequestsActions.getRequests()))
+            .then(dispatch(ItemsActions.getAllItems()))
+            .then(closeModal())
+
+        } else if (itemId3 && +quantity3) {
+            let itemId = itemId3
+            let quantity = quantity3
+            await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity}))
+            .then(dispatch(RequestsActions.getRequests()))
+            .then(dispatch(ItemsActions.getAllItems()))
+            .then(closeModal())
+        }
     }
 
     return (
         <>
         <div className='reqformmodalContainer'>
+         <div className='titleNewRequest'>Create New Request</div>
+         <div className='error-request-form'>
+         <ul>
+          {errors.map((error, idx) => (
+            <li key={idx} style={{color:'red'}}>{error}</li>
+          ))}
+        </ul></div>
         <form onSubmit = {onSubmit}>
-         <div className='titleNewItem'>Create New Request</div>
-         <div className='error'>
-                {errors.errors && (<p>{errors.errors}</p>)}
-            </div>
-
-         <table>
-            <th>Item Code</th>
-            <th>Description</th>
-            <th>Quantity</th>
+         <table className='new-request-form'>
+            <thead>
+            <tr className='labels'>
+                <th>Item Code</th>
+                 <th>Description</th>
+                <th>Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
             <tr>
+            <td>
             <select
                 value={itemId1}
                 onChange={e => {setItemCode1(e.target.value)}}>
@@ -142,6 +186,7 @@ function NewRequestForm() {
                 {itemList.map(item =>
                 <><option value={item.id}>{item.code}</option></>)}
             </select>
+            </td>
             <td>{thisItem1?.description}</td>
             <td>
             <input
@@ -152,6 +197,7 @@ function NewRequestForm() {
             </td>
             </tr>
             <tr>
+            <td>
             <select
                 value={itemId2}
                 onChange={e => {setItemCode2(e.target.value)}}>
@@ -159,6 +205,7 @@ function NewRequestForm() {
                 {itemList.map(item =>
                 <><option value={item.id}>{item.code}</option></>)}
             </select>
+            </td>
             <td>{thisItem2?.description}</td>
             <td>
             <input
@@ -169,6 +216,7 @@ function NewRequestForm() {
             </td>
             </tr>
             <tr>
+            <td>
             <select
                 value={itemId3}
                 onChange={e => {setItemCode3(e.target.value)}}>
@@ -176,6 +224,7 @@ function NewRequestForm() {
                 {itemList.map(item =>
                 <><option value={item.id} >{item.code}</option></>)}
             </select>
+            </td>
             <td>{thisItem3?.description}</td>
             <td>
             <input
@@ -185,10 +234,11 @@ function NewRequestForm() {
             </input>
             </td>
             </tr>
+            </tbody>
         </table>
          <div className='newSubmit'>
-                <button id='reqNoCreate' type='submit' disabled={disabled}>Submit</button>
-
+                <button id='CreateReq' type='submit' disabled={disabled}>Submit</button>
+                <button id='CancelReq' onClick={()=>closeModal()}>Cancel</button>
          </div>
         </form>
         </div>

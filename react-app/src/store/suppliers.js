@@ -70,6 +70,7 @@ export const getItemSuppliers = (itemId) => async(dispatch) => {
 }
 
 export const createSupplier = (supplier) => async(dispatch) => {
+    console.log(supplier, 'KKKKKKKKKKKKK')
     const response = await fetch('/api/suppliers', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -78,7 +79,12 @@ export const createSupplier = (supplier) => async(dispatch) => {
 
     if (response.ok) {
         const data = await response.json()
-        dispatch(create_supplier(data))
+        console.log(data, 'OOOOOOOOOOOOOO')
+        if(data.errors) {
+            return data.errors
+        } else {
+            dispatch(create_supplier(data))
+        }
     }
 }
 

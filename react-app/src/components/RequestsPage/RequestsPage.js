@@ -1,51 +1,28 @@
-import React, { useEffect } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import * as RequestsActions from '../../store/requests';
-import * as UsersActions from '../../store/user';
-import ItemList from '../ItemsPage/ItemList';
-import OpenModalButton from '../OpenModalButton';
-import './RequestsPage.css'
+import React from 'react';
+import { useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom';
+import RequestsAdmin from './RequestsAdmin';
+import RequestsEmp from './RequestsEmp';
+import './RequestsPage.css';
 
 
 
-function RequestsPage() {
-const dispatch = useDispatch()
+function RequestsPage({user}) {
 
-useEffect(()=> {
-    dispatch(RequestsActions.getRequests())
-    dispatch(UsersActions.get_Users())
-}, [dispatch])
+    if(!user) {
+        return <Redirect to="/" />
+    }
 
-const requests = useSelector(state => Object.values(state.requests))
-const user = useSelector(state => state.user)
-
-
-return (
-    <>
-        <table>
-            <th>Status</th>
-            <th>Request ID</th>
-            <th>Date Created</th>
-            <th>Created By</th>
-            <th>View Request</th>
-         {requests.map(request =>
-         <tr key={request.id} className='requestBox'>
-        {request.voided ? (
-            <td>voided</td>
-        ):(
-            <td>applied</td>
+    return (
+        <>
+        <div className='homeTitle'>Request List</div>
+        {(user.accessLevel === 'admin') ? (
+            <RequestsAdmin />
+        ) : (
+            <RequestsEmp />
         )}
-        <td>{request.id}</td>
-        <td>{request.createdAt}</td>
-        <td>{user[request.userId]?.employeeID}</td>
-        <td>
-         <OpenModalButton
-              buttonText='View request'
-              modalComponent={<ItemList requestId={request.id}/>}/></td>
-         </tr>)}
-     </table>
-    </>
-)
+        </>
+    )
 }
 
 export default RequestsPage;

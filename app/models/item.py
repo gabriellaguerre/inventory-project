@@ -15,7 +15,7 @@ class Item(db.Model):
     code = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(500), nullable=False)
     item_type = db.Column(db.String(500), nullable=False)
-    unit_cost = db.Column(db.Integer, nullable=False)
+    unit_cost = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     manufacturer = db.Column(db.String(255), nullable=False)
     deleted = db.Column(db.Boolean, default=False)

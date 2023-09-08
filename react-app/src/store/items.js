@@ -78,7 +78,7 @@ export const getPOItems = (posId) => async(dispatch) => {
 }
 
 export const createItem = (item) => async (dispatch) => {
-
+  
     const response = await fetch ('/api/items', {
         method: "POST",
         headers: {'Content-Type': 'application/json'},

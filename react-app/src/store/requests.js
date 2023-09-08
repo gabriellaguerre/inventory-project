@@ -55,7 +55,11 @@ export const createRequest = () =>  async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json()
-        dispatch(create_request(data))
+        if(data.errors) {
+            return data.errors
+        } else {
+            dispatch(create_request(data))
+        }
     }
 }
 
