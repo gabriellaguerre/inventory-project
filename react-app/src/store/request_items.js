@@ -33,9 +33,12 @@ export const createRequestItem = (itemId, {quantity}) => async(dispatch) => {
     })
     if (response.ok) {
         // const data = await response.json()
+        // if(data.errors) {
+        //     return data.errors
+        // } else {
         // dispatch(create_request_item(data))
-        return
-    }
+      return
+  }
 }
 
 //------------------------------REDUCER FXN------------------------------------

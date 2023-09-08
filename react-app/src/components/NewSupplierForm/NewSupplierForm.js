@@ -1,6 +1,6 @@
 import React, {  useState }from 'react';
 import { useDispatch } from 'react-redux';
-// import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { useModal } from "../../context/Modal";
 import * as SuppliersActions from '../../store/suppliers'
 import './NewSupplierForm.css'
@@ -15,21 +15,34 @@ function NewSupplierForm() {
     const [contact, setContact] = useState('')
     const [email, setEmail] = useState('')
     const [cell, setCell] = useState('')
+    const [errors, setErrors] = useState([])
 
 
     const onSubmit = async (e) => {
         e.preventDefault();
         const supplier = {name, address, contact, email, cell}
-        await dispatch(SuppliersActions.createSupplier(supplier))
-        .then(closeModal())
+        const data = await dispatch(SuppliersActions.createSupplier(supplier));
+        if (data) {
+            setErrors(data)
+        } else {
+        <Redirect to='/suppliers'/>
+        closeModal()
+     }
     }
 
     return (
         <>
-        <div className='modalSupplierContainer'>
-        <form onSubmit = {onSubmit}>
+        <div className='modalSupplierContainer1'>
+        <form onSubmit = {onSubmit} className='formBodySupplier'>
          <div className='titleNewSupplier'>Create New Supplier</div>
-         <div className='newSupplierName'> Name:
+         <div className='errors'>
+        <ul>
+          {errors.map((error, idx) => (
+            <li key={idx} style={{color:'red'}}>{error}</li>
+          ))}
+        </ul>
+        </div>
+         <div className='newSupplierName'> Name:{' '}
             <input
                 type='text'
                 value={name}
@@ -37,7 +50,7 @@ function NewSupplierForm() {
                 onChange={e => setName(e.target.value)}>
             </input>
          </div>
-         <div className='newSupplierAddress'> Address:
+         <div className='newSupplierAddress'> Address:{' '}
             <textarea
                 type='text'
                 value={address}
@@ -45,7 +58,7 @@ function NewSupplierForm() {
                 onChange={e => setAddress(e.target.value)}>
             </textarea>
          </div>
-         <div className='newSupplierContact'> Contact:
+         <div className='newSupplierContact'> Contact:{' '}
             <input
                 type='text'
                 value={contact}
@@ -53,7 +66,7 @@ function NewSupplierForm() {
                 onChange={e => setContact(e.target.value)}>
             </input>
          </div>
-         <div className='newSupplierEmail'> Email:
+         <div className='newSupplierEmail'> Email:{' '}
             <input
                 type='text'
                 value={email}
@@ -61,7 +74,7 @@ function NewSupplierForm() {
                 onChange={e => setEmail(e.target.value)}>
             </input>
          </div>
-         <div className='newSupplierCell'> Cell:
+         <div className='newSupplierCell'> Cell:{' '}
             <input
                 type='text'
                 value={cell}
@@ -72,6 +85,7 @@ function NewSupplierForm() {
 
          <div className='newSupplierSubmit'>
             <button id='newSupplierSubmit' onClick={e => onSubmit(e)}>Submit</button>
+            <span className='cancel'><button id='cancel' onClick={()=>closeModal()}>Cancel</button></span>
          </div>
         </form>
         </div>

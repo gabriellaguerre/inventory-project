@@ -1,16 +1,97 @@
 .reqformmodalContainer {
     display: flex;
     flex-direction: column;
-    width: 600px;
+    width: 500px;
     height: auto;
-    border-radius: 60px;
-    background-color: rgba(238, 245, 202, 0.911);
+    border-radius: 30px;
+    background-color: rgb(1, 1, 71);
     /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     padding: 25px;
   }
 
-  .error {
+  .titleNewRequest {
+    color: orange;
+    text-align: center;
+    font-size: 30px;
+    font-family: sans-serif;
+  }
+
+  .new-request-form {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    border-radius: 5px 5px 5px 5px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    overflow: hidden;
+    box-shadow: 0 20px 30px rgba(0,0,0,0.50)
+  }
+
+  .new-request-form thead tr.labels {
+    background-color: rgb(0, 0, 95);
+    color: rgb(180, 180, 240);
+    font-family: sans-serif;
+}
+
+.new-request-form tbody {
+  font-family: sans-serif;
+}
+
+.new-request-form td {
+  padding: 12px 15px;
+}
+
+
+.new-request-form tbody tr:nth-of-type(even) {
+  background-color: rgb(180, 180, 240);
+  color:  rgb(0, 0, 95);
+}
+
+.new-request-form tbody tr:nth-of-type(odd) {
+  background-color:rgb(76, 76, 109);
+  color:  rgb(180, 180, 240);
+}
+
+.error-request-form {
     color: red;
     font-weight: bold;
-    margin-left: 80px;
+  }
+
+  #CreateReq {
+    background-color: rgb(76, 76, 109);
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: rgb(180, 180, 240);
+    border:2px solid rgb(180, 180, 240);
+    font-weight: bold;
+  }
+
+  #CreateReq:hover {
+    background-color: white;
+    font-weight: bold;
+    border:2px solid rgb(0, 0, 95);
+    color: rgb(0, 0, 95);
+  }
+
+  #CancelReq {
+    background-color: red;
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: rgb(180, 180, 240);
+    border:2px solid red;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  #CancelReq:hover {
+    background-color: white;
+    font-weight: bold;
+    border:2px solid red;
+    color: red;
+
   }

@@ -30,6 +30,7 @@ def get_items():
 def create_item():
     item_form = ItemForm()
     item_form['csrf_token'].data = request.cookies['csrf_token']
+   
     if item_form.validate_on_submit():
         item = Item(code = item_form.data['code'],
                     description = item_form.data['description'],

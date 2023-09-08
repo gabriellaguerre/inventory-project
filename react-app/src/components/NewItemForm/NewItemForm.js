@@ -29,13 +29,20 @@ function NewItemForm() {
 
     const item = useSelector(state => Object.values(state.items).filter(item => item.code === (+code)))
 
+
     const onSubmit = async (e) => {
         e.preventDefault()
+        console.log(typeof +unit_cost, typeof +quantity !== 'number', !+unit_cost,'YYYYYYYYY')
+        if (!+unit_cost || !+quantity) {
+            let errors = ['Not a valid Unit Cost or Quantity']
+            setErrors(errors)
+         } else
 
         if((+code) === item[0]?.code) {
-            let errors = ['This code number cannot be used.  Enter new code']
+            let errors = ['This Item Code cannot be used.  Enter a new code']
             setErrors(errors)
          } else {
+
         const item = {code, description, item_type, unit_cost, quantity, manufacturer};
         const data = await dispatch(ItemsActions.createItem(item));
         if (data) {
@@ -53,24 +60,24 @@ function NewItemForm() {
 
     return (
         <>
-        <div className='modalContainer'>
-        <form onSubmit = {onSubmit}>
+        <div className='modalContainer1'>
+        <form onSubmit = {onSubmit} className='formBodyItem'>
          <div className='titleNewItem'>Create New Item</div>
-         <div className='errors'>
+         <div className='errors-newItem'>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx} style={{color:'red'}}>{error}</li>
           ))}
         </ul>
         </div>
-         <div className='newItemCode'> Item Code:
+         <div className='newItemCode'> Item Code:{' '}
             <input
                 value={code}
                 placeholder='enter item code'
                 onChange={e => setCode(e.target.value)}>
             </input>
          </div>
-         <div className='newItemDes'> Description:
+         <div className='newItemDes'> Description:{' '}
             <textarea
 
                 value={description}
@@ -78,7 +85,7 @@ function NewItemForm() {
                 onChange={e => setDescription(e.target.value)}>
             </textarea>
          </div>
-         <div className='newItemType'> Item Type:
+         <div className='newItemType'> Item Type:{' '}
             <select
 
                 value={item_type}
@@ -93,15 +100,15 @@ function NewItemForm() {
                 <option value='chemical'>Chemical</option>
             </select>
          </div>
-         <div className='newUnitValue'> Unit Value:
+         <div className='newUnitValue'> Unit Cost:{' '}$
             <input
-
+                type='numeric'
                 value={unit_cost}
                 placeholder='enter item value'
                 onChange={e => setUnit_Cost(e.target.value)}>
             </input>
          </div>
-         <div className='newQuantity'> Quantity:
+         <div className='newQuantity'> Quantity:{' '}
             <input
 
                 value={quantity}
@@ -109,7 +116,7 @@ function NewItemForm() {
                 onChange={e => setQuantity(e.target.value)}>
             </input>
          </div>
-         <div className='newManufacturer'> Manufacturer:
+         <div className='newManufacturer'> Manufacturer:{' '}
             <input
                 type='text'
                 value={manufacturer}
@@ -117,7 +124,7 @@ function NewItemForm() {
                 onChange={e => setManufacturer(e.target.value)}>
             </input>
          </div>
-         <div className='newSupplier'>Supplier:
+         <div className='newSupplier'>Supplier:{' '}
             <select
                 value={supplier}
                 onChange={e => setSupplier(e.target.value)}>
@@ -128,10 +135,7 @@ function NewItemForm() {
          </div>
          <div className='newSubmit'>
             <button id='newSubmit' onClick={e => onSubmit(e)}>Submit</button>
-            {/* <span className='addNewSupplier'><OpenModalButton
-                    buttonText='Add New Supplier'
-                    modalComponent={<NewSupplierForm />}
-                    /></span> */}
+            <span className='cancel'><button id='cancel' onClick={()=>closeModal()}>Cancel</button></span>
          </div>
         </form>
         </div>

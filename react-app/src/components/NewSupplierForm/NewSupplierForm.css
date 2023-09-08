@@ -1,49 +1,92 @@
-.modalSupplierContainer {
+.modalSupplierContainer1 {
     display: flex;
     flex-direction: column;
     width: 400px;
     height: auto;
     border-radius: 60px;
-    background-color: rgba(238, 245, 202, 0.911);
+    background-color: rgb(1, 59, 1);
     /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     padding: 25px;
   }
 
+  .formBodySupplier {
+    position: relative;
+    top: 4px;
+  }
+
 .titleNewSupplier {
+    grid-row: 1/2;
     font-size: 25px;
     text-align: center;
     margin: 10px;
+    color: orange;
+    font-weight: bold;
+    text-shadow: black 2px 2px;
+    font-family: sans-serif;
   }
 
-.newSupplierName {
+.newSupplierName, .newSupplierAddress, .newSupplierContact, .newSupplierEmail
+.newSupplierCell, .newSupplierSubmit {
     margin: 10px;
   }
 
+ .errors {
+    grid-row: 2/3;
+    /* display: flex; */
+    height: auto;
+    background-color: rgb(1, 59, 1);
+    margin-bottom: 80px;
+  }
+
+ .newSupplierName {
+    grid-row: 3/4;
+    background-color: rgb(1, 59, 1);
+    color: rgb(120, 145, 120);
+    font-weight: bold;
+    font-family: sans-serif;
+}
 .newSupplierAddress {
-    margin: 10px;
+    grid-row: 3/4;
+    background-color: rgb(1, 59, 1);
+    color: rgb(120, 145, 120);
+    font-weight: bold;
+    font-family: sans-serif;
 }
 
 .newSupplierContact {
-    margin: 10px;
+    grid-row: 4/5;
+    background-color: rgb(1, 59, 1);
+    color: rgb(120, 145, 120);
+    font-weight: bold;
+    font-family: sans-serif;
 }
 
 .newSupplierEmail {
-    margin: 10px;
+    grid-row: 5/6;
+    background-color: rgb(1, 59, 1);
+    color:rgb(120, 145, 120);
+    font-weight: bold;
+    font-family: sans-serif;
 }
 
 .newSupplierCell {
-    margin: 10px;
+    grid-row: 6/7;
+    background-color: rgb(1, 59, 1);
+    color: rgb(120, 145, 120);
+    font-weight: bold;
+    font-family: sans-serif;
 }
 
 .newSupplierSubmit {
-    margin: 10px;
+    font-family: sans-serif;
     text-align: center;
 }
 
 
 #newSupplierSubmit {
-    background-color: orange;
+    background-color: rgb(255, 196, 87);
     height: 40px;
+    width: 100px;
     border-radius: 20px;
     cursor: pointer;
     margin: 10px;
@@ -55,3 +98,21 @@
     color: orange;
     font-weight: bold;
   }
+
+  #cancel {
+    background-color: red;
+    border: 1px solid white;
+    color: white;
+    height: 40px;
+    width: 100px;
+    border-radius: 20px;
+    cursor: pointer;
+    /* margin: 10px; */
+}
+
+#cancel:hover{
+  background-color: white;
+  border: 2px solid red;
+  color: red;
+  font-weight: bold;
+}
