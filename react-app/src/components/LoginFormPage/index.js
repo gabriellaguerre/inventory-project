@@ -39,12 +39,12 @@ function LoginFormPage() {
     <>
 <div className='allbody'>
  <form onSubmit={handleSubmit}>
-    <div className='formBody'>
-      <div className='image'>
+    <div className='formBodylogin'>
+      <div className='imageLogin'>
       <img src={ivy3} alt="ivy-pic" width="130" height="100"></img>
       </div>
-      <div className='title'>Log In</div>
-        <div className='errors'>
+      <div className='titleLogin'>Log In</div>
+        <div className='errorsLogin'>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx} style={{color:'red'}}>{error}</li>
@@ -70,9 +70,9 @@ function LoginFormPage() {
           />
         </div>
         <div className='buttons'>
-        <span className='submit'><button id='submit' type="submit">Log In</button></span>
-        <span className='admin'><button id='admin' onClick={Admin}>Demo Admin</button></span>
-        <span className='employee'><button id='employee'onClick={Employee}>Demo Employee</button></span>
+        <span className='submitLogin'><button id='submitLogin' type="submit">Log In</button></span>
+        <span className='adminLogin'><button id='adminLogin' onClick={Admin}>Demo Admin</button></span>
+        <span className='employeeLogin'><button id='employeeLogin'onClick={Employee}>Demo Employee</button></span>
     </div>
     </div>
     </form>

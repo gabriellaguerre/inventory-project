@@ -35,7 +35,7 @@ function NewSupplierForm() {
         <div className='modalSupplierContainer1'>
         <form onSubmit = {onSubmit} className='formBodySupplier'>
          <div className='titleNewSupplier'>Create New Supplier</div>
-         <div className='errors'>
+         <div className='errors-newSupplier'>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx} style={{color:'red'}}>{error}</li>
@@ -84,7 +84,7 @@ function NewSupplierForm() {
          </div>
 
          <div className='newSupplierSubmit'>
-            <button id='newSupplierSubmit' onClick={e => onSubmit(e)}>Submit</button>
+            <button id='newSupplierSubmit1' onClick={e => onSubmit(e)}>Submit</button>
             <span className='cancel'><button id='cancel' onClick={()=>closeModal()}>Cancel</button></span>
          </div>
         </form>

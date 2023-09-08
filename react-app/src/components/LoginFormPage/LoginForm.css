@@ -7,7 +7,7 @@
     height: 100%;
 } */
 
-.formBody {
+.formBodylogin {
     position: relative;
     top: 150px;
     display: grid;
@@ -22,19 +22,19 @@
 
 }
 
-.image {
+.imageLogin {
     grid-row: 1/2;
     margin: 10px;
 }
 
-.title {
+.titleLogin {
     grid-row: 2/3;
     font-weight: bold;
     font-size: 30px;
     color: orange;
 }
 
-.errors {
+.errorsLogin {
     grid-row: 3/4;
     height: 80px;
 }
@@ -50,25 +50,25 @@
     margin: 10px;
 }
 
-.submit {
+.submitLogin {
     grid-row: 6/7;
 }
 
-#submit {
+#submitLogin {
     position: relative;
     top: 7px;
 
 }
 
-.admin {
+.adminLogin {
     grid-row: 6/7;
 }
 
-.employee {
+.employeeLogin {
     grid-row: 6/7;
 }
 
-#submit {
+#submitLogin {
     background-color: rgb(137, 206, 206);
     width: 80px;
     height: 40px;
@@ -79,14 +79,14 @@
     color: rgb(0, 0, 73);
 }
 
-#submit:hover {
+#submitLogin:hover {
     background-color: white;
     font-weight: bold;
     border:2px solid orange;
     color: orange;
 }
 
-#admin {
+#adminLogin {
     background-color: rgb(137, 206, 206);
     width: 80px;
     height: 40px;
@@ -97,14 +97,14 @@
     color: rgb(0, 0, 73);
 }
 
-#admin:hover {
+#adminLogin:hover {
     background-color: white;
     font-weight: bold;
     border:2px solid orange;
     color: orange;
 }
 
-#employee {
+#employeeLogin {
     background-color: rgb(137, 206, 206);
     width: 80px;
     height: 40px;
@@ -115,7 +115,7 @@
     color: rgb(0, 0, 73);
 }
 
-#employee:hover {
+#employeeLogin:hover {
     background-color: white;
     font-weight: bold;
     border:2px solid orange;
