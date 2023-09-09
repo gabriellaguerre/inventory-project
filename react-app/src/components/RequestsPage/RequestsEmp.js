@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as RequestsActions from '../../store/requests';
 import * as UsersActions from '../../store/user';
-import ItemList from '../ItemsPage/ItemList';
+import ItemListReq from '../ItemsPage/ItemListReq';
 import NewRequestForm from '../NewRequestForm/NewRequestForm.js';
 import NewPOForm from '../NewPOForm/NewPOForm.js';
 import OpenModalButton from '../OpenModalButton';
@@ -64,7 +64,7 @@ return (
         <td>
          <OpenModalButton
               buttonText=<div><i className="fa-regular fa-eye"></i></div>
-              modalComponent={<ItemList requestId={request.id}/>}/></td>
+              modalComponent={<ItemListReq requestId={request.id}/>}/></td>
          </tr>)}
          </tbody>
      </table>

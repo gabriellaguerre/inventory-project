@@ -1,5 +1,6 @@
 import React, {  useState }from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
 import * as SuppliersActions from '../../store/suppliers'
 import './EditSupplier.css'
@@ -15,21 +16,34 @@ function EditSupplier({supplierId}) {
     const [contact, setContact] = useState(this_supplier[0].contact)
     const [email, setEmail] = useState(this_supplier[0].email)
     const [cell, setCell] = useState(this_supplier[0].cell)
+    const [errors, setErrors] = useState([])
 
 
     const onSubmit = async (e) => {
         e.preventDefault();
         const supplier = {name, address, contact, email, cell}
-        await dispatch(SuppliersActions.editSupplier(supplier, supplierId))
-        .then(closeModal())
+        const data = await dispatch(SuppliersActions.editSupplier(supplier, supplierId))
+        if (data) {
+            setErrors(data)
+        } else {
+        <Redirect to='/suppliers'/>
+        closeModal()
+     }
     }
 
     return (
         <>
-        <div className='modalSupplierContainer'>
-        <form onSubmit = {onSubmit}>
-         <div className='titleNewSupplier'>Edit New Supplier</div>
-         <div className='newSupplierName'> Name:
+        <div className='modalEditSupplierContainer'>
+        <form onSubmit = {onSubmit} className='formBodyEditSupplier'>
+         <div className='titleEditSupplier'>Edit New Supplier</div>
+         <div className='errors-editSupplier'>
+        <ul>
+          {errors.map((error, idx) => (
+            <li key={idx} style={{color:'red'}}>{error}</li>
+          ))}
+        </ul>
+        </div>
+         <div className='editSupplierName'> Name:
             <input
                 type='text'
                 value={name}
@@ -37,7 +51,7 @@ function EditSupplier({supplierId}) {
                 onChange={e => setName(e.target.value)}>
             </input>
          </div>
-         <div className='newSupplierAddress'> Address:
+         <div className='editSupplierAddress'> Address:
             <textarea
                 type='text'
                 value={address}
@@ -45,7 +59,7 @@ function EditSupplier({supplierId}) {
                 onChange={e => setAddress(e.target.value)}>
             </textarea>
          </div>
-         <div className='newSupplierContact'> Contact:
+         <div className='editSupplierContact'> Contact:
             <input
                 type='text'
                 value={contact}
@@ -53,7 +67,7 @@ function EditSupplier({supplierId}) {
                 onChange={e => setContact(e.target.value)}>
             </input>
          </div>
-         <div className='newSupplierEmail'> Email:
+         <div className='editSupplierEmail'> Email:
             <input
                 type='text'
                 value={email}
@@ -61,7 +75,7 @@ function EditSupplier({supplierId}) {
                 onChange={e => setEmail(e.target.value)}>
             </input>
          </div>
-         <div className='newSupplierCell'> Cell:
+         <div className='editSupplierCell'> Cell:
             <input
                 type='text'
                 value={cell}
@@ -70,8 +84,9 @@ function EditSupplier({supplierId}) {
             </input>
          </div>
 
-         <div className='newSupplierSubmit'>
-            <button id='newSupplierSubmit' onClick={e => onSubmit(e)}>Submit</button>
+         <div className='editSupplierSubmit'>
+            <button id='editSupplierSubmit' onClick={e => onSubmit(e)}>Submit</button>
+            <button id='editCancel' onClick={()=>closeModal()}>Cancel</button>
          </div>
         </form>
         </div>
