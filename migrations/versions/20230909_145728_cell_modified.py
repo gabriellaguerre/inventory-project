@@ -100,7 +100,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('supplier_id', 'item_id')
     )
     # ### end Alembic commands ###
-     if environment == "production":
+    if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE items SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE purchase_orders SET SCHEMA {SCHEMA};")
