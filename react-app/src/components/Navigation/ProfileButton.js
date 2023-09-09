@@ -63,7 +63,7 @@ function ProfileButton({ user }) {
             <button className='signup'>
               <OpenModalButton
               buttonText="Add New Employee"
-              onItemClick={closeMenu}
+              onClick={()=>setShowMenu(false)}
               modalComponent={<SignupFormModal />}/></button>
               )}
 

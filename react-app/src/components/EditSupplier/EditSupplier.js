@@ -1,4 +1,4 @@
-import React, {  useState }from 'react';
+import React, {  useState, useEffect }from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
@@ -17,18 +17,29 @@ function EditSupplier({supplierId}) {
     const [email, setEmail] = useState(this_supplier[0].email)
     const [cell, setCell] = useState(this_supplier[0].cell)
     const [errors, setErrors] = useState([])
+    const [disabled, setDisabled] = useState(false)
 
+    useEffect(()=> {
+        if (cell && !+cell) {
+            let errors = ['Cell number should only be numbers; no dashes, no spaces']
+            setErrors(errors)
+            setDisabled(true)
+        } else {
+            setErrors([])
+            setDisabled(false)
+        }
+    }, [cell])
 
     const onSubmit = async (e) => {
         e.preventDefault();
         const supplier = {name, address, contact, email, cell}
         const data = await dispatch(SuppliersActions.editSupplier(supplier, supplierId))
         if (data) {
-            setErrors(data)
+            setErrors([data])
         } else {
-        <Redirect to='/suppliers'/>
-        closeModal()
+            closeModal()
      }
+
     }
 
     return (
@@ -48,7 +59,8 @@ function EditSupplier({supplierId}) {
                 type='text'
                 value={name}
                 placeholder='enter supplier name'
-                onChange={e => setName(e.target.value)}>
+                onChange={e => setName(e.target.value)}
+                required>
             </input>
          </div>
          <div className='editSupplierAddress'> Address:
@@ -56,7 +68,8 @@ function EditSupplier({supplierId}) {
                 type='text'
                 value={address}
                 placeholder='enter supplier address'
-                onChange={e => setAddress(e.target.value)}>
+                onChange={e => setAddress(e.target.value)}
+                required>
             </textarea>
          </div>
          <div className='editSupplierContact'> Contact:
@@ -64,7 +77,8 @@ function EditSupplier({supplierId}) {
                 type='text'
                 value={contact}
                 placeholder='enter contact name'
-                onChange={e => setContact(e.target.value)}>
+                onChange={e => setContact(e.target.value)}
+                required>
             </input>
          </div>
          <div className='editSupplierEmail'> Email:
@@ -72,7 +86,8 @@ function EditSupplier({supplierId}) {
                 type='text'
                 value={email}
                 placeholder='enter supplier email'
-                onChange={e => setEmail(e.target.value)}>
+                onChange={e => setEmail(e.target.value)}
+                required>
             </input>
          </div>
          <div className='editSupplierCell'> Cell:
@@ -80,12 +95,13 @@ function EditSupplier({supplierId}) {
                 type='text'
                 value={cell}
                 placeholder='enter supplier cell'
-                onChange={e => setCell(e.target.value)}>
+                onChange={e => setCell(e.target.value)}
+                required>
             </input>
          </div>
 
          <div className='editSupplierSubmit'>
-            <button id='editSupplierSubmit' onClick={e => onSubmit(e)}>Submit</button>
+            <button id='editSupplierSubmit' disabled={disabled}>Submit</button>
             <button id='editCancel' onClick={()=>closeModal()}>Cancel</button>
          </div>
         </form>

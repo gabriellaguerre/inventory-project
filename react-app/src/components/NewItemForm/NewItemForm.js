@@ -9,11 +9,11 @@ import './NewItemForm.css'
 
 function NewItemForm() {
     const dispatch = useDispatch();
-    const {closeModal} = useModal();
+    const { closeModal } = useModal();
 
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(SuppliersActions.getSuppliers())
-    },[dispatch])
+    }, [dispatch])
 
     const supplierList = useSelector(state => Object.values(state.suppliers))
 
@@ -26,24 +26,47 @@ function NewItemForm() {
     const [manufacturer, setManufacturer] = useState('')
     const [supplier, setSupplier] = useState('')
     const [errors, setErrors] = useState([])
+    const [disabled, setDisabled] = useState(false)
 
     const item = useSelector(state => Object.values(state.items).filter(item => item.code === (+code)))
 
+    useEffect(() => {
+
+        if (code && !+code) {
+            let errors = ['Item Code should only be numbers']
+            setErrors(errors)
+            setDisabled(true)
+
+
+        } else if ((+code) === item[0]?.code) {
+            let errors = ['This Item Code cannot be used.  Enter a new code']
+            setErrors(errors)
+            setDisabled(true)
+
+
+        } else if (unit_cost && !+unit_cost) {
+            let errors = ['Not a valid Unit Cost']
+            setErrors(errors)
+            setDisabled(true)
+          
+
+        }  else if (quantity && !+quantity) {
+            let errors = ['Not a valid Quantity']
+            setErrors(errors)
+            setDisabled(true)
+           
+
+        } else {
+            setErrors([])
+            setDisabled(false)
+        }
+
+    }, [code, quantity, unit_cost])
 
     const onSubmit = async (e) => {
         e.preventDefault()
-       
-        if (!+unit_cost || !+quantity) {
-            let errors = ['Not a valid Unit Cost or Quantity']
-            setErrors(errors)
-         } else
 
-        if((+code) === item[0]?.code) {
-            let errors = ['This Item Code cannot be used.  Enter a new code']
-            setErrors(errors)
-         } else {
-
-        const item = {code, description, item_type, unit_cost, quantity, manufacturer};
+        const item = { code, description, item_type, unit_cost, quantity, manufacturer };
         const data = await dispatch(ItemsActions.createItem(item));
         if (data) {
             setErrors(data)
@@ -53,92 +76,99 @@ function NewItemForm() {
         }
         if (supplier) {
             dispatch(SuppliersActions.connectSupplierToNewItem(supplier))
-            .then(closeModal())
+                .then(closeModal())
         }
-    }
+
     }
 
     return (
         <>
-        <div className='modalContainerNewItem'>
-        <form onSubmit = {onSubmit} className='formBodyItem'>
-         <div className='titleNewItem'>Create New Item</div>
-         <div className='errors-newItem'>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx} style={{color:'red'}}>{error}</li>
-          ))}
-        </ul>
-        </div>
-         <div className='newItemCode'> Item Code:{' '}
-            <input
-                value={code}
-                placeholder='enter item code'
-                onChange={e => setCode(e.target.value)}>
-            </input>
-         </div>
-         <div className='newItemDes'> Description:{' '}
-            <textarea
+            <div className='modalContainerNewItem'>
+                <form onSubmit={onSubmit} className='formBodyItem'>
+                    <div className='titleNewItem'>Create New Item</div>
+                    <div className='errors-newItem'>
+                        <ul>
+                            {errors.map((error, idx) => (
+                                <li key={idx} style={{ color: 'red' }}>{error}</li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className='newItemCode'> Item Code:{' '}
+                        <input
+                            value={code}
+                            placeholder='enter item code'
+                            onChange={e => setCode(e.target.value)}
+                            required>
 
-                value={description}
-                placeholder='enter item description'
-                onChange={e => setDescription(e.target.value)}>
-            </textarea>
-         </div>
-         <div className='newItemType'> Item Type:{' '}
-            <select
+                        </input>
+                    </div>
+                    <div className='newItemDes'> Description:{' '}
+                        <textarea
 
-                value={item_type}
-                onChange={e => setItem_Type(e.target.value)}>
-                <option value='' disabled>Select Type</option>
-                <option value='motor'>Motor</option>
-                <option value='pt'>Pressure Transmitter</option>
-                <option value='tt'>Temperature Transmitter</option>
-                <option value='ls'>Level Switch</option>
-                <option value='contact'>Contact</option>
-                <option value='pump'>Pump</option>
-                <option value='chemical'>Chemical</option>
-            </select>
-         </div>
-         <div className='newUnitValue'> Unit Cost:{' '}$
-            <input
-                type='numeric'
-                value={unit_cost}
-                placeholder='enter item value'
-                onChange={e => setUnit_Cost(e.target.value)}>
-            </input>
-         </div>
-         <div className='newQuantity'> Quantity:{' '}
-            <input
+                            value={description}
+                            placeholder='enter item description'
+                            onChange={e => setDescription(e.target.value)}
+                            required>
+                        </textarea>
+                    </div>
+                    <div className='newItemType'> Item Type:{' '}
+                        <select
+                            value={item_type}
+                            onChange={e => setItem_Type(e.target.value)}
+                            required>
+                            <option value='' disabled>Select Type</option>
+                            <option value='motor'>Motor</option>
+                            <option value='pt'>Pressure Transmitter</option>
+                            <option value='tt'>Temperature Transmitter</option>
+                            <option value='ls'>Level Switch</option>
+                            <option value='contact'>Contact</option>
+                            <option value='pump'>Pump</option>
+                            <option value='chemical'>Chemical</option>
+                        </select>
+                    </div>
+                    <div className='newUnitValue'> Unit Cost:{' '}$
+                        <input
+                            type='numeric'
+                            value={unit_cost}
+                            placeholder='enter item value'
+                            onChange={e => setUnit_Cost(e.target.value)}
+                            required>
+                        </input>
+                    </div>
+                    <div className='newQuantity'> Quantity:{' '}
+                        <input
 
-                value={quantity}
-                placeholder='enter item quantity'
-                onChange={e => setQuantity(e.target.value)}>
-            </input>
-         </div>
-         <div className='newManufacturer'> Manufacturer:{' '}
-            <input
-                type='text'
-                value={manufacturer}
-                placeholder='enter item manufacturer'
-                onChange={e => setManufacturer(e.target.value)}>
-            </input>
-         </div>
-         <div className='newSupplier'>Supplier:{' '}
-            <select
-                value={supplier}
-                onChange={e => setSupplier(e.target.value)}>
-                <option value='' disabled>Select Supplier</option>
-                {supplierList.map(supplier =>
-                <><option value={supplier.id}>{supplier.name}</option></>)}
-            </select>
-         </div>
-         <div className='newSubmit'>
-            <button id='newSubmit' onClick={e => onSubmit(e)}>Submit</button>
-            <span className='cancel'><button id='cancel' onClick={()=>closeModal()}>Cancel</button></span>
-         </div>
-        </form>
-        </div>
+                            value={quantity}
+                            placeholder='enter item quantity'
+                            onChange={e => setQuantity(e.target.value)}
+                            required>
+                        </input>
+                    </div>
+                    <div className='newManufacturer'> Manufacturer:{' '}
+                        <input
+                            type='text'
+                            value={manufacturer}
+                            placeholder='enter item manufacturer'
+                            onChange={e => setManufacturer(e.target.value)}
+                            required>
+                        </input>
+                    </div>
+                    <div className='newSupplier'>Supplier:{' '}
+                        <select
+                            value={supplier}
+                            onChange={e => setSupplier(e.target.value)}
+                           >
+                            <option value='' disabled>Select Supplier</option>
+                            {supplierList.map(supplier =>
+                                <><option value={supplier.id}>{supplier.name}</option></>)}
+                        </select>
+                    </div>
+                    <div className='newSubmit'>
+                        <button id='newSubmit' disabled={disabled}>Submit</button>
+                        <span className='cancel'><button id='cancel' onClick={() => closeModal()}>Cancel</button></span>
+                    </div>
+                </form>
+            </div>
         </>
     )
 }

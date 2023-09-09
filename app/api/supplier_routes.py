@@ -67,7 +67,7 @@ def edit_supplier(supplierId):
         db.session.commit()
         return supplier.to_dict()
 
-    return validation_errors_to_error_messages(supplier_form.errors)
+    return {'errors': validation_errors_to_error_messages(supplier_form.errors)}
 
 
 # ------------------------------GET SUPPLIERS OF AN ITEM------------------------

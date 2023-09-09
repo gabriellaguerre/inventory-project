@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom'
 import { useModal } from "../../context/Modal";
 import * as ItemsActions from '../../store/items';
 import * as RequestsActions from '../../store/requests'
@@ -8,6 +9,7 @@ import './NewRequestForm.css'
 
 function NewRequestForm() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const {closeModal} = useModal();
 
     useEffect(()=> {
@@ -105,6 +107,7 @@ function NewRequestForm() {
             .then(async ()=> {itemId = itemId2; quantity = quantity2; await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity})) })
            .then(async ()=> {itemId = itemId3; quantity = quantity3; await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity})) })
            .then(dispatch(ItemsActions.getAllItems()))
+           .then(history.push('/requests'))
            .then(closeModal())
 
         } else if (itemId1 && +quantity1 && itemId2 && +quantity2) {
@@ -113,6 +116,7 @@ function NewRequestForm() {
             await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity}))
             .then(async ()=> {itemId = itemId2; quantity = quantity2; await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity})) })
            .then(dispatch(ItemsActions.getAllItems()))
+           .then(history.push('/requests'))
            .then(closeModal())
 
         } else if (itemId1 && +quantity1 && itemId3 && +quantity3) {
@@ -121,6 +125,7 @@ function NewRequestForm() {
             await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity}))
             .then(async ()=> {itemId = itemId3; quantity = quantity3; await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity})) })
            .then(dispatch(ItemsActions.getAllItems()))
+           .then(history.push('/requests'))
            .then(closeModal())
 
         } else if (itemId2 && +quantity2 && itemId3 && +quantity3) {
@@ -129,6 +134,7 @@ function NewRequestForm() {
             await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity}))
             .then(async ()=> {itemId = itemId3; quantity = quantity3; await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity})) })
            .then(dispatch(ItemsActions.getAllItems()))
+           .then(history.push('/requests'))
            .then(closeModal())
 
         } else if (itemId1 && +quantity1 ) {
@@ -137,6 +143,7 @@ function NewRequestForm() {
             await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity}))
             .then(dispatch(RequestsActions.getRequests()))
             .then(dispatch(ItemsActions.getAllItems()))
+            .then(history.push('/requests'))
             .then(closeModal())
 
         } else if (itemId2 && +quantity2 ) {
@@ -145,6 +152,7 @@ function NewRequestForm() {
             await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity}))
             .then(dispatch(RequestsActions.getRequests()))
             .then(dispatch(ItemsActions.getAllItems()))
+            .then(history.push('/requests'))
             .then(closeModal())
 
         } else if (itemId3 && +quantity3) {
@@ -153,6 +161,7 @@ function NewRequestForm() {
             await dispatch(RequestItemsActions.createRequestItem(itemId, {quantity}))
             .then(dispatch(RequestsActions.getRequests()))
             .then(dispatch(ItemsActions.getAllItems()))
+            .then(history.push('/requests'))
             .then(closeModal())
         }
     }
