@@ -1,16 +1,101 @@
-.poformmodalContainer {
-    display: flex;
-    flex-direction: column;
-    width: 600px;
-    height: auto;
-    border-radius: 60px;
-    background-color: rgba(238, 245, 202, 0.911);
-    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
-    padding: 25px;
-  }
+.editpoformmodalContainer {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: auto;
+  border-radius: 30px;
+  background-color: rgb(70, 70, 95);
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+  padding: 25px;
+}
+.titleEditPO {
+  color: orange;
+  text-align: center;
+  font-size: 30px;
+  font-family: sans-serif;
+}
 
-  .error {
-    color: red;
-    font-weight: bold;
-    margin-left: 80px;
-  }
+
+.error-editpo-form {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  border-radius: 5px 5px 5px 5px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  overflow: hidden;
+  box-shadow: 0 20px 30px rgba(0,0,0,0.50)
+}
+
+.edit-po-form thead tr.labels {
+  background-color: rgb(0, 0, 95);
+  color: rgb(180, 180, 240);
+  font-family: sans-serif;
+}
+
+.edit-po-form tbody {
+font-family: sans-serif;
+}
+
+.edit-po-form td {
+padding: 12px 15px;
+}
+
+
+.edit-po-form tbody tr:nth-of-type(even) {
+background-color: rgb(180, 180, 240);
+color:  rgb(0, 0, 95);
+}
+
+.edit-po-form tbody tr:nth-of-type(odd) {
+background-color:rgb(76, 76, 109);
+color:  rgb(180, 180, 240);
+}
+
+.error-editpo-form {
+  color: red;
+  font-weight: bold;
+}
+
+#editPOCreate {
+  background-color: rgb(76, 76, 109);
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: rgb(180, 180, 240);
+  border:2px solid rgb(180, 180, 240);
+  font-weight: bold;
+}
+
+#editPOCreate:hover {
+  background-color: white;
+  font-weight: bold;
+  border:2px solid rgb(0, 0, 95);
+  color: rgb(0, 0, 95);
+}
+
+#CanceleditPo {
+  background-color: red;
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: rgb(180, 180, 240);
+  border:2px solid red;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#CanceleditPo:hover {
+  background-color: white;
+  font-weight: bold;
+  border:2px solid red;
+  color: red;
+
+}
+
+.editPOSubmit {
+  text-align: center;
+}

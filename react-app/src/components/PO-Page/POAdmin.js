@@ -64,17 +64,18 @@ return (
          {purchase_orders.map(pos =>
          <tr key={pos.id} className='requestBox'>
         {pos.received ? (
-            <td>received</td>
+            <td><div>received</div></td>
         ): (
-            <td>open</td>
+            <td><div>open</div></td>
         )}
         <td>{pos.id}</td>
         <td>{pos.createdAt}</td>
         <td>{user[pos.userId]?.employeeID}</td>
-        <div>
+        <td>
+        <div className='poView'>
          <OpenModalButton
               buttonText=<div><i className="fa-regular fa-eye"></i></div>
-              modalComponent={<ItemListPO posId={pos.id}/>}/></div>
+              modalComponent={<ItemListPO posId={pos.id}/>}/></div></td>
          </tr>)}
          </tbody>
         </table>

@@ -56,10 +56,11 @@ body {
 
 .po-table-admin td {
     padding: 12px 15px;
+    text-align: center;
 }
 
 .po-table-admin td.header {
-    padding: 1px 1px;;
+    padding: 1px 1px;
 }
 
 .po-table-admin tbody tr:nth-of-type(even) {
@@ -79,4 +80,8 @@ body {
 .po-table-admin tbody tr:hover {
     background-color: white;
     color: black;
+}
+
+.poView {
+    cursor: pointer;
 }

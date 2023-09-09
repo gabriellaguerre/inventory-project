@@ -32,7 +32,7 @@ function NewItemForm() {
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        console.log(typeof +unit_cost, typeof +quantity !== 'number', !+unit_cost,'YYYYYYYYY')
+       
         if (!+unit_cost || !+quantity) {
             let errors = ['Not a valid Unit Cost or Quantity']
             setErrors(errors)
@@ -60,7 +60,7 @@ function NewItemForm() {
 
     return (
         <>
-        <div className='modalContainer1'>
+        <div className='modalContainerNewItem'>
         <form onSubmit = {onSubmit} className='formBodyItem'>
          <div className='titleNewItem'>Create New Item</div>
          <div className='errors-newItem'>

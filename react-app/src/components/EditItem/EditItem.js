@@ -19,24 +19,38 @@ function EditItem({itemId}) {
     const [quantity, setQuantity] = useState(this_item[0].quantity)
     const [manufacturer, setManufacturer] = useState(this_item[0].manufacturer)
     // const [supplier, setSupplier] = useState(this_item[0].supplier)
+    const [errors, setErrors] = useState([])
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        const item = {code, description, item_type, unit_cost, quantity, manufacturer};
-        await dispatch(ItemsActions.editItem(item, itemId))
+        if (!+unit_cost || !+quantity) {
+            let errors = ['Not a valid Unit Cost or Quantity']
+            setErrors(errors)
+         } else {
+            const item = {code, description, item_type, unit_cost, quantity, manufacturer};
+            await dispatch(ItemsActions.editItem(item, itemId))
             .then(closeModal())
+         }
     }
+
 
     return (
         <>
-        <div className='modalContainer'>
-        <form onSubmit = {onSubmit}>
-         <div className='titleNewItem'>Edit This Item</div>
-         <div className='newItemCode'> Item Code:
+        <div className='modalContainerEditItem'>
+        <form onSubmit = {onSubmit} className='formBodyEditItem'>
+         <div className='titleEditItem'>Edit This Item</div>
+         <div className='errors-editItem'>
+        <ul>
+          {errors.map((error, idx) => (
+            <li key={idx} style={{color:'red'}}>{error}</li>
+          ))}
+        </ul>
+        </div>
+         <div className='editItemCode'> Item Code:
             <span>{code}</span>
          </div>
-         <div className='newItemDes'> Description:
+         <div className='editItemDes'> Description:
             <textarea
 
                 value={description}
@@ -44,9 +58,8 @@ function EditItem({itemId}) {
                 onChange={e => setDescription(e.target.value)}>
             </textarea>
          </div>
-         <div className='newItemType'> Item Type:
+         <div className='editItemType'> Item Type:
             <select
-
                 value={item_type}
                 onChange={e => setItem_Type(e.target.value)}>
                 <option value='' disabled>Select Type</option>
@@ -59,7 +72,7 @@ function EditItem({itemId}) {
                 <option value='chemical'>Chemical</option>
             </select>
          </div>
-         <div className='newUnitValue'> Unit Value:
+         <div className='editUnitValue'> Unit Value:
             <input
 
                 value={unit_cost}
@@ -67,7 +80,7 @@ function EditItem({itemId}) {
                 onChange={e => setUnit_Cost(e.target.value)}>
             </input>
          </div>
-         <div className='newQuantity'> Quantity:
+         <div className='editQuantity'> Quantity:
             <input
 
                 value={quantity}
@@ -75,7 +88,7 @@ function EditItem({itemId}) {
                 onChange={e => setQuantity(e.target.value)}>
             </input>
          </div>
-         <div className='newManufacturer'> Manufacturer:
+         <div className='editManufacturer'> Manufacturer:
             <input
                 type='text'
                 value={manufacturer}
@@ -92,12 +105,9 @@ function EditItem({itemId}) {
                 <><option value={supplier.id}>{supplier.name}</option></>)}
             </select>
          </div> */}
-         <div className='newSubmit'>
-            <button id='newSubmit' onClick={e => onSubmit(e)}>Submit</button>
-            {/* <span className='addNewSupplier'><OpenModalButton
-                    buttonText='Add New Supplier'
-                    modalComponent={<NewSupplierForm />}
-                    /></span> */}
+         <div className='editSubmit'>
+            <button id='editSubmit' onClick={e => onSubmit(e)}>Submit</button>
+            <button id='editCancel' onClick={() => closeModal()}>Cancel</button>
          </div>
         </form>
         </div>

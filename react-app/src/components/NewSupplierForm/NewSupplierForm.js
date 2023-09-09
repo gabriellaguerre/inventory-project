@@ -32,8 +32,8 @@ function NewSupplierForm() {
 
     return (
         <>
-        <div className='modalSupplierContainer1'>
-        <form onSubmit = {onSubmit} className='formBodySupplier'>
+        <div className='modalNewSupplierContainer'>
+        <form onSubmit = {onSubmit} className='formBodyNewSupplier'>
          <div className='titleNewSupplier'>Create New Supplier</div>
          <div className='errors-newSupplier'>
         <ul>
@@ -84,8 +84,8 @@ function NewSupplierForm() {
          </div>
 
          <div className='newSupplierSubmit'>
-            <button id='newSupplierSubmit1' onClick={e => onSubmit(e)}>Submit</button>
-            <span className='cancel'><button id='cancel' onClick={()=>closeModal()}>Cancel</button></span>
+            <button id='newSupplierSubmit' onClick={e => onSubmit(e)}>Submit</button>
+            <span className='newCancel'><button id='newCancel' onClick={()=>closeModal()}>Cancel</button></span>
          </div>
         </form>
         </div>

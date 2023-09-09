@@ -6,8 +6,8 @@ import * as POsActions from '../../store/purchase_orders';
 import { useModal } from "../../context/Modal";
 import OpenModalButton from '../OpenModalButton';
 import EditItemListPO from '../EditItemListPO/EditItemListPO'
-import './ItemList.css'
-// import './SuppliersList.css'
+import './ItemListPO.css'
+
 
 
 function ItemListPO({posId}) {
@@ -24,7 +24,7 @@ function ItemListPO({posId}) {
     const poItems = useSelector(state => (Object.values(state.purchase_order_items)).filter(positem => positem.purchase_orderId === posId));
     const po = useSelector(state=>state.purchase_orders[posId])
     const item = useSelector(state=> state.items)
-    console.log(po, 'PO ITEMS LIST')
+
 
     const addPOItems = () => {
         dispatch(POsActions.editPO(posId))
@@ -33,32 +33,38 @@ function ItemListPO({posId}) {
 
     return (
             <>
-            <div className='reqTableContainer'>
-            <div>Purchase Order ID: {po.id}
-            <span className='created'>Created: {po.createdAt}</span></div>
-            <table className='requestTable'>
+            <div className='poTableContainer'>
+            <div className='titlePOid'>Purchase Order ID: {po.id}</div>
+            <div className='created'>Created: {po.createdAt}</div>
+            <table className='poTable'>
+                <thead>
+                <tr className='labels'>
                 <th>Item Code</th>
                 <th>Description</th>
                 <th>Quantity</th>
+                </tr>
+                </thead>
+                <tbody>
             {poItems.map(poitem =>
-                <tr key={poitem.id} className='border'>
+                <tr key={poitem.id} >
                 <td className='name'>{item[poitem.itemId]?.code}</td>
                 <td className='description'>{item[poitem.itemId]?.description}</td>
                 <td>{poitem.quantity}</td>
                 </tr>)}
+                </tbody>
             </table>
-            <div>
+            <div className='poButtons'>
             {po.received ? (
                 <div className='received'>Received on {po.updatedAt}</div>
             ):(
                 <button className='receive' onClick={()=>addPOItems() }>Receive</button>
             )}
-            </div>
             <div>
             {!po.received &&
-                <OpenModalButton
+              <button className='editPObutton'><OpenModalButton
               buttonText='Edit Purchase Order'
-              modalComponent={<EditItemListPO posId={posId}/>}/> }
+              modalComponent={<EditItemListPO posId={posId}/>}/> </button>}
+            </div>
             </div>
             </div>
             </>

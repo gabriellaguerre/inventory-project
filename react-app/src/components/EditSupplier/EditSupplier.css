@@ -1,57 +1,124 @@
-.modalSupplierContainer {
+.modalEditSupplierContainer {
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 350px;
     height: auto;
     border-radius: 60px;
-    background-color: rgba(238, 245, 202, 0.911);
+    background-color: rgb(180, 180, 240);
     /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     padding: 25px;
   }
 
-.titleNewSupplier {
+ .formBodyEditSupplier {
+    position: relative;
+    top: 4px;
+  }
+
+.titleEditSupplier {
+    grid-row: 1/2;
     font-size: 25px;
     text-align: center;
     margin: 10px;
+    color: rgb(1, 1, 71);
+    font-weight: bold;
+    /* text-shadow: black 2px 2px; */
+    font-family: sans-serif;
   }
 
-.newSupplierName {
+.editSupplierName, .editSupplierAddress, .editSupplierContact, .editSupplierEmail,
+.editSupplierCell{
     margin: 10px;
   }
 
-.newSupplierAddress {
-    margin: 10px;
+  .errors-editSupplier {
+    grid-row: 2/3;
+    /* display: flex; */
+    height: auto;
+    /* background-color: rgb(1, 59, 1); */
+    margin-bottom: 10px;
+    color: red;
+    font-weight: bold;
+    }
+
+.editSupplierName {
+    grid-row: 3/4;
+    /* background-color: rgb(1, 59, 1); */
+    color: rgb(1, 1, 71);
+    font-weight: bold;
+    font-family: sans-serif;
 }
 
-.newSupplierContact {
-    margin: 10px;
+.editSupplierAddress {
+    grid-row: 3/4;
+    /* background-color: rgb(1, 59, 1); */
+    color: rgb(1, 1, 71);
+    font-weight: bold;
+    font-family: sans-serif;
 }
 
-.newSupplierEmail {
-    margin: 10px;
+.editSupplierContact {
+    grid-row: 4/5;
+    /* background-color: rgb(1, 59, 1); */
+    color: rgb(1, 1, 71);
+    font-weight: bold;
+    font-family: sans-serif;
 }
 
-.newSupplierCell {
-    margin: 10px;
+.editSupplierEmail {
+    grid-row: 5/6;
+    /* background-color: rgb(1, 59, 1); */
+    color:rgb(1, 1, 71);
+    font-weight: bold;
+    font-family: sans-serif;
 }
 
-.newSupplierSubmit {
-    margin: 10px;
+.editSupplierCell {
+    grid-row: 6/7;
+    /* background-color: rgb(1, 59, 1); */
+    color: rgb(1, 1, 71);
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.editSupplierSubmit {
+    font-family: sans-serif;
     text-align: center;
 }
 
 
-#newSupplierSubmit {
-    background-color: orange;
+#editSupplierSubmit {
+    background-color: rgb(76, 76, 109);
+    width: 80px;
     height: 40px;
     border-radius: 20px;
     cursor: pointer;
-    margin: 10px;
+    color: rgb(180, 180, 240);
+    border:2px solid rgb(180, 180, 240);
+    font-weight: bold;
 }
 
-#newSupplierSubmit:hover{
+#editSupplierSubmit:hover{
     background-color: white;
     border: 2px solid orange;
     color: orange;
     font-weight: bold;
   }
+
+  #editCancel {
+    background-color: red;
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: rgb(180, 180, 240);
+    border:2px solid red;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+#editCancel:hover{
+  background-color: white;
+  border: 2px solid red;
+  color: red;
+  font-weight: bold;
+}

@@ -4,11 +4,11 @@ import * as RequestItemsActions from '../../store/request_items'
 import * as ItemsActions from '../../store/items'
 import * as RequestsActions from '../../store/requests'
 import { useModal } from "../../context/Modal";
-import './ItemList.css'
+import './ItemListReq.css'
 
 
 
-function ItemList({requestId}) {
+function ItemListReq({requestId}) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
 
@@ -37,24 +37,29 @@ function ItemList({requestId}) {
     return (
             <>
             <div className='reqTableContainer'>
-            <div>Request ID: {request.id}
-            <span className='created'>Created: {request.createdAt}</span></div>
+            <div className='titleReqid'>Request ID: {request.id}</div>
+            <div className='createdReq'>Created: {request.createdAt}</div>
             <table className='requestTable'>
+            <thead>
+                <tr className='labels'>
                 <th>Item Code</th>
                 <th>Description</th>
                 <th>Quantity</th>
+                </tr>
+                </thead>
+                <tbody>
             {requestItems.map(requestitem =>
                 <tr key={requestitem.id} className='reqborder'>
                 <td className='name'>{item[requestitem.itemId].code}</td>
                 <td className='address'>{item[requestitem.itemId].description}</td>
                 <td className='quantity'>{requestitem.quantity}</td>
                 </tr>)}
-
+                </tbody>
             </table>
             {request?.voided ? (
                 <div className='voided'>VOIDED on {request.updatedAt}</div>
             ) : (
-                <button className='void' onClick={()=>handleVoid(request.id)}>Void</button>
+               <div className='voidButton'><button className='void' onClick={()=>handleVoid(request.id)}>Void</button></div>
             )}
 
             </div>
@@ -63,4 +68,4 @@ function ItemList({requestId}) {
             )
 }
 
-export default ItemList;
+export default ItemListReq;
