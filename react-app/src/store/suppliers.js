@@ -79,7 +79,6 @@ export const createSupplier = (supplier) => async(dispatch) => {
 
     if (response.ok) {
         const data = await response.json()
-        console.log(data, 'OOOOOOOOOOOOOO')
         if(data.errors) {
             return data.errors
         } else {
@@ -116,9 +115,13 @@ export const editSupplier = (supplier, supplierId) => async(dispatch) => {
     })
 
     if (response.ok) {
-        const data = await response.json();
+        const data = await response.json()
+        if(data.errors) {
+            return data.errors
+        } else {
         dispatch(edit_supplier(data))
     }
+ }
 }
 
 export const deleteSupplier = (supplierId) => async (dispatch) => {

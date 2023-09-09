@@ -1,30 +1,107 @@
-.modalContainer {
+.signUpmodalContainer {
     display: flex;
     flex-direction: column;
-    width: 450px;
+    width: 400px;
     height: auto;
     border-radius: 60px;
-    background-color: rgba(238, 245, 202, 0.911);
+    background-color: rgb(255,255,255,0.9);
     /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     padding: 25px;
   }
 
+  .formBodySignUp {
+    display: grid;
+    justify-items: left;
+    grid-template-rows: 50px, 50px, 50px, 50px, 50px;
+    width: 400px;
+    margin: auto;
+    width: 400px;
+    background-color: rgb(255,255,255,0.9);
+    border-radius: 15px;
+    border: 1px solid black;
+  }
+
+  .imageSignUp {
+    align-self: center;
+  }
+
   .signuptitle {
+
     text-align: center;
+    color: orange;
+    font-weight: bold;
+    font-size: 20px;
   }
 
   .errors {
+    /* grid-row: 1/2; */
     color: red;
+    /* height: 100px; */
   }
 
-.employeeID, .access, .password, .confirm {
+.employeeID {
+  grid-row: 2/3;
   margin: 10px;
+
 }
 
-.errors {
-  height: 30px;
+.access {
+  grid-row: 3/4;
+  margin: 10px;
+
 }
+
+.password {
+  grid-row: 4/5;
+  margin: 10px;
+
+}
+
+.confirm {
+  grid-row: 5/6;
+  margin: 10px;
+
+}
+
 
 .submit {
+  margin: 10px;
   text-align: center;
+}
+
+#submit {
+  background-color: rgb(137, 206, 206);
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 10px;
+  border: 2px solid rgb(0, 0, 73);
+  color: rgb(0, 0, 73)
+}
+
+#submit:hover {
+  background-color: white;
+  font-weight: bold;
+  border:2px solid orange;
+  color: orange;
+}
+
+#cancelsignup {
+  background-color: red;
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: rgb(180, 180, 240);
+  border:2px solid red;
+  font-weight: bold;
+
+}
+
+#cancelsignup:hover {
+  background-color: white;
+    font-weight: bold;
+    border:2px solid red;
+    color: red;
 }

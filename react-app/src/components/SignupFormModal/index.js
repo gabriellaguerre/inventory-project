@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
 import "./SignupForm.css";
+import ivy3 from '../Navigation/ivy3-modified2.png'
 
 function SignupFormModal() {
 	const dispatch = useDispatch();
@@ -28,11 +29,14 @@ function SignupFormModal() {
 			]);
 		}
 	};
-
+	// className='modalContainer'
 	return (
 		<>
-			<div className='modalContainer'>
-			<div className='signuptitle'><h1>Sign Up New Employee</h1></div>
+			<div className='signUpmodalContainer'>
+			<div className='imageSignUp'>
+     			 <img src={ivy3} alt="ivy-pic" width="130" height="100"></img>
+     		 </div>
+			<div className='signuptitle'><h3>Sign Up New Employee</h3></div>
 			<form onSubmit={handleSubmit}>
 				<div className='errors'>
 				<ul>
@@ -86,7 +90,8 @@ function SignupFormModal() {
 				</label>
 				</div>
 				<div className='submit'>
-				<button type="submit">Sign Up</button>
+				<button id='submit' type="submit">Sign Up</button>
+				<button id='cancelsignup' onClick={()=>closeModal()}>Cancel</button>
 				</div>
 			</form>
 			</div>

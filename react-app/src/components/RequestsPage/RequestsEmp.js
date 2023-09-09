@@ -37,7 +37,7 @@ return (
                     <button className='POs'>
         <NavLink to='/items' id='items'><i className="fa-regular fa-eye"></i> Items</NavLink></button>
        <button className='POs'>
-        <NavLink to='/pruchase_orders' id='POs'><i className="fa-regular fa-eye"></i> POs</NavLink></button>
+        <NavLink to='/purchase_orders' id='POs'><i className="fa-regular fa-eye"></i> POs</NavLink></button>
         <button className='suppliers'>
         <NavLink to='/suppliers' id='suppliers'><i className="fa-regular fa-eye"></i> Suppliers</NavLink></button>
         </td>

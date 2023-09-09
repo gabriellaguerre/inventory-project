@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from "../../context/Modal";
 import * as ItemsActions from '../../store/items';
@@ -20,18 +20,39 @@ function EditItem({itemId}) {
     const [manufacturer, setManufacturer] = useState(this_item[0].manufacturer)
     // const [supplier, setSupplier] = useState(this_item[0].supplier)
     const [errors, setErrors] = useState([])
+    const [disabled, setDisabled] = useState(false)
+
+    useEffect(() => {
+
+      if (unit_cost && !+unit_cost) {
+          let errors = ['Not a valid Unit Cost']
+          setErrors(errors)
+          setDisabled(true)
+          
+
+      }  else if (quantity && !+quantity) {
+          let errors = ['Not a valid Quantity']
+          setErrors(errors)
+          setDisabled(true)
+
+
+      } else {
+          setErrors([])
+          setDisabled(false)
+      }
+
+  }, [code, quantity, unit_cost])
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        if (!+unit_cost || !+quantity) {
-            let errors = ['Not a valid Unit Cost or Quantity']
-            setErrors(errors)
+         const item = {code, description, item_type, unit_cost, quantity, manufacturer};
+         const data = await dispatch(ItemsActions.editItem(item, itemId))
+         if (data) {
+            setErrors(data)
          } else {
-            const item = {code, description, item_type, unit_cost, quantity, manufacturer};
-            await dispatch(ItemsActions.editItem(item, itemId))
-            .then(closeModal())
-         }
+         closeModal()
+       }
     }
 
 
@@ -52,16 +73,17 @@ function EditItem({itemId}) {
          </div>
          <div className='editItemDes'> Description:
             <textarea
-
                 value={description}
                 placeholder='enter item description'
-                onChange={e => setDescription(e.target.value)}>
+                onChange={e => setDescription(e.target.value)}
+                required>
             </textarea>
          </div>
          <div className='editItemType'> Item Type:
             <select
                 value={item_type}
-                onChange={e => setItem_Type(e.target.value)}>
+                onChange={e => setItem_Type(e.target.value)}
+                required>
                 <option value='' disabled>Select Type</option>
                 <option value='motor'>Motor</option>
                 <option value='pt'>Pressure Transmitter</option>
@@ -74,18 +96,18 @@ function EditItem({itemId}) {
          </div>
          <div className='editUnitValue'> Unit Value:
             <input
-
                 value={unit_cost}
                 placeholder='enter item value'
-                onChange={e => setUnit_Cost(e.target.value)}>
+                onChange={e => setUnit_Cost(e.target.value)}
+                required>
             </input>
          </div>
          <div className='editQuantity'> Quantity:
             <input
-
                 value={quantity}
                 placeholder='enter item quantity'
-                onChange={e => setQuantity(e.target.value)}>
+                onChange={e => setQuantity(e.target.value)}
+                required>
             </input>
          </div>
          <div className='editManufacturer'> Manufacturer:
@@ -93,7 +115,8 @@ function EditItem({itemId}) {
                 type='text'
                 value={manufacturer}
                 placeholder='enter item manufacturer'
-                onChange={e => setManufacturer(e.target.value)}>
+                onChange={e => setManufacturer(e.target.value)}
+                required>
             </input>
          </div>
          {/* <div className='newSupplier'>Supplier:
@@ -106,7 +129,7 @@ function EditItem({itemId}) {
             </select>
          </div> */}
          <div className='editSubmit'>
-            <button id='editSubmit' onClick={e => onSubmit(e)}>Submit</button>
+            <button id='editSubmit' disabled={disabled}>Submit</button>
             <button id='editCancel' onClick={() => closeModal()}>Cancel</button>
          </div>
         </form>
