@@ -19,4 +19,4 @@ class SupplierForm(FlaskForm):
     address = StringField('address', validators=[DataRequired()])
     contact = StringField('contact', validators=[DataRequired()])
     email = StringField('email', validators=[DataRequired(), email_validate])
-    cell = IntegerField('cell', validators=[DataRequired()])
+    cell = StringField('cell', validators=[DataRequired()])

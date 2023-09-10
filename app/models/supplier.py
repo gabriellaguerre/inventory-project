@@ -14,7 +14,7 @@ class Supplier(db.Model):
     address = db.Column(db.String(255))
     contact = db.Column(db.String(255))
     email = db.Column(db.String(255))
-    cell = db.Column(db.Integer)
+    cell = db.Column(db.String(255))
     # itemId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     createdAt = db.Column(db.DateTime, default=datetime.now())
