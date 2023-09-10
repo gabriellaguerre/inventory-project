@@ -1,8 +1,8 @@
-"""cell modified
+"""fixed migration issue
 
-Revision ID: 780f5331229a
+Revision ID: 9deaf0b567a8
 Revises:
-Create Date: 2023-09-09 14:57:28.900072
+Create Date: 2023-09-10 08:51:52.326335
 
 """
 from alembic import op
@@ -12,7 +12,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get('SCHEMA')
 
 # revision identifiers, used by Alembic.
-revision = '780f5331229a'
+revision = '9deaf0b567a8'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -67,7 +67,7 @@ def upgrade():
     sa.Column('address', sa.String(length=255), nullable=True),
     sa.Column('contact', sa.String(length=255), nullable=True),
     sa.Column('email', sa.String(length=255), nullable=True),
-    sa.Column('cell', sa.Integer(), nullable=True),
+    sa.Column('cell', sa.String(length=255), nullable=True),
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('createdAt', sa.DateTime(), nullable=True),
     sa.Column('updatedAt', sa.DateTime(), nullable=True),

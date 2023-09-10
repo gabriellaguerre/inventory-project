@@ -21,7 +21,7 @@ function NewSupplierForm() {
 
     useEffect(()=> {
         if (cell && !+cell) {
-            let errors = ['Cell number should only be numbers; no dashes, no spaces']
+            let errors = ['Cell number should only be numbers']
             setErrors(errors)
             setDisabled(true)
         } else {
@@ -39,8 +39,6 @@ function NewSupplierForm() {
         } else {
             history.push('/suppliers')
             closeModal()
-
-
      }
     }
 
