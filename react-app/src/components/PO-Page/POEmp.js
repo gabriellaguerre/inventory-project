@@ -62,10 +62,10 @@ return (
         <td>{pos.id}</td>
         <td>{pos.createdAt}</td>
         <td>{user[pos.userId]?.employeeID}</td>
-        <div>
+        <td>
          <OpenModalButton
               buttonText=<div><i className="fa-regular fa-eye"></i></div>
-              modalComponent={<ItemListPO posId={pos.id}/>}/></div>
+              modalComponent={<ItemListPO posId={pos.id}/>}/></td>
          </tr>)}
          </tbody>
         </table>
