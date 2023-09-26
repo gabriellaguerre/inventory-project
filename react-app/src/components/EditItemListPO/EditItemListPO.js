@@ -11,16 +11,16 @@ function EditItemListPO({posId}) {
     const this_poitemList = useSelector(state => (Object.values(state.purchase_order_items)).filter(positem => positem.purchase_orderId === posId))
 
 
-    const [itemId1, setItemCode1] = useState(this_poitemList[0].itemId)
-    const [itemId2, setItemCode2] = useState(this_poitemList[1]?.itemId)
-    const [itemId3, setItemCode3] = useState(this_poitemList[2]?.itemId)
+    const [itemId1] = useState(this_poitemList[0].itemId)
+    const [itemId2] = useState(this_poitemList[1]?.itemId)
+    const [itemId3] = useState(this_poitemList[2]?.itemId)
     const [quantity1, setQuantity1] = useState(this_poitemList[0].quantity)
     const [quantity2, setQuantity2] = useState(this_poitemList[1]?.quantity)
     const [quantity3, setQuantity3] = useState(this_poitemList[2]?.quantity)
     const [errors, setErrors] = useState([])
     const [disabled, setDisabled] = useState(false)
 
-    const poitem = useSelector(state => state.purchase_order_items)
+    // const poitem = useSelector(state => state.purchase_order_items)
     const thisItem1 = useSelector(state => state.items[itemId1])
     const thisItem2 = useSelector(state => state.items[itemId2])
     const thisItem3 = useSelector(state => state.items[itemId3])

@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import * as ItemsActions from '../../store/items'
 import * as POITEMsActions from '../../store/purchase_order_items'
 import * as POsActions from '../../store/purchase_orders';
-import { useModal } from "../../context/Modal";
+// import { useModal } from "../../context/Modal";
 import OpenModalButton from '../OpenModalButton';
 import EditItemListPO from '../EditItemListPO/EditItemListPO'
 import './ItemListPO.css'
@@ -11,7 +11,7 @@ import './ItemListPO.css'
 
 
 function ItemListPO({posId}) {
-    const { closeModal } = useModal();
+    // const { closeModal } = useModal();
     const dispatch = useDispatch();
 
 

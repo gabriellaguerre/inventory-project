@@ -71,8 +71,8 @@ function NewPOForm() {
             let errors = ['*2 Items have the same Item Code']
             setErrors(errors)
 
-        } else if (itemId1.length > 0 && quantity1.length > 0 && itemId2.length > 0 && quantity2.length > 0 && itemId3.length > 0 && quantity3.length === 0
-                    && itemId1 === itemId3 || itemId2 === itemId3) {
+        } else if ((itemId1.length > 0 && quantity1.length > 0) && (itemId2.length > 0 && quantity2.length > 0) && (itemId3.length > 0 && quantity3.length === 0)
+                    && (itemId1 === itemId3 || itemId2 === itemId3)) {
             setDisabled(true)
             let errors = ['*2 Items have the same Item Code']
             setErrors(errors)
