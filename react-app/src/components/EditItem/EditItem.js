@@ -12,7 +12,7 @@ function EditItem({itemId}) {
     const this_item = useSelector(state => (Object.values(state.items)).filter(item => item.id === itemId))
 
 
-    const [code, setCode] = useState(this_item[0].code)
+    const [code] = useState(this_item[0].code)
     const [description, setDescription] = useState(this_item[0].description)
     const [item_type, setItem_Type] = useState(this_item[0].item_type)
     const [unit_cost, setUnit_Cost] = useState(this_item[0].unit_cost)
@@ -28,7 +28,7 @@ function EditItem({itemId}) {
           let errors = ['Not a valid Unit Cost']
           setErrors(errors)
           setDisabled(true)
-          
+
 
       }  else if (quantity && !+quantity) {
           let errors = ['Not a valid Quantity']

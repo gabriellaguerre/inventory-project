@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from "../../context/Modal";
 import * as ItemsActions from '../../store/items';
 import * as SuppliersActions from '../../store/suppliers'
-import OpenModalButton from '../OpenModalButton';
-import NewSupplierForm from '../NewSupplierForm/NewSupplierForm';
+// import OpenModalButton from '../OpenModalButton';
+// import NewSupplierForm from '../NewSupplierForm/NewSupplierForm';
 import './NewItemForm.css'
 
 function NewItemForm() {
@@ -48,26 +48,26 @@ function NewItemForm() {
             let errors = ['Not a valid Unit Cost']
             setErrors(errors)
             setDisabled(true)
-          
+
 
         }  else if (quantity && !+quantity) {
             let errors = ['Not a valid Quantity']
             setErrors(errors)
             setDisabled(true)
-           
+
 
         } else {
             setErrors([])
             setDisabled(false)
         }
 
-    }, [code, quantity, unit_cost])
+    }, [code, quantity, unit_cost, item])
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        const item = { code, description, item_type, unit_cost, quantity, manufacturer };
-        const data = await dispatch(ItemsActions.createItem(item));
+        const item1 = { code, description, item_type, unit_cost, quantity, manufacturer };
+        const data = await dispatch(ItemsActions.createItem(item1));
         if (data) {
             setErrors(data)
         } else {

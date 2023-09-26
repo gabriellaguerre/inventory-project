@@ -15,7 +15,7 @@ function ItemsEmp() {
         dispatch(ItemsActions.getAllItems())
     }, [dispatch])
 
-    const items = useSelector(state => Object.values(state.items))
+    const items = useSelector(state => Object.values(state.items).filter(item => item.deleted === false))
 
 
     return (
