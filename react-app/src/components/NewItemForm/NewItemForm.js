@@ -120,9 +120,13 @@ function NewItemForm() {
                             <option value='motor'>Motor</option>
                             <option value='pt'>Pressure Transmitter</option>
                             <option value='tt'>Temperature Transmitter</option>
+                            <option value='ft'>Flow Transmitter</option>
                             <option value='ls'>Level Switch</option>
+                            <option value='genfilter'>Generator Filter</option>
+                            <option value='servo'>Servo Motor</option>
                             <option value='contact'>Contact</option>
                             <option value='pump'>Pump</option>
+                            <option value='pump-seal'>Pump Seal</option>
                             <option value='chemical'>Chemical</option>
                         </select>
                     </div>

@@ -17,6 +17,7 @@ class Item(db.Model):
     item_type = db.Column(db.String(500), nullable=False)
     unit_cost = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
+    total_value = db.Column(db.Numeric(precision=10, scale=2))
     manufacturer = db.Column(db.String(255), nullable=False)
     deleted = db.Column(db.Boolean, default=False)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
@@ -35,8 +36,9 @@ class Item(db.Model):
             'id': self.id,
             'code': self.code,
             'description': self.description,
-            'unit_cost': self.unit_cost,
+            'unit_cost': ('{:,.2f}'.format(self.unit_cost)),
             'quantity': self.quantity,
+            'total_value': ('{:,.2f}'.format(self.total_value)),
             'item_type': self.item_type,
             'manufacturer': self.manufacturer,
             'deleted': self.deleted,
