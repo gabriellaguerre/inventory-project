@@ -30,13 +30,14 @@ def get_items():
 def create_item():
     item_form = ItemForm()
     item_form['csrf_token'].data = request.cookies['csrf_token']
-   
+
     if item_form.validate_on_submit():
         item = Item(code = item_form.data['code'],
                     description = item_form.data['description'],
                     item_type = item_form.data['item_type'],
                     quantity = item_form.data['quantity'],
                     unit_cost = item_form.data['unit_cost'],
+                    total_value = item_form.data['quantity']*item_form.data['unit_cost'],
                     manufacturer = item_form.data['manufacturer'],
                     deleted = False,
                     userId = current_user.id)
@@ -88,6 +89,7 @@ def edit_item(itemId):
         item.item_type = item_form.data['item_type']
         item.quantity = item_form.data['quantity']
         item.unit_cost = item_form.data['unit_cost']
+        item.total_value = item.quantity*item.unit_cost
         item.manufacturer = item_form.data['manufacturer']
         item.updatedAt = datetime.now()
 

@@ -73,7 +73,7 @@ function ItemsAdmin({user}) {
              <td>{item.item_type}</td>
              <td>${item.unit_cost}</td>
              <td>{item.quantity}</td>
-             <td>${item.unit_cost*item.quantity}</td>
+             <td>${item.total_value}</td>
              <td>{item.manufacturer}</td>
              <td><div id="supplierList"><OpenModalButton
                     id='suppbutton'
