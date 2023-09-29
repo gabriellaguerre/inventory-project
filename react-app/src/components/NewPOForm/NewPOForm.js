@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import { useModal } from "../../context/Modal";
@@ -11,6 +11,7 @@ function NewPOForm() {
     const dispatch = useDispatch();
     const history = useHistory();
     const {closeModal} = useModal();
+    const canvasRef = useRef(null);
 
     useEffect(()=> {
         dispatch(ItemsActions.getAllItems())
@@ -23,6 +24,8 @@ function NewPOForm() {
     const [quantity2, setQuantity2] = useState('')
     const [quantity3, setQuantity3] = useState('')
     const [errors, setErrors] = useState([])
+    const [isDrawing, setIsDrawing] = useState(false);
+    const [signatureImage, setSignatureImage] = useState(null);
     const [disabled, setDisabled] = useState(false)
 
     const itemList = useSelector(state => Object.values(state.items).filter(item => item.deleted === false))
@@ -96,6 +99,10 @@ function NewPOForm() {
 
     const onSubmit = async (e) => {
         e.preventDefault()
+
+        // const canvas = canvasRef.current;
+        // const signatureDataURL = canvas.toDataURL(); // Convert canvas content to a data URL (image)
+        // setSignatureImage(signatureDataURL);
 
         await dispatch(POsActions.createPurchaseOrder())
 
@@ -171,6 +178,60 @@ function NewPOForm() {
 
     }
 
+    // const addSignature = () => {
+    //     dispatch(PurchaseOrderItemsActions.addSignature())
+    // }
+    const startDrawing = (e) => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'black';
+
+        const x = e.nativeEvent.offsetX || e.nativeEvent.layerX;
+        const y = e.nativeEvent.offsetY || e.nativeEvent.layerY;
+
+        ctx.beginPath();
+        ctx.moveTo(x,y);
+
+        ctx.arc(x, y, 1, 0, Math.PI * 2);
+        ctx.fillStyle = 'black';
+        ctx.fill();
+
+        setIsDrawing(true);
+      };
+
+      const draw = (e) => {
+        if (!isDrawing) return;
+
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+
+        const x = e.nativeEvent.offsetX || e.nativeEvent.layerX;
+        const y = e.nativeEvent.offsetY || e.nativeEvent.layerY;
+
+        ctx.lineTo(x,y);
+        ctx.stroke();
+      };
+
+      const endDrawing = () => {
+        setIsDrawing(false);
+      };
+
+      const clearCanvas = () => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+
+        // Clear the canvas by drawing a clear rectangle over it
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      };
+
+    //   const saveSignature = () => {
+        // const canvas = canvasRef.current;
+        // const signatureDataURL = canvas.toDataURL(); // Convert canvas content to a data URL (image)
+        // setSignatureImage(signatureDataURL);
+    //   };
+
     return (
         <>
         <div className='poformmodalContainer1'>
@@ -181,7 +242,7 @@ function NewPOForm() {
             <li key={idx} style={{color:'red'}}>{error}</li>
           ))}
         </ul></div>
-        <form onSubmit = {onSubmit}>
+        <form encType="multipart/form-data" onSubmit = {onSubmit}>
          <table className='new-po-form'>
             <thead>
             <tr className='labels'>
@@ -250,9 +311,41 @@ function NewPOForm() {
             </tr>
             </tbody>
         </table>
+        <div>
+          <div id='drawSigTitle'>Draw your signature:</div>
+          <button id='ClearSig'onClick={clearCanvas}>Clear Signature</button>
+          <canvas
+            ref={canvasRef}
+            width={700}
+            height={100}
+            onMouseDown={startDrawing}
+            onMouseMove={draw}
+            onMouseUp={endDrawing}
+            style={{ border: '1px solid black' }}
+          />
+          {/* <button onClick={saveSignature}>Save Signature</button> */}
+          {signatureImage && (
+            <div>
+              <div>Your Signature:</div>
+              <img src={signatureImage} alt="Signature" />
+              {/* Provide an option to download the image */}
+              {/* <a
+                href={signatureImage}
+                download="signature.png"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Download Signature
+              </a> */}
+            </div>
+          )}
+
+        </div>
+        {/* <div><button>Signature Required</button></div> */}
          <div className='newSubmit'>
                 <button id='CreatePo' type='submit' disabled={disabled}>Submit</button>
                 <button id='CancelPo' onClick={()=>closeModal()}>Cancel</button>
+
          </div>
         </form>
         </div>

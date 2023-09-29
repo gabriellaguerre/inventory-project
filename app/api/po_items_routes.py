@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models import PurchaseOrder, Item, PurchaseOrderItems, db
 from app.forms import RequestItemForm, PurchaseOrderItemForm
 from datetime import datetime
+from app.api.aws_helper_sig import upload_file_to_s3, get_unique_filename
 
 purchase_order_items_routes = Blueprint('purchase_order_items', __name__)
 
@@ -41,7 +42,16 @@ def create_purchase_order_item(itemId):
 
          quantity = purchase_order_item_form.data['quantity']
 
-         quantity1 = PurchaseOrderItems(quantity = quantity)
+         image = purchase_order_item_form.data['image']
+         image.filename = get_unique_filename(image.filename)
+         upload = upload_file_to_s3(image)
+
+         if "url" not in upload:
+            return validation_errors_to_error_messages(upload)
+
+         url = upload['url']
+
+         quantity1 = PurchaseOrderItems(quantity = quantity, image = url)
          quantity1.item = Item.query.filter(Item.id == itemId).first()
          recent_purchase_order.items.append(quantity1)
          db.session.commit()
@@ -81,3 +91,9 @@ def edit_purchase_order_item(poId, itemId):
 
 
     return {'message': 'successful'}
+
+
+#-------------------------- SIGNATURE -----------------------------------------------
+# @purchase_order_items_routes.route('/signature')
+# # @login_required
+# def add_signature():

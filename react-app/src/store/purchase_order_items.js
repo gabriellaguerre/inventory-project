@@ -51,6 +51,17 @@ export const editPOItem = (poId, itemId, {quantity}) => async(dispatch) => {
         return
     }
 }
+
+export const addSignature = () => async (dispatch) => {
+    const response = await fetch('/api/signature', {
+        // headers: {'Content-Type': 'application/json'}
+    })
+    // if (response.ok) {
+    //     return
+    //     // const data = await response.json()
+
+    // }
+}
 //------------------------------REDUCER FXN------------------------------------
 
 const initialState = {}

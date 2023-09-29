@@ -176,7 +176,7 @@ function NewRequestForm() {
             <li key={idx} style={{color:'red'}}>{error}</li>
           ))}
         </ul></div>
-        <form onSubmit = {onSubmit}>
+        <form enctype="multipart/form-data" onSubmit = {onSubmit}>
          <table className='new-request-form'>
             <thead>
             <tr className='labels'>
