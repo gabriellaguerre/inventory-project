@@ -59,6 +59,7 @@ function ItemListPO({posId}) {
             ):(
                 <button className='receive' onClick={()=>addPOItems() }>Receive</button>
             )}
+            <div><img className='sigImg' alt='' src={po.image} /></div>
             <div>
             {!po.received &&
               <button className='editPObutton'><OpenModalButton

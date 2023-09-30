@@ -8,3 +8,4 @@ from .purchase_order import PurchaseOrder
 from .supplier_item import supplier_items
 from .request_item import RequestItems
 from .purchase_order_item import PurchaseOrderItems
+from .signature import Signature

@@ -5,6 +5,7 @@ import { useModal } from "../../context/Modal";
 import * as ItemsActions from '../../store/items';
 import * as POsActions from '../../store/purchase_orders'
 import * as PurchaseOrderItemsActions from '../../store/purchase_order_items'
+// import * as SignatureAction from '../../store/signature';
 import './NewPOForm.css'
 
 function NewPOForm() {
@@ -12,6 +13,7 @@ function NewPOForm() {
     const history = useHistory();
     const {closeModal} = useModal();
     const canvasRef = useRef(null);
+    const formData = new FormData();
 
     useEffect(()=> {
         dispatch(ItemsActions.getAllItems())
@@ -25,13 +27,14 @@ function NewPOForm() {
     const [quantity3, setQuantity3] = useState('')
     const [errors, setErrors] = useState([])
     const [isDrawing, setIsDrawing] = useState(false);
-    const [signatureImage, setSignatureImage] = useState(null);
+    const [image, setImage] = useState('');
     const [disabled, setDisabled] = useState(false)
 
     const itemList = useSelector(state => Object.values(state.items).filter(item => item.deleted === false))
     const thisItem1 = useSelector(state => state.items[itemId1])
     const thisItem2 = useSelector(state => state.items[itemId2])
     const thisItem3 = useSelector(state => state.items[itemId3])
+
 
 
     useEffect(()=> {
@@ -97,12 +100,9 @@ function NewPOForm() {
     }, [itemId2, itemId3, itemId1, quantity1, quantity2, quantity3, thisItem1, thisItem2, thisItem3, disabled])
 
 
+
     const onSubmit = async (e) => {
         e.preventDefault()
-
-        // const canvas = canvasRef.current;
-        // const signatureDataURL = canvas.toDataURL(); // Convert canvas content to a data URL (image)
-        // setSignatureImage(signatureDataURL);
 
         await dispatch(POsActions.createPurchaseOrder())
 
@@ -146,10 +146,16 @@ function NewPOForm() {
 
 
         } else if (itemId1 && +quantity1 ) {
-
             let itemId = itemId1
             let quantity = quantity1
-            await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, {quantity}))
+
+            const canvas = canvasRef.current;
+            const signatureDataURL = canvas.toDataURL('image/png');
+
+            formData.append('image', signatureDataURL)
+            formData.append('quantity', quantity)
+
+            await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, formData))
             .then(dispatch(POsActions.getPOS()))
             .then(dispatch(ItemsActions.getAllItems()))
             .then(history.push('/purchase_orders'))
@@ -178,9 +184,7 @@ function NewPOForm() {
 
     }
 
-    // const addSignature = () => {
-    //     dispatch(PurchaseOrderItemsActions.addSignature())
-    // }
+
     const startDrawing = (e) => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
@@ -226,11 +230,6 @@ function NewPOForm() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       };
 
-    //   const saveSignature = () => {
-        // const canvas = canvasRef.current;
-        // const signatureDataURL = canvas.toDataURL(); // Convert canvas content to a data URL (image)
-        // setSignatureImage(signatureDataURL);
-    //   };
 
     return (
         <>
@@ -314,21 +313,25 @@ function NewPOForm() {
         <div>
           <div id='drawSigTitle'>Draw your signature:</div>
           <button id='ClearSig'onClick={clearCanvas}>Clear Signature</button>
-          <canvas
+          {/* <button id='saveSig' onClick={saveSignature}>Save Signature</button> */}
+          <canvas id='file'
             ref={canvasRef}
             width={700}
             height={100}
             onMouseDown={startDrawing}
             onMouseMove={draw}
             onMouseUp={endDrawing}
-            style={{ border: '1px solid black' }}
+            type='file'
+            accept='image/*'
           />
-          {/* <button onClick={saveSignature}>Save Signature</button> */}
-          {signatureImage && (
+          </div>
+
+          {/* <button onClick={saveSignature}>Save Signature</button>
+          {/* {signatureImage && (
             <div>
               <div>Your Signature:</div>
-              <img src={signatureImage} alt="Signature" />
-              {/* Provide an option to download the image */}
+              {/* <img src={signatureImage} alt="Signature" />
+              {/* Provide an option to download the image
               {/* <a
                 href={signatureImage}
                 download="signature.png"
@@ -336,9 +339,9 @@ function NewPOForm() {
                 rel="noopener noreferrer"
               >
                 Download Signature
-              </a> */}
+              </a>
             </div>
-          )}
+          // )}
 
         </div>
         {/* <div><button>Signature Required</button></div> */}

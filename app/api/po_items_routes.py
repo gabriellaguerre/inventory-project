@@ -38,13 +38,22 @@ def create_purchase_order_item(itemId):
      purchase_order_item_form = PurchaseOrderItemForm()
      purchase_order_item_form['csrf_token'].data = request.cookies['csrf_token']
 
+    #  image = purchase_order_item_form['image']
+    #  quantity = purchase_order_item_form['quantity']
+    #  print(image, quantity, 'JJJJJJJJJJJJJJJJJJJJJJJJJJJJ')
+     print(purchase_order_item_form.validate_on_submit(), 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
      if purchase_order_item_form.validate_on_submit():
 
          quantity = purchase_order_item_form.data['quantity']
+         image = purchase_order_item_form['image']
+         print(quantity, image, 'HHHHHHHHHHHHHHHHHHHHHH')
 
-         image = purchase_order_item_form.data['image']
+
          image.filename = get_unique_filename(image.filename)
+         print(image.filename, 'GGGGGGGGGGGGGGGGGGGGGGGGGGG')
+
          upload = upload_file_to_s3(image)
+        #  print(upload, 'UPLOAD DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD')
 
          if "url" not in upload:
             return validation_errors_to_error_messages(upload)
@@ -55,9 +64,9 @@ def create_purchase_order_item(itemId):
          quantity1.item = Item.query.filter(Item.id == itemId).first()
          recent_purchase_order.items.append(quantity1)
          db.session.commit()
-
-         purchase_order1 = PurchaseOrder.query.get(len(all_purchase_orders)-1)
-         purchase_order_items = purchase_order1.items
+#-------------------------------------------------------------------------------------------
+        #  purchase_order1 = PurchaseOrder.query.get(len(all_purchase_orders)-1)
+        #  purchase_order_items = purchase_order1.items
 
         #  thisItem = Item.query.get(itemId)
         #  thisItem.quantity = thisItem.quantity + quantity
