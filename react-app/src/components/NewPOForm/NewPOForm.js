@@ -150,10 +150,15 @@ function NewPOForm() {
             let quantity = quantity1
 
             const canvas = canvasRef.current;
-            const signatureDataURL = canvas.toDataURL('image/png');
+            let signatureDataURL = canvas.toDataURL('image/png');
+            // setImage(canvas.toDataURL('image/png'));
 
             formData.append('image', signatureDataURL)
             formData.append('quantity', quantity)
+
+            for (const [key, value] of formData.entries()) {
+              console.log(`Key: ${key}, Value: ${value}`);
+            }
 
             await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, formData))
             .then(dispatch(POsActions.getPOS()))

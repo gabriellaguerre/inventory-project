@@ -37,7 +37,7 @@ def create_purchase_order_item(itemId):
 
      purchase_order_item_form = PurchaseOrderItemForm()
      purchase_order_item_form['csrf_token'].data = request.cookies['csrf_token']
-
+     print(purchase_order_item_form, 'QQQQQQQQQQQQQQQQQQQQ')
     #  image = purchase_order_item_form['image']
     #  quantity = purchase_order_item_form['quantity']
     #  print(image, quantity, 'JJJJJJJJJJJJJJJJJJJJJJJJJJJJ')

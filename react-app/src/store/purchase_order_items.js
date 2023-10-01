@@ -14,9 +14,9 @@ const get_po_items = (item) => ({
 // })
 
 //-------------------------------THUNKS-----------------------------------------
-export const getPOItems = (posId) => async(dispatch) => {
+export const getPOItems = (posId) => async (dispatch) => {
     const response = await fetch(`/api/purchase_order_items/${posId}`, {
-        headers: {'Content-Type': 'application/json'}
+        headers: { 'Content-Type': 'application/json' }
     })
     if (response.ok) {
         const data = await response.json()
@@ -24,29 +24,31 @@ export const getPOItems = (posId) => async(dispatch) => {
     }
 }
 
-export const createPOItem = (itemId, formData) => async(dispatch) => {
+export const createPOItem = (itemId, formData) => async (dispatch) => {
 
     const response = await fetch(`/api/purchase_order_items/${itemId}`, {
         method: 'POST',
-        // headers: {'Content-Type': 'application/json'},
-        // body: JSON.stringify({quantity})
+        headers: { 'Content-Type': 'multipart/form-data' },
         body: formData
     })
     if (response.ok) {
-        const { data } = await response.json()
-        // dispatch(create_po_item(data))
-        console.log(data)
+        const data = await response.json()
+        if (data.errors) {
+            return data.errors
+        } else {
+            return
+        }
     } else {
-        console.log("There was an error making your Purchase Order!")
+        return ["There was an error making your Purchase Order!"]
     }
 }
 
-export const editPOItem = (poId, itemId, {quantity}) => async(dispatch) => {
+export const editPOItem = (poId, itemId, { quantity }) => async (dispatch) => {
 
     const response = await fetch(`/api/purchase_order_items/${poId}/${itemId}`, {
         method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({quantity})
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ quantity })
     })
     if (response.ok) {
         // const data = await response.json()
@@ -60,9 +62,9 @@ export const editPOItem = (poId, itemId, {quantity}) => async(dispatch) => {
 
 const initialState = {}
 
-export default function reducer (state = initialState, action) {
-    const newState = {...state}
-    switch(action.type) {
+export default function reducer(state = initialState, action) {
+    const newState = { ...state }
+    switch (action.type) {
         case GET_PURCHASE_ORDER_ITEMS:
             action.payload.purchase_order_items.forEach(purchase_order_item => newState[purchase_order_item.id] = purchase_order_item);
             return newState;

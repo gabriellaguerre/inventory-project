@@ -7,4 +7,4 @@ from wtforms.validators import DataRequired
 
 class PurchaseOrderItemForm(FlaskForm):
    quantity = IntegerField('quantity', validators=[DataRequired()])
-   image = FileField("Image File", validators=[FileRequired()])
+   image = FileField("image", validators=[FileRequired()])
