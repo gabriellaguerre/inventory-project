@@ -27,7 +27,7 @@ function NewPOForm() {
     const [quantity3, setQuantity3] = useState('')
     const [errors, setErrors] = useState([])
     const [isDrawing, setIsDrawing] = useState(false);
-    const [image, setImage] = useState('');
+    // const [image, setImage] = useState('');
     const [disabled, setDisabled] = useState(false)
 
     const itemList = useSelector(state => Object.values(state.items).filter(item => item.deleted === false))
@@ -146,19 +146,20 @@ function NewPOForm() {
 
 
         } else if (itemId1 && +quantity1 ) {
+
             let itemId = itemId1
             let quantity = quantity1
 
             const canvas = canvasRef.current;
             let signatureDataURL = canvas.toDataURL('image/png');
-            // setImage(canvas.toDataURL('image/png'));
 
-            formData.append('image', signatureDataURL)
+            const parts = signatureDataURL.split(",");
+
+            const base64Content = parts[1];
+
+            formData.append('image', base64Content)
             formData.append('quantity', quantity)
 
-            for (const [key, value] of formData.entries()) {
-              console.log(`Key: ${key}, Value: ${value}`);
-            }
 
             await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, formData))
             .then(dispatch(POsActions.getPOS()))
@@ -235,6 +236,10 @@ function NewPOForm() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       };
 
+      // const addPadding = (imageData) => {
+      //   const padding = '='.repeat((4 - (imageData.length % 4)) % 4);
+      //   return `${imageData}${padding}`;
+      // };
 
     return (
         <>
@@ -326,9 +331,15 @@ function NewPOForm() {
             onMouseDown={startDrawing}
             onMouseMove={draw}
             onMouseUp={endDrawing}
-            type='file'
+            // type='file'
             accept='image/*'
           />
+           {/* File input field for uploading the signature */}
+          {/* <input
+          type="file"
+          name="image"
+          accept="image/*"
+          /> */}
           </div>
 
           {/* <button onClick={saveSignature}>Save Signature</button>

@@ -44,6 +44,7 @@ def create_purchase_order():
 def edit_purchase_order(posId):
      purchase_order = PurchaseOrder.query.get(posId)
      purchase_order.received = True
+     purchase_order.updatedAt = datetime.now()
      db.session.commit()
 
      return purchase_order.to_dict()

@@ -1,3 +1,5 @@
+import base64
+import io
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import PurchaseOrder, Item, PurchaseOrderItems, db
@@ -34,48 +36,48 @@ def create_purchase_order_item(itemId):
      all_purchase_orders = PurchaseOrder.query.all()
      recent_purchase_order = all_purchase_orders[len(all_purchase_orders)-1]
 
-
      purchase_order_item_form = PurchaseOrderItemForm()
      purchase_order_item_form['csrf_token'].data = request.cookies['csrf_token']
-     print(purchase_order_item_form, 'QQQQQQQQQQQQQQQQQQQQ')
-    #  image = purchase_order_item_form['image']
-    #  quantity = purchase_order_item_form['quantity']
-    #  print(image, quantity, 'JJJJJJJJJJJJJJJJJJJJJJJJJJJJ')
-     print(purchase_order_item_form.validate_on_submit(), 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+
      if purchase_order_item_form.validate_on_submit():
 
+         # Get any other form data
          quantity = purchase_order_item_form.data['quantity']
-         image = purchase_order_item_form['image']
-         print(quantity, image, 'HHHHHHHHHHHHHHHHHHHHHH')
 
+         # Get the image data as a base64 string
+         image_data = request.form['image']
 
-         image.filename = get_unique_filename(image.filename)
-         print(image.filename, 'GGGGGGGGGGGGGGGGGGGGGGGGGGG')
+         #Decode the base64-encoded image data into bytes
+         image_bytes = base64.b64decode(image_data)
 
-         upload = upload_file_to_s3(image)
-        #  print(upload, 'UPLOAD DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD')
+         # Generate a unique filename for the image
+         filename = get_unique_filename('image.png')
+
+         # Create a file-like object from the image bytes
+         image_file = io.BytesIO(image_bytes)
+         image_file.filename = filename
+         image_file.content_type = 'image/png'
+
+        # Upload the image to S3
+         upload = upload_file_to_s3(image_file)
 
          if "url" not in upload:
-            return validation_errors_to_error_messages(upload)
+                return validation_errors_to_error_messages(upload)
 
-         url = upload['url']
-
+         url = upload["url"]
          quantity1 = PurchaseOrderItems(quantity = quantity, image = url)
          quantity1.item = Item.query.filter(Item.id == itemId).first()
          recent_purchase_order.items.append(quantity1)
          db.session.commit()
-#-------------------------------------------------------------------------------------------
-        #  purchase_order1 = PurchaseOrder.query.get(len(all_purchase_orders)-1)
-        #  purchase_order_items = purchase_order1.items
 
-        #  thisItem = Item.query.get(itemId)
-        #  thisItem.quantity = thisItem.quantity + quantity
-        #  db.session.commit()
+         purchase_order1 = PurchaseOrder.query.get(len(all_purchase_orders)-1)
+         purchase_order_items = purchase_order1.items
+
 
          return {'purchase_order_items': [purchase_order_item.to_dict() for purchase_order_item in purchase_order_items]}
 
 
-    #  return {'message': 'successful'}
+    # return {'message': 'successful'}
 
      return validation_errors_to_error_messages(purchase_order_item_form.errors)
 

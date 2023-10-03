@@ -49,13 +49,15 @@ def create_item():
         # return {'message': 'successfully created item'}
     return {'errors':validation_errors_to_error_messages(item_form.errors)}
 
-#------------------------------EDIT ITEMS OF A PO------------------------
+#------------------------------EDIT ITEMS OF A PO (RECEIVE PO)------------------------
 @item_routes.route('/po_edit/<int:itemId>/<int:quantity>', methods=['PUT'])
 # @login_required
 def edit_quantity_of_an_item(itemId, quantity):
 
     item = Item.query.get(itemId)
     item.quantity = item.quantity + quantity
+    item.total_value = item.quantity*item.unit_cost
+    item.updatedAt = datetime.now()
 
     db.session.commit()
     return item.to_dict()

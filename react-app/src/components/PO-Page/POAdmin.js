@@ -64,9 +64,9 @@ return (
          {purchase_orders.map(pos =>
          <tr key={pos.id} className='requestBox'>
         {pos.received ? (
-            <td><div>received</div></td>
-        ): (
-            <td><div>open</div></td>
+            <td><div id='received'>received</div></td>
+        ):(
+            <td><div id='open'>open</div></td>
         )}
         <td>{pos.id}</td>
         <td>{pos.createdAt}</td>

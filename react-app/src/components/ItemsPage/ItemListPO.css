@@ -22,6 +22,12 @@
     font-family: sans-serif;
   }
 
+  .createdBy {
+    color: rgb(180, 180, 240);
+    text-align: center;
+    font-family: sans-serif;
+  }
+
   .poTable {
     border-collapse: collapse;
     margin: 25px 0;
@@ -65,7 +71,7 @@
 
 .receive {
     background-color: rgb(76, 76, 109);
-    width: 80px;
+    width: 150px;
     height: 40px;
     border-radius: 20px;
     cursor: pointer;
@@ -97,4 +103,20 @@
     background-color: rgb(180, 180, 240);
     color: rgb(0, 0, 95);
     border: 2px solid rgb(0, 0, 95);
+}
+
+.signBy {
+  color: rgb(180, 180, 240);
+  /* font-weight: bold; */
+}
+
+.sigImg {
+  background-color: rgb(180, 180, 240);
+  border-radius: 10px;
+}
+
+.received {
+  color: rgb(180, 180, 240);
+  margin: 10px;
+  font-weight: bold;
 }

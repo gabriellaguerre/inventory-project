@@ -37,7 +37,7 @@ class Item(db.Model):
             'code': self.code,
             'description': self.description,
             'unit_cost': ('{:,.2f}'.format(self.unit_cost)),
-            'quantity': self.quantity,
+            'quantity': ('{:,}'.format(self.quantity)),
             'total_value': ('{:,.2f}'.format(self.total_value)),
             'item_type': self.item_type,
             'manufacturer': self.manufacturer,
