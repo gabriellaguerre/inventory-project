@@ -83,23 +83,10 @@
 
 .voidButton {
     text-align: center;
-    margin: 10px;
 }
 
 .voided {
     color: red;
     font-weight: bold;
     text-align: center;
-    margin: 10px;
-
-}
-
-.signBy {
-  color: rgb(180, 180, 240);
-  /* font-weight: bold; */
-}
-
-.sigImg {
-  background-color: rgb(180, 180, 240);
-  border-radius: 10px;
 }

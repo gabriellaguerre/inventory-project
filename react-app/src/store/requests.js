@@ -47,16 +47,19 @@ export const getOneRequest = (requestId) => async(dispatch) => {
     }
 }
 
-export const createRequest = (formData) =>  async (dispatch) => {
+export const createRequest = () =>  async (dispatch) => {
     const response = await fetch(`/api/requests`, {
         method: 'POST',
-        // headers: {'Content-Type': 'application/json'},
-        body: formData
+        headers: {'Content-Type': 'application/json'},
     })
 
     if (response.ok) {
         const data = await response.json()
-        dispatch(create_request(data))
+        if(data.errors) {
+            return data.errors
+        } else {
+            dispatch(create_request(data))
+        }
     }
 }
 

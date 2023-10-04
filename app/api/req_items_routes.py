@@ -1,11 +1,8 @@
-import base64
-import io
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Request, Item, RequestItems, db
 from app.forms import RequestItemForm
 from datetime import datetime
-from app.api.aws_helper_sig import upload_file_to_s3, get_unique_filename
 
 request_items_routes = Blueprint('request_items', __name__)
 
@@ -52,28 +49,6 @@ def create_request_item(itemId):
 
          quantity = request_item_form.data['quantity']
 
-        #  # Get the image data as a base64 string
-        #  image_data = request.form['image']
-
-        #  #Decode the base64-encoded image data into bytes
-        #  image_bytes = base64.b64decode(image_data)
-
-        #  # Generate a unique filename for the image
-        #  filename = get_unique_filename('image.png')
-
-        #  # Create a file-like object from the image bytes
-        #  image_file = io.BytesIO(image_bytes)
-        #  image_file.filename = filename
-        #  image_file.content_type = 'image/png'
-
-        # # Upload the image to S3
-        #  upload = upload_file_to_s3(image_file)
-
-        #  if "url" not in upload:
-        #         return validation_errors_to_error_messages(upload)
-
-        #  url = upload["url"]
-
          quantity1 = RequestItems(quantity = quantity)
          quantity1.item = Item.query.filter(Item.id == itemId).first()
          recent_request.items.append(quantity1)
@@ -81,6 +56,10 @@ def create_request_item(itemId):
 
          request1 = Request.query.get(len(all_requests)-1)
          request_items = request1.items
+
+         thisItem = Item.query.get(itemId)
+         thisItem.quantity = thisItem.quantity - quantity
+         db.session.commit()
 
          return {'request_items': [request_item.to_dict() for request_item in request_items]}
 

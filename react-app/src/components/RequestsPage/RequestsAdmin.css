@@ -80,16 +80,3 @@ body {
     background-color: white;
     color: black;
 }
-
-#voided {
-    background-color: red;
-    border-radius: 30px;
-    color: white;
-    height: 30px;
-    text-align: center;
-    line-height: 30px;
-}
-
-#applied {
-    text-align: center;
-}

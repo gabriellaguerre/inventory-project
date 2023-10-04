@@ -7,7 +7,7 @@ from .purchase_orders import seed_purchase_orders, undo_purchase_orders
 from .supplier_items import seed_supplier_items, undo_supplier_items
 from .request_items import seed_request_items, undo_request_items
 from .purchase_order_items import seed_purchase_order_items, undo_purchase_order_items
-
+# from .purchase_order_items import seed_purchase_order_items, undo_purchase_order_items
 
 
 from app.models.db import db, environment, SCHEMA
