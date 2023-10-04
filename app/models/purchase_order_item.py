@@ -5,13 +5,13 @@ class PurchaseOrderItems(db.Model):
         __tablename__ = 'purchase_order_items'
 
         if environment == 'production':
-         __table_args__ = {'schema': SCHEMA}
+                __table_args__ = {'schema': SCHEMA}
 
         id = db.Column(db.Integer, primary_key=True)
         purchase_orderId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('purchase_orders.id')), nullable=False)
         itemId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
         quantity = db.Column(db.Integer)
-        image = db.Column(db.String)
+
 
         item = db.relationship('Item', back_populates = 'purchase_orders')
         purchase_order = db.relationship('PurchaseOrder', back_populates = 'items')
@@ -22,7 +22,7 @@ class PurchaseOrderItems(db.Model):
                   'purchase_orderId': self.purchase_orderId,
                   'itemId': self.itemId,
                   'quantity': self.quantity,
-                  'image': self.image
+                 
                 #   'createdAt': self.createdAt,
                 #   'updatedAt': self.updatedAt
         }

@@ -6,12 +6,13 @@ class RequestItems(db.Model):
         __tablename__ = 'request_items'
 
         if environment == 'production':
-         __table_args__ = {'schema': SCHEMA}
+                __table_args__ = {'schema': SCHEMA}
 
         id = db.Column(db.Integer, primary_key=True)
         requestId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('requests.id')), nullable=False)
         itemId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
         quantity = db.Column(db.Integer)
+        image = db.Column(db.String)
 
         item = db.relationship('Item', back_populates = 'requests')
         request = db.relationship('Request', back_populates = 'items')
@@ -22,6 +23,7 @@ class RequestItems(db.Model):
                   'requestId': self.requestId,
                   'itemId': self.itemId,
                   'quantity': self.quantity,
+                  'image': self.image
                 #   'createdAt': self.createdAt,
                 #   'updatedAt': self.updatedAt
         }

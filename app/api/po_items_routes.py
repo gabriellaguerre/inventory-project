@@ -44,28 +44,29 @@ def create_purchase_order_item(itemId):
          # Get any other form data
          quantity = purchase_order_item_form.data['quantity']
 
-         # Get the image data as a base64 string
-         image_data = request.form['image']
+        #  # Get the image data as a base64 string
+        #  image_data = request.form['image']
 
-         #Decode the base64-encoded image data into bytes
-         image_bytes = base64.b64decode(image_data)
+        #  #Decode the base64-encoded image data into bytes
+        #  image_bytes = base64.b64decode(image_data)
 
-         # Generate a unique filename for the image
-         filename = get_unique_filename('image.png')
+        #  # Generate a unique filename for the image
+        #  filename = get_unique_filename('image.png')
 
-         # Create a file-like object from the image bytes
-         image_file = io.BytesIO(image_bytes)
-         image_file.filename = filename
-         image_file.content_type = 'image/png'
+        #  # Create a file-like object from the image bytes
+        #  image_file = io.BytesIO(image_bytes)
+        #  image_file.filename = filename
+        #  image_file.content_type = 'image/png'
 
-        # Upload the image to S3
-         upload = upload_file_to_s3(image_file)
+        # # Upload the image to S3
+        #  upload = upload_file_to_s3(image_file)
 
-         if "url" not in upload:
-                return validation_errors_to_error_messages(upload)
+        #  if "url" not in upload:
+        #         return validation_errors_to_error_messages(upload)
 
-         url = upload["url"]
-         quantity1 = PurchaseOrderItems(quantity = quantity, image = url)
+        #  url = upload["url"]
+
+         quantity1 = PurchaseOrderItems(quantity = quantity)
          quantity1.item = Item.query.filter(Item.id == itemId).first()
          recent_purchase_order.items.append(quantity1)
          db.session.commit()
@@ -75,9 +76,6 @@ def create_purchase_order_item(itemId):
 
 
          return {'purchase_order_items': [purchase_order_item.to_dict() for purchase_order_item in purchase_order_items]}
-
-
-    # return {'message': 'successful'}
 
      return validation_errors_to_error_messages(purchase_order_item_form.errors)
 
