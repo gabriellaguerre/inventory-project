@@ -6,5 +6,4 @@ from wtforms.validators import DataRequired
 
 
 class RequestItemForm(FlaskForm):
-       quantity = IntegerField('quantity', validatotors=[DataRequired()])
-       # image = FileField("Image File", validators=[FileRequired()])
+       quantity = IntegerField('quantity', validators=[DataRequired()])

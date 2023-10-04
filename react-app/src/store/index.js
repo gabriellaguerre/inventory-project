@@ -11,7 +11,7 @@ import purchase_order_items from './purchase_order_items';
 import signature from './signature';
 
 const rootReducer = combineReducers({
-  session, user, items, suppliers, requests, purchase_orders, request_items, purchase_order_items, signature
+  session, user, items, suppliers, requests, purchase_orders, request_items, purchase_order_items
 });
 
 
