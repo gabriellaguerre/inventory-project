@@ -3,7 +3,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import * as ItemsActions from '../../store/items'
 import * as POITEMsActions from '../../store/purchase_order_items'
 import * as POsActions from '../../store/purchase_orders';
-// import { useModal } from "../../context/Modal";
 import OpenModalButton from '../OpenModalButton';
 import EditItemListPO from '../EditItemListPO/EditItemListPO'
 import './ItemListPO.css'
@@ -56,8 +55,8 @@ function ItemListPO({posId}) {
                 </tbody>
             </table>
             <div className='signBy'>Signed By: {user[po.userId]?.employeeID}</div>
-            {poItems[0]?.image && (
-              <img className='sigImg' alt='' src={poItems[0]?.image} />
+            {po?.image && (
+              <img className='sigImg' alt='' src={po?.image} />
             )}
 
             <div className='poButtons'>

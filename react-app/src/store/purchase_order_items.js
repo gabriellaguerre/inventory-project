@@ -24,15 +24,12 @@ export const getPOItems = (posId) => async (dispatch) => {
     }
 }
 
-export const createPOItem = (itemId, formData) => async (dispatch) => {
-    for (const [key, value] of formData.entries()) {
-        console.log(`Key: ${key}, Value: ${value}`);
-      }
-      
+export const createPOItem = (itemId, {quantity}) => async (dispatch) => {
+
     const response = await fetch(`/api/purchase_order_items/${itemId}`, {
         method: 'POST',
-        // headers: { 'Content-Type': 'multipart/form-data' },
-        body: formData
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({quantity})
     })
     if (response.ok) {
         const data = await response.json()

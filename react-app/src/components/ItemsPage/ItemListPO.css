@@ -1,122 +1,122 @@
 .poTableContainer {
-    display: flex;
-    flex-direction: column;
-    width: 500px;
-    height: auto;
-    border-radius: 30px;
-    background-color: rgb(70, 70, 95);
-    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
-    padding: 25px;
-  }
-
-  .titlePOid {
-    color: orange;
-    text-align: center;
-    font-size: 30px;
-    font-family: sans-serif;
-  }
-
-  .created {
-    color: rgb(180, 180, 240);
-    text-align: center;
-    font-family: sans-serif;
-  }
-
-  .createdBy {
-    color: rgb(180, 180, 240);
-    text-align: center;
-    font-family: sans-serif;
-  }
-
-  .poTable {
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    border-radius: 5px 5px 5px 5px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 500px;
-    overflow: hidden;
-    box-shadow: 0 20px 30px rgba(0,0,0,0.50)
-  }
-
-  .poTable thead tr.labels {
-    background-color: rgb(0, 0, 95);
-    color: rgb(180, 180, 240);
-    font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: auto;
+  border-radius: 30px;
+  background-color: rgb(70, 70, 95);
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+  padding: 25px;
 }
 
-.poTable tbody {
+.titlePOid {
+  color: orange;
+  text-align: center;
+  font-size: 30px;
   font-family: sans-serif;
 }
 
+.created {
+  color: rgb(180, 180, 240);
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.createdBy {
+  color: rgb(180, 180, 240);
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.poTable {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  border-radius: 5px 5px 5px 5px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  overflow: hidden;
+  box-shadow: 0 20px 30px rgba(0,0,0,0.50)
+}
+
+.poTable thead tr.labels {
+  background-color: rgb(0, 0, 95);
+  color: rgb(180, 180, 240);
+  font-family: sans-serif;
+}
+
+.poTable tbody {
+font-family: sans-serif;
+}
+
 .poTable td {
-  padding: 12px 15px;
+padding: 12px 15px;
 }
 
 
 .poTable tbody tr:nth-of-type(even) {
-  background-color: rgb(180, 180, 240);
-  color:  rgb(0, 0, 95);
+background-color: rgb(180, 180, 240);
+color:  rgb(0, 0, 95);
 }
 
 .poTable tbody tr:nth-of-type(odd) {
-  background-color:rgb(76, 76, 109);
-  color:  rgb(180, 180, 240);
+background-color:rgb(76, 76, 109);
+color:  rgb(180, 180, 240);
 }
 
 .poButtons {
-    text-align: center;
+  text-align: center;
 }
 
 .receive {
-    background-color: rgb(76, 76, 109);
-    width: 150px;
-    height: 40px;
-    border-radius: 20px;
-    cursor: pointer;
-    color: rgb(180, 180, 240);
-    border:2px solid rgb(180, 180, 240);
-    font-weight: bold;
+  background-color: rgb(76, 76, 109);
+  width: 150px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: rgb(180, 180, 240);
+  border:2px solid rgb(180, 180, 240);
+  font-weight: bold;
 }
 
 .receive:hover {
-    background-color: white;
-    font-weight: bold;
-    border:2px solid rgb(0, 0, 95);
-    color: rgb(0, 0, 95);
+  background-color: white;
+  font-weight: bold;
+  border:2px solid rgb(0, 0, 95);
+  color: rgb(0, 0, 95);
 }
 
 .editPObutton {
-    background-color: rgb(0, 0, 95);
-    width: 150px;
-    height: 40px;
-    border-radius: 20px;
-    cursor: pointer;
-    color: rgb(180, 180, 240);
-    border:2px solid rgb(180, 180, 240);
-    font-weight: bold;
-    margin: 10px;
+  background-color: rgb(0, 0, 95);
+  width: 150px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: rgb(180, 180, 240);
+  border:2px solid rgb(180, 180, 240);
+  font-weight: bold;
+  margin: 10px;
 }
 
 .editPObutton:hover {
-    background-color: rgb(180, 180, 240);
-    color: rgb(0, 0, 95);
-    border: 2px solid rgb(0, 0, 95);
+  background-color: rgb(180, 180, 240);
+  color: rgb(0, 0, 95);
+  border: 2px solid rgb(0, 0, 95);
 }
 
 .signBy {
-  color: rgb(180, 180, 240);
-  /* font-weight: bold; */
+color: rgb(180, 180, 240);
+/* font-weight: bold; */
 }
 
 .sigImg {
-  background-color: rgb(180, 180, 240);
-  border-radius: 10px;
+background-color: rgb(180, 180, 240);
+border-radius: 10px;
 }
 
 .received {
-  color: rgb(180, 180, 240);
-  margin: 10px;
-  font-weight: bold;
+color: rgb(180, 180, 240);
+margin: 10px;
+font-weight: bold;
 }
