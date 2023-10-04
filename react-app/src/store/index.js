@@ -8,10 +8,10 @@ import user from './user';
 import purchase_orders from './purchase_orders';
 import request_items from './request_items'
 import purchase_order_items from './purchase_order_items';
-import signature from './signature';
+
 
 const rootReducer = combineReducers({
-  session, user, items, suppliers, requests, purchase_orders, request_items, purchase_order_items, signature
+  session, user, items, suppliers, requests, purchase_orders, request_items, purchase_order_items
 });
 
 

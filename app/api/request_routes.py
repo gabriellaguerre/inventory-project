@@ -1,8 +1,11 @@
+import base64
+import io
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Request, Item, RequestItems, db
 from app.forms import RequestItemForm
 from datetime import datetime
+from app.api.aws_helper_sig import upload_file_to_s3, get_unique_filename
 
 request_routes = Blueprint('requests', __name__)
 
@@ -36,17 +39,37 @@ def get_a_request(requestId):
 @request_routes.route('', methods=['POST'])
 # @login_required
 def create_request():
+    # Get the image data as a base64 string
+    image_data = request.form['image']
 
-        request = Request(voided = False,
-                          userId = current_user.id)
-        db.session.add(request)
+    if (image_data):
+        #Decode the base64-encoded image data into bytes
+        image_bytes = base64.b64decode(image_data)
+
+        # Generate a unique filename for the image
+        filename = get_unique_filename('image.png')
+
+        # Create a file-like object from the image bytes
+        image_file = io.BytesIO(image_bytes)
+        image_file.filename = filename
+        image_file.content_type = 'image/png'
+
+        # Upload the image to S3
+        upload = upload_file_to_s3(image_file)
+
+        if "url" not in upload:
+            return validation_errors_to_error_messages(upload)
+
+        url = upload["url"]
+        request1 = Request(voided = False,
+                          userId = current_user.id,
+                          image = url)
+        db.session.add(request1)
         db.session.commit()
 
-        # return {'message': 'successfull'}
-        return request.to_dict()
 
-    # return validation_errors_to_error_messages(request_form.errors)
-
+        return request1.to_dict()
+    return {'message': 'something went wrong'}
 
 # ------------------------------------EDIT REQUEST------------------------
 @request_routes.route('/<int:requestId>', methods=['PUT'])
@@ -58,5 +81,3 @@ def edit_request(requestId):
     db.session.commit()
 
     return request.to_dict()
-        # return {'message': 'successfully created item'}
-    return validation_errors_to_error_messages(item_form.errors)

@@ -56,8 +56,8 @@ function ItemListPO({posId}) {
                 </tbody>
             </table>
             <div className='signBy'>Signed By: {user[po.userId]?.employeeID}</div>
-            {poItems[0]?.image && (
-              <img className='sigImg' alt='' src={poItems[0]?.image} />
+            {po?.image && (
+              <img className='sigImg' alt='' src={po?.image} />
             )}
 
             <div className='poButtons'>

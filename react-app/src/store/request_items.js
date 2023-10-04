@@ -8,10 +8,10 @@ const get_request_items = (item) => ({
     payload: item
 })
 
-const create_request_item = (reqitem) => ({
-    type: CREATE_REQ_ITEM,
-    payload: reqitem
-})
+// const create_request_item = (reqitem) => ({
+//     type: CREATE_REQ_ITEM,
+//     payload: reqitem
+// })
 
 //-------------------------------THUNKS-----------------------------------------
 export const getRequestItems = (requestId) => async(dispatch) => {
@@ -32,13 +32,15 @@ export const createRequestItem = (itemId, {quantity}) => async(dispatch) => {
         body: JSON.stringify({quantity})
     })
     if (response.ok) {
-        // const data = await response.json()
-        // if(data.errors) {
-        //     return data.errors
-        // } else {
-        // dispatch(create_request_item(data))
-      return
-  }
+        const data = await response.json()
+        if (data.errors) {
+            return data.errors
+        } else {
+            return
+        }
+    } else {
+        return ["There was an error making your Request!"]
+    }
 }
 
 //------------------------------REDUCER FXN------------------------------------

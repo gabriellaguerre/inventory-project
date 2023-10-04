@@ -22,6 +22,7 @@ function ItemListReq({requestId}) {
     const requestItems = useSelector(state => (Object.values(state.request_items)).filter(requestitem => requestitem.requestId === requestId));
     const request = useSelector(state=>state.requests[requestId])
     const item = useSelector(state=> state.items)
+    const user = useSelector(state => state.user)
 
 
     const handleVoid = (requestId) => {
@@ -38,7 +39,8 @@ function ItemListReq({requestId}) {
             <>
             <div className='reqTableContainer'>
             <div className='titleReqid'>Request ID: {request.id}</div>
-            <div className='createdReq'>Created: {request.createdAt}</div>
+            <div className='createdReq'>Date Created: {request.createdAt}</div>
+            <div className='createdBy'>Created By: {user[request.userId]?.employeeID}</div>
             <table className='requestTable'>
             <thead>
                 <tr className='labels'>
@@ -50,12 +52,16 @@ function ItemListReq({requestId}) {
                 <tbody>
             {requestItems.map(requestitem =>
                 <tr key={requestitem.id} className='reqborder'>
-                <td className='name'>{item[requestitem.itemId].code}</td>
-                <td className='address'>{item[requestitem.itemId].description}</td>
+                <td className='name'>{item[requestitem.itemId]?.code}</td>
+                <td className='address'>{item[requestitem.itemId]?.description}</td>
                 <td className='quantity'>{requestitem.quantity}</td>
                 </tr>)}
                 </tbody>
             </table>
+            <div className='signBy'>Signed By: {user[request.userId]?.employeeID}</div>
+            {request?.image && (
+              <img className='sigImg' alt='' src={request?.image} />
+            )}
             {request?.voided ? (
                 <div className='voided'>VOIDED on {request.updatedAt}</div>
             ) : (
