@@ -47,19 +47,16 @@ export const getOneRequest = (requestId) => async(dispatch) => {
     }
 }
 
-export const createRequest = () =>  async (dispatch) => {
+export const createRequest = (formData) =>  async (dispatch) => {
     const response = await fetch(`/api/requests`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        // headers: {'Content-Type': 'application/json'},
+        body: formData
     })
 
     if (response.ok) {
         const data = await response.json()
-        if(data.errors) {
-            return data.errors
-        } else {
-            dispatch(create_request(data))
-        }
+        dispatch(create_request(data))
     }
 }
 
@@ -82,7 +79,6 @@ export default function reducer(state = initialState, action) {
     const newState = {...state}
     switch(action.type) {
         case GET_REQUESTS:
-            // console.log(action.payload, 'GET REQUESTS IN REDUCER OOOOOOOOOOOO')
             action.payload.requests.forEach(request => newState[request.id] = request);
             return newState;
         case GET_ONE_REQUEST:

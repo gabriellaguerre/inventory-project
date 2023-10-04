@@ -3,7 +3,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import * as ItemsActions from '../../store/items'
 import * as POITEMsActions from '../../store/purchase_order_items'
 import * as POsActions from '../../store/purchase_orders';
-// import { useModal } from "../../context/Modal";
 import OpenModalButton from '../OpenModalButton';
 import EditItemListPO from '../EditItemListPO/EditItemListPO'
 import './ItemListPO.css'
@@ -24,6 +23,7 @@ function ItemListPO({posId}) {
     const poItems = useSelector(state => (Object.values(state.purchase_order_items)).filter(positem => positem.purchase_orderId === posId));
     const po = useSelector(state=>state.purchase_orders[posId])
     const item = useSelector(state=> state.items)
+    const user = useSelector(state => state.user)
 
 
     const addPOItems = () => {
@@ -35,7 +35,8 @@ function ItemListPO({posId}) {
             <>
             <div className='poTableContainer'>
             <div className='titlePOid'>Purchase Order ID: {po.id}</div>
-            <div className='created'>Created: {po.createdAt}</div>
+            <div className='created'>Date Created: {po.createdAt}</div>
+            <div className='createdBy'>Created By: {user[po.userId]?.employeeID}</div>
             <table className='poTable'>
                 <thead>
                 <tr className='labels'>
@@ -53,18 +54,24 @@ function ItemListPO({posId}) {
                 </tr>)}
                 </tbody>
             </table>
+            <div className='signBy'>Signed By: {user[po.userId]?.employeeID}</div>
+            {po?.image && (
+              <img className='sigImg' alt='' src={po?.image} />
+            )}
+
             <div className='poButtons'>
             {po.received ? (
-                <div className='received'>Received on {po.updatedAt}</div>
+                <div className='received'>** Received on {po.updatedAt} **</div>
             ):(
-                <button className='receive' onClick={()=>addPOItems() }>Receive</button>
+                <button className='receive' onClick={()=>addPOItems() }>Receive Items</button>
             )}
-            <div>
+
+            <span>
             {!po.received &&
               <button className='editPObutton'><OpenModalButton
               buttonText='Edit Purchase Order'
               modalComponent={<EditItemListPO posId={posId}/>}/> </button>}
-            </div>
+            </span>
             </div>
             </div>
             </>

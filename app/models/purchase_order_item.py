@@ -12,6 +12,7 @@ class PurchaseOrderItems(db.Model):
         itemId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
         quantity = db.Column(db.Integer)
 
+
         item = db.relationship('Item', back_populates = 'purchase_orders')
         purchase_order = db.relationship('PurchaseOrder', back_populates = 'items')
 
@@ -21,6 +22,7 @@ class PurchaseOrderItems(db.Model):
                   'purchase_orderId': self.purchase_orderId,
                   'itemId': self.itemId,
                   'quantity': self.quantity,
+                  
                 #   'createdAt': self.createdAt,
                 #   'updatedAt': self.updatedAt
         }

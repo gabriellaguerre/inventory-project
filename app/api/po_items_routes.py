@@ -1,8 +1,11 @@
+import base64
+import io
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import PurchaseOrder, Item, PurchaseOrderItems, db
 from app.forms import RequestItemForm, PurchaseOrderItemForm
 from datetime import datetime
+from app.api.aws_helper_sig import upload_file_to_s3, get_unique_filename
 
 purchase_order_items_routes = Blueprint('purchase_order_items', __name__)
 
@@ -33,12 +36,12 @@ def create_purchase_order_item(itemId):
      all_purchase_orders = PurchaseOrder.query.all()
      recent_purchase_order = all_purchase_orders[len(all_purchase_orders)-1]
 
-
      purchase_order_item_form = PurchaseOrderItemForm()
      purchase_order_item_form['csrf_token'].data = request.cookies['csrf_token']
 
      if purchase_order_item_form.validate_on_submit():
 
+         # Get any other form data
          quantity = purchase_order_item_form.data['quantity']
 
          quantity1 = PurchaseOrderItems(quantity = quantity)
@@ -49,14 +52,11 @@ def create_purchase_order_item(itemId):
          purchase_order1 = PurchaseOrder.query.get(len(all_purchase_orders)-1)
          purchase_order_items = purchase_order1.items
 
-        #  thisItem = Item.query.get(itemId)
-        #  thisItem.quantity = thisItem.quantity + quantity
-        #  db.session.commit()
 
          return {'purchase_order_items': [purchase_order_item.to_dict() for purchase_order_item in purchase_order_items]}
 
 
-    #  return {'message': 'successful'}
+    # return {'message': 'successful'}
 
      return validation_errors_to_error_messages(purchase_order_item_form.errors)
 
@@ -81,3 +81,9 @@ def edit_purchase_order_item(poId, itemId):
 
 
     return {'message': 'successful'}
+
+
+#-------------------------- SIGNATURE -----------------------------------------------
+# @purchase_order_items_routes.route('/signature')
+# # @login_required
+# def add_signature():
