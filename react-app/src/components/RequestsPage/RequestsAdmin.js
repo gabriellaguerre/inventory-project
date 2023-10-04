@@ -63,9 +63,9 @@ return (
          {requests.map(request =>
          <tr key={request.id} className='requestBox'>
         {request.voided ? (
-            <td><div id='voided'>voided</div></td>
+            <td>voided</td>
         ):(
-            <td><div id='applied'>applied</div></td>
+            <td>applied</td>
         )}
         <td>{request.id}</td>
         <td>{request.createdAt}</td>

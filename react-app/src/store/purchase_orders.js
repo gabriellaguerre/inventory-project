@@ -32,11 +32,10 @@ export const getPOS = () => async(dispatch) => {
     }
 }
 
-export const createPurchaseOrder = (formData) =>  async (dispatch) => {
+export const createPurchaseOrder = () =>  async (dispatch) => {
     const response = await fetch(`/api/purchase_orders`, {
         method: 'POST',
-        // headers: {'Content-Type': 'application/json'},
-        body: formData
+        headers: {'Content-Type': 'application/json'},
     })
 
     if (response.ok) {

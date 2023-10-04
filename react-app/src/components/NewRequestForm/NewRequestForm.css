@@ -1,7 +1,7 @@
 .reqformmodalContainer {
     display: flex;
     flex-direction: column;
-    width: 700px;
+    width: 500px;
     height: auto;
     border-radius: 30px;
     background-color: rgb(70, 70, 95);
@@ -23,7 +23,7 @@
     border-radius: 5px 5px 5px 5px;
     margin-left: auto;
     margin-right: auto;
-    width: 700px;
+    width: 500px;
     overflow: hidden;
     box-shadow: 0 20px 30px rgba(0,0,0,0.50)
   }
