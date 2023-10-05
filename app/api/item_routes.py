@@ -17,11 +17,20 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 # ------------------------------GET ITEMS------------------------
-@item_routes.route('/')
+@item_routes.route('/<int:i>')
 # @login_required
-def get_items():
+def get_items(i):
     items = Item.query.all()
-    return {'items': [item.to_dict() for item in items]}
+    # print(i, 'iiiiiiiiiiiiiiiiiiii')
+    limit = 5
+    offset = ((i + 1) * limit)
+
+    startIndex = i * 5
+    # print(startIndex, 'TTTTTTTTTTTTTTTT')
+
+    # print(items[startIndex:offset], len(items), 'LLLLLLLLLLLLLLLLLLLLLLLLL')
+
+    return {'items': [item.to_dict() for item in items[startIndex:offset]]}
 
 
 # ------------------------------CREATE ITEM------------------------
