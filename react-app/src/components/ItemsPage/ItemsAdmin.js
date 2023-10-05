@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { NavLink } from 'react-router-dom'
 import * as ItemsActions from '../../store/items'
@@ -15,17 +15,35 @@ import './ItemsAdmin.css'
 
 function ItemsAdmin({user}) {
     const dispatch = useDispatch()
+    const [page, setPage] = useState(0)
+    const [disable, setDisable] = useState(false)
+
 
     useEffect(()=> {
-        dispatch(ItemsActions.getAllItems())
-    }, [dispatch])
+        dispatch(ItemsActions.getAllItems(page))
+    }, [dispatch, page])
 
     const items = useSelector(state => Object.values(state.items).filter(item => item.deleted === false))
+
+
+    const previous = (page) => {
+        if (page>0) dispatch(ItemsActions.resetState())
+
+    }
+
+    const next = (page) => {
+        dispatch(ItemsActions.resetState())
+    }
 
 
     return (
         <>
         {/* <h2>Inventory</h2> */}
+        <div id='pagination'>
+        <button id='previous' onClick={()=> {if (page>0) setPage(page-1); previous(page)}}>Previous</button>
+        <span id='page'>Page {page+1}</span>
+        <button id='next' onClick={()=> {if (items.length>0) setPage(page+1); next(page)}} disable={disable}>Next</button>
+        </div>
     <table className = 'items-table-admin'>
       <thead>
         <tr>
@@ -96,7 +114,7 @@ function ItemsAdmin({user}) {
         </tbody>
     </table>
 
-        </>
+    </>
     )
 }
 

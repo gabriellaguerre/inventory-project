@@ -7,6 +7,7 @@ const RESET_STATE = 'items/RESET_STATE'
 const GET_PO_ITEMS = 'items/GET_PO_ITEMS'
 
 
+
 //------------------------------DISPATCH FXNS-----------------------------
 const get_items = (items) => ({
     type: GET_ITEMS,
@@ -54,8 +55,8 @@ export const resetState = () => async (dispatch) => {
   }
 }
 
-export const getAllItems = () => async (dispatch) => {
-    const response = await fetch ('/api/items', {
+export const getAllItems = (i) => async (dispatch) => {
+    const response = await fetch (`/api/items/${i}`, {
         headers: {'Content-Type': 'application/json'}
     })
 
@@ -78,7 +79,7 @@ export const getPOItems = (posId) => async(dispatch) => {
 }
 
 export const createItem = (item) => async (dispatch) => {
-  
+
     const response = await fetch ('/api/items', {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
