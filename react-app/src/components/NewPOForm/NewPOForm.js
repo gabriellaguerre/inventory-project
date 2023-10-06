@@ -16,6 +16,7 @@ function NewPOForm() {
   const formData = new FormData();
 
   useEffect(() => {
+      dispatch(ItemsActions.resetState())
       dispatch(ItemsActions.getAllItems())
   }, [dispatch])
 
@@ -30,15 +31,21 @@ function NewPOForm() {
   const [signed, setSigned] = useState(false);
   const [disabled, setDisabled] = useState(false)
 
-  const itemList = useSelector(state => Object.values(state.items).filter(item => item.deleted === false))
+  const itemList = useSelector(state => Object.values(state.items))
   const thisItem1 = useSelector(state => state.items[itemId1])
   const thisItem2 = useSelector(state => state.items[itemId2])
   const thisItem3 = useSelector(state => state.items[itemId3])
 
+  let updatedItemList = []
+
+  for (let i = 0; i < itemList.length-1; i++){
+    let item = itemList[i]
+    updatedItemList.push(item)
+  }
 
 
   useEffect(() => {
-
+    //   console.log(itemId1, itemId2, itemId3, quantity1, quantity2, quantity3)
       if (itemId1.length === 0 && itemId2.length === 0 && itemId3.length === 0) {
           setDisabled(true)
 
@@ -260,8 +267,8 @@ function NewPOForm() {
                                       value={itemId1}
                                       onChange={e => { setItemCode1(e.target.value) }}>
                                       <option value='' disabled>(Select Item)</option>
-                                      {itemList.map(item =>
-                                          <><option value={item.id}>{item.code}</option></>)}
+                                      {updatedItemList.map(item =>
+                                          <><option value={item?.id}>{item?.code}</option></>)}
                                   </select>
                               </td>
                               <td>{thisItem1?.description}</td>
@@ -279,7 +286,7 @@ function NewPOForm() {
                                       value={itemId2}
                                       onChange={e => { setItemCode2(e.target.value) }}>
                                       <option value='' disabled>(Select Item)</option>
-                                      {itemList.map(item =>
+                                      {updatedItemList.map(item =>
                                           <><option value={item.id}>{item.code}</option></>)}
                                   </select>
                               </td>
@@ -298,7 +305,7 @@ function NewPOForm() {
                                       value={itemId3}
                                       onChange={e => { setItemCode3(e.target.value) }}>
                                       <option value='' disabled>(Select Item)</option>
-                                      {itemList.map(item =>
+                                      {updatedItemList.map(item =>
                                           <><option value={item.id} >{item.code}</option></>)}
                                   </select>
                               </td>
@@ -331,7 +338,7 @@ function NewPOForm() {
                   </div>
                   <div className='newSubmit'>
                       <button id='CreatePo' type='submit' disabled={disabled}>Submit</button>
-                      <button id='CancelPo' onClick={() => closeModal()}>Cancel</button>
+                      <button id='CancelPo' onClick={() => {closeModal(); (dispatch(ItemsActions.resetState()).then(dispatch(ItemsActions.getItemsByPage(0))))}}>Cancel</button>
 
                   </div>
               </form>

@@ -15,6 +15,7 @@ function NewRequestForm() {
     const formData = new FormData();
 
     useEffect(() => {
+        dispatch(ItemsActions.resetState())
         dispatch(ItemsActions.getAllItems())
     }, [dispatch])
 
@@ -29,11 +30,17 @@ function NewRequestForm() {
     const [signed, setSigned] = useState(false);
     const [disabled, setDisabled] = useState(false)
 
-    const itemList = useSelector(state => Object.values(state.items).filter(item => item.deleted === false))
+    const itemList = useSelector(state => Object.values(state.items))
     const thisItem1 = useSelector(state => state.items[itemId1])
     const thisItem2 = useSelector(state => state.items[itemId2])
     const thisItem3 = useSelector(state => state.items[itemId3])
 
+    let updatedItemList = []
+
+  for (let i = 0; i < itemList.length-1; i++){
+    let item = itemList[i]
+    updatedItemList.push(item)
+  }
 
     useEffect(() => {
 
@@ -252,7 +259,7 @@ function NewRequestForm() {
                                             value={itemId1}
                                             onChange={e => { setItemCode1(e.target.value) }}>
                                             <option value='' disabled>(Select Item)</option>
-                                            {itemList.map(item =>
+                                            {updatedItemList.map(item =>
                                                 <><option value={item.id}>{item.code}</option></>)}
                                         </select>
                                     </td>
@@ -271,7 +278,7 @@ function NewRequestForm() {
                                             value={itemId2}
                                             onChange={e => { setItemCode2(e.target.value) }}>
                                             <option value='' disabled>(Select Item)</option>
-                                            {itemList.map(item =>
+                                            {updatedItemList.map(item =>
                                                 <><option value={item.id}>{item.code}</option></>)}
                                         </select>
                                     </td>
@@ -290,7 +297,7 @@ function NewRequestForm() {
                                             value={itemId3}
                                             onChange={e => { setItemCode3(e.target.value) }}>
                                             <option value='' disabled>(Select Item)</option>
-                                            {itemList.map(item =>
+                                            {updatedItemList.map(item =>
                                                 <><option value={item.id} >{item.code}</option></>)}
                                         </select>
                                     </td>
@@ -323,7 +330,7 @@ function NewRequestForm() {
                         </div>
                         <div className='newSubmit'>
                             <button id='CreateReq' type='submit' disabled={disabled}>Submit</button>
-                            <button id='CancelReq' onClick={() => closeModal()}>Cancel</button>
+                            <button id='CancelReq' onClick={() => {closeModal(); (dispatch(ItemsActions.resetState()).then(dispatch(ItemsActions.getItemsByPage(0))))}}>Cancel</button>
                         </div>
                     </form>
                 </div>

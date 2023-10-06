@@ -59,6 +59,7 @@ def create_request_item(itemId):
 
          thisItem = Item.query.get(itemId)
          thisItem.quantity = thisItem.quantity - quantity
+         thisItem.total_value = thisItem.quantity*thisItem.unit_cost
          db.session.commit()
 
          return {'request_items': [request_item.to_dict() for request_item in request_items]}
