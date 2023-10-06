@@ -19,30 +19,38 @@ function ItemsAdmin({user}) {
     const [disable, setDisable] = useState(false)
 
 
+    useEffect(()=>{
+        dispatch(ItemsActions.resetState())
+        dispatch(ItemsActions.getItemsByPage(page))
+    },[dispatch, page])
+
+    const items = useSelector(state => Object.values(state.items))
+    
     useEffect(()=> {
-        dispatch(ItemsActions.getAllItems(page))
-    }, [dispatch, page])
+        if ((page+2) > items[items.length-1]) {
+            setDisable(true)
+        } else {
+            setDisable(false)
+        }
+    },[page, disable, items])
 
-    const items = useSelector(state => Object.values(state.items).filter(item => item.deleted === false))
-
+    let newItems = []
+    for (let i = 0; i < (items.length-1);i++) {
+        let item = items[i]
+        newItems.push(item)
+    }
 
     const previous = (page) => {
         if (page>0) dispatch(ItemsActions.resetState())
-
     }
-
-    const next = (page) => {
-        dispatch(ItemsActions.resetState())
-    }
-
 
     return (
         <>
         {/* <h2>Inventory</h2> */}
         <div id='pagination'>
         <button id='previous' onClick={()=> {if (page>0) setPage(page-1); previous(page)}}>Previous</button>
-        <span id='page'>Page {page+1}</span>
-        <button id='next' onClick={()=> {if (items.length>0) setPage(page+1); next(page)}} disable={disable}>Next</button>
+        <span id='page'>Page {page+1} of {' '}{items[items.length-1]}</span>
+        <button id='next' onClick={()=> {setPage(page+1);  dispatch(ItemsActions.resetState())}} disabled={disable}>Next</button>
         </div>
     <table className = 'items-table-admin'>
       <thead>
@@ -84,7 +92,7 @@ function ItemsAdmin({user}) {
         </tr>
         </thead>
         <tbody>
-             {items.map(item =>
+             {newItems.map(item =>
              <tr key={item.id} className="item">
              <td>{item.code}</td>
              <td id='description'>{item.description}</td>

@@ -3,6 +3,8 @@ from flask_login import login_required, current_user
 from app.models import Item, Request, PurchaseOrder, db
 from app.forms import ItemForm
 from datetime import datetime
+from sqlalchemy import func
+import math
 
 item_routes = Blueprint('items', __name__)
 
@@ -16,23 +18,31 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
-# ------------------------------GET ITEMS------------------------
-@item_routes.route('/<int:i>')
+# ------------------------------GET ITEMS PAGINATION------------------------
+@item_routes.route('/<int:page>')
 # @login_required
-def get_items(i):
-    items = Item.query.all()
-    # print(i, 'iiiiiiiiiiiiiiiiiiii')
+def get_items_by_page(page):
+    items = Item.query.filter(Item.deleted == False).all()
+
     limit = 5
-    offset = ((i + 1) * limit)
+    offset = ((page + 1) * limit)
+    startIndex = page * 5
 
-    startIndex = i * 5
-    # print(startIndex, 'TTTTTTTTTTTTTTTT')
+    total_pages = math.ceil(len(items)/limit)
 
-    # print(items[startIndex:offset], len(items), 'LLLLLLLLLLLLLLLLLLLLLLLLL')
+    return {'items': [item.to_dict() for item in items[startIndex:offset]], 'total_pages': total_pages }
 
-    return {'items': [item.to_dict() for item in items[startIndex:offset]]}
+    # inv_value = db.session.query(func.sum(Item.total_value)).filter(Item.deleted == False).scalar()
+    # total_units = db.session.query(func.sum(Item.quantity)).filter(Item.deleted == False).scalar()
+    # print(inv_value, total_units, 'YYYYYYYYYYYYYYYYYYYY')
 
-
+#------------------------------GET ITEMS W/O PAGINATION ------------------------
+@item_routes.route('/')
+# @login_required
+def get_all_items():
+    items = Item.query.filter(Item.deleted == False).all()
+    
+    return {'items': [item.to_dict() for item in items]}
 # ------------------------------CREATE ITEM------------------------
 @item_routes.route('', methods=['POST'])
 # @login_required

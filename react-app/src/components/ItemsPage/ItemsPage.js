@@ -2,10 +2,6 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import ItemsAdmin from './ItemsAdmin.js';
 import ItemsEmp from './ItemsEmp.js';
-// import OpenModalButton from '../OpenModalButton';
-// import NewItemForm from '../NewItemForm/NewItemForm.js'
-// import NewRequestForm from '../NewRequestForm/NewRequestForm.js';
-// import NewPOForm from '../NewPOForm/NewPOForm.js';
 import './ItemsPage.css'
 
 
@@ -14,6 +10,7 @@ function ItemsPage ({user}) {
     if(!user) {
         return <Redirect to="/" />
     }
+
 
     return (
         <>
