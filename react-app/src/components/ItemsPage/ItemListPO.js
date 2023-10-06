@@ -25,7 +25,7 @@ function ItemListPO({posId}) {
     const item = useSelector(state=> state.items)
     const user = useSelector(state => state.user)
 
-
+    
     const addPOItems = () => {
         dispatch(POsActions.editPO(posId))
         poItems.forEach(poItem => dispatch(ItemsActions.poeditItem(poItem.itemId, poItem.quantity)))

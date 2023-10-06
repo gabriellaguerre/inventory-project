@@ -1,5 +1,6 @@
 //------------------------CONSTANTS---------------------------
-const GET_ITEMS = 'items/GET_ITEMS'
+const GET_ITEMS_BY_PAGE = 'items/GET_ITEMS_BY_PAGE'
+const GET_ALL_ITEMS = 'items/GET_ALL_ITEMS'
 const CREATE_ITEM = 'items/CREATE_ITEM'
 const EDIT_ITEM = 'items/EDIT_ITEM'
 const DELETE_ITEM = 'items/DELETE_ITEM'
@@ -9,12 +10,15 @@ const GET_PO_ITEMS = 'items/GET_PO_ITEMS'
 
 
 //------------------------------DISPATCH FXNS-----------------------------
-const get_items = (items) => ({
-    type: GET_ITEMS,
+const get_items_by_page = (items) => ({
+    type: GET_ITEMS_BY_PAGE,
     payload: items
 })
 
-
+const get_all_items = (items) => ({
+    type: GET_ITEMS_BY_PAGE,
+    payload: items
+})
 
 const get_po_items = (item) => ({
     type: GET_PO_ITEMS,
@@ -55,17 +59,38 @@ export const resetState = () => async (dispatch) => {
   }
 }
 
-export const getAllItems = (i) => async (dispatch) => {
-    const response = await fetch (`/api/items/${i}`, {
+export const getItemsByPage = (page) => async (dispatch) => {
+    const response = await fetch (`/api/items/${page}`, {
         headers: {'Content-Type': 'application/json'}
     })
 
     if (response.ok) {
         const data = await response.json()
-        dispatch(get_items(data))
+        dispatch(get_items_by_page(data))
     }
 }
 
+export const getAllItems = () => async (dispatch) => {
+    const response = await fetch (`/api/items/`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(get_all_items(data))
+    }
+}
+
+export const get_value_Items = () => async (dispatch) => {
+    const response = await fetch (`/api/items/`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(get_all_items(data))
+    }
+}
 
 
 export const getPOItems = (posId) => async(dispatch) => {
@@ -152,12 +177,13 @@ const initialState = {}
 export default function reducer (state = initialState, action) {
     const newState = {...state}
     switch(action.type) {
-        case GET_ITEMS:
+        case GET_ITEMS_BY_PAGE:
+            action.payload.items.forEach(item => newState[item.id] = item);
+            newState['total_pages'] = action.payload.total_pages
+            return newState;
+        case GET_ALL_ITEMS:
             action.payload.items.forEach(item => newState[item.id] = item);
             return newState;
-        // case GET_REQUEST_ITEMS:
-        //     action.payload.items.forEach(item => newState[item.id] = item);
-        //     return newState;
         case GET_PO_ITEMS:
             action.payload.items.forEach(item => newState[item.id] = item);
             return newState;
