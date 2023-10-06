@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
 import * as ItemsActions from '../../store/items';
 import * as SuppliersActions from '../../store/suppliers'
@@ -10,12 +11,16 @@ import './NewItemForm.css'
 function NewItemForm() {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(SuppliersActions.getSuppliers())
+        dispatch(ItemsActions.resetState())
+        dispatch(ItemsActions.getAllItemsWithDeleteTrue())
     }, [dispatch])
 
     const supplierList = useSelector(state => Object.values(state.suppliers))
+    // console.log(supplierList, 'SUPPLIER')
 
 
     const [code, setCode] = useState('')
@@ -28,23 +33,43 @@ function NewItemForm() {
     const [errors, setErrors] = useState([])
     const [disabled, setDisabled] = useState(false)
 
-    const item = useSelector(state => Object.values(state.items).filter(item => item.code === (+code)))
+    // const item = useSelector(state => Object.values(state.items).filter(item => item.code === (+code)))
+    // console.log(item, 'ITEM')
+    const item = useSelector(state => (state.items))
+    const ItemArray = Object.values(item)
+    let newArray = []
+    for (let i = 0; i < ItemArray.length-1; i++){
+        let item = ItemArray[i]
+        newArray.push(item)
+    }
 
-    useEffect(() => {
-
+    useEffect(()=> {
         if (code && !+code) {
             let errors = ['Item Code should only be numbers']
             setErrors(errors)
             setDisabled(true)
+        } else {
+            setErrors([])
+            setDisabled(false)
+        }
+    },[code])
 
 
-        } else if ((+code) === item[0]?.code) {
-            let errors = ['This Item Code cannot be used.  Enter a new code']
-            setErrors(errors)
-            setDisabled(true)
 
+    // useEffect(()=> {
+    //     if ((+code) === sameCode) {
+    //         let errors = ['This Item Code cannot be used.  Enter a new code']
+    //         setErrors(errors)
+    //         setDisabled(true)
+    //     } else {
+    //         setErrors([])
+    //         setDisabled(false)
+    //     }
+    // },[code, sameCode])
 
-        } else if (unit_cost && !+unit_cost) {
+    useEffect(() => {
+
+        if (unit_cost && !+unit_cost) {
             let errors = ['Not a valid Unit Cost']
             setErrors(errors)
             setDisabled(true)
@@ -61,23 +86,38 @@ function NewItemForm() {
             setDisabled(false)
         }
 
-    }, [code, quantity, unit_cost, item])
+    }, [quantity, unit_cost])
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        const item1 = { code, description, item_type, unit_cost, quantity, manufacturer };
-        const data = await dispatch(ItemsActions.createItem(item1));
-        if (data) {
-            setErrors(data)
+        const sameCode = newArray.filter(item => item.code === (+code))
+
+        if(sameCode.length) {
+            setErrors(['This Item Code cannot be used.  Enter a new code'])
+            setDisabled(true)
         } else {
+            setErrors([])
+            setDisabled(false)
+            const item1 = { code, description, item_type, unit_cost, quantity, manufacturer };
+            const data = await dispatch(ItemsActions.createItem(item1));
+            // dispatch(ItemsActions.resetState())
             // dispatch(ItemsActions.getAllItems())
-            closeModal()
+
+            if (data) {
+                setErrors(data)
+            } else {
+            await dispatch(ItemsActions.resetState())
+            .then(await dispatch(ItemsActions.getItemsByPage(0)))
+            .then(()=> closeModal())
         }
         if (supplier) {
             dispatch(SuppliersActions.connectSupplierToNewItem(supplier))
-                .then(closeModal())
+                .then(()=>closeModal())
         }
+        }
+
+
 
     }
 

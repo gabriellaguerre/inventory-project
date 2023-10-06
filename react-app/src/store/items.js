@@ -81,8 +81,8 @@ export const getAllItems = () => async (dispatch) => {
     }
 }
 
-export const get_value_Items = () => async (dispatch) => {
-    const response = await fetch (`/api/items/`, {
+export const getAllItemsWithDeleteTrue = () => async (dispatch) => {
+    const response = await fetch (`/api/items/deletetrue`, {
         headers: {'Content-Type': 'application/json'}
     })
 
@@ -91,6 +91,17 @@ export const get_value_Items = () => async (dispatch) => {
         dispatch(get_all_items(data))
     }
 }
+
+// export const get_value_Items = () => async (dispatch) => {
+//     const response = await fetch (`/api/items/`, {
+//         headers: {'Content-Type': 'application/json'}
+//     })
+
+//     if (response.ok) {
+//         const data = await response.json()
+//         dispatch(get_all_items(data))
+//     }
+// }
 
 
 export const getPOItems = (posId) => async(dispatch) => {

@@ -40,8 +40,19 @@ def get_items_by_page(page):
 @item_routes.route('/')
 # @login_required
 def get_all_items():
+
     items = Item.query.filter(Item.deleted == False).all()
-    
+
+    return {'items': [item.to_dict() for item in items]}
+
+
+#------------------------------GET ITEMS DELETE == TRUE ------------------------
+@item_routes.route('/deletetrue')
+# @login_required
+def get_all_items_with_delete_equal_true():
+
+    items = Item.query.all()
+
     return {'items': [item.to_dict() for item in items]}
 # ------------------------------CREATE ITEM------------------------
 @item_routes.route('', methods=['POST'])
@@ -88,6 +99,7 @@ def reqitem_edit(itemId, quantity):
 
         item = Item.query.get(itemId)
         item.quantity += quantity
+        item.total_value = item.quantity*item.unit_cost
         item.updatedAt = datetime.now()
 
         db.session.commit()
