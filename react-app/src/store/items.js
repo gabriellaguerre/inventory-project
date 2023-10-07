@@ -3,7 +3,7 @@ const GET_ITEMS_BY_PAGE = 'items/GET_ITEMS_BY_PAGE'
 const GET_ALL_ITEMS = 'items/GET_ALL_ITEMS'
 const CREATE_ITEM = 'items/CREATE_ITEM'
 const EDIT_ITEM = 'items/EDIT_ITEM'
-const DELETE_ITEM = 'items/DELETE_ITEM'
+// const DELETE_ITEM = 'items/DELETE_ITEM'
 const RESET_STATE = 'items/RESET_STATE'
 const GET_PO_ITEMS = 'items/GET_PO_ITEMS'
 
@@ -40,10 +40,10 @@ const reqitem_edit = (item) => ({
     payload: item
 })
 
-const delete_item = (itemId) => ({
-    type: DELETE_ITEM,
-    payload: itemId
-})
+// const delete_item = (itemId) => ({
+//     type: DELETE_ITEM,
+//     payload: itemId
+// })
 
 const resettingState = () => ({
     type: RESET_STATE
@@ -204,9 +204,9 @@ export default function reducer (state = initialState, action) {
         case EDIT_ITEM:
             newState[action.payload.id] = action.payload;
             return newState;
-        case DELETE_ITEM:
-            delete newState[action.payload]
-            return newState;
+        // case DELETE_ITEM:
+        //     delete newState[action.payload]
+        //     return newState;
         case RESET_STATE:
             return initialState;
         default:

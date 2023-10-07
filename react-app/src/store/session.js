@@ -86,7 +86,7 @@ export const signUp = (employeeID, accessLevel, password) => async (dispatch) =>
 	});
 
 	if (response.ok) {
-		const data = await response.json();
+		// const data = await response.json();
 	//	dispatch(setUser(data));
 		return null;
 	} else if (response.status < 500) {

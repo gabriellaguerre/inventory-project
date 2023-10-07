@@ -1,6 +1,6 @@
 //------------------------CONSTANTS---------------------------
 const GET_REQUEST_ITEMS = 'request_items/GET_REQUEST_ITEMS'
-const CREATE_REQ_ITEM = 'request_items/CREATE_REQ_ITEM'
+// const CREATE_REQ_ITEM = 'request_items/CREATE_REQ_ITEM'
 
 //------------------------------DISPATCH FXNS-----------------------------
 const get_request_items = (item) => ({

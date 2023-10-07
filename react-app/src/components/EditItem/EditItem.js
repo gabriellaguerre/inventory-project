@@ -27,13 +27,7 @@ function EditItem({itemId}) {
 
     useEffect(() => {
 
-      if (unit_cost && !numericRegex.test(sanitizedString)) {
-          let errors = ['Not a valid Unit Value']
-          setErrors(errors)
-          setDisabled(true)
-
-
-      }  else if (quantity && !+quantity) {
+        if (quantity && !+quantity) {
           let errors = ['Not a valid Quantity']
           setErrors(errors)
           setDisabled(true)
@@ -42,7 +36,7 @@ function EditItem({itemId}) {
       } else {
           setErrors([])
           setDisabled(false)
-          setUnit_Cost(sanitizedString)
+
       }
 
   }, [code, quantity, unit_cost])
@@ -50,13 +44,20 @@ function EditItem({itemId}) {
     const onSubmit = async (e) => {
         e.preventDefault()
 
-         const item = {code, description, item_type, unit_cost, quantity, manufacturer};
-         const data = await dispatch(ItemsActions.editItem(item, itemId))
-         if (data) {
-            setErrors(data)
-         } else {
-         closeModal()
-       }
+        if (unit_cost && !numericRegex.test(sanitizedString)) {
+            let errors = ['Not a valid Unit Value']
+            setErrors(errors)
+            setDisabled(true)
+        } else {
+            setUnit_Cost(sanitizedString)
+            const item = {code, description, item_type, unit_cost, quantity, manufacturer};
+            const data = await dispatch(ItemsActions.editItem(item, itemId))
+            if (data) {
+               setErrors(data)
+            } else {
+            closeModal()
+          }
+        }
     }
 
 
