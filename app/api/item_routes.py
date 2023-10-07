@@ -111,11 +111,11 @@ def reqitem_edit(itemId, quantity):
 @item_routes.route('/<int:itemId>', methods=['PUT'])
 # @login_required
 def edit_item(itemId):
+    item = Item.query.get(itemId)
     item_form = ItemForm()
     item_form['csrf_token'].data = request.cookies['csrf_token']
-    if item_form.validate_on_submit():
 
-        item = Item.query.get(itemId)
+    if item_form.validate_on_submit():
 
         item.code = item_form.data['code']
         item.description = item_form.data['description']

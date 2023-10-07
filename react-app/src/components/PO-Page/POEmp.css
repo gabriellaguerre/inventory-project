@@ -70,3 +70,12 @@
 .po-table-employee thead tr td.header {
     background-color: rgb(1, 1, 46);
 }
+
+#received {
+    background-color: rgb(99, 143, 99);
+    border-radius: 30px;
+    color: yellow;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}

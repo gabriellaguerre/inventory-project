@@ -22,10 +22,13 @@ function EditItem({itemId}) {
     const [errors, setErrors] = useState([])
     const [disabled, setDisabled] = useState(false)
 
+    const sanitizedString = unit_cost.replace(/,/g, '');
+    const numericRegex = /^[0-9]+(\.[0-9]+)?$/;
+
     useEffect(() => {
 
-      if (unit_cost && !+unit_cost) {
-          let errors = ['Not a valid Unit Cost']
+      if (unit_cost && !numericRegex.test(sanitizedString)) {
+          let errors = ['Not a valid Unit Value']
           setErrors(errors)
           setDisabled(true)
 
@@ -39,6 +42,7 @@ function EditItem({itemId}) {
       } else {
           setErrors([])
           setDisabled(false)
+          setUnit_Cost(sanitizedString)
       }
 
   }, [code, quantity, unit_cost])

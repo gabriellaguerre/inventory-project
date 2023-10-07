@@ -75,3 +75,26 @@
     background-color: white;
     color: black;
 } */
+#page {
+    color: white;
+}
+
+#previous, #next {
+    color: orange;
+    cursor: pointer;
+    width: 100px;
+    background-color: rgb(1, 1, 34);
+    border: none;
+}
+
+#previous {
+    margin-right: 10px;
+}
+
+#next {
+    margin-left: 10px;
+}
+
+#pagination {
+    text-align: center;
+}
