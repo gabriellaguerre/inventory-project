@@ -27,6 +27,8 @@ werkzeug = "==2.2.2"
 wtforms = "==3.0.1"
 boto3 = "*"
 pillow = "*"
+importlib-resources = "==5.2.2"
+typing-extensions = "==3.10.0.2"
 
 [dev-packages]
 
