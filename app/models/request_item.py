@@ -6,7 +6,7 @@ class RequestItems(db.Model):
         __tablename__ = 'request_items'
 
         if environment == 'production':
-         __table_args__ = {'schema': SCHEMA}
+                __table_args__ = {'schema': SCHEMA}
 
         id = db.Column(db.Integer, primary_key=True)
         requestId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('requests.id')), nullable=False)
