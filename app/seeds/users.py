@@ -12,11 +12,11 @@ def seed_users():
     #     username='bobbie', email='bobbie@aa.io', password='password')
 
     demo = User(
-        employeeID='Demo', accessLevel='admin', password='password')
+        id=1, employeeID='Demo', accessLevel='admin', password='password')
     marnie = User(
-        employeeID='marnie', accessLevel='employee', password='password')
+        id=2, employeeID='marnie', accessLevel='employee', password='password')
     bobbie = User(
-        employeeID='bobbie', accessLevel='employee', password='password')
+        id=3, employeeID='bobbie', accessLevel='employee', password='password')
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)

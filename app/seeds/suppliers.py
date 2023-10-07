@@ -4,6 +4,7 @@ from sqlalchemy.sql import text
 
 def seed_suppliers():
     supA = Supplier(
+        id =1,
         name='Tampa Armature Works (TAW)',
         address='123 some rd, Tampa FL 00000',
         contact = 'Joe Damon',
@@ -14,6 +15,7 @@ def seed_suppliers():
     )
 
     supB = Supplier(
+        id = 2,
         name='Union Engineering',
         address='123 different rd, 7000 Fredericia, Denmark ',
         contact = 'Lisa Svorsen',
@@ -24,6 +26,7 @@ def seed_suppliers():
     )
 
     supC = Supplier(
+        id = 3,
         name='Grainger',
         address='5544 SW 3nd St Bldg 8, Pompano Beach, FL 00000',
         contact = 'Samuel Jones',
