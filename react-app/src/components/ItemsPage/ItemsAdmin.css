@@ -88,7 +88,8 @@ body {
 }
 
 .delete:hover {
-    background-color: red;
+    /* background-color: red; */
+    text-shadow: red 2px 2px;
     border-radius: 20px;
     width: 15px;
     height: 15px;
@@ -99,7 +100,8 @@ body {
 }
 
 .edit:hover {
-    background-color: rgb(180, 180, 240);
+    /* background-color: rgb(180, 180, 240); */
+    text-shadow: blue 2px 2px;
     border-radius: 20px;
 }
 
@@ -109,7 +111,8 @@ body {
 }
 
 .addsupplier:hover {
-    background-color: blue;
+    /* background-color: blue; */
+    text-shadow: blue 2px 2px;
     border-radius: 20px;
     width: 15px;
     height: 15px;
@@ -121,7 +124,8 @@ body {
 }
 
 .supList:hover {
-    background-color: orange;
+    /* background-color: orange; */
+    text-shadow: orange 2px 2px;
     border-radius: 20px;
     width: 15px;
     height: 15px;

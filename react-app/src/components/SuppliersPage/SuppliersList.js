@@ -43,7 +43,7 @@ function SuppliersList({itemId}) {
                 <div className='person'>Contact Person: {supplier.contact}</div>
                 <div className='email'>Contact Email: {supplier.email}</div>
                 <div className='cell'>Contact Cell: {supplier.cell}</div>
-                <div className='created'>Created: {supplier.createdAt}</div>
+                <div className='supCreated'>Created: {supplier.createdAt}</div>
                 </div>)}
             <button className='close'onClick={closeModal}>close</button>
 

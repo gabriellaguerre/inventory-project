@@ -14,6 +14,6 @@ class ItemForm(FlaskForm):
     description = TextAreaField('description', validators=[DataRequired()])
     item_type = StringField('item_type', validators=[DataRequired()])
     quantity = IntegerField('quantity', validators=[DataRequired()])
-    unit_cost = DecimalField('unit_cost', validators=[DataRequired()])
+    unit_cost = DecimalField('unit_cost')
     manufacturer = StringField('manufacturer', validators=[DataRequired()])
     # supplier = StringField('supplier', validators=[DataRequired()])

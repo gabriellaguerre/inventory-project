@@ -47,8 +47,10 @@
     margin: 5px;
 }
 
-.created {
+.supCreated {
     margin: 5px;
+    color: blue;
+    text-align: center;
 }
 
 .close {

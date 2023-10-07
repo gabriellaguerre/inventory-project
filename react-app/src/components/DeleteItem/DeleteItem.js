@@ -14,9 +14,11 @@ function DeleteItem({itemId}) {
 
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async () => {
         await dispatch(ItemsActions.deleteItem(itemId))
-        .then(closeModal())
+        await dispatch(ItemsActions.resetState())
+        await dispatch(ItemsActions.getItemsByPage(0))
+        closeModal()
     }
 
 
@@ -24,10 +26,10 @@ function DeleteItem({itemId}) {
 
         <div className="modalDeleteItem">
             <div id="delete-title" className="titleDeleteItem">Delete this Item ?</div>
-            <div className='dItemCode'>Item Code: {current_item[0].code}</div>
-            <div className='dItemDes'>Description: {current_item[0].description}</div>
+            <div className='dItemCode'>Item Code: {current_item[0]?.code}</div>
+            <div className='dItemDes'>Description: {current_item[0]?.description}</div>
 
-            <div className='deleteItemButton'><button  id="yesItem" onClick={e => handleSubmit(e)}>Yes</button>
+            <div className='deleteItemButton'><button  id="yesItem" onClick={() => handleSubmit()}>Yes</button>
                 <span><button id="noItem" onClick={closeModal}>No</button></span>
                 </div>
 
