@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
 import * as ItemsActions from '../../store/items';
 import * as SuppliersActions from '../../store/suppliers'
@@ -11,7 +10,7 @@ import './NewItemForm.css'
 function NewItemForm() {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
-    const history = useHistory();
+
 
     useEffect(() => {
         dispatch(SuppliersActions.getSuppliers())
