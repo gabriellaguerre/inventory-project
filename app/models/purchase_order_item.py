@@ -5,7 +5,7 @@ class PurchaseOrderItems(db.Model):
         __tablename__ = 'purchase_order_items'
 
         if environment == 'production':
-         __table_args__ = {'schema': SCHEMA}
+                __table_args__ = {'schema': SCHEMA}
 
         id = db.Column(db.Integer, primary_key=True)
         purchase_orderId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('purchase_orders.id')), nullable=False)
@@ -22,7 +22,7 @@ class PurchaseOrderItems(db.Model):
                   'purchase_orderId': self.purchase_orderId,
                   'itemId': self.itemId,
                   'quantity': self.quantity,
-                  
+
                 #   'createdAt': self.createdAt,
                 #   'updatedAt': self.updatedAt
         }
