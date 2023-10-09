@@ -1,8 +1,8 @@
-"""migration
+"""retrying migrations
 
-Revision ID: 58089e7b7ab4
+Revision ID: 6f5a0bab37fd
 Revises:
-Create Date: 2023-10-07 11:50:38.636748
+Create Date: 2023-10-09 11:18:46.596369
 
 """
 from alembic import op
@@ -11,9 +11,8 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get('SCHEMA')
 
-
 # revision identifiers, used by Alembic.
-revision = '58089e7b7ab4'
+revision = '6f5a0bab37fd'
 down_revision = None
 branch_labels = None
 depends_on = None
