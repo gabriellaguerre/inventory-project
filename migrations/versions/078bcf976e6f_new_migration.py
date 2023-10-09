@@ -1,18 +1,16 @@
-"""retrying migrations
+"""new migration
 
-Revision ID: 6f5a0bab37fd
-Revises:
-Create Date: 2023-10-09 11:18:46.596369
+Revision ID: 078bcf976e6f
+Revises: 
+Create Date: 2023-10-09 12:07:30.933251
 
 """
 from alembic import op
 import sqlalchemy as sa
-import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get('SCHEMA')
+
 
 # revision identifiers, used by Alembic.
-revision = '6f5a0bab37fd'
+revision = '078bcf976e6f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -103,15 +101,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('supplier_id', 'item_id')
     )
     # ### end Alembic commands ###
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE items SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE purchase_orders SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE requests SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE suppliers SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE purchase_order_items SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE request_items SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE supplier_items SET SCHEMA {SCHEMA};")
 
 
 def downgrade():
