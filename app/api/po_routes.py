@@ -58,6 +58,9 @@ def create_purchase_order():
             purchase_order = PurchaseOrder(received = False,
                                            userId = current_user.id,
                                            image = url)
+                                           
+            print(purchase_order, 'purchase_order')
+
             db.session.add(purchase_order)
             db.session.commit()
 
