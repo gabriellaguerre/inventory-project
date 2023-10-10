@@ -3,7 +3,6 @@ from sqlalchemy.sql import text
 
 def seed_items():
     motor = Item(
-        id =1,
         code=123,
         description='ABB 3GBP281220-ADG Product: TEFC, 3-phase, squirrel cage induction motor Product code: 3GBP 281 220-ADG',
         item_type = 'Motor',
@@ -16,7 +15,6 @@ def seed_items():
     )
 
     pt = Item(
-        id = 2,
         code=456,
         description='MPM489 pressure transmitter 1bar, 2-wire 4mA~20mA DC, 3-wire 0/1V~5/10V DC and 0.5V~2.5/4.5V DC',
         item_type = 'Pressure Transmitter',
@@ -29,7 +27,6 @@ def seed_items():
     )
 
     tt = Item(
-        id = 3,
         code=789,
         description='Temperature Sensor Transmitter 24V DC 4-20mA -50℃ to 200℃',
         item_type = 'Temperature Transmitter',
@@ -42,7 +39,6 @@ def seed_items():
     )
 
     gen1 = Item(
-        id = 4,
         code=100,
         description= 'Air Filter C18 600kw 246-5010 (LAF5569)',
         item_type = 'Generator Filter',
@@ -55,7 +51,6 @@ def seed_items():
     )
 
     gen2 = Item(
-        id = 5,
         code=101,
         description='Fuel/Water Sep C27 750kw/C18 326-1641',
         item_type = 'Generator Filter',
@@ -68,7 +63,6 @@ def seed_items():
     )
 
     servo = Item(
-        id = 6,
         code=102,
         description='Saacke Seavis FSM 025B88 (120)',
         item_type = 'Servo Motor',
@@ -81,7 +75,6 @@ def seed_items():
     )
 
     seal = Item(
-        id = 7,
         code=103,
         description='Kit Shaft Seal BAQE 96306472',
         item_type = 'Pump Shaft Seal',
@@ -94,7 +87,6 @@ def seed_items():
     )
 
     flow = Item(
-        id = 8,
         code=104,
         description='Flow Transmitter VFI-DN100',
         item_type = 'Flow Transmitter',
@@ -107,7 +99,6 @@ def seed_items():
     )
 
     pump = Item(
-        id = 9,
         code=105,
         description='FBE diesel pompe ¾',
         item_type = 'Pump',
