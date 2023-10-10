@@ -56,7 +56,7 @@ def create_purchase_order():
             print(upload, 'UPLOADDDDDDDDDDDDDDDDD')
 
             if "url" not in upload:
-                print("URL IS NOT IN UPLOADDDDDDDDDDDDDDDD")
+                print(validation_errors_to_error_messages(upload), "URL IS NOT IN UPLOADDDDDDDDDDDDDDDD")
                 return validation_errors_to_error_messages(upload)
 
             url = upload["url"]
