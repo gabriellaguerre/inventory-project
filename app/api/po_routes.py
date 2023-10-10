@@ -32,13 +32,15 @@ def get_purchase_orders():
 @po_routes.route('', methods=['POST'])
 # @login_required
 def create_purchase_order():
-
+         print("INSIDE CREATE PURCHASE ORDERRRRRRRRRRRRRRRRRRR")
        # Get the image data as a base64 string
          image_data = request.form['image']
+         print(image_data, 'image_data')
 
          if (image_data):
             #Decode the base64-encoded image data into bytes
             image_bytes = base64.b64decode(image_data)
+            print(image_bytes, 'image_bytes')
 
             # Generate a unique filename for the image
             filename = get_unique_filename('image.png')
@@ -52,13 +54,16 @@ def create_purchase_order():
             upload = upload_file_to_s3(image_file)
 
             if "url" not in upload:
+                print("URL IS NOT IN UPLOADDDDDDDDDDDDDDDD")
                 return validation_errors_to_error_messages(upload)
 
             url = upload["url"]
+            print(url, 'URLLLLLLLLLLLLLLLL')
+
             purchase_order = PurchaseOrder(received = False,
                                            userId = current_user.id,
                                            image = url)
-                                           
+
             print(purchase_order, 'purchase_order')
 
             db.session.add(purchase_order)

@@ -25,8 +25,7 @@ function ItemsAdmin({user}) {
     },[dispatch, page])
 
     const items = useSelector(state => Object.values(state.items))
-    console.log(items, 'IIIIIIIIIIIIIIIIIIIIII')
-
+   
     useEffect(()=> {
         if ((page+2) > items[items.length-1]) {
             setDisable(true)
