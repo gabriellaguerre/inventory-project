@@ -42,6 +42,9 @@ export const createPurchaseOrder = (formData) =>  async (dispatch) => {
     if (response.ok) {
         const data = await response.json()
         dispatch(create_purchase_order(data))
+        return true
+    } else {
+        return false
     }
 }
 
