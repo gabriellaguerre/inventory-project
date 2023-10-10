@@ -29,3 +29,5 @@ werkzeug==2.2.2
 wtforms==3.0.1
 boto3==1.28.25
 botocore==1.31.25
+pillow==8.2.0
+importlib-resources==5.2.2
