@@ -34,10 +34,14 @@ def get_items_of_a_purchase_order(purchaseOrderId):
 def create_purchase_order_item(itemId):
 
      all_purchase_orders = PurchaseOrder.query.all()
+     print(all_purchase_orders, 'all_purchase_orders')
+
      recent_purchase_order = all_purchase_orders[len(all_purchase_orders)-1]
+     print(recent_purchase_order, 'recent_purchase_order')
 
      purchase_order_item_form = PurchaseOrderItemForm()
      purchase_order_item_form['csrf_token'].data = request.cookies['csrf_token']
+     print(purchase_order_item_form['csrf_token'].data, 'csrf_token')
 
      if purchase_order_item_form.validate_on_submit():
 
@@ -50,7 +54,10 @@ def create_purchase_order_item(itemId):
          db.session.commit()
 
          purchase_order1 = PurchaseOrder.query.get(len(all_purchase_orders)-1)
+         print(purchase_order1, 'purchase_order1')
+
          purchase_order_items = purchase_order1.items
+         print(purchase_order_items, 'purchase_order_items')
 
 
          return {'purchase_order_items': [purchase_order_item.to_dict() for purchase_order_item in purchase_order_items]}
