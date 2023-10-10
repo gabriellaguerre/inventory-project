@@ -35,7 +35,7 @@ def create_purchase_order():
 
        # Get the image data as a base64 string
          image_data = request.form['image']
-         print(image_data, 'image_data')
+        #  print(image_data, 'image_data')
 
          if (image_data):
             #Decode the base64-encoded image data into bytes
@@ -44,29 +44,27 @@ def create_purchase_order():
 
             # Generate a unique filename for the image
             filename = get_unique_filename('image.png')
-            print(filename, 'FILENAMEEEEEEEEEEEEEEEEEEEEEE')
+            # print(filename, 'FILENAMEEEEEEEEEEEEEEEEEEEEEE')
 
             # Create a file-like object from the image bytes
             image_file = io.BytesIO(image_bytes)
             image_file.filename = filename
             image_file.content_type = 'image/png'
 
+
             # Upload the image to S3
             upload = upload_file_to_s3(image_file)
-            print(upload, 'UPLOADDDDDDDDDDDDDDDDD')
+
 
             if "url" not in upload:
-                print(validation_errors_to_error_messages(upload), "URL IS NOT IN UPLOADDDDDDDDDDDDDDDD")
                 return validation_errors_to_error_messages(upload)
 
             url = upload["url"]
-            print(url, 'URLLLLLLLLLLLLLLLL')
+
 
             purchase_order = PurchaseOrder(received = False,
                                            userId = current_user.id,
                                            image = url)
-
-            print(purchase_order, 'purchase_order')
 
             db.session.add(purchase_order)
             db.session.commit()
