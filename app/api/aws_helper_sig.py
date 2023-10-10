@@ -18,7 +18,7 @@ def get_unique_filename(filename):
 
 
 def upload_file_to_s3(file, acl="public-read"):
-    
+
     try:
         s3.upload_fileobj(
             file,
@@ -31,6 +31,7 @@ def upload_file_to_s3(file, acl="public-read"):
         )
     except Exception as e:
         # in case the your s3 upload fails
+        print(str(e), 'ERROR MESSAGE FROM S333333333333333333')
         return {"errors": str(e)}
 
     return {"url": f"{S3_LOCATION}{file.filename}"}
