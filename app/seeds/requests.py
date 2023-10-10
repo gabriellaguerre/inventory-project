@@ -4,7 +4,6 @@ from sqlalchemy.sql import text
 
 def seed_requests():
     req1 = Request(
-        id = 1,
         userId = 2,
         voided = False,
 

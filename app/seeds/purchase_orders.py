@@ -3,7 +3,6 @@ from sqlalchemy.sql import text
 
 def seed_purchase_orders():
     po1 = PurchaseOrder(
-        id = 1,
         userId = 2,
         received = False,
     )
