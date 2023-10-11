@@ -123,7 +123,7 @@ function NewPOForm() {
             }
         }
     } else {
-        setErrors(['Error processing your request'])
+        setErrors(['Error processing your purchase order'])
     }
 }
 
@@ -140,77 +140,6 @@ function NewPOForm() {
           await createPurchaseOrder()
           .then(history.push('/purchase_orders'))
           .then(closeModal())
-
-        //   await dispatch(POsActions.createPurchaseOrder(formData))
-
-        //   if (itemId1 && +quantity1 && itemId2 && +quantity2 && itemId3 && +quantity3) {
-        //       let itemId = itemId1
-        //       let quantity = quantity1
-        //       await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, { quantity }))
-        //           .then(async () => { itemId = itemId2; quantity = quantity2; await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, { quantity })) })
-        //           .then(async () => { itemId = itemId3; quantity = quantity3; await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, { quantity })) })
-        //           .then(dispatch(ItemsActions.getAllItems()))
-        //           .then(history.push('/purchase_orders'))
-        //           .then(closeModal())
-
-        //   } else if (itemId1 && +quantity1 && itemId2 && +quantity2) {
-        //       let itemId = itemId1
-        //       let quantity = quantity1
-        //       await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, { quantity }))
-        //           .then(async () => { itemId = itemId2; quantity = quantity2; await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, { quantity })) })
-        //           .then(dispatch(ItemsActions.getAllItems()))
-        //           .then(history.push('/purchase_orders'))
-        //           .then(closeModal())
-
-        //   } else if (itemId1 && +quantity1 && itemId3 && +quantity3) {
-        //       let itemId = itemId1
-        //       let quantity = quantity1
-        //       await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, { quantity }))
-        //           .then(async () => { itemId = itemId3; quantity = quantity3; await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, { quantity })) })
-        //           .then(dispatch(ItemsActions.getAllItems()))
-        //           .then(history.push('/purchase_orders'))
-        //           .then(closeModal())
-
-        //   } else if (itemId2 && +quantity2 && itemId3 && +quantity3) {
-        //       let itemId = itemId2
-        //       let quantity = quantity2
-        //       await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, { quantity }))
-        //           .then(async () => { itemId = itemId3; quantity = quantity3; await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, { quantity })) })
-        //           .then(dispatch(ItemsActions.getAllItems()))
-        //           .then(history.push('/purchase_orders'))
-        //           .then(closeModal())
-
-
-        //   } else if (itemId1 && +quantity1) {
-        //       let itemId = itemId1
-        //       let quantity = quantity1
-        //       await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, { quantity }))
-        //           .then(dispatch(POsActions.getPOS()))
-        //           .then(dispatch(ItemsActions.getAllItems()))
-        //           .then(history.push('/purchase_orders'))
-        //           .then(closeModal())
-
-        //   } else if (itemId2 && +quantity2) {
-        //       let itemId = itemId2
-        //       let quantity = quantity2
-        //       await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, { quantity }))
-        //           .then(dispatch(POsActions.getPOS()))
-        //           .then(dispatch(ItemsActions.getAllItems()))
-        //           .then(history.push('/purchase_orders'))
-        //           .then(closeModal())
-
-        //   } else if (itemId3 && +quantity3) {
-        //       let itemId = itemId3
-        //       let quantity = quantity3
-        //       await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, { quantity }))
-        //           .then(dispatch(POsActions.getPOS()))
-        //           .then(dispatch(ItemsActions.getAllItems()))
-        //           .then(history.push('/purchase_orders'))
-        //           .then(closeModal())
-
-        //   } else {
-        //       setDisabled(true)
-        //   }
 
       }
 

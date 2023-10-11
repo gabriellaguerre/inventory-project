@@ -52,7 +52,7 @@ return (
         </tr>
         </thead>
         <tbody>
-         {purchase_orders.map(pos =>
+         {purchase_orders.reverse().map(pos =>
          <tr key={pos.id} className='requestBox'>
         {pos.received ? (
            <td><div id='received'>received</div></td>

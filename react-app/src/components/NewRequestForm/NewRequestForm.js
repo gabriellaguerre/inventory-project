@@ -104,6 +104,26 @@ function NewRequestForm() {
 
     }, [itemId2, itemId3, itemId1, quantity1, quantity2, quantity3, thisItem1, thisItem2, thisItem3, disabled, signed])
 
+    const createRequestOrder = async () => {
+
+        const reqResponse = await dispatch(RequestsActions.createRequest(formData));
+
+        if(reqResponse) {
+            const itemsToCreate = [
+                { itemId: itemId1, quantity: quantity1 },
+                { itemId: itemId2, quantity: quantity2 },
+                { itemId: itemId3, quantity: quantity3 },
+              ];
+
+              for (const { itemId, quantity } of itemsToCreate) {
+                if (itemId && +quantity) {
+                    await dispatch(RequestItemsActions.createRequestItem(itemId,{ quantity }));
+                }
+            }
+        } else {
+            setErrors(['Error processing your request'])
+        }
+    }
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -114,76 +134,12 @@ function NewRequestForm() {
             const parts = signatureDataURL.split(",");
             const base64Content = parts[1];
             formData.append('image', base64Content)
-            await dispatch(RequestsActions.createRequest(formData))
 
+            await createRequestOrder()
+            .then(history.push('/requests'))
+            .then(closeModal())
 
-            if (itemId1 && +quantity1 && itemId2 && +quantity2 && itemId3 && +quantity3) {
-                let itemId = itemId1
-                let quantity = quantity1
-                await dispatch(RequestItemsActions.createRequestItem(itemId, { quantity }))
-                    .then(async () => { itemId = itemId2; quantity = quantity2; await dispatch(RequestItemsActions.createRequestItem(itemId, { quantity })) })
-                    .then(async () => { itemId = itemId3; quantity = quantity3; await dispatch(RequestItemsActions.createRequestItem(itemId, { quantity })) })
-                    .then(dispatch(ItemsActions.getAllItems()))
-                    .then(history.push('/requests'))
-                    .then(closeModal())
-
-            } else if (itemId1 && +quantity1 && itemId2 && +quantity2) {
-                let itemId = itemId1
-                let quantity = quantity1
-                await dispatch(RequestItemsActions.createRequestItem(itemId, { quantity }))
-                    .then(async () => { itemId = itemId2; quantity = quantity2; await dispatch(RequestItemsActions.createRequestItem(itemId, { quantity })) })
-                    .then(dispatch(ItemsActions.getAllItems()))
-                    .then(history.push('/requests'))
-                    .then(closeModal())
-
-            } else if (itemId1 && +quantity1 && itemId3 && +quantity3) {
-                let itemId = itemId1
-                let quantity = quantity1
-                await dispatch(RequestItemsActions.createRequestItem(itemId, { quantity }))
-                    .then(async () => { itemId = itemId3; quantity = quantity3; await dispatch(RequestItemsActions.createRequestItem(itemId, { quantity })) })
-                    .then(dispatch(ItemsActions.getAllItems()))
-                    .then(history.push('/requests'))
-                    .then(closeModal())
-
-            } else if (itemId2 && +quantity2 && itemId3 && +quantity3) {
-                let itemId = itemId2
-                let quantity = quantity2
-                await dispatch(RequestItemsActions.createRequestItem(itemId, { quantity }))
-                    .then(async () => { itemId = itemId3; quantity = quantity3; await dispatch(RequestItemsActions.createRequestItem(itemId, { quantity })) })
-                    .then(dispatch(ItemsActions.getAllItems()))
-                    .then(history.push('/requests'))
-                    .then(closeModal())
-
-            } else if (itemId1 && +quantity1) {
-                let itemId = itemId1
-                let quantity = quantity1
-                await dispatch(RequestItemsActions.createRequestItem(itemId, { quantity }))
-                    .then(dispatch(RequestsActions.getRequests()))
-                    .then(dispatch(ItemsActions.getAllItems()))
-                    .then(history.push('/requests'))
-                    .then(closeModal())
-
-            } else if (itemId2 && +quantity2) {
-                let itemId = itemId2
-                let quantity = quantity2
-                await dispatch(RequestItemsActions.createRequestItem(itemId, { quantity }))
-                    .then(dispatch(RequestsActions.getRequests()))
-                    .then(dispatch(ItemsActions.getAllItems()))
-                    .then(history.push('/requests'))
-                    .then(closeModal())
-
-            } else if (itemId3 && +quantity3) {
-                let itemId = itemId3
-                let quantity = quantity3
-                await dispatch(RequestItemsActions.createRequestItem(itemId, { quantity }))
-                    .then(dispatch(RequestsActions.getRequests()))
-                    .then(dispatch(ItemsActions.getAllItems()))
-                    .then(history.push('/requests'))
-                    .then(closeModal())
-            } else {
-                setDisabled(true)
-            }
-        }
+         }
     }
 
         const startDrawing = (e) => {
