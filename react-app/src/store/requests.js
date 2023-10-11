@@ -57,6 +57,9 @@ export const createRequest = (formData) =>  async (dispatch) => {
     if (response.ok) {
         const data = await response.json()
         dispatch(create_request(data))
+        return true
+    } else {
+        return false
     }
 }
 

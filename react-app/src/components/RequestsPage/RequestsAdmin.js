@@ -60,7 +60,7 @@ function RequestsAdmin() {
             </tr>
             </thead>
             <tbody>
-             {requests.map(request =>
+             {requests.reverse().map(request =>
              <tr key={request.id} className='requestBox'>
             {request.voided ? (
                 <td><div id='voided'>voided</div></td>
@@ -71,9 +71,10 @@ function RequestsAdmin() {
             <td>{request.createdAt}</td>
             <td>{user[request.userId]?.employeeID}</td>
             <td>
+            <div className='reqView'>
              <OpenModalButton
                   buttonText=<div><i className="fa-regular fa-eye"></i></div>
-                  modalComponent={<ItemListReq requestId={request.id}/>}/></td>
+                  modalComponent={<ItemListReq requestId={request.id}/>}/></div></td>
              </tr>)}
              </tbody>
          </table>

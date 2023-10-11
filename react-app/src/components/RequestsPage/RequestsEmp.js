@@ -51,7 +51,7 @@ return (
         </tr>
         </thead>
         <tbody>
-         {requests.map(request =>
+         {requests.reverse().map(request =>
          <tr key={request.id} className='requestBox'>
         {request.voided ? (
             <td><div id='voided'>voided</div></td>
