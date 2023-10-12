@@ -189,6 +189,12 @@ function NewRequestForm() {
             setSigned(false)
         };
 
+        const handleCancel = async ()=> {
+            await dispatch(ItemsActions.resetState())
+            .then(dispatch(ItemsActions.getItemsByPage(0)))
+            .then(closeModal())
+        }
+        
         return (
             <>
                 <div className='reqformmodalContainer'>
@@ -216,7 +222,7 @@ function NewRequestForm() {
                                             onChange={e => { setItemCode1(e.target.value) }}>
                                             <option value='' disabled>(Select Item)</option>
                                             {updatedItemList.map(item =>
-                                                <><option value={item.id}>{item.code}</option></>)}
+                                                <><option key={item.id} value={item.id}>{item.code}</option></>)}
                                         </select>
                                     </td>
                                     <td>{thisItem1?.description}</td>
@@ -235,7 +241,7 @@ function NewRequestForm() {
                                             onChange={e => { setItemCode2(e.target.value) }}>
                                             <option value='' disabled>(Select Item)</option>
                                             {updatedItemList.map(item =>
-                                                <><option value={item.id}>{item.code}</option></>)}
+                                                <><option key={item.id} value={item.id}>{item.code}</option></>)}
                                         </select>
                                     </td>
                                     <td>{thisItem2?.description}</td>
@@ -254,7 +260,7 @@ function NewRequestForm() {
                                             onChange={e => { setItemCode3(e.target.value) }}>
                                             <option value='' disabled>(Select Item)</option>
                                             {updatedItemList.map(item =>
-                                                <><option value={item.id} >{item.code}</option></>)}
+                                                <><option key={item.id} value={item.id} >{item.code}</option></>)}
                                         </select>
                                     </td>
                                     <td>{thisItem3?.description}</td>
@@ -286,7 +292,7 @@ function NewRequestForm() {
                         </div>
                         <div className='newSubmit'>
                             <button id='CreateReq' type='submit' disabled={disabled}>Submit</button>
-                            <button id='CancelReq' onClick={() => {closeModal(); (dispatch(ItemsActions.resetState()).then(dispatch(ItemsActions.getItemsByPage(0))))}}>Cancel</button>
+                            <button id='CancelReq' onClick={() => handleCancel()}>Cancel</button>
                         </div>
                     </form>
                 </div>
