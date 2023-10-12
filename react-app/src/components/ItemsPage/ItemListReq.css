@@ -103,3 +103,11 @@ color: rgb(180, 180, 240);
 background-color: rgb(180, 180, 240);
 border-radius: 10px;
 }
+
+#closeREQ {
+  text-align: right;
+}
+
+.closeREQ {
+  cursor: pointer;
+}

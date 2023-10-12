@@ -39,6 +39,7 @@ function ItemListReq({requestId}) {
             <>
             <div className='reqTableContainer'>
             <div className='titleReqid'>Request ID: {request.id}</div>
+            <div id='closeREQ'><button className='closeREQ' onClick={()=>closeModal()}> X </button></div>
             <div className='createdReq'>Date Created: {request.createdAt}</div>
             <div className='createdBy'>Created By: {user[request.userId]?.employeeID}</div>
             <table className='requestTable'>
