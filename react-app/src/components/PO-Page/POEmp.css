@@ -71,6 +71,12 @@
     background-color: rgb(1, 1, 46);
 }
 
+.po-table-employee tbody tr:hover {
+    background-color: white;
+    color: black;
+}
+
+
 .poView {
     cursor: pointer;
 }

@@ -71,10 +71,11 @@
     background-color: rgb(1, 1, 46);
 }
 
-/* .items-table-employee tbody tr:hover {
+.items-table-employee tbody tr:hover {
     background-color: white;
     color: black;
-} */
+}
+
 #page {
     color: white;
 }

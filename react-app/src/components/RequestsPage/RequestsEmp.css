@@ -90,6 +90,10 @@ body {
     line-height: 30px;
 }
 
+.reqView {
+    cursor: pointer;
+}
+
 #applied {
     text-align: center;
 }
