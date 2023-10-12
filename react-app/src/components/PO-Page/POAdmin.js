@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as POsActions from '../../store/purchase_orders';
@@ -14,20 +14,44 @@ import './POAdmin.css';
 
 
 function POAdmin() {
-
     const dispatch = useDispatch()
+    const [page, setPage] = useState(0)
+    const [disable, setDisable] = useState(false)
 
     useEffect(()=> {
-        dispatch(POsActions.getPOS())
+        dispatch(POsActions.resetState())
+        dispatch(POsActions.getPOSByPage(page))
         dispatch(UsersActions.get_Users())
-    }, [dispatch])
+    }, [dispatch, page])
 
     const purchase_orders = useSelector(state => Object.values(state.purchase_orders))
     const user = useSelector(state => state.user)
 
+    useEffect(()=> {
+        if ((page+2) > purchase_orders[purchase_orders.length-1]) {
+            setDisable(true)
+        } else {
+            setDisable(false)
+        }
+    },[page, disable, purchase_orders])
+
+    let newPOs = []
+    for (let i = 0; i < (purchase_orders.length-1);i++) {
+        let po = purchase_orders[i]
+        newPOs.push(po)
+    }
+
+    const previous = (page) => {
+        if (page>0) dispatch(POsActions.resetState())
+    }
 
     return (
         <>
+            <div id='pagination'>
+            <button id='previous' onClick={()=> {if (page>0) setPage(page-1); previous(page)}}>Previous</button>
+            <span id='page'>Page {page+1} of {' '}{purchase_orders[purchase_orders.length-1]}</span>
+            <button id='next' onClick={()=> {setPage(page+1);  dispatch(POsActions.resetState())}} disabled={disable}>Next</button>
+            </div>
             <table className='po-table-admin'>
             <thead>
             <tr>
@@ -61,7 +85,7 @@ function POAdmin() {
             </tr>
             </thead>
             <tbody>
-             {purchase_orders.reverse().map(pos =>
+             {newPOs.reverse().map(pos =>
              <tr key={pos.id} className='requestBox'>
             {pos.received ? (
                 <td><div id='received'>received</div></td>

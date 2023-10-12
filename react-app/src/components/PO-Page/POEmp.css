@@ -71,6 +71,10 @@
     background-color: rgb(1, 1, 46);
 }
 
+.poView {
+    cursor: pointer;
+}
+
 #received {
     background-color: rgb(99, 143, 99);
     border-radius: 30px;

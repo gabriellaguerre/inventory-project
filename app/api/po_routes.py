@@ -1,11 +1,13 @@
 import base64
 import io
+import math
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Request, PurchaseOrder, db
 from app.forms import PurchaseOrderItemForm
 from datetime import datetime
 from app.api.aws_helper_sig import upload_file_to_s3, get_unique_filename
+
 
 
 po_routes = Blueprint('purchase_orders', __name__)
@@ -19,6 +21,22 @@ def validation_errors_to_error_messages(validation_errors):
         for error in validation_errors[field]:
             errorMessages.append(f'{field} : {error}')
     return errorMessages
+
+
+# ------------------------------GET PURCHASE ORDERS PAGINATION------------------------
+@po_routes.route('/<int:page>')
+# @login_required
+def get_purchase_orders_by_page(page):
+    purchase_orders = PurchaseOrder.query.all()
+    purchase_orders.reverse()
+
+    limit = 5
+    offset = ((page + 1) * limit)
+    startIndex = page * 5
+
+    total_pages = math.ceil(len(purchase_orders)/limit)
+
+    return {'purchase_orders': [purchase_order.to_dict() for purchase_order in purchase_orders[startIndex:offset]], 'total_pages': total_pages }
 
 # ------------------------------GET PURCHASE ORDERS------------------------
 @po_routes.route('/')
