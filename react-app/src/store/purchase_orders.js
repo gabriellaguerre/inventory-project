@@ -1,13 +1,20 @@
-const GET_PURCHASE_ORDERS = 'purchase_orders/GET_PURCHASE_ORDERS'
+// const GET_PURCHASE_ORDERS = 'purchase_orders/GET_PURCHASE_ORDERS'
 const CREATE_PURCHASE_ORDER = 'purchase_orders/CREATE_PURCHASE_ORDER'
 const EDIT_PURCHASE_ORDER = 'purchase_orders/EDIT_PURCHASE_ORDER'
+const RESET_STATE = 'purchase_orders/RESET_STATE'
+const GET_POS_BY_PAGE = 'purchase_orders/GET_POS_BY_PAGE'
 
 
 //------------------------------DISPATCH VARIABLES-----------------------------
-const get_pos = (purchase_orders) => ({
-    type: GET_PURCHASE_ORDERS,
+const get_pos_by_page = (purchase_orders) => ({
+    type: GET_POS_BY_PAGE,
     payload: purchase_orders
 })
+
+// const get_pos = (purchase_orders) => ({
+//     type: GET_PURCHASE_ORDERS,
+//     payload: purchase_orders
+// })
 
 const create_purchase_order = (purchase_order) => ({
     type: CREATE_PURCHASE_ORDER,
@@ -19,18 +26,40 @@ const edit_purchase_order = (purchase_order) => ({
     payload: purchase_order
 })
 
-//-------------------------------THUNKS-----------------------------------------
-export const getPOS = () => async(dispatch) => {
+const resettingState = () => ({
+    type: RESET_STATE
+})
 
-    const response = await fetch('/api/purchase_orders', {
+//-------------------------------THUNKS-----------------------------------------
+export const resetState = () => async (dispatch) => {
+    const response = true
+    if (response) {
+        dispatch(resettingState())
+  }
+}
+
+export const getPOSByPage = (page) => async(dispatch) => {
+    const response = await fetch(`/api/purchase_orders/${page}`, {
         headers: {'Content-Type': 'application/json'}
     })
 
     if (response.ok) {
         const data = await response.json()
-        dispatch(get_pos(data))
+        dispatch(get_pos_by_page(data))
     }
 }
+
+// export const getPOS = () => async(dispatch) => {
+
+//     const response = await fetch('/api/purchase_orders', {
+//         headers: {'Content-Type': 'application/json'}
+//     })
+
+//     if (response.ok) {
+//         const data = await response.json()
+//         dispatch(get_pos(data))
+//     }
+// }
 
 export const createPurchaseOrder = (formData) =>  async (dispatch) => {
     const response = await fetch(`/api/purchase_orders`, {
@@ -65,15 +94,21 @@ const initialState = {}
 export default function reducer(state = initialState, action) {
     const newState = {...state}
     switch(action.type) {
-        case GET_PURCHASE_ORDERS:
+        case GET_POS_BY_PAGE:
             action.payload.purchase_orders.forEach(purchase_order => newState[purchase_order.id] = purchase_order);
+            newState['total_pages'] = action.payload.total_pages
             return newState;
+        // case GET_PURCHASE_ORDERS:
+        //     action.payload.purchase_orders.forEach(purchase_order => newState[purchase_order.id] = purchase_order);
+        //     return newState;
         case CREATE_PURCHASE_ORDER:
             newState[action.payload.id] = action.payload;
             return newState;
         case EDIT_PURCHASE_ORDER:
             newState[action.payload.id] = action.payload;
             return newState;
+        case RESET_STATE:
+            return initialState;
         default:
             return state
     }

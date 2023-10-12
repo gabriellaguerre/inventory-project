@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as RequestsActions from '../../store/requests';
@@ -15,18 +15,44 @@ import './RequestsAdmin.css'
 
 function RequestsAdmin() {
     const dispatch = useDispatch()
+    const [page, setPage] = useState(0)
+    const [disable, setDisable] = useState(false)
 
     useEffect(()=> {
-        dispatch(RequestsActions.getRequests())
+        dispatch(RequestsActions.resetState())
+        dispatch(RequestsActions.getRequestsByPage(page))
         dispatch(UsersActions.get_Users())
-    }, [dispatch])
+    }, [dispatch, page])
 
     const requests = useSelector(state => Object.values(state.requests))
     const user = useSelector(state => state.user)
 
+    useEffect(()=> {
+        if ((page+2) > requests[requests.length-1]) {
+            setDisable(true)
+        } else {
+            setDisable(false)
+        }
+    },[page, disable, requests])
+
+    let newReqs = []
+    for (let i = 0; i < (requests.length-1);i++) {
+        let req = requests[i]
+        newReqs.push(req)
+    }
+
+    const previous = (page) => {
+        if (page>0) dispatch(RequestsActions.resetState())
+    }
+
 
     return (
         <>
+            <div id='pagination'>
+            <button id='previous' onClick={()=> {if (page>0) setPage(page-1); previous(page)}}>Previous</button>
+            <span id='page'>Page {page+1} of {' '}{requests[requests.length-1]}</span>
+            <button id='next' onClick={()=> {setPage(page+1);  dispatch(RequestsActions.resetState())}} disabled={disable}>Next</button>
+            </div>
             <table className='request-table-admin'>
             <thead>
             <tr>
@@ -60,7 +86,7 @@ function RequestsAdmin() {
             </tr>
             </thead>
             <tbody>
-             {requests.reverse().map(request =>
+             {newReqs.reverse().map(request =>
              <tr key={request.id} className='requestBox'>
             {request.voided ? (
                 <td><div id='voided'>voided</div></td>

@@ -1,5 +1,6 @@
 import base64
 import io
+import math
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Request, Item, RequestItems, db
@@ -18,6 +19,21 @@ def validation_errors_to_error_messages(validation_errors):
         for error in validation_errors[field]:
             errorMessages.append(f'{field} : {error}')
     return errorMessages
+
+# ------------------------------GET REQUESTS PAGINATION------------------------
+@request_routes.route('/<int:page>')
+# @login_required
+def get_requests_by_page(page):
+    requests = Request.query.all()
+    requests.reverse()
+
+    limit = 5
+    offset = ((page + 1) * limit)
+    startIndex = page * 5
+
+    total_pages = math.ceil(len(requests)/limit)
+
+    return {'requests': [request.to_dict() for request in requests[startIndex:offset]], 'total_pages': total_pages }
 
 # ------------------------------GET REQUESTS------------------------
 @request_routes.route('/')
