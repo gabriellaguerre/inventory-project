@@ -46,7 +46,7 @@ function NewPOForm() {
 
 
     useEffect(() => {
-        //   console.log(itemId1, itemId2, itemId3, quantity1, quantity2, quantity3)
+        
         if (itemId1.length === 0 && itemId2.length === 0 && itemId3.length === 0) {
             setDisabled(true)
 
