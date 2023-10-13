@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import * as ItemsActions from '../../store/items'
 import * as POITEMsActions from '../../store/purchase_order_items'
 import * as POsActions from '../../store/purchase_orders';
+import { useModal } from "../../context/Modal";
 import OpenModalButton from '../OpenModalButton';
 import EditItemListPO from '../EditItemListPO/EditItemListPO'
 import './ItemListPO.css'
@@ -10,7 +11,7 @@ import './ItemListPO.css'
 
 
 function ItemListPO({posId}) {
-    // const { closeModal } = useModal();
+    const { closeModal } = useModal();
     const dispatch = useDispatch();
 
 
@@ -25,7 +26,7 @@ function ItemListPO({posId}) {
     const item = useSelector(state=> state.items)
     const user = useSelector(state => state.user)
 
-    
+
     const addPOItems = () => {
         dispatch(POsActions.editPO(posId))
         poItems.forEach(poItem => dispatch(ItemsActions.poeditItem(poItem.itemId, poItem.quantity)))
@@ -35,6 +36,7 @@ function ItemListPO({posId}) {
             <>
             <div className='poTableContainer'>
             <div className='titlePOid'>Purchase Order ID: {po.id}</div>
+            <div id='closePO'><button className='closePO' onClick={()=>closeModal()}> X </button></div>
             <div className='created'>Date Created: {po.createdAt}</div>
             <div className='createdBy'>Created By: {user[po.userId]?.employeeID}</div>
             <table className='poTable'>

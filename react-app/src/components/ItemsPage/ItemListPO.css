@@ -120,3 +120,11 @@ color: rgb(180, 180, 240);
 margin: 10px;
 font-weight: bold;
 }
+
+#closePO {
+  text-align: right;
+}
+
+.closePO {
+  cursor: pointer;
+}

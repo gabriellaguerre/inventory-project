@@ -58,11 +58,16 @@ def create_request_item(itemId):
          request_items = request1.items
 
          thisItem = Item.query.get(itemId)
-         thisItem.quantity = thisItem.quantity - quantity
-         thisItem.total_value = thisItem.quantity*thisItem.unit_cost
-         db.session.commit()
 
-         return {'request_items': [request_item.to_dict() for request_item in request_items]}
+         if thisItem.quantity < quantity:
+            validation_error = {'quantity': ['The quantity requested for one of the items is not available in stock']}
+            return {'errors':validation_errors_to_error_messages(validation_error)}
+         else:
+            thisItem.quantity = thisItem.quantity - quantity
+            thisItem.total_value = thisItem.quantity*thisItem.unit_cost
+            db.session.commit()
+
+            return {'request_items': [request_item.to_dict() for request_item in request_items]}
 
      return {'errors':validation_errors_to_error_messages(request_item_form.errors)}
 

@@ -39,16 +39,18 @@ function POEmp() {
         newPOs.push(po)
     }
 
-    const previous = (page) => {
-        if (page>0) dispatch(POsActions.resetState())
-    }
+    // const previous = (page) => {
+    //     if (page>0) dispatch(POsActions.resetState())
+    //     previous(page)
+    //     dispatch(POsActions.resetState())
+    // }
 
     return (
         <>
             <div id='pagination'>
-            <button id='previous' onClick={()=> {if (page>0) setPage(page-1); previous(page)}}>Previous</button>
+            <button id='previous' onClick={()=> {if (page>0) setPage(page-1); }}>Previous</button>
             <span id='page'>Page {page+1} of {' '}{purchase_orders[purchase_orders.length-1]}</span>
-            <button id='next' onClick={()=> {setPage(page+1);  dispatch(POsActions.resetState())}} disabled={disable}>Next</button>
+            <button id='next' onClick={()=> {setPage(page+1); }} disabled={disable}>Next</button>
             </div>
             <table className='po-table-employee'>
                 <thead>

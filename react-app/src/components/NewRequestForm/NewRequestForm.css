@@ -93,5 +93,12 @@ color:  rgb(180, 180, 240);
   font-weight: bold;
   border:2px solid red;
   color: red;
+}
 
+.quantities {
+  width: 70px;
+}
+
+#input {
+  text-align: center;
 }
