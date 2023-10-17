@@ -39,6 +39,130 @@ IVY was designed from the ground up to represent the needs in inventory manageme
 
 * Logged in users (admin/employee) can sign a request form and a pdf file of the form will be created and available for download
 
+# Database Schema
+
+![Ivy DB Schema](https://github.com/gabriellaguerre/inventory-project/assets/51093596/c87abbaa-5276-446a-9f74-ff87ed7808bc)
+
+
+
+## `users`
+
+| column name     | data type | details                   |
+|-----------------|-----------|---------------------------|
+| id              | integer   | not null, primary key     |
+| employeeID      | integer   | not null, unique          |
+| accessLevel     | string    | not null                  |
+| hashed_password | string    | not null                  |
+| created_at      | datetime  | not null                  |
+| updated_at      | datetime  | not null                  |
+
+## `items`
+
+| column name | data type | details               |
+|-------------|-----------|-----------------------|
+| id          | integer   | not null, primary key |
+| code        | integer   | not null              |
+| description | string    | not null              |
+| item_type   | string    | not null              |
+| unit_cost   | integer   | not null              |
+| manufacturer| string    | not null              |
+| userId      | integer   | not null, foreignkey  |
+| supplierId  | integer   | not null, foreignkey  |
+| created_at  | datetime  | not null              |
+| updated_at  | datetime  | not null              |
+
+* `supplierId` references `suppliers` table
+* `userId` references `users` table
+
+## `suppliers`
+
+| column name | data type | details               |
+|-------------|-----------|-----------------------|
+| id          | integer   | not null, primary key |
+| name        | string    | not null              |
+| address     | string    | allow null            |
+| contact     | string    | allow null            |
+| email       | string    | allow null            |
+| cell        | string    | allow null            |
+| itemId      | integer   | not null, foreignkey  |
+| userId      | integer   | not null, foreignkey  |
+| created_at  | datetime  | not null              |
+| updated_at  | datetime  | not null              |
+
+* `itemId` references `items` table
+* `userId` references `users` table
+
+## `purchase_orders`
+
+| column name   | data type | details               |
+|---------------|-----------|-----------------------|
+| id            | integer   | not null, primary key |
+| quantity      | integer   | not null              |
+| itemId        | integer   | not null, foreignkey  |
+| userId        | integer   | not null, foreign key |
+| supplierId    | integer   | not null, foreignkey  |
+| created_at    | datetime  | not null              |
+| updated_at    | datetime  | not null              |
+
+* `userId` references `users` table
+* `itemId` references `items` table
+* `supplierId` references `suppliers` table
+
+## `requests`
+
+| column name   | data type | details                        |
+|---------------|-----------|--------------------------------|
+| id            | integer   | not null, primary key          |
+| quantity      | integer   | not null                       |
+| userId        | integer   | not null, foreign key          |
+| itemId        | integer   | not null, foreign key          |
+| created_at    | datetime  | not null                       |
+| updated_at    | datetime  | not null                       |
+
+* `userId` references `users` table
+* `itemId` references `items` table
+
+## `request_items`
+
+| column name   | data type | details                        |
+|---------------|-----------|--------------------------------|
+| id            | integer   | not null, primary key          |
+| quantity      | integer   | not null                       |
+| request       | integer   | not null, foreign key          |
+| itemId        | integer   | not null, foreign key          |
+| created_at    | datetime  | not null                       |
+| updated_at    | datetime  | not null                       |
+
+* `requestId` references `requests` table
+* `itemId` references `items` table
+
+## `purchase_order_items`
+
+| column name        | data type | details                        |
+|--------------------|-----------|--------------------------------|
+| id                 | integer   | not null, primary key          |
+| quantity           | integer   | not null                       |
+| purchase_orderId   | integer   | not null, foreign key          |
+| itemId             | integer   | not null, foreign key          |
+| created_at         | datetime  | not null                       |
+| updated_at         | datetime  | not null                       |
+
+* `purchase_orderId` references `purchase_orders` table
+* `itemId` references `items` table
+
+## `supplier_items`
+
+| column name   | data type | details                        |
+|---------------|-----------|--------------------------------|
+| id            | integer   | not null, primary key          |                      |
+| supplier_id   | integer   | not null, foreign key          |
+| item_id       | integer   | not null, foreign key          |
+
+* `supplier_id` references `suppliers` table
+* `item_id` references `items` table
+
+
+
 # API-Routes
 
 Ivy uses the following API routes to dynamically update the page to create a single-page-app-like feel for the user for specific features.
