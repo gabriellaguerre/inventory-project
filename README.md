@@ -4,7 +4,40 @@ Check out the live version of IVY here: [IVY](https://ivy-ims.onrender.com/)
 
 IVY was designed from the ground up to represent the needs in inventory management for a small to medium sized production facility.  The backend is designed on Flask with a PostgreSQL database.  The frontend is managed using React while data flow is based on the Flux architecture.
 
-## Features
+# Feature List
+
+## 1. New account creation, log in, log out, and guest/demo login
+
+* Admin Users can sign up employee users and provide access level to each employee 
+* Admin users can log in, and log out.
+* Users can try the site with a demo log in (admin) and demo log in (employee).
+* Users can't use any features without logging in.
+* Logged in users (employees) are directed to their access level page which displays certain features.
+* Logged out users are directed to a page displaying login page.
+
+## 2. items
+
+* Logged in users (employees) can see list of items in inventory.
+* Logged in users (admin) can see list, create, update, and delete items 
+
+## 3. Suppliers
+
+* Logged in users (employees) can see list of suppliers.
+* Logged in users (admin) can see list, create, update, and delete suppliers 
+
+## 4. Requests
+
+* Logged in users (admin/employee) can create and delete requests for parts.
+* Logged in users (admin/employee) can see list of all requests made for parts.
+
+## 5. Purchase Orders
+
+* Logged in users (admin/employee) can create and edit purchase orders for parts.
+* Logged in users (admin/employee) can see list of all purchase made for parts.
+
+## 6. Bonus
+
+* Logged in users (admin/employee) can sign a request form and a pdf file of the form will be created and available for download
 
 # API-Routes
 
