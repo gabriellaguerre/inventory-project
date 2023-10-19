@@ -16,10 +16,10 @@ const get_pos_by_page = (purchase_orders) => ({
 //     payload: purchase_orders
 // })
 
-const create_purchase_order = (purchase_order) => ({
-    type: CREATE_PURCHASE_ORDER,
-    payload: purchase_order
-})
+// const create_purchase_order = (purchase_order) => ({
+//     type: CREATE_PURCHASE_ORDER,
+//     payload: purchase_order
+// })
 
 const edit_purchase_order = (purchase_order) => ({
     type: EDIT_PURCHASE_ORDER,
@@ -69,8 +69,8 @@ export const createPurchaseOrder = (formData) =>  async (dispatch) => {
     })
 
     if (response.ok) {
-        const data = await response.json()
-        dispatch(create_purchase_order(data))
+        // const data = await response.json()
+        // dispatch(create_purchase_order(data))
         return true
     } else {
         return false

@@ -87,7 +87,7 @@ def create_purchase_order():
             db.session.add(purchase_order)
             db.session.commit()
 
-
+            # return {'message': 'successfull'}
             return purchase_order.to_dict()
          return {'message': 'something went wrong'}
 

@@ -15,13 +15,16 @@ import './POAdmin.css';
 
 function POAdmin() {
     const dispatch = useDispatch()
+
+
     const [page, setPage] = useState(0)
     const [disable, setDisable] = useState(false)
 
     useEffect(()=> {
+        dispatch(UsersActions.get_Users())
         dispatch(POsActions.resetState())
         dispatch(POsActions.getPOSByPage(page))
-        dispatch(UsersActions.get_Users())
+
     }, [dispatch, page])
 
     const purchase_orders = useSelector(state => Object.values(state.purchase_orders))

@@ -46,7 +46,7 @@ function NewPOForm() {
 
 
     useEffect(() => {
-        
+
         if (itemId1.length === 0 && itemId2.length === 0 && itemId3.length === 0) {
             setDisabled(true)
 
@@ -123,6 +123,9 @@ function NewPOForm() {
                     await dispatch(PurchaseOrderItemsActions.createPOItem(itemId, { quantity }));
                 }
             }
+            await dispatch(POsActions.resetState())
+            .then(dispatch(POsActions.getPOSByPage(0)))
+
         } else {
             setErrors(['Error processing your purchase order'])
         }

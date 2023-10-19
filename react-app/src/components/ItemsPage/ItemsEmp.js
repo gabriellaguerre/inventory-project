@@ -34,17 +34,17 @@ function ItemsEmp() {
         newItems.push(item)
     }
 
-    const previous = (page) => {
-        if (page>0) dispatch(ItemsActions.resetState())
-    }
+    // const previous = (page) => {
+    //     if (page>0) dispatch(ItemsActions.resetState())
+    // }
 
     return (
         <>
         {/* <h2>Inventory</h2> */}
         <div id='pagination'>
-        <button id='previous' onClick={()=> {if (page>0) setPage(page-1); previous(page)}}>Previous</button>
+        <button id='previous' onClick={()=> {if (page>0) setPage(page-1); }}>Previous</button>
         <span id='page'>Page {page+1} of {' '}{items[items.length-1]}</span>
-        <button id='next' onClick={()=> {setPage(page+1);  dispatch(ItemsActions.resetState())}} disabled={disable}>Next</button>
+        <button id='next' onClick={()=> {setPage(page+1); }} disabled={disable}>Next</button>
         </div>
     <table className = 'items-table-employee'>
         <thead>
