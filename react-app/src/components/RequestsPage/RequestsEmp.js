@@ -17,9 +17,10 @@ function RequestsEmp() {
     const [disable, setDisable] = useState(false)
 
     useEffect(() => {
+        dispatch(UsersActions.get_Users())
         dispatch(RequestsActions.resetState())
         dispatch(RequestsActions.getRequestsByPage(page))
-        dispatch(UsersActions.get_Users())
+
     }, [dispatch, page])
 
     const requests = useSelector(state => Object.values(state.requests))

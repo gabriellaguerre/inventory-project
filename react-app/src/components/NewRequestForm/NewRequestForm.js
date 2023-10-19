@@ -109,11 +109,14 @@ function NewRequestForm() {
             ];
 
             for (const { itemId, quantity } of itemsToCreate) {
-           
+
                 if (itemId && +quantity) {
                     await dispatch(RequestItemsActions.createRequestItem(itemId, { quantity }));
                 }
             }
+            await dispatch(RequestsActions.resetState())
+            .then(dispatch(RequestsActions.getRequestsByPage(0)))
+
         } else {
             setErrors(['Error processing your request'])
         }

@@ -27,10 +27,10 @@ const get_one_request = (request) => ({
     payload: request
 })
 
-const create_request = (request) => ({
-    type: CREATE_REQUEST,
-    payload: request
-})
+// const create_request = (request) => ({
+//     type: CREATE_REQUEST,
+//     payload: request
+// })
 
 const edit_request = (request) => ({
     type: EDIT_REQUEST,
@@ -84,8 +84,8 @@ export const createRequest = (formData) =>  async (dispatch) => {
     })
 
     if (response.ok) {
-        const data = await response.json()
-        dispatch(create_request(data))
+        // const data = await response.json()
+        // dispatch(create_request(data))
         return true
     } else {
         return false
