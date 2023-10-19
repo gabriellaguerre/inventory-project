@@ -1,11 +1,12 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { useModal } from '../../context/Modal'
 import * as ItemsActions from '../../store/items'
 import './DeleteItem.css';
 
 function DeleteItem({itemId}) {
-
+    const history = useHistory()
     const dispatch = useDispatch()
     const {closeModal} = useModal()
 
@@ -16,9 +17,10 @@ function DeleteItem({itemId}) {
 
     const handleSubmit = async () => {
         await dispatch(ItemsActions.deleteItem(itemId))
-        await dispatch(ItemsActions.resetState())
-        await dispatch(ItemsActions.getItemsByPage(0))
-        closeModal()
+        .then(await dispatch(ItemsActions.resetState()))
+        .then(await dispatch(ItemsActions.getItemsByPage(0)))
+        .then(history.push('/items'))
+        .then(closeModal())
     }
 
 

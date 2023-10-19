@@ -176,8 +176,11 @@ export const deleteItem = (itemId) => async(dispatch) => {
     })
 
     if (response.ok) {
-        const data = await response.json()
-        dispatch(edit_item(data))
+        // const data = await response.json()
+        // dispatch(edit_item(data))
+        return true
+    } else {
+        return false
     }
 }
 

@@ -40,6 +40,8 @@ function Navigation({ isLoaded }) {
 				<div>
 					<img src={ivy3} alt="ivy-pic" width="130" height="100"></img>
 					{/* <NavLink to='/items'>IVY - Inventory Management System</NavLink> */}
+				<span id='git'><a style={{textDecoration: "none", color:'white'}} href="https://github.com/gabriellaguerre" target="_blank" rel="noreferrer"><i className="fa-brands fa-github"></i> GitHub</a></span>
+                <span id='linkedin'><a style={{textDecoration: "none", color:'white'}} href="https://www.linkedin.com/in/gabriel-laguerre/" target="_blank" rel="noreferrer"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></span>
 				</div>
 			)}
 
