@@ -70,7 +70,7 @@ export const getItemSuppliers = (itemId) => async(dispatch) => {
 }
 
 export const createSupplier = (supplier) => async(dispatch) => {
-    console.log(supplier, 'KKKKKKKKKKKKK')
+    
     const response = await fetch('/api/suppliers', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
