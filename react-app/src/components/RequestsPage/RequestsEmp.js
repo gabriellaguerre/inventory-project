@@ -91,7 +91,7 @@ function RequestsEmp() {
                                 <div className='reqView'>
                                 <OpenModalButton
                                     buttonText=<div><i className="fa-regular fa-eye"></i></div>
-                                    modalComponent={<ItemListReq requestId={request.id} />} />,</div></td>
+                                    modalComponent={<ItemListReq requestId={request.id} />} /></div></td>
                         </tr>)}
                 </tbody>
             </table>
