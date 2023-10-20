@@ -40,17 +40,17 @@ function RequestsEmp() {
         newReqs.push(req)
     }
 
-    const previous = (page) => {
-        if (page>0) dispatch(RequestsActions.resetState())
-    }
+    // const previous = (page) => {
+    //     if (page>0) dispatch(RequestsActions.resetState())
+    // }
 
 
     return (
         <>
             <div id='pagination'>
-            <button id='previous' onClick={()=> {if (page>0) setPage(page-1); previous(page)}}>Previous</button>
+            <button id='previous' onClick={()=> {if (page>0) setPage(page-1); }}>Previous</button>
             <span id='page'>Page {page+1} of {' '}{requests[requests.length-1]}</span>
-            <button id='next' onClick={()=> {setPage(page+1);  dispatch(RequestsActions.resetState())}} disabled={disable}>Next</button>
+            <button id='next' onClick={()=> {setPage(page+1); }} disabled={disable}>Next</button>
             </div>
             <table className='request-table-employee'>
                 <thead>
