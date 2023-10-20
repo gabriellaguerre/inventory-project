@@ -46,6 +46,11 @@ function ItemsAdmin({user}) {
     // previous(page)
     // dispatch(ItemsActions.resetState())
     // }
+    
+    // function changePage() {
+    //     setPage(0)
+    // }
+
 
     return (
         <>
@@ -119,7 +124,7 @@ function ItemsAdmin({user}) {
                       /></td>
               <td><OpenModalButton
                       buttonText=<div className='delete'><i className="fa-regular fa-trash-can"></i></div>
-                      modalComponent={<DeleteItem itemId={item.id}/>}
+                      modalComponent={<DeleteItem itemId={item.id} updatePage={setPage}/>}
                       /></td>
           </tr>)}
         </tbody>

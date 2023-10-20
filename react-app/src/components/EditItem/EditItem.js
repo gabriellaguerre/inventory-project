@@ -22,8 +22,8 @@ function EditItem({itemId}) {
     const [errors, setErrors] = useState([])
     const [disabled, setDisabled] = useState(false)
 
-    const sanitizedString = unit_cost.replace(/,/g, '');
-    const numericRegex = /^[0-9]+(\.[0-9]+)?$/;
+
+
 
     useEffect(() => {
 
@@ -43,14 +43,16 @@ function EditItem({itemId}) {
 
     const onSubmit = async (e) => {
         e.preventDefault()
+        const sanitizedString = unit_cost.replace(/,/g, '');
+        const numericRegex = /^[0-9]+(\.[0-9]+)?$/;
 
         if (unit_cost && !numericRegex.test(sanitizedString)) {
             let errors = ['Not a valid Unit Value']
             setErrors(errors)
             setDisabled(true)
         } else {
-            setUnit_Cost(sanitizedString)
-            const item = {code, description, item_type, unit_cost, quantity, manufacturer};
+           
+            const item = {code, description, item_type, unit_cost:sanitizedString, quantity, manufacturer};
             const data = await dispatch(ItemsActions.editItem(item, itemId))
             if (data) {
                setErrors(data)
@@ -99,8 +101,9 @@ function EditItem({itemId}) {
                 <option value='chemical'>Chemical</option>
             </select>
          </div>
-         <div className='editUnitValue'> Unit Value:
+         <div className='editUnitValue'> Unit Cost:
             <input
+                type='numeric'
                 value={unit_cost}
                 placeholder='enter item value'
                 onChange={e => setUnit_Cost(e.target.value)}

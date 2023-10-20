@@ -170,6 +170,7 @@ export const reqitemEdit = (itemId, quantity) => async(dispatch) => {
 }
 
 export const deleteItem = (itemId) => async(dispatch) => {
+
     const response = await fetch(`/api/items/delete/${itemId}`, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'}
@@ -177,7 +178,11 @@ export const deleteItem = (itemId) => async(dispatch) => {
 
     if (response.ok) {
         const data = await response.json()
-        dispatch(edit_item(data))
+      
+        dispatch(get_items_by_page(data))
+    //     return true
+    // } else {
+    //     return false
     }
 }
 

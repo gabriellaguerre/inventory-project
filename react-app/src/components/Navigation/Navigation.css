@@ -67,3 +67,7 @@
   font-weight: bold;
   border: none;
 }
+
+#git, #linkedin{
+  margin-left: 20px;
+}

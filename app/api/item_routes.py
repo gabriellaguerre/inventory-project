@@ -152,6 +152,15 @@ def get_items_of_a_po(posId):
 def delete_item(itemId):
     item = Item.query.get(itemId)
     item.deleted = True
-
     db.session.commit()
-    return item.to_dict()
+
+    items = Item.query.filter(Item.deleted == False).all()
+
+    limit = 5
+    offset = ((0 + 1) * limit)
+    startIndex = 0
+
+    total_pages = math.ceil(len(items)/limit)
+
+    return {'items': [item.to_dict() for item in items[startIndex:offset]], 'total_pages': total_pages }
+    # return item.to_dict()
