@@ -124,7 +124,8 @@ function NewPOForm() {
                 }
             }
             await dispatch(POsActions.resetState())
-            .then(dispatch(POsActions.getPOSByPage(0)))
+            // .then(dispatch(POsActions.getPOSByPage(0)))
+            .then(history.push('/purchase_orders'))
 
         } else {
             setErrors(['Error processing your purchase order'])
@@ -142,8 +143,7 @@ function NewPOForm() {
             formData.append('image', base64Content)
 
             await createPurchaseOrder()
-                .then(history.push('/purchase_orders'))
-                .then(closeModal())
+            .then(closeModal())
 
         }
 
