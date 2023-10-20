@@ -115,7 +115,8 @@ function NewRequestForm() {
                 }
             }
             await dispatch(RequestsActions.resetState())
-            .then(dispatch(RequestsActions.getRequestsByPage(0)))
+            // .then(dispatch(RequestsActions.getRequestsByPage(0)))
+            .then(history.push('/requests'))
 
         } else {
             setErrors(['Error processing your request'])
@@ -133,7 +134,7 @@ function NewRequestForm() {
             formData.append('image', base64Content)
 
             await createRequestOrder()
-                .then(history.push('/requests'))
+
                 .then(closeModal())
 
         }
