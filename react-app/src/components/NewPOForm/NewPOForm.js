@@ -124,7 +124,7 @@ function NewPOForm() {
                 }
             }
             await dispatch(POsActions.resetState())
-            // .then(dispatch(POsActions.getPOSByPage(0)))
+            .then(dispatch(POsActions.getPOSByPage(0)))
             .then(history.push('/purchase_orders'))
 
         } else {
