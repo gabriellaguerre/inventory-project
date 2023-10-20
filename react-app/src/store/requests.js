@@ -77,6 +77,7 @@ export const getOneRequest = (requestId) => async(dispatch) => {
 }
 
 export const createRequest = (formData) =>  async (dispatch) => {
+    console.log("IN CREATE REQUEST THUNKKKKKKKKKKKKKKK")
     const response = await fetch(`/api/requests`, {
         method: 'POST',
         // headers: {'Content-Type': 'application/json'},
@@ -84,12 +85,17 @@ export const createRequest = (formData) =>  async (dispatch) => {
     })
 
     if (response.ok) {
-        // const data = await response.json()
+        const data = await response.json()
+        if(data.errors) {
+            console.log(data.errors)
+            return false
+
         // dispatch(create_request(data))
-        return true
+        // return true
     } else {
-        return false
+        return true
     }
+  }
 }
 
 export const editRequest = (requestId) => async(dispatch) => {

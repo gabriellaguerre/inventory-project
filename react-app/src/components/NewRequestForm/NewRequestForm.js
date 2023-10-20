@@ -99,7 +99,7 @@ function NewRequestForm() {
     const createRequestOrder = async () => {
 
         const reqResponse = await dispatch(RequestsActions.createRequest(formData));
-
+        console.log(reqResponse, 'REQ RESPONSE IN CREATE REQUEST ORDERRRRRRRRRRRRRRRRR')
         if (reqResponse) {
 
             const itemsToCreate = [
@@ -116,6 +116,7 @@ function NewRequestForm() {
             }
             // await dispatch(RequestsActions.resetState())
             // .then(dispatch(RequestsActions.getRequestsByPage(0)))
+            console.log('IN REQ RESPONSE FOR NEW REQUESTFORM')
             history.push('/requests')
 
         } else {
