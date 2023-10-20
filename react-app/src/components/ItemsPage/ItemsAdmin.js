@@ -46,8 +46,7 @@ function ItemsAdmin({user}) {
     // previous(page)
     // dispatch(ItemsActions.resetState())
     // }
-    console.log('IN ITEMSADMIN PAGE', page)
-
+    
     // function changePage() {
     //     setPage(0)
     // }

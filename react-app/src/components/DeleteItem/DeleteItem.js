@@ -14,8 +14,7 @@ function DeleteItem({itemId, updatePage}) {
     const current_item = useSelector(state => (Object.values(state.items)).filter(item => item.id === itemId))
 
     const handleSubmit = async () => {
-        console.log('IN HANDLE SUBMIT OF DELETE')
-        // console.log("IN ELSE STATEMENT DELETE MODAL")
+     
         await dispatch(ItemsActions.deleteItem(itemId))
         .then(dispatch(ItemsActions.resetState()))
         updatePage(0)
