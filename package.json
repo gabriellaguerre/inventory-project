@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "form-data": "^4.0.0"
-  },
-  "devDependencies": {
-    "@types/react-router-dom": "^5.3.3"
-  }
-}
