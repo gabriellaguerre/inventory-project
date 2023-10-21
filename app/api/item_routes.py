@@ -22,7 +22,7 @@ def validation_errors_to_error_messages(validation_errors):
 @item_routes.route('/<int:page>')
 # @login_required
 def get_items_by_page(page):
-    items = Item.query.filter(Item.deleted == False).all()
+    items = Item.query.filter(Item.deleted == False).order_by(Item.id).all()
 
     limit = 5
     offset = ((page + 1) * limit)
@@ -154,7 +154,7 @@ def delete_item(itemId):
     item.deleted = True
     db.session.commit()
 
-    items = Item.query.filter(Item.deleted == False).all()
+    items = Item.query.filter(Item.deleted == False).order_by(Item.id).all()
 
     limit = 5
     offset = ((0 + 1) * limit)

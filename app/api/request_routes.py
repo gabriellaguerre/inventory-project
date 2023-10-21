@@ -24,7 +24,7 @@ def validation_errors_to_error_messages(validation_errors):
 @request_routes.route('/<int:page>')
 # @login_required
 def get_requests_by_page(page):
-    requests = Request.query.all()
+    requests = Request.query.order_by(Request.id).all()
     requests.reverse()
 
     limit = 5

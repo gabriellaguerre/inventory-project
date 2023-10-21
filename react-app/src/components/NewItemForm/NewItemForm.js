@@ -7,7 +7,7 @@ import * as SuppliersActions from '../../store/suppliers'
 // import NewSupplierForm from '../NewSupplierForm/NewSupplierForm';
 import './NewItemForm.css'
 
-function NewItemForm() {
+function NewItemForm({updatePage}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
@@ -115,9 +115,17 @@ function NewItemForm() {
                 .then(()=>closeModal())
         }
         }
+    }
 
-
-
+    const refreshCancel = async () =>  {
+        await dispatch(ItemsActions.resetState())
+        .then(await dispatch(ItemsActions.getItemsByPage(0)))
+        if (updatePage) {
+            updatePage(0)
+        }
+        closeModal()
+        // .then(await dispatch(ItemsActions.getItemsByPage(0)))
+        // .then(closeModal())
     }
 
     return (
@@ -208,7 +216,7 @@ function NewItemForm() {
                     </div>
                     <div className='newSubmit'>
                         <button id='newSubmit' disabled={disabled}>Submit</button>
-                        <span className='cancel'><button id='cancel' onClick={() => closeModal()}>Cancel</button></span>
+                        <span className='cancel'><button id='cancel' onClick={() => refreshCancel()}>Cancel</button></span>
                     </div>
                 </form>
             </div>

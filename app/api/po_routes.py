@@ -27,7 +27,7 @@ def validation_errors_to_error_messages(validation_errors):
 @po_routes.route('/<int:page>')
 # @login_required
 def get_purchase_orders_by_page(page):
-    purchase_orders = PurchaseOrder.query.all()
+    purchase_orders = PurchaseOrder.query.order_by(PurchaseOrder.id).all()
     purchase_orders.reverse()
 
     limit = 5

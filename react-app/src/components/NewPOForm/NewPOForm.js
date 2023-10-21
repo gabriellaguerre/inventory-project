@@ -8,7 +8,7 @@ import * as PurchaseOrderItemsActions from '../../store/purchase_order_items'
 // import * as SignatureAction from '../../store/signature';
 import './NewPOForm.css'
 
-function NewPOForm() {
+function NewPOForm({updatePage}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal();
@@ -124,8 +124,10 @@ function NewPOForm() {
                 }
             }
             await dispatch(POsActions.resetState())
-            .then(dispatch(POsActions.getPOSByPage(0)))
+            .then(await dispatch(POsActions.getPOSByPage(0)))
+            .then(()=> {if(updatePage) updatePage(0)})
             .then(history.push('/purchase_orders'))
+            .then(closeModal())
 
         } else {
             setErrors(['Error processing your purchase order'])
@@ -143,7 +145,7 @@ function NewPOForm() {
             formData.append('image', base64Content)
 
             await createPurchaseOrder()
-            .then(closeModal())
+
 
         }
 
@@ -230,7 +232,7 @@ function NewPOForm() {
                                         onChange={e => { setItemCode1(e.target.value) }}>
                                         <option value='' disabled>(Select Item)</option>
                                         {updatedItemList.map(item =>
-                                            <><option key={item.id} value={item?.id}>{item?.code}</option></>)}
+                                            <option key={item.id} value={item?.id}>{item?.code}</option>)}
                                     </select>
                                 </td>
                                 <td>{thisItem1?.description}</td>
@@ -249,7 +251,7 @@ function NewPOForm() {
                                         onChange={e => { setItemCode2(e.target.value) }}>
                                         <option value='' disabled>(Select Item)</option>
                                         {updatedItemList.map(item =>
-                                            <><option key={item.id} value={item.id}>{item.code}</option></>)}
+                                            <option key={item.id} value={item.id}>{item.code}</option>)}
                                     </select>
                                 </td>
                                 <td>{thisItem2?.description}</td>
@@ -268,7 +270,7 @@ function NewPOForm() {
                                         onChange={e => { setItemCode3(e.target.value) }}>
                                         <option value='' disabled>(Select Item)</option>
                                         {updatedItemList.map(item =>
-                                            <><option key={item.id} value={item.id} >{item.code}</option></>)}
+                                            <option key={item.id} value={item.id} >{item.code}</option>)}
                                     </select>
                                 </td>
                                 <td>{thisItem3?.description}</td>
