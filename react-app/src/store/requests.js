@@ -77,7 +77,7 @@ export const getOneRequest = (requestId) => async(dispatch) => {
 }
 
 export const createRequest = (formData) =>  async (dispatch) => {
-    console.log("IN CREATE REQUEST THUNKKKKKKKKKKKKKKK")
+    
     const response = await fetch(`/api/requests`, {
         method: 'POST',
         // headers: {'Content-Type': 'application/json'},

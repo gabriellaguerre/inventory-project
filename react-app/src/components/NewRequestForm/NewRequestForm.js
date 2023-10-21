@@ -99,7 +99,7 @@ function NewRequestForm() {
     const createRequestOrder = async () => {
 
         const reqResponse = await dispatch(RequestsActions.createRequest(formData));
-        console.log(reqResponse, 'REQ RESPONSE IN CREATE REQUEST ORDERRRRRRRRRRRRRRRRR')
+
         if (reqResponse) {
 
             const itemsToCreate = [
@@ -114,10 +114,10 @@ function NewRequestForm() {
                     await dispatch(RequestItemsActions.createRequestItem(itemId, { quantity }));
                 }
             }
-            // await dispatch(RequestsActions.resetState())
-            // .then(dispatch(RequestsActions.getRequestsByPage(0)))
-            console.log('IN REQ RESPONSE FOR NEW REQUESTFORM')
-            history.push('/requests')
+            await dispatch(RequestsActions.resetState())
+            .then(dispatch(RequestsActions.getRequestsByPage(0)))
+            .then(history.push('/requests'))
+            .then(closeModal())
 
         } else {
             setErrors(['Error processing your request'])
@@ -135,7 +135,7 @@ function NewRequestForm() {
             formData.append('image', base64Content)
 
             await createRequestOrder()
-            .then(closeModal())
+
 
         }
     }
@@ -221,7 +221,7 @@ function NewRequestForm() {
                                         onChange={e => { setItemCode1(e.target.value) }}>
                                         <option value='' disabled>(Select Item)</option>
                                         {updatedItemList.map(item =>
-                                            <><option key={item.id} value={item.id}>{item.code}</option></>)}
+                                            <option key={item.id} value={item.id}>{item.code}</option>)}
                                     </select>
                                 </td>
                                 <td>{thisItem1?.description}</td>
@@ -241,7 +241,7 @@ function NewRequestForm() {
                                         onChange={e => { setItemCode2(e.target.value) }}>
                                         <option value='' disabled>(Select Item)</option>
                                         {updatedItemList.map(item =>
-                                            <><option key={item.id} value={item.id}>{item.code}</option></>)}
+                                            <option key={item.id} value={item.id}>{item.code}</option>)}
                                     </select>
                                 </td>
                                 <td>{thisItem2?.description}</td>
@@ -261,7 +261,7 @@ function NewRequestForm() {
                                         onChange={e => { setItemCode3(e.target.value) }}>
                                         <option value='' disabled>(Select Item)</option>
                                         {updatedItemList.map(item =>
-                                            <><option key={item.id} value={item.id} >{item.code}</option></>)}
+                                            <option key={item.id} value={item.id} >{item.code}</option>)}
                                     </select>
                                 </td>
                                 <td>{thisItem3?.description}</td>

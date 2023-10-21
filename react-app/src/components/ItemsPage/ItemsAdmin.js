@@ -46,7 +46,7 @@ function ItemsAdmin({user}) {
     // previous(page)
     // dispatch(ItemsActions.resetState())
     // }
-    
+
     // function changePage() {
     //     setPage(0)
     // }
@@ -68,10 +68,10 @@ function ItemsAdmin({user}) {
              modalComponent={<NewRequestForm />}/></button>
           <button id='poForm'><OpenModalButton
                     buttonText=<span><i className="fa-solid fa-circle-plus"></i> New PO</span>
-                    modalComponent={<NewPOForm />}/></button>
+                    modalComponent={<NewPOForm updatePage={setPage}/>}/></button>
           <button id='itemForm'><OpenModalButton
                     buttonText=<span><i className="fa-solid fa-circle-plus"></i> New Item</span>
-                    modalComponent={<NewItemForm />}/></button>
+                    modalComponent={<NewItemForm updatePage={setPage}/>}/></button>
          <button id='supplierForm'><OpenModalButton
                     buttonText=<span><i className="fa-solid fa-circle-plus"></i> New Supplier</span>
                     modalComponent={<NewSupplierForm />}/></button>

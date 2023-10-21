@@ -33,7 +33,7 @@ export const createRequestItem = (itemId, {quantity}) => async(dispatch) => {
     })
     if (response.ok) {
         const data = await response.json()
-        console.log(data, "IN CREATE REQUESTITEM THUNKKKKKKKKKKKKKKKKK")
+     
         if (data.errors) {
             return data.errors
         } else {
