@@ -60,6 +60,20 @@ function ItemsAdmin({user}) {
         <span id='page'>Page {page+1} of {' '}{items[items.length-1]}</span>
         <button id='next' onClick={()=> {setPage(page+1);  }} disabled={disable}>Next</button>
         </div>
+        <div className='search'>
+            <input id='search'
+            //  value={}
+             placeholder='Choose a filter and type your search'
+            //  onChange={}
+             />
+
+        </div>
+        <div id='filter'>
+            Filter by: <button>code</button>
+            <button>description</button>
+            <button>type</button>
+
+        </div>
     <table className = 'items-table-admin'>
       <thead>
         <tr>
