@@ -17,8 +17,13 @@ function ItemsAdmin({user}) {
     const dispatch = useDispatch()
     const [page, setPage] = useState(0)
     const [disable, setDisable] = useState(false)
+    const [searchCode, setSearchCode] = useState('')
+    const [searchDescription, setSearchDescription] = useState('')
+    const [searchType, setSearchType] = useState('')
+    const [search, setSearch] = useState('')
 
 
+    console.log(search, searchCode, searchDescription, searchType, 'searches')
 
     useEffect(()=>{
         dispatch(ItemsActions.resetState())
@@ -41,16 +46,9 @@ function ItemsAdmin({user}) {
         newItems.push(item)
     }
 
-    // const previous = (page) => {
-    //     if (page>0) dispatch(ItemsActions.resetState())
-    // previous(page)
-    // dispatch(ItemsActions.resetState())
-    // }
+    const searchAction = async () => {
 
-    // function changePage() {
-    //     setPage(0)
-    // }
-
+    }
 
     return (
         <>
@@ -62,16 +60,20 @@ function ItemsAdmin({user}) {
         </div>
         <div className='search'>
             <input id='search'
-            //  value={}
+             value={search}
              placeholder='Choose a filter and type your search'
-            //  onChange={}
+             onChange={(e)=>setSearch(e.target.value)}
              />
+             <button onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i></button>
+             <button onClick={()=>{setSearchCode('');
+                                   setSearchDescription('');setSearchType('');
+                                   setSearch('')}}><i className="fa-solid fa-broom"></i></button>
 
         </div>
         <div id='filter'>
-            Filter by: <button>code</button>
-            <button>description</button>
-            <button>type</button>
+            Filter by: <button onClick={()=> {setSearchCode('code');setSearchDescription('');setSearchType('')}}>code</button>
+            <button onClick={()=> {setSearchCode('');setSearchDescription('description');setSearchType('')}}>description</button>
+            <button onClick={()=> {setSearchCode('');setSearchDescription('');setSearchType('type')}}>type</button>
 
         </div>
     <table className = 'items-table-admin'>
