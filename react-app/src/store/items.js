@@ -59,7 +59,7 @@ export const resetState = () => async (dispatch) => {
   }
 }
 
-export const getItemsByPage = (page) => async (dispatch) => {
+export const getItemsByPage = (page,code,description,type) => async (dispatch) => {
     const response = await fetch (`/api/items/${page}`, {
         headers: {'Content-Type': 'application/json'}
     })
@@ -178,7 +178,7 @@ export const deleteItem = (itemId) => async(dispatch) => {
 
     if (response.ok) {
         const data = await response.json()
-      
+
         dispatch(get_items_by_page(data))
     //     return true
     // } else {

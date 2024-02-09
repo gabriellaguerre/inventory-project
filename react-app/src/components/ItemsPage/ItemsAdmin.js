@@ -47,7 +47,12 @@ function ItemsAdmin({user}) {
     }
 
     const searchAction = async () => {
-
+        console.log(search, searchCode, searchDescription,searchType, 'searchAction')
+        if (search && !searchCode && !searchDescription && !searchType) {
+            console.log('Please choose a filter')
+        }
+        // dispatch(ItemsActions.resetState())
+        // dispatch(ItemsActions.getItemsByPage(page))
     }
 
     return (
