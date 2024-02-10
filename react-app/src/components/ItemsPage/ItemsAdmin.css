@@ -154,3 +154,28 @@ body {
 #pagination {
     text-align: center;
 }
+
+/* Search Query */
+
+.search {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#search {
+    width: 300px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+#filter {
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#isSearching {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}

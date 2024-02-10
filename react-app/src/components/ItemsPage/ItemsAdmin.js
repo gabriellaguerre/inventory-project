@@ -17,7 +17,9 @@ function ItemsAdmin({user}) {
     const dispatch = useDispatch()
     const [page, setPage] = useState(0)
     const [disable, setDisable] = useState(false)
-
+    const [query, setQuery] = useState('')
+    const [filter, setFilter] = useState('')
+    const [isSearching, setIsSearching] = useState(false)
 
 
     useEffect(()=>{
@@ -26,6 +28,7 @@ function ItemsAdmin({user}) {
     },[dispatch, page])
 
     const items = useSelector(state => Object.values(state.items))
+
 
     useEffect(()=> {
         if ((page+2) > items[items.length-1]) {
@@ -41,24 +44,53 @@ function ItemsAdmin({user}) {
         newItems.push(item)
     }
 
-    // const previous = (page) => {
-    //     if (page>0) dispatch(ItemsActions.resetState())
-    // previous(page)
-    // dispatch(ItemsActions.resetState())
-    // }
 
-    // function changePage() {
-    //     setPage(0)
-    // }
+    const searchAction = async () => {
+        if (query && !filter) {
+            console.log('Please choose a filter')
+        } else {
+            dispatch(ItemsActions.resetState())
+            dispatch(ItemsActions.searchItems({query, filter}))
+            setIsSearching(true)
+        }
 
+    }
+
+    const clearSearch = async () => {
+        setIsSearching(false)
+        setFilter('')
+        setQuery('')
+        dispatch(ItemsActions.resetState())
+        dispatch(ItemsActions.getItemsByPage(page))
+    }
 
     return (
         <>
-        {/* <h2>Inventory</h2> */}
-        <div id='pagination'>
-        <button id='previous' onClick={()=> {if (page>0) setPage(page-1); }}>Previous</button>
-        <span id='page'>Page {page+1} of {' '}{items[items.length-1]}</span>
-        <button id='next' onClick={()=> {setPage(page+1);  }} disabled={disable}>Next</button>
+        {(isSearching) ? (
+            <div id='isSearching'>Full List of Search Results</div>
+        ) : (
+            <div id='pagination'>
+            <button id='previous' onClick={()=> {if (page>0) setPage(page-1); }}>Previous</button>
+            <span id='page'>Page {page+1} of {' '}{items[items.length-1]}</span>
+            <button id='next' onClick={()=> {setPage(page+1);  }} disabled={disable}>Next</button>
+            </div>
+        )}
+
+        <div className='search'>
+            <input id='search'
+             value={query}
+             placeholder='Choose a filter and type your search'
+             onChange={(e)=>setQuery(e.target.value)}
+             />
+             <button onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i></button>
+             <button onClick={()=>clearSearch()}><i className="fa-solid fa-broom"></i></button>
+
+        </div>
+        <div id='filter'>
+            Filter by: <button onClick={()=> setFilter('code')}>code</button>
+            <button onClick={()=> setFilter('description')}>description</button>
+            <button onClick={()=> setFilter('type')}>type</button>
+
         </div>
     <table className = 'items-table-admin'>
       <thead>

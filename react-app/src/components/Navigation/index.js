@@ -1,4 +1,4 @@
-import React, { useEffect }from 'react';
+import React, { useEffect, useCallback }from 'react';
 // import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
@@ -13,10 +13,12 @@ function Navigation({ isLoaded }) {
 
 	let inactivityTimer;
 
-	function resetInactivityTimer() {
+	const resetInactivityTimer = useCallback(() => {
 		clearTimeout(inactivityTimer);
 		inactivityTimer = setTimeout(logoutUser, 20 * 60 * 1000); // 20 minutes
-	}
+
+	},[])
+
 
 	function logoutUser() {
 		dispatch(SessionActions.logout())
@@ -31,7 +33,7 @@ function Navigation({ isLoaded }) {
 			window.removeEventListener('mousemove', resetInactivityTimer);
 			window.removeEventListener('keypress', resetInactivityTimer);
 		};
-	}, []);
+	}, [resetInactivityTimer]);
 
 	return (
 

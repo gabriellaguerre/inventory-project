@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from app.models import Item, Request, PurchaseOrder, db
 from app.forms import ItemForm
 from datetime import datetime
-from sqlalchemy import func
+from sqlalchemy import func, and_
 import math
 
 item_routes = Blueprint('items', __name__)
@@ -32,9 +32,7 @@ def get_items_by_page(page):
 
     return {'items': [item.to_dict() for item in items[startIndex:offset]], 'total_pages': total_pages }
 
-    # inv_value = db.session.query(func.sum(Item.total_value)).filter(Item.deleted == False).scalar()
-    # total_units = db.session.query(func.sum(Item.quantity)).filter(Item.deleted == False).scalar()
-    # print(inv_value, total_units, 'YYYYYYYYYYYYYYYYYYYY')
+    
 
 #------------------------------GET ITEMS W/O PAGINATION ------------------------
 @item_routes.route('/')
@@ -44,6 +42,24 @@ def get_all_items():
     items = Item.query.filter(Item.deleted == False).all()
 
     return {'items': [item.to_dict() for item in items]}
+
+
+# ------------------------------GET ITEMS PAGINATION------------------------
+@item_routes.route('/search')
+# @login_required
+def search_items():
+    query = request.args.get('query')
+    filter_type = request.args.get('filter')
+
+    if filter_type =='code':
+        items = Item.query.filter(and_(Item.code.ilike(f'%{query}%'),Item.deleted == False)).all()
+    elif filter_type == 'description':
+        items = Item.query.filter(and_(Item.description.ilike(f'%{query}%'),Item.deleted == False)).all()
+    elif filter_type == 'type':
+        items = Item.query.filter(and_(Item.item_type.ilike(f'%{query}%'),Item.deleted == False)).all()
+
+
+    return {'items': [item.to_dict() for item in items], 'total_pages': 'total_pages'}
 
 
 #------------------------------GET ITEMS DELETE == TRUE ------------------------

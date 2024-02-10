@@ -3,7 +3,7 @@ const GET_ITEMS_BY_PAGE = 'items/GET_ITEMS_BY_PAGE'
 const GET_ALL_ITEMS = 'items/GET_ALL_ITEMS'
 const CREATE_ITEM = 'items/CREATE_ITEM'
 const EDIT_ITEM = 'items/EDIT_ITEM'
-// const DELETE_ITEM = 'items/DELETE_ITEM'
+const SEARCH_ITEMS = 'items/SEARCH_ITEMS'
 const RESET_STATE = 'items/RESET_STATE'
 const GET_PO_ITEMS = 'items/GET_PO_ITEMS'
 
@@ -40,10 +40,10 @@ const reqitem_edit = (item) => ({
     payload: item
 })
 
-// const delete_item = (itemId) => ({
-//     type: DELETE_ITEM,
-//     payload: itemId
-// })
+const search_items = (items) => ({
+    type: SEARCH_ITEMS,
+    payload: items
+})
 
 const resettingState = () => ({
     type: RESET_STATE
@@ -144,11 +144,21 @@ export const editItem = (item, itemId) => async(dispatch) => {
     }
 }
 
+export const searchItems = ({query, filter}) => async(dispatch) => {
+
+    const response = await fetch(`api/items/search?query=${query}&filter=${filter}`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(search_items(data))
+    }
+}
+
 export const poeditItem = (itemId, quantity) => async(dispatch) => {
     const response = await fetch(`/api/items/po_edit/${itemId}/${quantity}`, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'}
-        // body: JSON.stringify(quantity)
     })
 
     if (response.ok) {
@@ -178,7 +188,7 @@ export const deleteItem = (itemId) => async(dispatch) => {
 
     if (response.ok) {
         const data = await response.json()
-      
+
         dispatch(get_items_by_page(data))
     //     return true
     // } else {
@@ -209,9 +219,10 @@ export default function reducer (state = initialState, action) {
         case EDIT_ITEM:
             newState[action.payload.id] = action.payload;
             return newState;
-        // case DELETE_ITEM:
-        //     delete newState[action.payload]
-        //     return newState;
+        case SEARCH_ITEMS:
+            action.payload.items.forEach(item => newState[item.id] = item);
+            newState['total_pages'] = action.payload.total_pages
+             return newState;
         case RESET_STATE:
             return initialState;
         default:
