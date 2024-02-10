@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from app.models import Item, Request, PurchaseOrder, db
 from app.forms import ItemForm
 from datetime import datetime
-from sqlalchemy import func
+from sqlalchemy import func, and_
 import math
 
 item_routes = Blueprint('items', __name__)
@@ -45,6 +45,30 @@ def get_all_items():
 
     return {'items': [item.to_dict() for item in items]}
 
+
+# ------------------------------GET ITEMS PAGINATION------------------------
+@item_routes.route('/search')
+# @login_required
+def search_items():
+    query = request.args.get('query')
+    filter_type = request.args.get('filter')
+
+    if filter_type =='code':
+        items = Item.query.filter(and_(Item.code.ilike(f'%{query}%'),Item.deleted == False)).all()
+    elif filter_type == 'description':
+        items = Item.query.filter(and_(Item.description.ilike(f'%{query}%'),Item.deleted == False)).all()
+    elif filter_type == 'type':
+        items = Item.query.filter(and_(Item.item_type.ilike(f'%{query}%'),Item.deleted == False)).all()
+
+    # items = Item.query.filter(Item.deleted == False).order_by(Item.id).all()
+
+    # limit = 5
+    # offset = ((page + 1) * limit)
+    # startIndex = page * 5
+    print(items, 'ITEMMMMMMMMMMMMMMMMMMMSSSSSSSSSSS')
+    # total_pages = math.ceil(len(items)/limit)
+    return {'items': [item.to_dict() for item in items], 'total_pages': 'total_pages'}
+    # return {'items': [item.to_dict() for item in items[startIndex:offset]], 'total_pages': total_pages }
 
 #------------------------------GET ITEMS DELETE == TRUE ------------------------
 @item_routes.route('/deletetrue')

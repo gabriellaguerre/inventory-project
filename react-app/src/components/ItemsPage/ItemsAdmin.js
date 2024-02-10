@@ -17,13 +17,9 @@ function ItemsAdmin({user}) {
     const dispatch = useDispatch()
     const [page, setPage] = useState(0)
     const [disable, setDisable] = useState(false)
-    const [searchCode, setSearchCode] = useState('')
-    const [searchDescription, setSearchDescription] = useState('')
-    const [searchType, setSearchType] = useState('')
-    const [search, setSearch] = useState('')
+    const [query, setQuery] = useState('')
+    const [filter, setFilter] = useState('')
 
-
-    console.log(search, searchCode, searchDescription, searchType, 'searches')
 
     useEffect(()=>{
         dispatch(ItemsActions.resetState())
@@ -31,6 +27,7 @@ function ItemsAdmin({user}) {
     },[dispatch, page])
 
     const items = useSelector(state => Object.values(state.items))
+    console.log(items, 'ITEMSSSSSSSSSSS')
 
     useEffect(()=> {
         if ((page+2) > items[items.length-1]) {
@@ -46,13 +43,16 @@ function ItemsAdmin({user}) {
         newItems.push(item)
     }
 
+    console.log(newItems, 'newItemssssssssssssssssss')
+
     const searchAction = async () => {
-        console.log(search, searchCode, searchDescription,searchType, 'searchAction')
-        if (search && !searchCode && !searchDescription && !searchType) {
+        if (query && !filter) {
             console.log('Please choose a filter')
+        } else {
+            dispatch(ItemsActions.resetState())
+            dispatch(ItemsActions.searchItems({query, filter}))
         }
-        // dispatch(ItemsActions.resetState())
-        // dispatch(ItemsActions.getItemsByPage(page))
+
     }
 
     return (
@@ -65,20 +65,18 @@ function ItemsAdmin({user}) {
         </div>
         <div className='search'>
             <input id='search'
-             value={search}
+             value={query}
              placeholder='Choose a filter and type your search'
-             onChange={(e)=>setSearch(e.target.value)}
+             onChange={(e)=>setQuery(e.target.value)}
              />
              <button onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i></button>
-             <button onClick={()=>{setSearchCode('');
-                                   setSearchDescription('');setSearchType('');
-                                   setSearch('')}}><i className="fa-solid fa-broom"></i></button>
+             <button onClick={()=>setFilter('')}><i className="fa-solid fa-broom"></i></button>
 
         </div>
         <div id='filter'>
-            Filter by: <button onClick={()=> {setSearchCode('code');setSearchDescription('');setSearchType('')}}>code</button>
-            <button onClick={()=> {setSearchCode('');setSearchDescription('description');setSearchType('')}}>description</button>
-            <button onClick={()=> {setSearchCode('');setSearchDescription('');setSearchType('type')}}>type</button>
+            Filter by: <button onClick={()=> setFilter('code')}>code</button>
+            <button onClick={()=> setFilter('description')}>description</button>
+            <button onClick={()=> setFilter('type')}>type</button>
 
         </div>
     <table className = 'items-table-admin'>
