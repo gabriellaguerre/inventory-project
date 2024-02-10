@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from app.models import Item, Request, PurchaseOrder, db
 from app.forms import ItemForm
 from datetime import datetime
-from sqlalchemy import func, and_
+from sqlalchemy import func, and_, cast, String
 import math
 
 item_routes = Blueprint('items', __name__)
@@ -32,7 +32,7 @@ def get_items_by_page(page):
 
     return {'items': [item.to_dict() for item in items[startIndex:offset]], 'total_pages': total_pages }
 
-    
+
 
 #------------------------------GET ITEMS W/O PAGINATION ------------------------
 @item_routes.route('/')
@@ -44,19 +44,31 @@ def get_all_items():
     return {'items': [item.to_dict() for item in items]}
 
 
-# ------------------------------GET ITEMS PAGINATION------------------------
+# ------------------------------GET ITEMS SEARCH QUERY-----------------------
 @item_routes.route('/search')
 # @login_required
 def search_items():
     query = request.args.get('query')
     filter_type = request.args.get('filter')
 
-    if filter_type =='code':
-        items = Item.query.filter(and_(Item.code.ilike(f'%{query}%'),Item.deleted == False)).all()
-    elif filter_type == 'description':
-        items = Item.query.filter(and_(Item.description.ilike(f'%{query}%'),Item.deleted == False)).all()
-    elif filter_type == 'type':
-        items = Item.query.filter(and_(Item.item_type.ilike(f'%{query}%'),Item.deleted == False)).all()
+    filters = {'code': Item.code,
+               'description': Item.description,
+               'type': Item.item_type}
+
+    filter_column = filters[filter_type]
+
+    if isinstance(filter_column.type, db.Integer):
+        filter_condition = cast(filter_column, String).ilike(f'%{query}%')
+    else:
+        filter_condition = filter_column.ilike(f'%{query}%')
+
+    items = Item.query.filter(and_(filter_condition, Item.deleted == False)).all()
+    # if filter_type =='code':
+    #     items = Item.query.filter(and_(Item.code.ilike(f'%{query}%'),Item.deleted == False)).all()
+    # elif filter_type == 'description':
+    #     items = Item.query.filter(and_(Item.description.ilike(f'%{query}%'),Item.deleted == False)).all()
+    # elif filter_type == 'type':
+    #     items = Item.query.filter(and_(Item.item_type.ilike(f'%{query}%'),Item.deleted == False)).all()
 
 
     return {'items': [item.to_dict() for item in items], 'total_pages': 'total_pages'}
