@@ -173,3 +173,9 @@ body {
     text-align: center;
     margin-top: 10px;
 }
+
+#isSearching {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}

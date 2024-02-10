@@ -19,6 +19,7 @@ function ItemsAdmin({user}) {
     const [disable, setDisable] = useState(false)
     const [query, setQuery] = useState('')
     const [filter, setFilter] = useState('')
+    const [isSearching, setIsSearching] = useState(false)
 
 
     useEffect(()=>{
@@ -27,7 +28,7 @@ function ItemsAdmin({user}) {
     },[dispatch, page])
 
     const items = useSelector(state => Object.values(state.items))
-    console.log(items, 'ITEMSSSSSSSSSSS')
+
 
     useEffect(()=> {
         if ((page+2) > items[items.length-1]) {
@@ -43,7 +44,6 @@ function ItemsAdmin({user}) {
         newItems.push(item)
     }
 
-    console.log(newItems, 'newItemssssssssssssssssss')
 
     const searchAction = async () => {
         if (query && !filter) {
@@ -51,18 +51,31 @@ function ItemsAdmin({user}) {
         } else {
             dispatch(ItemsActions.resetState())
             dispatch(ItemsActions.searchItems({query, filter}))
+            setIsSearching(true)
         }
 
     }
 
+    const clearSearch = async () => {
+        setIsSearching(false)
+        setFilter('')
+        setQuery('')
+        dispatch(ItemsActions.resetState())
+        dispatch(ItemsActions.getItemsByPage(page))
+    }
+
     return (
         <>
-        {/* <h2>Inventory</h2> */}
-        <div id='pagination'>
-        <button id='previous' onClick={()=> {if (page>0) setPage(page-1); }}>Previous</button>
-        <span id='page'>Page {page+1} of {' '}{items[items.length-1]}</span>
-        <button id='next' onClick={()=> {setPage(page+1);  }} disabled={disable}>Next</button>
-        </div>
+        {(isSearching) ? (
+            <div id='isSearching'>Full List of Search Results</div>
+        ) : (
+            <div id='pagination'>
+            <button id='previous' onClick={()=> {if (page>0) setPage(page-1); }}>Previous</button>
+            <span id='page'>Page {page+1} of {' '}{items[items.length-1]}</span>
+            <button id='next' onClick={()=> {setPage(page+1);  }} disabled={disable}>Next</button>
+            </div>
+        )}
+
         <div className='search'>
             <input id='search'
              value={query}
@@ -70,7 +83,7 @@ function ItemsAdmin({user}) {
              onChange={(e)=>setQuery(e.target.value)}
              />
              <button onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i></button>
-             <button onClick={()=>setFilter('')}><i className="fa-solid fa-broom"></i></button>
+             <button onClick={()=>clearSearch()}><i className="fa-solid fa-broom"></i></button>
 
         </div>
         <div id='filter'>

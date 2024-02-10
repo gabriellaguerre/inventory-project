@@ -32,9 +32,7 @@ def get_items_by_page(page):
 
     return {'items': [item.to_dict() for item in items[startIndex:offset]], 'total_pages': total_pages }
 
-    # inv_value = db.session.query(func.sum(Item.total_value)).filter(Item.deleted == False).scalar()
-    # total_units = db.session.query(func.sum(Item.quantity)).filter(Item.deleted == False).scalar()
-    # print(inv_value, total_units, 'YYYYYYYYYYYYYYYYYYYY')
+    
 
 #------------------------------GET ITEMS W/O PAGINATION ------------------------
 @item_routes.route('/')
@@ -60,15 +58,9 @@ def search_items():
     elif filter_type == 'type':
         items = Item.query.filter(and_(Item.item_type.ilike(f'%{query}%'),Item.deleted == False)).all()
 
-    # items = Item.query.filter(Item.deleted == False).order_by(Item.id).all()
 
-    # limit = 5
-    # offset = ((page + 1) * limit)
-    # startIndex = page * 5
-    print(items, 'ITEMMMMMMMMMMMMMMMMMMMSSSSSSSSSSS')
-    # total_pages = math.ceil(len(items)/limit)
     return {'items': [item.to_dict() for item in items], 'total_pages': 'total_pages'}
-    # return {'items': [item.to_dict() for item in items[startIndex:offset]], 'total_pages': total_pages }
+
 
 #------------------------------GET ITEMS DELETE == TRUE ------------------------
 @item_routes.route('/deletetrue')

@@ -151,7 +151,6 @@ export const searchItems = ({query, filter}) => async(dispatch) => {
     })
     if (response.ok) {
         const data = await response.json()
-        console.log(data, 'DATAA IN THUNKKKKKKKKKKKKKKKKKKK')
         dispatch(search_items(data))
     }
 }
@@ -160,7 +159,6 @@ export const poeditItem = (itemId, quantity) => async(dispatch) => {
     const response = await fetch(`/api/items/po_edit/${itemId}/${quantity}`, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'}
-        // body: JSON.stringify(quantity)
     })
 
     if (response.ok) {
@@ -222,8 +220,8 @@ export default function reducer (state = initialState, action) {
             newState[action.payload.id] = action.payload;
             return newState;
         case SEARCH_ITEMS:
-            console.log(action.payload.items,'REDUCERRRRRRRRRRRRRRRRRRR')
             action.payload.items.forEach(item => newState[item.id] = item);
+            newState['total_pages'] = action.payload.total_pages
              return newState;
         case RESET_STATE:
             return initialState;
