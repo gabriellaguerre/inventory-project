@@ -19,6 +19,15 @@ function POAdmin() {
 
     const [page, setPage] = useState(0)
     const [disable, setDisable] = useState(false)
+    const [query, setQuery] = useState('')
+    const [filter, setFilter] = useState('')
+    const [isSearching, setIsSearching] = useState(false)
+    const [chooseStatus, setChooseStatus] = useState(false)
+    const [chooseId, setChooseId] = useState()
+    const [chooseRangeDate, setChooseRangeDate] = useState(false)
+    const [chooseCreatedBy, setChooseCreatedBy] = useState('')
+
+
 
     useEffect(()=> {
         dispatch(UsersActions.get_Users())
@@ -44,18 +53,67 @@ function POAdmin() {
         newPOs.push(po)
     }
 
-    // const previous = (page) => {
-    //     if (page>0) dispatch(POsActions.resetState())
-    //     previous(page)
-    // }
+    const searchAction = async () => {
+        if (query && !filter) {
+            alert('Please Choose A Filter.')
+        } else if (!query && filter) {
+            alert('Please Fill Out The Search Field.')
+        } else if (!query && !filter) {
+            alert('All The Fields Are Empty.  Please Fill Them Out.')
+        } else {
+            // dispatch(ItemsActions.resetState())
+            // dispatch(ItemsActions.searchItems({query, filter}))
+            setIsSearching(true)
+        }
+    }
+
+    const clearSearch = async () => {
+        setIsSearching(false)
+        setFilter('')
+        setQuery('')
+        setChooseStatus('')
+        setChooseId()
+        setChooseRangeDate('')
+        setChooseCreatedBy('')
+        dispatch(UsersActions.get_Users())
+        dispatch(POsActions.resetState())
+        dispatch(POsActions.getPOSByPage(page))
+    }
+
+    const chooseFilterStatus = 'search' + (chooseStatus ? "Yes" : "No")
+    const chooseFilterID = 'search' + (chooseId ? "Yes" : "No")
+    const chooseFilterDate = 'search' + (chooseRangeDate ? "Yes" : "No")
+    const chooseFilterCreatedBy = 'search' + (chooseCreatedBy ? "Yes" : "No")
+
 
     return (
         <>
+         {(isSearching) ? (
+            <div id='isSearching'>Full List of Search Results</div>
+        ) : (
             <div id='pagination'>
             <button id='previous' onClick={()=> {if (page>0) setPage(page-1); }}>Previous</button>
-            <span id='page'>Page {page+1} of {' '}{purchase_orders[purchase_orders.length-1]}</span>
-            <button id='next' onClick={()=> {setPage(page+1);}} disabled={disable}>Next</button>
+            <span id='page'>Page {page+1} of {' '}{items[items.length-1]}</span>
+            <button id='next' onClick={()=> {setPage(page+1);  }} disabled={disable}>Next</button>
             </div>
+        )}
+
+        <div className='search'>
+            <input id='search'
+             value={query}
+             placeholder='Choose a filter and type your search'
+             onChange={(e)=>setQuery(e.target.value)}
+             />
+             <button className='searchClear' onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i></button>
+             <button className='searchClear' onClick={()=>clearSearch()}><i className="fa-solid fa-broom"></i></button>
+
+        </div>
+        <div id='filter'>
+            Filter by: <button id={chooseFilterCode} className='cdtButton' onClick={()=> {setFilter('code'); setChooseCode(true); setChooseDesc(false); setChooseType(false)}}>Code</button>
+            <button id={chooseFilterDesc} className='cdtButton' onClick={()=> {setFilter('description'); setChooseCode(false); setChooseDesc(true); setChooseType(false)}}>Description</button>
+            <button id={chooseFilterType} className='cdtButton' onClick={()=> {setFilter('type'); setChooseCode(false); setChooseDesc(false); setChooseType(true)}}>Type</button>
+
+        </div>
             <table className='po-table-admin'>
             <thead>
             <tr>
