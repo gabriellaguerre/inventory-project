@@ -61,7 +61,6 @@ function ItemsAdmin({user}) {
             dispatch(ItemsActions.searchItems({query, filter}))
             setIsSearching(true)
         }
-
     }
 
     const clearSearch = async () => {
