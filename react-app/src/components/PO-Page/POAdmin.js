@@ -23,9 +23,9 @@ function POAdmin() {
     const [filter, setFilter] = useState('')
     const [isSearching, setIsSearching] = useState(false)
     const [chooseStatus, setChooseStatus] = useState(false)
-    const [chooseId, setChooseId] = useState()
+    const [chooseId, setChooseId] = useState(false)
     const [chooseRangeDate, setChooseRangeDate] = useState(false)
-    const [chooseCreatedBy, setChooseCreatedBy] = useState('')
+    const [chooseCreatedBy, setChooseCreatedBy] = useState(false)
 
 
 
@@ -71,10 +71,10 @@ function POAdmin() {
         setIsSearching(false)
         setFilter('')
         setQuery('')
-        setChooseStatus('')
-        setChooseId()
-        setChooseRangeDate('')
-        setChooseCreatedBy('')
+        setChooseStatus(false)
+        setChooseId(false)
+        setChooseRangeDate(false)
+        setChooseCreatedBy(false)
         dispatch(UsersActions.get_Users())
         dispatch(POsActions.resetState())
         dispatch(POsActions.getPOSByPage(page))
@@ -93,7 +93,7 @@ function POAdmin() {
         ) : (
             <div id='pagination'>
             <button id='previous' onClick={()=> {if (page>0) setPage(page-1); }}>Previous</button>
-            <span id='page'>Page {page+1} of {' '}{items[items.length-1]}</span>
+            <span id='page'>Page {page+1} of {' '}{purchase_orders[purchase_orders.length-1]}</span>
             <button id='next' onClick={()=> {setPage(page+1);  }} disabled={disable}>Next</button>
             </div>
         )}
@@ -109,10 +109,10 @@ function POAdmin() {
 
         </div>
         <div id='filter'>
-            Filter by: <button id={chooseFilterCode} className='cdtButton' onClick={()=> {setFilter('code'); setChooseCode(true); setChooseDesc(false); setChooseType(false)}}>Code</button>
-            <button id={chooseFilterDesc} className='cdtButton' onClick={()=> {setFilter('description'); setChooseCode(false); setChooseDesc(true); setChooseType(false)}}>Description</button>
-            <button id={chooseFilterType} className='cdtButton' onClick={()=> {setFilter('type'); setChooseCode(false); setChooseDesc(false); setChooseType(true)}}>Type</button>
-
+            Filter by: <button id={chooseFilterStatus} className='sidcButton' onClick={()=> {setFilter('status'); setChooseStatus(true); setChooseId(false); setChooseRangeDate(false); setChooseCreatedBy(false)}}>Status</button>
+            <button id={chooseFilterID} className='sidcButton' onClick={()=> {setFilter('id'); setChooseStatus(false); setChooseId(true); setChooseRangeDate(false); setChooseCreatedBy(false)}}>Purchase Order ID</button>
+            <button id={chooseFilterDate} className='sidcButton' onClick={()=> {setFilter('date'); setChooseStatus(false); setChooseId(false); setChooseRangeDate(true); setChooseCreatedBy(false)}}>Date</button>
+            <button id={chooseFilterCreatedBy} className='sidcButton' onClick={()=> {setFilter('created_by'); setChooseStatus(false); setChooseId(false); setChooseRangeDate(false); setChooseCreatedBy(true)}}>Created By</button>
         </div>
             <table className='po-table-admin'>
             <thead>

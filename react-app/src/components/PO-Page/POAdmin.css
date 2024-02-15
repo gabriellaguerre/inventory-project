@@ -94,3 +94,67 @@ body {
     text-align: center;
     line-height: 30px;
 }
+
+/* Search Query */
+
+.search {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#search {
+    width: 300px;
+    height: 20px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#filter {
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#isSearching {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+#searchYes {
+    background-color: orange;
+    color: rgb(0, 0, 95)
+}
+
+#searchNo {
+    background-color: rgb(0, 0, 95);
+    color: white;
+}
+#searchNo:hover {
+    background-color: white;
+    color:rgb(1, 1, 46)
+}
+
+.sidcButton {
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.searchClear {
+    margin-right: 5px;
+    cursor: pointer;
+    background-color: rgb(180, 180, 240);
+    border-radius: 5px;
+
+}
+
+.searchClear:hover {
+    background-color: white;
+    color: orange;
+    /* color:rgb(1, 1, 46) */
+}
+
+/* #search {
+    margin-right: 5px;
+} */
