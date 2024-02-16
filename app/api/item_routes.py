@@ -63,13 +63,7 @@ def search_items():
         filter_condition = filter_column.ilike(f'%{query}%')
 
     items = Item.query.filter(and_(filter_condition, Item.deleted == False)).all()
-    # if filter_type =='code':
-    #     items = Item.query.filter(and_(Item.code.ilike(f'%{query}%'),Item.deleted == False)).all()
-    # elif filter_type == 'description':
-    #     items = Item.query.filter(and_(Item.description.ilike(f'%{query}%'),Item.deleted == False)).all()
-    # elif filter_type == 'type':
-    #     items = Item.query.filter(and_(Item.item_type.ilike(f'%{query}%'),Item.deleted == False)).all()
-
+    
 
     return {'items': [item.to_dict() for item in items], 'total_pages': 'total_pages'}
 

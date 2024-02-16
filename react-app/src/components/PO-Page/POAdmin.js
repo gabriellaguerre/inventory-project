@@ -61,7 +61,7 @@ function POAdmin() {
         } else if (!query && !filter) {
             alert('All The Fields Are Empty.  Please Fill Them Out.')
         } else {
-            // dispatch(ItemsActions.resetState())
+             dispatch(POsActions.resetState())
             // dispatch(ItemsActions.searchItems({query, filter}))
             setIsSearching(true)
         }
@@ -110,6 +110,13 @@ function POAdmin() {
         </div>
         <div id='filter'>
             Filter by: <button id={chooseFilterStatus} className='sidcButton' onClick={()=> {setFilter('status'); setChooseStatus(true); setChooseId(false); setChooseRangeDate(false); setChooseCreatedBy(false)}}>Status</button>
+            {chooseStatus ? (
+                <select>
+                    <option>Status</option>
+                    <option>Open</option>
+                    <option>Received</option>
+                </select>
+            ):(null)}
             <button id={chooseFilterID} className='sidcButton' onClick={()=> {setFilter('id'); setChooseStatus(false); setChooseId(true); setChooseRangeDate(false); setChooseCreatedBy(false)}}>Purchase Order ID</button>
             <button id={chooseFilterDate} className='sidcButton' onClick={()=> {setFilter('date'); setChooseStatus(false); setChooseId(false); setChooseRangeDate(true); setChooseCreatedBy(false)}}>Date</button>
             <button id={chooseFilterCreatedBy} className='sidcButton' onClick={()=> {setFilter('created_by'); setChooseStatus(false); setChooseId(false); setChooseRangeDate(false); setChooseCreatedBy(true)}}>Created By</button>

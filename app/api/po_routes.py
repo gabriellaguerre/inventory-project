@@ -45,6 +45,29 @@ def get_purchase_orders():
     purchase_orders = PurchaseOrder.query.all()
     return {'purchase_orders': [purchase_order.to_dict() for purchase_order in purchase_orders]}
 
+# ------------------------------GET PO'S SEARCH QUERY-----------------------
+@po_routes.route('/search')
+# @login_required
+def search_purchase_orders():
+    query = request.args.get('query')
+    filter_type = request.args.get('filter')
+
+    filters = {'code': Item.code,
+               'description': Item.description,
+               'type': Item.item_type}
+
+    filter_column = filters[filter_type]
+
+    if isinstance(filter_column.type, db.Integer):
+        filter_condition = cast(filter_column, String).ilike(f'%{query}%')
+    else:
+        filter_condition = filter_column.ilike(f'%{query}%')
+
+    purchase_orders = PurchaseOrder.query.filter(filter_condition).all()
+
+
+
+    return {'purchase_orders': [purchase_order.to_dict() for purchase_order in purchase_orders], 'total_pages': 'total_pages'}
 
 #------------------------------CREATE PURCHASE ORDER------------------------
 @po_routes.route('', methods=['POST'])
