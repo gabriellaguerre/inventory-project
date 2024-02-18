@@ -51,7 +51,7 @@ export const getPOSByPage = (page) => async(dispatch) => {
 }
 
 export const searchPOs = ({query, filter}) => async(dispatch) => {
-
+   
     const response = await fetch(`api/purchase_orders/search?query=${query}&filter=${filter}`, {
         headers: {'Content-Type': 'application/json'}
     })

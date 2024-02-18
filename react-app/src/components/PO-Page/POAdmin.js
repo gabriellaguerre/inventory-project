@@ -22,10 +22,12 @@ function POAdmin() {
     const [query, setQuery] = useState('')
     const [filter, setFilter] = useState('')
     const [isSearching, setIsSearching] = useState(false)
-    const [chooseStatus, setChooseStatus] = useState(false)
-    const [chooseId, setChooseId] = useState(false)
+    const [chooseOpenPO, setChooseOpenPO] = useState(false)
+    const [chooseReceivedPO, setChooseReceivedPO] = useState(false)
+    const [chooseID, setChooseID] = useState(false)
     const [chooseRangeDate, setChooseRangeDate] = useState(false)
-    const [chooseCreatedBy, setChooseCreatedBy] = useState(false)
+    const [chooseUserID, setChooseUserID] = useState(false)
+    const [searchDisabled, setSearchDisabled] = useState(false)
 
 
 
@@ -54,15 +56,15 @@ function POAdmin() {
     }
 
     const searchAction = async () => {
-        if (query && !filter) {
+        if (query && !filter && searchDisabled===false) {
             alert('Please Choose A Filter.')
-        } else if (!query && filter) {
+        } else if (!query && filter && searchDisabled===false) {
             alert('Please Fill Out The Search Field.')
         } else if (!query && !filter) {
             alert('All The Fields Are Empty.  Please Fill Them Out.')
         } else {
-             dispatch(POsActions.resetState())
-            // dispatch(ItemsActions.searchItems({query, filter}))
+            dispatch(POsActions.resetState())
+            dispatch(POsActions.searchPOs({query, filter}))
             setIsSearching(true)
         }
     }
@@ -71,19 +73,22 @@ function POAdmin() {
         setIsSearching(false)
         setFilter('')
         setQuery('')
-        setChooseStatus(false)
-        setChooseId(false)
+        setChooseOpenPO(false)
+        setChooseReceivedPO(false)
+        setChooseID(false)
         setChooseRangeDate(false)
-        setChooseCreatedBy(false)
+        setChooseUserID(false)
+        setSearchDisabled(false)
         dispatch(UsersActions.get_Users())
         dispatch(POsActions.resetState())
         dispatch(POsActions.getPOSByPage(page))
     }
 
-    const chooseFilterStatus = 'search' + (chooseStatus ? "Yes" : "No")
-    const chooseFilterID = 'search' + (chooseId ? "Yes" : "No")
+    const chooseFilterOpenPO = 'search' + (chooseOpenPO ? "Yes" : "No")
+    const chooseFilterReceivedPO = 'search' + (chooseReceivedPO ? "Yes" : "No")
+    const chooseFilterID = 'search' + (chooseID ? "Yes" : "No")
     const chooseFilterDate = 'search' + (chooseRangeDate ? "Yes" : "No")
-    const chooseFilterCreatedBy = 'search' + (chooseCreatedBy ? "Yes" : "No")
+    const chooseFilterUserID = 'search' + (chooseUserID ? "Yes" : "No")
 
 
     return (
@@ -102,6 +107,7 @@ function POAdmin() {
             <input id='search'
              value={query}
              placeholder='Choose a filter and type your search'
+             disabled={searchDisabled}
              onChange={(e)=>setQuery(e.target.value)}
              />
              <button className='searchClear' onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i></button>
@@ -109,17 +115,11 @@ function POAdmin() {
 
         </div>
         <div id='filter'>
-            Filter by: <button id={chooseFilterStatus} className='sidcButton' onClick={()=> {setFilter('status'); setChooseStatus(true); setChooseId(false); setChooseRangeDate(false); setChooseCreatedBy(false)}}>Status</button>
-            {chooseStatus ? (
-                <select>
-                    <option>Status</option>
-                    <option>Open</option>
-                    <option>Received</option>
-                </select>
-            ):(null)}
-            <button id={chooseFilterID} className='sidcButton' onClick={()=> {setFilter('id'); setChooseStatus(false); setChooseId(true); setChooseRangeDate(false); setChooseCreatedBy(false)}}>Purchase Order ID</button>
-            <button id={chooseFilterDate} className='sidcButton' onClick={()=> {setFilter('date'); setChooseStatus(false); setChooseId(false); setChooseRangeDate(true); setChooseCreatedBy(false)}}>Date</button>
-            <button id={chooseFilterCreatedBy} className='sidcButton' onClick={()=> {setFilter('created_by'); setChooseStatus(false); setChooseId(false); setChooseRangeDate(false); setChooseCreatedBy(true)}}>Created By</button>
+            Filter by: <button id={chooseFilterOpenPO} className='sidcButton' onClick={()=> {setFilter('receivedFalse'); setChooseOpenPO(true); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(false); setChooseUserID(false); setSearchDisabled(true)}}>Open Puchase Orders</button>
+            <button id={chooseFilterReceivedPO} className='sidcButton' onClick={()=> {setFilter('receivedTrue'); setChooseOpenPO(false); setChooseReceivedPO(true); setChooseID(false); setChooseRangeDate(false); setChooseUserID(false); setSearchDisabled(true)}}>Received Puchase Orders</button>
+            <button id={chooseFilterID} className='sidcButton' onClick={()=> {setFilter('id'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(true); setChooseRangeDate(false); setChooseUserID(false); setSearchDisabled(false)}}>Purchase Order ID</button>
+            <button id={chooseFilterDate} className='sidcButton' onClick={()=> {setFilter('createdAt'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(true); setChooseUserID(false); setSearchDisabled(false)}}>Date</button>
+            <button id={chooseFilterUserID} className='sidcButton' onClick={()=> {setFilter('userId'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(false); setChooseUserID(true); setSearchDisabled(false)}}>Created By</button>
         </div>
             <table className='po-table-admin'>
             <thead>

@@ -7,7 +7,7 @@ from app.models import Request, PurchaseOrder, db
 from app.forms import PurchaseOrderItemForm
 from datetime import datetime
 from app.api.aws_helper_sig import upload_file_to_s3, get_unique_filename
-
+from sqlalchemy import func, and_, cast, String
 
 
 po_routes = Blueprint('purchase_orders', __name__)
@@ -49,24 +49,31 @@ def get_purchase_orders():
 @po_routes.route('/search')
 # @login_required
 def search_purchase_orders():
+    print("IN SEARCH PURCHASE ORDER")
     query = request.args.get('query')
     filter_type = request.args.get('filter')
 
-    filters = {'code': Item.code,
-               'description': Item.description,
-               'type': Item.item_type}
-
-    filter_column = filters[filter_type]
-
-    if isinstance(filter_column.type, db.Integer):
-        filter_condition = cast(filter_column, String).ilike(f'%{query}%')
+    if (filter_type=='receivedTrue'):
+        purchase_orders = PurchaseOrder.query.filter(PurchaseOrder.received==True).all()
+    elif(filter_type=='receivedFalse'):
+        purchase_orders = PurchaseOrder.query.filter(PurchaseOrder.received==False).all()
     else:
-        filter_condition = filter_column.ilike(f'%{query}%')
+        filters = {'id': PurchaseOrder.id,
+               'userId': PurchaseOrder.userId,
+               'createdAt': PurchaseOrder.createdAt}
 
-    purchase_orders = PurchaseOrder.query.filter(filter_condition).all()
+        filter_column = filters[filter_type]
+        print(filter_column, 'FILTER COLUMN')
+
+        if isinstance(filter_column.type, db.Integer):
+            filter_condition = cast(filter_column, String).ilike(f'%{query}%')
+        else:
+            filter_condition = filter_column.ilike(f'%{query}%')
+
+        purchase_orders = PurchaseOrder.query.filter(filter_condition).all()
 
 
-
+    # return {'message': 'successful'}
     return {'purchase_orders': [purchase_order.to_dict() for purchase_order in purchase_orders], 'total_pages': 'total_pages'}
 
 #------------------------------CREATE PURCHASE ORDER------------------------
