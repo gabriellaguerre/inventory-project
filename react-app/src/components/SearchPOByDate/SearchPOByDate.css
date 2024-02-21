@@ -1,0 +1,16 @@
+.searchByDateContainer {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 300px;
+    border-radius: 10px;
+    background-color: rgb(70, 70, 95);
+}
+
+.titleSearchPOByDate {
+  color: orange;
+  text-align: center;
+  font-size: 30px;
+  font-family: sans-serif;
+  margin-top: 10px;
+}
