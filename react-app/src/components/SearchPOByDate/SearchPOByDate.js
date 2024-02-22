@@ -18,31 +18,29 @@ function SearchPOByDate(){
         <>
         <div className='searchByDateContainer'>
         <div className='titleSearchPOByDate'>Search Purchase Orders By Date </div>
-        <div>
-            Start Date
+        <div className='startendDate'>
+           <span className='startDate'> Start Date </span>
+           <span className='endDate'> End Date </span>
         </div>
-        <div>
-        <input id='startDate'
+        <div className='searchInputs'>
+        <span className='inputStartDate'><input id='startDate'
                 type='date'
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
                 // onClick={()=> {setHasFilled(true)}}
-                />
-        </div>
-        <div>
-            End Date
-        </div>
-        <div>
-        <input id='endDate'
+                /></span>
+        <span className='inputEndDate'><input id='endDate'
                 type='date'
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
                 // onClick={()=> {setHasFilled(true)}}
-                />
+                /></span>
         </div>
-        <div>
-            <button>Submit</button>
-            <button onClick={()=>closeModal()}>Cancel</button>
+
+
+        <div className='poSearchButtons'>
+            <button className='poSubmitButton'>Submit</button>
+            <button className='poCancelButton'onClick={()=>closeModal()}>Cancel</button>
         </div>
         </div>
         </>

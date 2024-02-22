@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 500px;
-    height: 300px;
+    height: 200px;
     border-radius: 10px;
     background-color: rgb(70, 70, 95);
 }
@@ -13,4 +13,68 @@
   font-size: 30px;
   font-family: sans-serif;
   margin-top: 10px;
+}
+
+.startendDate {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.startDate {
+  color: white;
+  padding-right: 40px;
+}
+
+#startDate {
+  /* padding-right: 40px; */
+  text-align: center;
+
+}
+
+.endDate {
+  color: white;
+  padding-left: 40px;
+
+}
+
+#endDate {
+  /* padding-left: 40px; */
+  text-align: center;
+}
+
+.inputStartDate {
+  padding-right: 40px;
+}
+
+.searchInputs {
+  text-align: center;
+}
+
+.poSearchButtons {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.poSubmitButton {
+  background-color: rgb(76, 76, 109);
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: rgb(180, 180, 240);
+  border:2px solid rgb(180, 180, 240);
+  font-weight: bold;
+
+}
+
+.poCancelButton {
+  background-color: red;
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: rgb(180, 180, 240);
+  border:2px solid red;
+  font-weight: bold;
+  margin-left: 10px;
 }
