@@ -5,7 +5,7 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Request, PurchaseOrder, db
 from app.forms import PurchaseOrderItemForm
-from datetime import datetime
+from datetime import datetime, timedelta
 from app.api.aws_helper_sig import upload_file_to_s3, get_unique_filename
 from sqlalchemy import func, and_, cast, String
 
@@ -52,18 +52,27 @@ def search_purchase_orders():
     print("IN SEARCH PURCHASE ORDER")
     query = request.args.get('query')
     filter_type = request.args.get('filter')
+    startDate_str = request.args.get('startDate')
+    endDate_str = request.args.get('endDate')
+
+    print(startDate_str, endDate_str, "IN BACKEND")
 
     if (filter_type=='receivedTrue'):
         purchase_orders = PurchaseOrder.query.filter(PurchaseOrder.received==True).all()
     elif(filter_type=='receivedFalse'):
         purchase_orders = PurchaseOrder.query.filter(PurchaseOrder.received==False).all()
+    elif(startDate_str and endDate_str):
+        start_date = datetime.strptime(startDate_str, "%Y-%m-%d")
+        end_date = datetime.strptime(endDate_str, "%Y-%m-%d") + timedelta(days=1) - timedelta(seconds=1)
+        purchase_orders = PurchaseOrder.query.filter(PurchaseOrder.createdAt.between(start_date, end_date)).all()
+        print(purchase_orders, 'IN START AND END DATE')
     else:
         filters = {'id': PurchaseOrder.id,
                'userId': PurchaseOrder.userId,
                'createdAt': PurchaseOrder.createdAt}
 
         filter_column = filters[filter_type]
-        print(filter_column, 'FILTER COLUMN')
+
 
         if isinstance(filter_column.type, db.Integer):
             filter_condition = cast(filter_column, String).ilike(f'%{query}%')

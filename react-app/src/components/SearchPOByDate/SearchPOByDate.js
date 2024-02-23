@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom'
 import { useModal } from "../../context/Modal";
-import * as ItemsActions from '../../store/items';
-import * as POsActions from '../../store/purchase_orders'
-import * as PurchaseOrderItemsActions from '../../store/purchase_order_items'
+import * as POsActions from '../../store/purchase_orders';
 import './SearchPOByDate.css'
 
 function SearchPOByDate(){
@@ -13,6 +10,12 @@ function SearchPOByDate(){
 
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
+
+    const searchByDate = () => {
+        closeModal();
+        dispatch(POsActions.resetState())
+        dispatch(POsActions.searchPOsByDate({startDate, endDate}))
+    }
 
     return(
         <>
@@ -27,19 +30,19 @@ function SearchPOByDate(){
                 type='date'
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                // onClick={()=> {setHasFilled(true)}}
+
                 /></span>
         <span className='inputEndDate'><input id='endDate'
                 type='date'
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                // onClick={()=> {setHasFilled(true)}}
+
                 /></span>
         </div>
 
 
         <div className='poSearchButtons'>
-            <button className='poSubmitButton'>Submit</button>
+            <button className='poSubmitButton' onClick={()=>searchByDate()}>Submit</button>
             <button className='poCancelButton'onClick={()=>closeModal()}>Cancel</button>
         </div>
         </div>

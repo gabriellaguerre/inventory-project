@@ -51,8 +51,19 @@ export const getPOSByPage = (page) => async(dispatch) => {
 }
 
 export const searchPOs = ({query, filter}) => async(dispatch) => {
-   
+
     const response = await fetch(`api/purchase_orders/search?query=${query}&filter=${filter}`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(search_purchase_orders(data))
+    }
+}
+
+export const searchPOsByDate = ({startDate, endDate}) => async(dispatch) => {
+
+    const response = await fetch(`api/purchase_orders/search?startDate=${startDate}&endDate=${endDate}`, {
         headers: {'Content-Type': 'application/json'}
     })
     if (response.ok) {
