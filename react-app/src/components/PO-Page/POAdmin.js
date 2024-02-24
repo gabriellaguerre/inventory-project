@@ -29,6 +29,7 @@ function POAdmin() {
     const [chooseRangeDate, setChooseRangeDate] = useState(false)
     const [chooseUserID, setChooseUserID] = useState(false)
     const [searchDisabled, setSearchDisabled] = useState(false)
+    const [searchDates, setSearchDates] = useState({startDate: null, endDate: null})
 
 
 
@@ -80,6 +81,7 @@ function POAdmin() {
         setChooseRangeDate(false)
         setChooseUserID(false)
         setSearchDisabled(false)
+        setSearchDates({startDate: null, endDate: null})
         dispatch(UsersActions.get_Users())
         dispatch(POsActions.resetState())
         dispatch(POsActions.getPOSByPage(page))
@@ -91,16 +93,21 @@ function POAdmin() {
     const chooseFilterDate = 'search' + (chooseRangeDate ? "Yes" : "No")
     const chooseFilterUserID = 'search' + (chooseUserID ? "Yes" : "No")
 
+    const handleSearchDate = (startDate, endDate) => {
+        setIsSearching(false)
+        setSearchDates({startDate, endDate})
+    }
 
     return (
         <>
-         {(isSearching) ? (
+         {isSearching ? (
             <div id='isSearching'>Full List of Search Results</div>
-        ) : (
-            <div id='pagination'>
+        ) : searchDates.startDate && searchDates.endDate ? (
+            <div id='isSearching' >Full List of Search Results between {searchDates.startDate} and {searchDates.endDate}</div>
+        ) : (<div id='pagination'>
             <button id='previous' onClick={()=> {if (page>0) setPage(page-1); }}>Previous</button>
             <span id='page'>Page {page+1} of {' '}{purchase_orders[purchase_orders.length-1]}</span>
-            <button id='next' onClick={()=> {setPage(page+1);  }} disabled={disable}>Next</button>
+            <button id='next' onClick={()=> {setPage(page+1);}} disabled={disable}>Next</button>
             </div>
         )}
 
@@ -121,7 +128,7 @@ function POAdmin() {
             <button id={chooseFilterID} className='sidcButton' onClick={()=> {setFilter('id'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(true); setChooseRangeDate(false); setChooseUserID(false); setSearchDisabled(false)}}>Purchase Order ID</button>
             <button id={chooseFilterDate} className='sidcButton' onClick={()=> {setFilter('createdAt'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(true); setChooseUserID(false); setSearchDisabled(false)}}><OpenModalButton
                                     buttonText=<div>Date</div>
-                                    modalComponent={<SearchPOByDate />}/></button>
+                                    modalComponent={<SearchPOByDate onDateSubmit={handleSearchDate}/>}/></button>
             <button id={chooseFilterUserID} className='sidcButton' onClick={()=> {setFilter('userId'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(false); setChooseUserID(true); setSearchDisabled(false)}}>Created By</button>
         </div>
             <table className='po-table-admin'>

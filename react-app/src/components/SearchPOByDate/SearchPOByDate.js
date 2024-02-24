@@ -4,7 +4,7 @@ import { useModal } from "../../context/Modal";
 import * as POsActions from '../../store/purchase_orders';
 import './SearchPOByDate.css'
 
-function SearchPOByDate(){
+function SearchPOByDate({onDateSubmit}){
     const dispatch = useDispatch()
     const { closeModal } = useModal()
 
@@ -12,6 +12,7 @@ function SearchPOByDate(){
     const [endDate, setEndDate] = useState('')
 
     const searchByDate = () => {
+        onDateSubmit(startDate, endDate)
         closeModal();
         dispatch(POsActions.resetState())
         dispatch(POsActions.searchPOsByDate({startDate, endDate}))
