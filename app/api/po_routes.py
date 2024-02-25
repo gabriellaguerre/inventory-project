@@ -55,7 +55,7 @@ def search_purchase_orders():
     startDate_str = request.args.get('startDate')
     endDate_str = request.args.get('endDate')
 
-    print(startDate_str, endDate_str, "IN BACKEND")
+    print(query, filter_type, "IN BACKEND")
 
     if (filter_type=='receivedTrue'):
         purchase_orders = PurchaseOrder.query.filter(PurchaseOrder.received==True).all()
@@ -65,10 +65,12 @@ def search_purchase_orders():
         start_date = datetime.strptime(startDate_str, "%Y-%m-%d")
         end_date = datetime.strptime(endDate_str, "%Y-%m-%d") + timedelta(days=1) - timedelta(seconds=1)
         purchase_orders = PurchaseOrder.query.filter(PurchaseOrder.createdAt.between(start_date, end_date)).all()
-        print(purchase_orders, 'IN START AND END DATE')
+    elif(filter_type=='userId'):
+        purchase_orders = PurchaseOrder.query.filter(PurchaseOrder.userId==query).all()
+
     else:
         filters = {'id': PurchaseOrder.id,
-               'userId': PurchaseOrder.userId,
+            #    'userId': PurchaseOrder.userId,
                'createdAt': PurchaseOrder.createdAt}
 
         filter_column = filters[filter_type]

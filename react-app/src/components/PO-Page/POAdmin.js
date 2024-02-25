@@ -64,7 +64,9 @@ function POAdmin() {
             alert('Please Fill Out The Search Field.')
         } else if (!query && !filter) {
             alert('All The Fields Are Empty.  Please Fill Them Out.')
-        } else {
+        } else if (filter === 'userId') {
+            handleCreatedBy()
+        }else {
             dispatch(POsActions.resetState())
             dispatch(POsActions.searchPOs({query, filter}))
             setIsSearching(true)
@@ -96,6 +98,20 @@ function POAdmin() {
     const handleSearchDate = (startDate, endDate) => {
         setIsSearching(false)
         setSearchDates({startDate, endDate})
+    }
+
+    const handleCreatedBy = () => {
+        const userArray = Object.values(user)
+        let newQuery = userArray.find(({ employeeID }) => employeeID === query)
+
+        if(newQuery) {
+            setIsSearching(true)
+            dispatch(POsActions.resetState())
+            dispatch(POsActions.searchPOs({query: newQuery.id, filter}))
+        } else {
+            alert('Either this user does not exist or there is a typo.  Please check spelling')
+        }
+
     }
 
     return (
