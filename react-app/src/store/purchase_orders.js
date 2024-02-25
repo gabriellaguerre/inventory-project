@@ -3,6 +3,7 @@ const CREATE_PURCHASE_ORDER = 'purchase_orders/CREATE_PURCHASE_ORDER'
 const EDIT_PURCHASE_ORDER = 'purchase_orders/EDIT_PURCHASE_ORDER'
 const RESET_STATE = 'purchase_orders/RESET_STATE'
 const GET_POS_BY_PAGE = 'purchase_orders/GET_POS_BY_PAGE'
+const SEARCH_PURCHASE_ORDERS = 'purchase_orders/SEARCH_PURCHASE_ORDERS'
 
 
 //------------------------------DISPATCH VARIABLES-----------------------------
@@ -16,10 +17,10 @@ const get_pos_by_page = (purchase_orders) => ({
 //     payload: purchase_orders
 // })
 
-// const create_purchase_order = (purchase_order) => ({
-//     type: CREATE_PURCHASE_ORDER,
-//     payload: purchase_order
-// })
+const search_purchase_orders = (purchase_orders) => ({
+    type: SEARCH_PURCHASE_ORDERS,
+    payload: purchase_orders
+})
 
 const edit_purchase_order = (purchase_order) => ({
     type: EDIT_PURCHASE_ORDER,
@@ -49,17 +50,27 @@ export const getPOSByPage = (page) => async(dispatch) => {
     }
 }
 
-// export const getPOS = () => async(dispatch) => {
+export const searchPOs = ({query, filter}) => async(dispatch) => {
+    
+    const response = await fetch(`api/purchase_orders/search?query=${query}&filter=${filter}`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(search_purchase_orders(data))
+    }
+}
 
-//     const response = await fetch('/api/purchase_orders', {
-//         headers: {'Content-Type': 'application/json'}
-//     })
+export const searchPOsByDate = ({startDate, endDate}) => async(dispatch) => {
 
-//     if (response.ok) {
-//         const data = await response.json()
-//         dispatch(get_pos(data))
-//     }
-// }
+    const response = await fetch(`api/purchase_orders/search?startDate=${startDate}&endDate=${endDate}`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(search_purchase_orders(data))
+    }
+}
 
 export const createPurchaseOrder = (formData) =>  async (dispatch) => {
     const response = await fetch(`/api/purchase_orders`, {
@@ -98,9 +109,10 @@ export default function reducer(state = initialState, action) {
             action.payload.purchase_orders.forEach(purchase_order => newState[purchase_order.id] = purchase_order);
             newState['total_pages'] = action.payload.total_pages
             return newState;
-        // case GET_PURCHASE_ORDERS:
-        //     action.payload.purchase_orders.forEach(purchase_order => newState[purchase_order.id] = purchase_order);
-        //     return newState;
+        case SEARCH_PURCHASE_ORDERS:
+            action.payload.purchase_orders.forEach(purchase_order => newState[purchase_order.id] = purchase_order);
+            newState['total_pages'] = action.payload.total_pages
+            return newState;
         case CREATE_PURCHASE_ORDER:
             newState[action.payload.id] = action.payload;
             return newState;

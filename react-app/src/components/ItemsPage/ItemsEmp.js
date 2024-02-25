@@ -86,8 +86,8 @@ function ItemsEmp() {
              placeholder='Choose a filter and type your search'
              onChange={(e)=>setQuery(e.target.value)}
              />
-             <button onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i></button>
-             <button onClick={()=>clearSearch()}><i className="fa-solid fa-broom"></i></button>
+             <button className='searchClear' onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i></button>
+             <button className='searchClear' onClick={()=>clearSearch()}><i className="fa-solid fa-broom"></i></button>
 
         </div>
         <div id='filter'>
