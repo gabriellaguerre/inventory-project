@@ -147,6 +147,7 @@ function POAdmin() {
                                     modalComponent={<SearchPOByDate onDateSubmit={handleSearchDate}/>}/></button>
             <button id={chooseFilterUserID} className='sidcButton' onClick={()=> {setFilter('userId'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(false); setChooseUserID(true); setSearchDisabled(false)}}>Created By</button>
         </div>
+        
             <table className='po-table-admin'>
             <thead>
             <tr>
