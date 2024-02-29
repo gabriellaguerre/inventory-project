@@ -55,6 +55,28 @@ export const getRequestsByPage = (page) => async(dispatch) => {
     }
 }
 
+export const searchRequests = ({query, filter}) => async(dispatch) => {
+
+    const response = await fetch(`api/requests/search?query=${query}&filter=${filter}`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(search_purchase_orders(data))
+    }
+}
+
+export const searchRequestsByDate = ({startDate, endDate}) => async(dispatch) => {
+
+    const response = await fetch(`api/requests/search?startDate=${startDate}&endDate=${endDate}`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(search_purchase_orders(data))
+    }
+}
+
 export const getRequests = () => async(dispatch) => {
     const response = await fetch('/api/requests/', {
         headers: {'Content-Type': 'application/json'}
@@ -77,7 +99,7 @@ export const getOneRequest = (requestId) => async(dispatch) => {
 }
 
 export const createRequest = (formData) =>  async (dispatch) => {
-    
+
     const response = await fetch(`/api/requests`, {
         method: 'POST',
         // headers: {'Content-Type': 'application/json'},

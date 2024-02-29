@@ -66,7 +66,7 @@ function RequestsAdmin() {
             handleCreatedBy()
         }else {
             dispatch(RequestsActions.resetState())
-            dispatch(RequestsActions.searchPOs({query, filter}))
+            dispatch(RequestsActions.searchRequests({query, filter}))
             setIsSearching(true)
         }
     }
@@ -84,7 +84,7 @@ function RequestsAdmin() {
         setSearchDates({startDate: null, endDate: null})
         dispatch(UsersActions.get_Users())
         dispatch(RequestsActions.resetState())
-        dispatch(RequestsActions.getPOSByPage(page))
+        dispatch(RequestsActions.getRequestsByPage(page))
     }
 
     const chooseFilterOpenPO = 'search' + (chooseOpenPO ? "Yes" : "No")
@@ -104,8 +104,8 @@ function RequestsAdmin() {
 
         if(newQuery) {
             setIsSearching(true)
-            dispatch(POsActions.resetState())
-            dispatch(POsActions.searchPOs({query: newQuery.id, filter}))
+            dispatch(RequestsActions.resetState())
+            dispatch(RequestsActions.searchRequests({query: newQuery.id, filter}))
         } else {
             alert('Either this user does not exist or there is a typo.  Please check spelling')
         }
@@ -121,7 +121,7 @@ function RequestsAdmin() {
             <div id='isSearching' >Full List of Search Results between {searchDates.startDate} and {searchDates.endDate}</div>
         ) : (<div id='pagination'>
             <button id='previous' onClick={()=> {if (page>0) setPage(page-1); }}>Previous</button>
-            <span id='page'>Page {page+1} of {' '}{purchase_orders[purchase_orders.length-1]}</span>
+            <span id='page'>Page {page+1} of {' '}{requests[requests.length-1]}</span>
             <button id='next' onClick={()=> {setPage(page+1);}} disabled={disable}>Next</button>
             </div>
         )}
@@ -143,7 +143,7 @@ function RequestsAdmin() {
             <button id={chooseFilterID} className='sidcButton' onClick={()=> {setFilter('id'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(true); setChooseRangeDate(false); setChooseUserID(false); setSearchDisabled(false)}}>Purchase Order ID</button>
             <button id={chooseFilterDate} className='sidcButton' onClick={()=> {setFilter('createdAt'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(true); setChooseUserID(false); setSearchDisabled(false)}}><OpenModalButton
                                     buttonText=<div>Date</div>
-                                    modalComponent={<SearchPOByDate onDateSubmit={handleSearchDate}/>}/></button>
+                                    modalComponent={<SearchRequestByDate onDateSubmit={handleSearchDate}/>}/></button>
             <button id={chooseFilterUserID} className='sidcButton' onClick={()=> {setFilter('userId'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(false); setChooseUserID(true); setSearchDisabled(false)}}>Created By</button>
         </div>
 
