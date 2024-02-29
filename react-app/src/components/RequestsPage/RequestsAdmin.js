@@ -9,6 +9,7 @@ import NewRequestForm from '../NewRequestForm/NewRequestForm.js';
 import NewPOForm from '../NewPOForm/NewPOForm.js';
 import NewItemForm from '../NewItemForm/NewItemForm.js'
 import NewSupplierForm from '../NewSupplierForm/NewSupplierForm'
+import SearchRequestByDate from '../SearchRequestByDate/SearchRequestByDate.js'
 import './RequestsAdmin.css'
 
 
@@ -20,8 +21,8 @@ function RequestsAdmin() {
     const [query, setQuery] = useState('')
     const [filter, setFilter] = useState('')
     const [isSearching, setIsSearching] = useState(false)
-    const [chooseOpenPO, setChooseOpenPO] = useState(false)
-    const [chooseReceivedPO, setChooseReceivedPO] = useState(false)
+    const [chooseVoidedReq, setChooseVoidedReq] = useState(false)
+    const [chooseAppliedReq, setChooseAppliedReq] = useState(false)
     const [chooseID, setChooseID] = useState(false)
     const [chooseRangeDate, setChooseRangeDate] = useState(false)
     const [chooseUserID, setChooseUserID] = useState(false)
@@ -75,8 +76,8 @@ function RequestsAdmin() {
         setIsSearching(false)
         setFilter('')
         setQuery('')
-        setChooseOpenPO(false)
-        setChooseReceivedPO(false)
+        setChooseVoidedReq(false)
+        setChooseAppliedReq(false)
         setChooseID(false)
         setChooseRangeDate(false)
         setChooseUserID(false)
@@ -87,8 +88,8 @@ function RequestsAdmin() {
         dispatch(RequestsActions.getRequestsByPage(page))
     }
 
-    const chooseFilterOpenPO = 'search' + (chooseOpenPO ? "Yes" : "No")
-    const chooseFilterReceivedPO = 'search' + (chooseReceivedPO ? "Yes" : "No")
+    const chooseFilterVoidedReq = 'search' + (chooseVoidedReq ? "Yes" : "No")
+    const chooseFilterAppliedReq = 'search' + (chooseAppliedReq ? "Yes" : "No")
     const chooseFilterID = 'search' + (chooseID ? "Yes" : "No")
     const chooseFilterDate = 'search' + (chooseRangeDate ? "Yes" : "No")
     const chooseFilterUserID = 'search' + (chooseUserID ? "Yes" : "No")
@@ -138,13 +139,13 @@ function RequestsAdmin() {
 
         </div>
         <div id='filter'>
-            Filter by: <button id={chooseFilterOpenPO} className='sidcButton' onClick={()=> {setFilter('receivedFalse'); setChooseOpenPO(true); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(false); setChooseUserID(false); setSearchDisabled(true)}}>Open Puchase Orders</button>
-            <button id={chooseFilterReceivedPO} className='sidcButton' onClick={()=> {setFilter('receivedTrue'); setChooseOpenPO(false); setChooseReceivedPO(true); setChooseID(false); setChooseRangeDate(false); setChooseUserID(false); setSearchDisabled(true)}}>Received Puchase Orders</button>
-            <button id={chooseFilterID} className='sidcButton' onClick={()=> {setFilter('id'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(true); setChooseRangeDate(false); setChooseUserID(false); setSearchDisabled(false)}}>Purchase Order ID</button>
-            <button id={chooseFilterDate} className='sidcButton' onClick={()=> {setFilter('createdAt'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(true); setChooseUserID(false); setSearchDisabled(false)}}><OpenModalButton
+            Filter by: <button id={chooseFilterAppliedReq} className='sidcButton' onClick={()=> {setFilter('voidedFalse'); setChooseAppliedReq(true); setChooseVoidedReq(false); setChooseID(false); setChooseRangeDate(false); setChooseUserID(false); setSearchDisabled(true)}}>Applied Requests</button>
+            <button id={chooseFilterVoidedReq} className='sidcButton' onClick={()=> {setFilter('voidedTrue'); setChooseAppliedReq(false); setChooseVoidedReq(true); setChooseID(false); setChooseRangeDate(false); setChooseUserID(false); setSearchDisabled(true)}}>Voided Requests</button>
+            <button id={chooseFilterID} className='sidcButton' onClick={()=> {setFilter('id'); setChooseAppliedReq(false); setChooseVoidedReq(false); setChooseID(true); setChooseRangeDate(false); setChooseUserID(false); setSearchDisabled(false)}}>Request ID</button>
+            <button id={chooseFilterDate} className='sidcButton' onClick={()=> {setFilter('createdAt'); setChooseAppliedReq(false); setChooseVoidedReq(false); setChooseID(false); setChooseRangeDate(true); setChooseUserID(false); setSearchDisabled(false)}}><OpenModalButton
                                     buttonText=<div>Date</div>
                                     modalComponent={<SearchRequestByDate onDateSubmit={handleSearchDate}/>}/></button>
-            <button id={chooseFilterUserID} className='sidcButton' onClick={()=> {setFilter('userId'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(false); setChooseUserID(true); setSearchDisabled(false)}}>Created By</button>
+            <button id={chooseFilterUserID} className='sidcButton' onClick={()=> {setFilter('userId'); setChooseAppliedReq(false); setChooseVoidedReq(false); setChooseID(false); setChooseRangeDate(false); setChooseUserID(true); setSearchDisabled(false)}}>Created By</button>
         </div>
 
             <table className='request-table-admin'>

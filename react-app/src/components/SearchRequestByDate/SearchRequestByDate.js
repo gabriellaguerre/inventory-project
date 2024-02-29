@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from "../../context/Modal";
-import * as RequestsActions from '../../store/purchase_orders';
-import './SearchPOByDate.css'
+import * as RequestsActions from '../../store/requests';
+import './SearchRequestByDate.css'
 
 function SearchRequestByDate({onDateSubmit}){
     const dispatch = useDispatch()
