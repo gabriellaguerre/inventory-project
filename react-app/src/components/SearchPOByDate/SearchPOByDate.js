@@ -12,10 +12,17 @@ function SearchPOByDate({onDateSubmit}){
     const [endDate, setEndDate] = useState('')
 
     const searchByDate = () => {
-        onDateSubmit(startDate, endDate)
-        closeModal();
-        dispatch(POsActions.resetState())
-        dispatch(POsActions.searchPOsByDate({startDate, endDate}))
+
+        const startDateObj = new Date(startDate);
+
+        if(startDateObj > Date.now() || endDate < startDate){
+            alert('Dates chosen are not valid.  Please try again')
+        } else {
+             onDateSubmit(startDate, endDate)
+             closeModal();
+             dispatch(POsActions.resetState())
+             dispatch(POsActions.searchPOsByDate({startDate, endDate}))
+        }
     }
 
     return(
