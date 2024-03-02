@@ -5,6 +5,7 @@ const GET_ONE_REQUEST = 'requests/GET_ONE_REQUEST'
 const EDIT_REQUEST = 'requests/EDIT_REQUEST'
 const RESET_STATE = 'requests/RESET_STATE'
 const GET_REQUESTS_BY_PAGE = 'requests/GET_REQUESTS_BY_PAGE'
+const SEARCH_REQUESTS = 'requests/SEARCH_REQUESTS'
 
 
 //------------------------------DISPATCH VARIABLES-----------------------------
@@ -27,10 +28,10 @@ const get_one_request = (request) => ({
     payload: request
 })
 
-// const create_request = (request) => ({
-//     type: CREATE_REQUEST,
-//     payload: request
-// })
+const search_requests = (requests) => ({
+    type: SEARCH_REQUESTS,
+    payload: requests
+})
 
 const edit_request = (request) => ({
     type: EDIT_REQUEST,
@@ -52,6 +53,28 @@ export const getRequestsByPage = (page) => async(dispatch) => {
     if (response.ok) {
         const data = await response.json()
         dispatch(get_requests_by_page(data))
+    }
+}
+
+export const searchRequests = ({query, filter}) => async(dispatch) => {
+
+    const response = await fetch(`api/requests/search?query=${query}&filter=${filter}`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(search_requests(data))
+    }
+}
+
+export const searchRequestsByDate = ({startDate, endDate}) => async(dispatch) => {
+
+    const response = await fetch(`api/requests/search?startDate=${startDate}&endDate=${endDate}`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(search_requests(data))
     }
 }
 
@@ -77,7 +100,7 @@ export const getOneRequest = (requestId) => async(dispatch) => {
 }
 
 export const createRequest = (formData) =>  async (dispatch) => {
-    
+
     const response = await fetch(`/api/requests`, {
         method: 'POST',
         // headers: {'Content-Type': 'application/json'},
@@ -125,6 +148,10 @@ export default function reducer(state = initialState, action) {
             return newState;
         case GET_ONE_REQUEST:
             newState[action.payload] = action.payload;
+            return newState;
+        case SEARCH_REQUESTS:
+            action.payload.requests.forEach(request => newState[request.id] = request);
+            newState['total_pages'] = action.payload.total_pages
             return newState;
         case CREATE_REQUEST:
             newState[action.payload.id] = action.payload;

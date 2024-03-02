@@ -5,8 +5,10 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Request, Item, RequestItems, db
 from app.forms import RequestItemForm
-from datetime import datetime
+from datetime import datetime, timedelta
 from app.api.aws_helper_sig import upload_file_to_s3, get_unique_filename
+from sqlalchemy import func, and_, cast, String
+
 
 request_routes = Blueprint('requests', __name__)
 
@@ -50,6 +52,47 @@ def get_a_request(requestId):
     request = Request.query.get(requestId)
     return request.to_dict()
 
+# ------------------------------GET REQUESTS SEARCH QUERY-----------------------
+@request_routes.route('/search')
+# @login_required
+def search_requests():
+    print("IN SEARCH REQUEST")
+    query = request.args.get('query')
+    filter_type = request.args.get('filter')
+    startDate_str = request.args.get('startDate')
+    endDate_str = request.args.get('endDate')
+
+    print(query, filter_type, "IN BACKEND")
+
+    if (filter_type=='voidedTrue'):
+        requests = Request.query.filter(Request.voided==True).all()
+    elif(filter_type=='voidedFalse'):
+        requests = Request.query.filter(Request.voided==False).all()
+    elif(startDate_str and endDate_str):
+        start_date = datetime.strptime(startDate_str, "%Y-%m-%d")
+        end_date = datetime.strptime(endDate_str, "%Y-%m-%d") + timedelta(days=1) - timedelta(seconds=1)
+        requests = Request.query.filter(Request.createdAt.between(start_date, end_date)).all()
+    elif(filter_type=='userId'):
+        requests = Request.query.filter(Request.userId==query).all()
+
+    else:
+        filters = {'id': Request.id,
+            #    'userId': PurchaseOrder.userId,
+               'createdAt': Request.createdAt}
+
+        filter_column = filters[filter_type]
+
+
+        if isinstance(filter_column.type, db.Integer):
+            filter_condition = cast(filter_column, String).ilike(f'%{query}%')
+        else:
+            filter_condition = filter_column.ilike(f'%{query}%')
+
+        requests = Request.query.filter(filter_condition).all()
+
+
+    # return {'message': 'successful'}
+    return {'requests': [request.to_dict() for request in requests], 'total_pages': 'total_pages'}
 
 #------------------------------CREATE REQUEST------------------------
 @request_routes.route('', methods=['POST'])

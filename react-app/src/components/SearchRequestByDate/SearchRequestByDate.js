@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from "../../context/Modal";
-import * as POsActions from '../../store/purchase_orders';
-import './SearchPOByDate.css'
+import * as RequestsActions from '../../store/requests';
+import './SearchRequestByDate.css'
 
-function SearchPOByDate({onDateSubmit}){
+function SearchRequestByDate({onDateSubmit}){
     const dispatch = useDispatch()
     const { closeModal } = useModal()
 
@@ -12,23 +12,22 @@ function SearchPOByDate({onDateSubmit}){
     const [endDate, setEndDate] = useState('')
 
     const searchByDate = () => {
-
         const startDateObj = new Date(startDate);
 
         if(startDateObj > Date.now() || endDate < startDate){
             alert('Dates chosen are not valid.  Please try again')
         } else {
-             onDateSubmit(startDate, endDate)
-             closeModal();
-             dispatch(POsActions.resetState())
-             dispatch(POsActions.searchPOsByDate({startDate, endDate}))
+        onDateSubmit(startDate, endDate)
+        closeModal();
+        dispatch(RequestsActions.resetState())
+        dispatch(RequestsActions.searchRequestsByDate({startDate, endDate}))
         }
     }
 
     return(
         <>
         <div className='searchByDateContainer'>
-        <div className='titleSearchPOByDate'>Search Purchase Orders By Date </div>
+        <div className='titleSearchRequestByDate'>Search Requests By Date </div>
         <div className='startendDate'>
            <span className='startDate'> Start Date </span>
            <span className='endDate'> End Date </span>
@@ -49,13 +48,13 @@ function SearchPOByDate({onDateSubmit}){
         </div>
 
 
-        <div className='poSearchButtons'>
-            <button className='poSubmitButton' onClick={()=>searchByDate()}>Submit</button>
-            <button className='poCancelButton'onClick={()=>closeModal()}>Cancel</button>
+        <div className='requestSearchButtons'>
+            <button className='requestSubmitButton' onClick={()=>searchByDate()}>Submit</button>
+            <button className='requestCancelButton'onClick={()=>closeModal()}>Cancel</button>
         </div>
         </div>
         </>
     )
 }
 
-export default SearchPOByDate;
+export default SearchRequestByDate;
