@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom'
 import * as SuppliersActions from '../../store/suppliers'
@@ -27,8 +27,9 @@ function SuppliersAdmin() {
 
 
     useEffect(() => {
-        dispatch(SuppliersActions.getSuppliers())
-    }, [dispatch])
+        dispatch(SuppliersActions.resetState())
+        dispatch(SuppliersActions.getSuppliersByPage(page))
+    }, [dispatch, page])
 
     const suppliers = useSelector(state => Object.values(state.suppliers))
 
@@ -107,7 +108,7 @@ function SuppliersAdmin() {
                 Filter by: <button id={chooseFilterName} className='naceButton' onClick={() => { setFilter('code'); setChooseName(true); setChooseAddress(false); setChooseContact(false); setChooseEmail(false) }}>Name</button>
                 <button id={chooseFilterAddress} className='naceButton' onClick={() => { setFilter('description'); setChooseName(false); setChooseAddress(true); setChooseContact(false); setChooseEmail(false) }}>Address</button>
                 <button id={chooseFilterContact} className='naceButton' onClick={() => { setFilter('type'); setChooseName(false); setChooseAddress(false); setChooseContact(true); setChooseEmail(false) }}>Contact</button>
-                <button id={chooseFilterEmail} className='naceButton' onClick={() => { setFilter('type'); setChooseName(false); setChooseAddress(false); setChooseContact(true); setChooseEmail(true) }}>Contact</button>
+                <button id={chooseFilterEmail} className='naceButton' onClick={() => { setFilter('type'); setChooseName(false); setChooseAddress(false); setChooseContact(false); setChooseEmail(true) }}>Email</button>
 
             </div>
             <table className='suppliers-table-admin'>

@@ -1,14 +1,17 @@
 const GET_SUPPLIERS = 'suppliers/GET_SUPPLIERS'
+const GET_SUPPLIERS_BY_PAGE = 'suppliers/GET_SUPPLIERS_BY_PAGE'
 const GET_SUPPLIERLIST = 'suppliers/GET_SUPPLIERLIST'
 const RESET_STATE = 'suppliers/RESET_STATE'
 const CREATE_SUPPLIER = 'suppliers/CREATE_SUPPLIER'
 const EDIT_SUPPLIER = 'suppliers/EDIT_SUPPLIER'
+const SEARCH_SUPPLIERS = 'suppliers/SEARCH_SUPPLIERS'
 const DELETE_SUPPLIER = 'suppliers/DELETE_SUPPLIER'
 
 //------------------------------DISPATCH VARIABLES-----------------------------
-// const startingState = () => ({
-//     type: RESET_STATE
-// })
+const get_suppliers_by_page = (suppliers) => ({
+    type: GET_SUPPLIERS_BY_PAGE,
+    payload: suppliers
+})
 
 const getAllSuppliers = (suppliers) => ({
     type: GET_SUPPLIERS,
@@ -34,6 +37,11 @@ const edit_supplier = (supplier) => ({
     payload: supplier
 })
 
+const search_suppliers = (suppliers) => ({
+    type: SEARCH_SUPPLIERS,
+    payload: suppliers
+})
+
 const delete_supplier = (supplierId) => ({
     type: DELETE_SUPPLIER,
     payload: supplierId
@@ -56,6 +64,16 @@ export const getSuppliers = () => async (dispatch) => {
         dispatch(getAllSuppliers(data))
     }
 }
+export const getSuppliersByPage = (page) => async (dispatch) => {
+    const response = await fetch(`/api/suppliers/${page}`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(get_suppliers_by_page(data))
+    }
+}
 
 export const getItemSuppliers = (itemId) => async(dispatch) => {
 
@@ -70,7 +88,7 @@ export const getItemSuppliers = (itemId) => async(dispatch) => {
 }
 
 export const createSupplier = (supplier) => async(dispatch) => {
-    
+
     const response = await fetch('/api/suppliers', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -124,6 +142,17 @@ export const editSupplier = (supplier, supplierId) => async(dispatch) => {
  }
 }
 
+export const searchSuppliers = ({query, filter}) => async(dispatch) => {
+
+    const response = await fetch(`api/items/search?query=${query}&filter=${filter}`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(search_suppliers(data))
+    }
+}
+
 export const deleteSupplier = (supplierId) => async (dispatch) => {
     const response = await fetch(`/api/suppliers/${supplierId}`, {
         method: 'DELETE',
@@ -152,6 +181,10 @@ export default function reducer (state = initialState, action) {
             return newState
         case EDIT_SUPPLIER:
             newState[action.payload.id] = action.payload;
+            return newState;
+        case SEARCH_SUPPLIERS:
+            action.payload.suppliers.forEach(supplier => newState[supplier.id] = supplier);
+            newState['total_pages'] = action.payload.total_pages
             return newState;
         case RESET_STATE:
             return initialState;
