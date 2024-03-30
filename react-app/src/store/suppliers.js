@@ -71,6 +71,7 @@ export const getSuppliersByPage = (page) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json()
+
         dispatch(get_suppliers_by_page(data))
     }
 }
@@ -143,8 +144,8 @@ export const editSupplier = (supplier, supplierId) => async(dispatch) => {
 }
 
 export const searchSuppliers = ({query, filter}) => async(dispatch) => {
-
-    const response = await fetch(`api/items/search?query=${query}&filter=${filter}`, {
+    console.log(query, filter, "QUERY AND FILTER")
+    const response = await fetch(`api/suppliers/search?query=${query}&filter=${filter}`, {
         headers: {'Content-Type': 'application/json'}
     })
     if (response.ok) {
@@ -170,6 +171,10 @@ const initialState = {}
 export default function reducer (state = initialState, action) {
     const newState = { ...state }
     switch(action.type) {
+        case GET_SUPPLIERS_BY_PAGE:
+            action.payload.suppliers.forEach(supplier => newState[supplier.id] = supplier);
+            newState['total_pages'] = action.payload.total_pages
+            return newState;
         case GET_SUPPLIERS:
             action.payload.suppliers.forEach(supplier => newState[supplier.id] = supplier);
             return newState;

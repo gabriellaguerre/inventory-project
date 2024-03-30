@@ -47,7 +47,6 @@ function SuppliersAdmin() {
         newSuppliers.push(supplier)
     }
 
-
     const searchAction = async () => {
         if (query && !filter) {
             alert('Please Choose A Filter.')
@@ -105,10 +104,10 @@ function SuppliersAdmin() {
 
             </div>
             <div id='filter'>
-                Filter by: <button id={chooseFilterName} className='naceButton' onClick={() => { setFilter('code'); setChooseName(true); setChooseAddress(false); setChooseContact(false); setChooseEmail(false) }}>Name</button>
-                <button id={chooseFilterAddress} className='naceButton' onClick={() => { setFilter('description'); setChooseName(false); setChooseAddress(true); setChooseContact(false); setChooseEmail(false) }}>Address</button>
-                <button id={chooseFilterContact} className='naceButton' onClick={() => { setFilter('type'); setChooseName(false); setChooseAddress(false); setChooseContact(true); setChooseEmail(false) }}>Contact</button>
-                <button id={chooseFilterEmail} className='naceButton' onClick={() => { setFilter('type'); setChooseName(false); setChooseAddress(false); setChooseContact(false); setChooseEmail(true) }}>Email</button>
+                Filter by: <button id={chooseFilterName} className='naceButton' onClick={() => { setFilter('name'); setChooseName(true); setChooseAddress(false); setChooseContact(false); setChooseEmail(false) }}>Name</button>
+                <button id={chooseFilterAddress} className='naceButton' onClick={() => { setFilter('address'); setChooseName(false); setChooseAddress(true); setChooseContact(false); setChooseEmail(false) }}>Address</button>
+                <button id={chooseFilterContact} className='naceButton' onClick={() => { setFilter('contact'); setChooseName(false); setChooseAddress(false); setChooseContact(true); setChooseEmail(false) }}>Contact</button>
+                <button id={chooseFilterEmail} className='naceButton' onClick={() => { setFilter('email'); setChooseName(false); setChooseAddress(false); setChooseContact(false); setChooseEmail(true) }}>Email</button>
 
             </div>
             <table className='suppliers-table-admin'>

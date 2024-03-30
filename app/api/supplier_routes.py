@@ -3,7 +3,8 @@ from flask_login import login_required, current_user
 from app.models import Supplier, Item, db
 from app.forms import SupplierForm
 from datetime import datetime
-from sqlalchemy import func, and_, cast, String
+from sqlalchemy import func, and_, cast, String, asc
+import math
 
 supplier_routes = Blueprint('suppliers', __name__)
 
@@ -21,13 +22,15 @@ def validation_errors_to_error_messages(validation_errors):
 @supplier_routes.route('/<int:page>')
 # @login_required
 def get_suppliers_by_page(page):
-    suppliers = Supplier.query.order_by(Supplier.id).all()
+    suppliers = Supplier.query.order_by((Supplier.name)).all()
+    for supplier in suppliers:
+        print(supplier.name)
 
     limit = 5
     offset = ((page + 1) * limit)
     startIndex = page * 5
 
-    total_pages = math.ceil(len(items)/limit)
+    total_pages = math.ceil(len(suppliers)/limit)
 
     return {'suppliers': [supplier.to_dict() for supplier in suppliers[startIndex:offset]], 'total_pages': total_pages }
 
@@ -43,6 +46,29 @@ def get_suppliers():
 
     return {'suppliers': [supplier.to_dict() for supplier in suppliers]}
 
+
+# ------------------------------GET ITEMS SEARCH QUERY-----------------------
+@supplier_routes.route('/search')
+# @login_required
+def search_suppliers():
+    query = request.args.get('query')
+    filter_type = request.args.get('filter')
+    # print(query, filter_type, 'OOOOOOOOOOOOOOOOOO')
+
+    filters = {'name': Supplier.name,
+               'address': Supplier.address,
+               'contact': Supplier.contact,
+               'email': Supplier.email}
+
+    filter_column = filters[filter_type]
+    # print(filter_column, 'FILTER COLUMN')
+
+    filter_condition = filter_column.ilike(f'%{query}%')
+
+    suppliers = Supplier.query.filter(filter_condition).all()
+
+
+    return {'suppliers': [supplier.to_dict() for supplier in suppliers], 'total_pages': 'total_pages'}
 
 
 # ------------------------------CREATE SUPPLIERS------------------------
