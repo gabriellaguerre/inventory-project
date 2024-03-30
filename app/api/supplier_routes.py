@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models import Supplier, Item, db
 from app.forms import SupplierForm
 from datetime import datetime
+from sqlalchemy import func, and_, cast, String
 
 supplier_routes = Blueprint('suppliers', __name__)
 
@@ -16,11 +17,30 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
-# ------------------------------GET SUPPLIERS------------------------
+# ------------------------------GET SUPPLIERS PAGINATION------------------------
+@supplier_routes.route('/<int:page>')
+# @login_required
+def get_suppliers_by_page(page):
+    suppliers = Supplier.query.order_by(Supplier.id).all()
+
+    limit = 5
+    offset = ((page + 1) * limit)
+    startIndex = page * 5
+
+    total_pages = math.ceil(len(items)/limit)
+
+    return {'suppliers': [supplier.to_dict() for supplier in suppliers[startIndex:offset]], 'total_pages': total_pages }
+
+
+
+
+# ------------------------------GET SUPPLIERS W/O PAGINATION------------------------
 @supplier_routes.route('/')
 # @login_required
 def get_suppliers():
+
     suppliers = Supplier.query.all()
+
     return {'suppliers': [supplier.to_dict() for supplier in suppliers]}
 
 
