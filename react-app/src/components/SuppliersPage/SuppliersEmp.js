@@ -10,13 +10,36 @@ import './SuppliersEmp.css'
 function SuppliersEmp() {
 
     const dispatch = useDispatch()
+    const [page, setPage] = useState(0)
+    const [disable, setDisable] = useState(false)
+    const [query, setQuery] = useState('')
+    const [filter, setFilter] = useState('')
+    const [isSearching, setIsSearching] = useState(false)
+    const [chooseName, setChooseName] = useState(false)
+    const [chooseAddress, setChooseAddress] = useState(false)
+    const [chooseContact, setChooseContact] = useState(false)
+    const [chooseEmail, setChooseEmail] = useState(false)
 
     useEffect(()=> {
-        dispatch(SuppliersActions.getSuppliers())
-    }, [dispatch])
+        dispatch(SuppliersActions.resetState())
+        dispatch(SuppliersActions.getSuppliersByPage(page))
+    }, [dispatch, page])
 
     const suppliers = useSelector(state => Object.values(state.suppliers))
 
+    useEffect(() => {
+        if ((page + 2) > suppliers[suppliers.length - 1]) {
+            setDisable(true)
+        } else {
+            setDisable(false)
+        }
+    }, [page, disable, suppliers])
+
+    let newSuppliers = []
+    for (let i = 0; i < (suppliers.length - 1); i++) {
+        let supplier = suppliers[i]
+        newSuppliers.push(supplier)
+    }
 
     return (
         <>
