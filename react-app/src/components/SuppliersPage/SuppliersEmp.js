@@ -41,6 +41,38 @@ function SuppliersEmp() {
         newSuppliers.push(supplier)
     }
 
+    const searchAction = async () => {
+        if (query && !filter) {
+            alert('Please Choose A Filter.')
+        } else if (!query && filter) {
+            alert('Please Fill Out The Search Field.')
+        } else if (!query && !filter) {
+            alert('All The Fields Are Empty.  Please Fill Them Out.')
+        } else {
+            dispatch(SuppliersActions.resetState())
+            dispatch(SuppliersActions.searchSuppliers({ query, filter }))
+            setIsSearching(true)
+        }
+    }
+
+    const clearSearch = async () => {
+        setIsSearching(false)
+        setFilter('')
+        setQuery('')
+        setChooseName(false);
+        setChooseAddress(false);
+        setChooseContact(false);
+        setChooseEmail(false);
+        dispatch(SuppliersActions.resetState())
+        dispatch(SuppliersActions.getSuppliersByPage(page))
+    }
+
+    const chooseFilterName = 'search' + (chooseName ? "Yes" : "No")
+    const chooseFilterAddress = 'search' + (chooseAddress ? "Yes" : "No")
+    const chooseFilterContact = 'search' + (chooseContact ? "Yes" : "No")
+    const chooseFilterEmail = 'search' + (chooseEmail ? "Yes" : "No")
+
+    
     return (
         <>
         {/* <h2>Inventory</h2> */}
