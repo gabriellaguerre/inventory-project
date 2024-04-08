@@ -114,8 +114,13 @@ function POAdmin() {
 
     }
 
+    const handlePrint = () => {
+        window.print();
+    }
+
     return (
         <>
+
          {isSearching ? (
             <div id='isSearching'>Full List of Search Results</div>
         ) : searchDates.startDate && searchDates.endDate ? (
@@ -136,6 +141,7 @@ function POAdmin() {
              />
              <button className='searchClear' onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i></button>
              <button className='searchClear' onClick={()=>clearSearch()}><i className="fa-solid fa-broom"></i></button>
+             <button className='print' onClick={()=>handlePrint()}><i className="fa-solid fa-print"></i>{" "}Print</button>
 
         </div>
         <div id='filter'>
@@ -147,7 +153,7 @@ function POAdmin() {
                                     modalComponent={<SearchPOByDate onDateSubmit={handleSearchDate}/>}/></button>
             <button id={chooseFilterUserID} className='sidcButton' onClick={()=> {setFilter('userId'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(false); setChooseUserID(true); setSearchDisabled(false)}}>Created By</button>
         </div>
-        
+
             <table className='po-table-admin'>
             <thead>
             <tr>
