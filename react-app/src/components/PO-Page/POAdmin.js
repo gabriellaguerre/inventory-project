@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { renderToString } from 'react-dom/server';
 import * as POsActions from '../../store/purchase_orders';
 import * as UsersActions from '../../store/user';
+import * as ItemsActions from '../../store/items';
+import * as POITEMsActions from '../../store/purchase_order_items'
 import ItemListPO from '../ItemsPage/ItemListPO';
 import OpenModalButton from '../OpenModalButton';
 import NewRequestForm from '../NewRequestForm/NewRequestForm.js';
@@ -10,6 +13,7 @@ import NewPOForm from '../NewPOForm/NewPOForm.js';
 import NewItemForm from '../NewItemForm/NewItemForm.js'
 import NewSupplierForm from '../NewSupplierForm/NewSupplierForm'
 import SearchPOByDate from '../SearchPOByDate/SearchPOByDate.js'
+// import PrintList from '../utils/PrintList.js'
 import './POAdmin.css';
 
 
@@ -37,11 +41,17 @@ function POAdmin() {
         dispatch(UsersActions.get_Users())
         dispatch(POsActions.resetState())
         dispatch(POsActions.getPOSByPage(page))
+        dispatch(ItemsActions.getAllItems())
+        // dispatch(POITEMsActions.getPOItems(posId))
 
     }, [dispatch, page])
 
     const purchase_orders = useSelector(state => Object.values(state.purchase_orders))
     const user = useSelector(state => state.user)
+    const item = useSelector(state=> state.items)
+    const poItems = useSelector(state => (Object.values(state.purchase_order_items)))
+
+    // console.log(purchase_orders, 'AFTER VARIABLE PURCHASE ORDERS')
 
     useEffect(()=> {
         if ((page+2) > purchase_orders[purchase_orders.length-1]) {
@@ -114,28 +124,28 @@ function POAdmin() {
 
     }
 
-    const gettingPrintList = () => {
-        console.log(newPOs, 'PO LIST')
-    }
-
     const handlePrint = () => {
-        gettingPrintList();
-        // window.print();
-        // const printWindow = window.open('', '_blank');
-        // if (printWindow) {
-        //     printWindow.document.write('<html><head><title>Print Items</title></head><body>');
-        //     printWindow.document.write('<h1>List of Items</h1>');
-        //     printWindow.document.write('<ul>');
-            // itemList.forEach(item => {
-            //     printWindow.document.write(`<li>${item.name}: ${item.description}</li>`); // Adjust as per your item structure
-            // });
-        //     printWindow.document.write('</ul>');
-        //     printWindow.document.write('</body></html>');
-        //     printWindow.document.close();
-        //     printWindow.print();
-        // } else {
-        //     alert('Popup blocked. Please enable popups to print the items.');
-        // }
+
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+            printWindow.document.write('<html><head><title>Purchase Orders</title></head><body>');
+            printWindow.document.write('<h1>Purchase Orders</h1>');
+            printWindow.document.write('<ul>');
+            newPOs.forEach(pos => {
+                printWindow.document.write(`<div>Purchase Order ID: ${pos.id}</div>`); // Adjust as per your item structure
+                printWindow.document.write(`<div>Date Created: ${pos.createdAt}</div>`);
+                printWindow.document.write(`<div>Created By: ${user[pos.userId]?.employeeID}</div>`);
+                const componentHtml = renderToString(<ItemListPO posId={pos.Id} />);
+                printWindow.document.write(componentHtml);
+            });
+
+            printWindow.document.write('</ul>');
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        } else {
+            alert('Popup blocked. Please enable popups to print the items.');
+        }
 
     }
 

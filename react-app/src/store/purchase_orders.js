@@ -3,6 +3,7 @@ const CREATE_PURCHASE_ORDER = 'purchase_orders/CREATE_PURCHASE_ORDER'
 const EDIT_PURCHASE_ORDER = 'purchase_orders/EDIT_PURCHASE_ORDER'
 const RESET_STATE = 'purchase_orders/RESET_STATE'
 const GET_POS_BY_PAGE = 'purchase_orders/GET_POS_BY_PAGE'
+const GET_PURCHASE_ORDERS = 'purchase_orders/GET_PURCHASE_ORDERS'
 const SEARCH_PURCHASE_ORDERS = 'purchase_orders/SEARCH_PURCHASE_ORDERS'
 
 
@@ -12,10 +13,10 @@ const get_pos_by_page = (purchase_orders) => ({
     payload: purchase_orders
 })
 
-// const get_pos = (purchase_orders) => ({
-//     type: GET_PURCHASE_ORDERS,
-//     payload: purchase_orders
-// })
+const get_pos = (purchase_orders) => ({
+    type: GET_PURCHASE_ORDERS,
+    payload: purchase_orders
+})
 
 const search_purchase_orders = (purchase_orders) => ({
     type: SEARCH_PURCHASE_ORDERS,
@@ -39,6 +40,17 @@ export const resetState = () => async (dispatch) => {
   }
 }
 
+export const getAllPOS = () => async(dispatch) => {
+    const response = await fetch(`/api/purchase_orders/`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(get_pos(data))
+    }
+}
+
 export const getPOSByPage = (page) => async(dispatch) => {
     const response = await fetch(`/api/purchase_orders/${page}`, {
         headers: {'Content-Type': 'application/json'}
@@ -51,7 +63,7 @@ export const getPOSByPage = (page) => async(dispatch) => {
 }
 
 export const searchPOs = ({query, filter}) => async(dispatch) => {
-    
+
     const response = await fetch(`api/purchase_orders/search?query=${query}&filter=${filter}`, {
         headers: {'Content-Type': 'application/json'}
     })
@@ -108,6 +120,10 @@ export default function reducer(state = initialState, action) {
         case GET_POS_BY_PAGE:
             action.payload.purchase_orders.forEach(purchase_order => newState[purchase_order.id] = purchase_order);
             newState['total_pages'] = action.payload.total_pages
+            return newState;
+        case GET_PURCHASE_ORDERS:
+            console.log(action.payload.purchase_orders, 'IN REDUCERRRRRRRRRRR')
+            action.payload.purchase_orders.forEach(purchase_order => newState[purchase_order.id] = purchase_order);
             return newState;
         case SEARCH_PURCHASE_ORDERS:
             action.payload.purchase_orders.forEach(purchase_order => newState[purchase_order.id] = purchase_order);
