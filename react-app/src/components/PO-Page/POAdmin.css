@@ -172,5 +172,12 @@ body {
 /*********************** PRINT ****************************************/
 
 @media print {
-    
+
+    /* body * {
+        display: none;
+    } */
+    .requested-items {
+        display: block;
+        page-break-inside: avoid;
+    }
 }

@@ -114,8 +114,29 @@ function POAdmin() {
 
     }
 
+    const gettingPrintList = () => {
+        console.log(newPOs, 'PO LIST')
+    }
+
     const handlePrint = () => {
-        window.print();
+        gettingPrintList();
+        // window.print();
+        // const printWindow = window.open('', '_blank');
+        // if (printWindow) {
+        //     printWindow.document.write('<html><head><title>Print Items</title></head><body>');
+        //     printWindow.document.write('<h1>List of Items</h1>');
+        //     printWindow.document.write('<ul>');
+            // itemList.forEach(item => {
+            //     printWindow.document.write(`<li>${item.name}: ${item.description}</li>`); // Adjust as per your item structure
+            // });
+        //     printWindow.document.write('</ul>');
+        //     printWindow.document.write('</body></html>');
+        //     printWindow.document.close();
+        //     printWindow.print();
+        // } else {
+        //     alert('Popup blocked. Please enable popups to print the items.');
+        // }
+
     }
 
     return (
@@ -153,7 +174,7 @@ function POAdmin() {
                                     modalComponent={<SearchPOByDate onDateSubmit={handleSearchDate}/>}/></button>
             <button id={chooseFilterUserID} className='sidcButton' onClick={()=> {setFilter('userId'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(false); setChooseUserID(true); setSearchDisabled(false)}}>Created By</button>
         </div>
-
+            <div className='printContent'>
             <table className='po-table-admin'>
             <thead>
             <tr>
@@ -205,6 +226,7 @@ function POAdmin() {
              </tr>)}
              </tbody>
             </table>
+            </div>
         </>
     )
     }
