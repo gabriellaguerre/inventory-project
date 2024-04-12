@@ -19,6 +19,14 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
+# ------------------------------GET ALL PURCHASE-ORDER ITEMS------------------------
+@purchase_order_items_routes.route('/')
+# @login_required
+def get_all_purchase_orders():
+    purchase_order_items = PurchaseOrder.query.all()
+    return {'purchase_order_items': [purchase_order_item.to_dict() for purchase_order_item in purchase_order_items]}
+
+
 # ------------------------------GET PURCHASE-ORDER ITEMS------------------------
 @purchase_order_items_routes.route('/<int:purchaseOrderId>')
 # @login_required

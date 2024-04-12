@@ -122,7 +122,7 @@ export default function reducer(state = initialState, action) {
             newState['total_pages'] = action.payload.total_pages
             return newState;
         case GET_PURCHASE_ORDERS:
-            console.log(action.payload.purchase_orders, 'IN REDUCERRRRRRRRRRR')
+            // console.log(action.payload.purchase_orders, 'IN REDUCERRRRRRRRRRR')
             action.payload.purchase_orders.forEach(purchase_order => newState[purchase_order.id] = purchase_order);
             return newState;
         case SEARCH_PURCHASE_ORDERS:
