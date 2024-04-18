@@ -13,7 +13,7 @@ import NewPOForm from '../NewPOForm/NewPOForm.js';
 import NewItemForm from '../NewItemForm/NewItemForm.js'
 import NewSupplierForm from '../NewSupplierForm/NewSupplierForm'
 import SearchPOByDate from '../SearchPOByDate/SearchPOByDate.js'
-// import PrintList from '../utils/PrintList.js'
+import PrintList from '../utils/PrintList.js'
 import './POAdmin.css';
 
 
@@ -42,15 +42,15 @@ function POAdmin() {
         dispatch(POsActions.resetState())
         dispatch(POsActions.getPOSByPage(page))
         dispatch(ItemsActions.getAllItems())
-        // dispatch(POITEMsActions.getPOItems(posId))
+        dispatch(POITEMsActions.getPOItems(posId ? posId : 0))
 
     }, [dispatch, page])
 
     const purchase_orders = useSelector(state => Object.values(state.purchase_orders))
     const user = useSelector(state => state.user)
     const item = useSelector(state=> state.items)
-    const poItems = useSelector(state => (Object.values(state.purchase_order_items)))
-
+    const poItems = useSelector(state => (Object.values(state.purchase_order_items)).filter(positem => positem.purchase_orderId === posId));
+    console.log(poItems, 'sssssssssssssss')
     // console.log(purchase_orders, 'AFTER VARIABLE PURCHASE ORDERS')
 
     useEffect(()=> {
@@ -123,6 +123,9 @@ function POAdmin() {
         }
 
     }
+    const printThis = (pos) => {
+        return  printWindow.document.write(`<div>${pos}</div>`);
+    }
 
     const handlePrint = () => {
 
@@ -131,13 +134,16 @@ function POAdmin() {
             printWindow.document.write('<html><head><title>Purchase Orders</title></head><body>');
             printWindow.document.write('<h1>Purchase Orders</h1>');
             printWindow.document.write('<ul>');
+
             newPOs.forEach(pos => {
                 printWindow.document.write(`<div>Purchase Order ID: ${pos.id}</div>`); // Adjust as per your item structure
                 printWindow.document.write(`<div>Date Created: ${pos.createdAt}</div>`);
                 printWindow.document.write(`<div>Created By: ${user[pos.userId]?.employeeID}</div>`);
-                const componentHtml = renderToString(<ItemListPO posId={pos.Id} />);
-                printWindow.document.write(componentHtml);
+                printThis(pos);
+                // const componentHtml = renderToString(PrintList());
+                // printWindow.document.write(componentHtml);
             });
+
 
             printWindow.document.write('</ul>');
             printWindow.document.write('</body></html>');
