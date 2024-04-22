@@ -42,16 +42,18 @@ function POAdmin() {
         dispatch(POsActions.resetState())
         dispatch(POsActions.getPOSByPage(page))
         dispatch(ItemsActions.getAllItems())
-        dispatch(POITEMsActions.getPOItems(posId ? posId : 0))
+        dispatch(POITEMsActions.getAllPOItems())
 
     }, [dispatch, page])
 
     const purchase_orders = useSelector(state => Object.values(state.purchase_orders))
     const user = useSelector(state => state.user)
     const item = useSelector(state=> state.items)
-    const poItems = useSelector(state => (Object.values(state.purchase_order_items)).filter(positem => positem.purchase_orderId === posId));
-    console.log(poItems, 'sssssssssssssss')
+    // const poItems = useSelector(state => (Object.values(state.purchase_order_items)).filter(positem => positem.purchase_orderId === posId));
+    // console.log(poItems, 'sssssssssssssss')
     // console.log(purchase_orders, 'AFTER VARIABLE PURCHASE ORDERS')
+    const poItems = useSelector(state => (Object.values(state.purchase_order_items)))
+    console.log(poItems, 'ooooooooooooooooooooo')
 
     useEffect(()=> {
         if ((page+2) > purchase_orders[purchase_orders.length-1]) {
@@ -123,9 +125,9 @@ function POAdmin() {
         }
 
     }
-    const printThis = (pos) => {
-        return  printWindow.document.write(`<div>${pos}</div>`);
-    }
+    // const printThis = (pos) => {
+    //     return  printWindow.document.write(`<div>${pos}</div>`);
+    // }
 
     const handlePrint = () => {
 
@@ -139,7 +141,7 @@ function POAdmin() {
                 printWindow.document.write(`<div>Purchase Order ID: ${pos.id}</div>`); // Adjust as per your item structure
                 printWindow.document.write(`<div>Date Created: ${pos.createdAt}</div>`);
                 printWindow.document.write(`<div>Created By: ${user[pos.userId]?.employeeID}</div>`);
-                printThis(pos);
+                // printThis(pos);
                 // const componentHtml = renderToString(PrintList());
                 // printWindow.document.write(componentHtml);
             });
