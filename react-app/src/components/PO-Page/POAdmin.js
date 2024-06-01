@@ -34,6 +34,7 @@ function POAdmin() {
     const [chooseUserID, setChooseUserID] = useState(false)
     const [searchDisabled, setSearchDisabled] = useState(false)
     const [searchDates, setSearchDates] = useState({startDate: null, endDate: null})
+    const [data, setData] = useState('')
 
 
 
@@ -45,6 +46,7 @@ function POAdmin() {
         dispatch(POITEMsActions.getAllPOItems())
 
     }, [dispatch, page])
+
 
     const purchase_orders = useSelector(state => Object.values(state.purchase_orders))
     const user = useSelector(state => state.user)
@@ -125,9 +127,11 @@ function POAdmin() {
         }
 
     }
-    // const printThis = (pos) => {
-    //     return  printWindow.document.write(`<div>${pos}</div>`);
-    // }
+    const printThis = (pos) => {
+    //    console.log(pos.id, 'IN PRINT THIS FUNCTION')
+    //   const poItem = poItems.filter(positem => positem.purchase_orderId === pos.Id)
+    //   console.log(poItem, 'PO ITEM IN PRINT THIS')
+    }
 
     const handlePrint = () => {
 
@@ -141,7 +145,7 @@ function POAdmin() {
                 printWindow.document.write(`<div>Purchase Order ID: ${pos.id}</div>`); // Adjust as per your item structure
                 printWindow.document.write(`<div>Date Created: ${pos.createdAt}</div>`);
                 printWindow.document.write(`<div>Created By: ${user[pos.userId]?.employeeID}</div>`);
-                // printThis(pos);
+                printThis(pos);
                 // const componentHtml = renderToString(PrintList());
                 // printWindow.document.write(componentHtml);
             });
