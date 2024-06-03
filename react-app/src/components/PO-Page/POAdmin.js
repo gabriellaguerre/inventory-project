@@ -127,10 +127,15 @@ function POAdmin() {
         }
 
     }
-    const printThis = (pos) => {
-    //    console.log(pos.id, 'IN PRINT THIS FUNCTION')
-    //   const poItem = poItems.filter(positem => positem.purchase_orderId === pos.Id)
-    //   console.log(poItem, 'PO ITEM IN PRINT THIS')
+    const printThis = async (pos) => {
+         const id = pos.id;
+         console.log(id, 'IN PRINT THIS ID')
+         dispatch(POITEMsActions.getPOItems(id))
+
+        console.log(poItems, 'pppppppppppppppp')
+        //  console.log(pos, 'IN PRINT THIS FUNCTION')
+        //  const poItem = poItems.filter(positem => positem.purchase_orderId === id)
+        //  console.log(poItem, 'PO ITEM IN PRINT THIS')
     }
 
     const handlePrint = () => {
