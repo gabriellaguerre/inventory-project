@@ -146,7 +146,6 @@ body {
     cursor: pointer;
     background-color: rgb(180, 180, 240);
     border-radius: 5px;
-
 }
 
 .searchClear:hover {
@@ -154,7 +153,31 @@ body {
     color: orange;
     /* color:rgb(1, 1, 46) */
 }
+.printDiv{
+    text-align: center;
+    margin: 10px;
+}
+.print {
+    /* margin-left: 100px; */
+    cursor: pointer;
+    background-color: rgb(180, 180, 240);
+    border-radius: 5px;
+}
+.print:hover {
+    background-color: white;
+    color: blue;
+    /* color:rgb(1, 1, 46) */
+}
 
-/* #search {
-    margin-right: 5px;
-} */
+/*********************** PRINT ****************************************/
+
+@media print {
+
+    /* body * {
+        display: none;
+    } */
+    .requested-items {
+        display: block;
+        page-break-inside: avoid;
+    }
+}

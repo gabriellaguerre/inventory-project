@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { renderToString } from 'react-dom/server';
 import * as POsActions from '../../store/purchase_orders';
 import * as UsersActions from '../../store/user';
+import * as ItemsActions from '../../store/items';
+import * as POITEMsActions from '../../store/purchase_order_items'
 import ItemListPO from '../ItemsPage/ItemListPO';
 import OpenModalButton from '../OpenModalButton';
 import NewRequestForm from '../NewRequestForm/NewRequestForm.js';
@@ -10,6 +13,7 @@ import NewPOForm from '../NewPOForm/NewPOForm.js';
 import NewItemForm from '../NewItemForm/NewItemForm.js'
 import NewSupplierForm from '../NewSupplierForm/NewSupplierForm'
 import SearchPOByDate from '../SearchPOByDate/SearchPOByDate.js'
+import PrintList from '../utils/PrintList.js'
 import './POAdmin.css';
 
 
@@ -30,6 +34,7 @@ function POAdmin() {
     const [chooseUserID, setChooseUserID] = useState(false)
     const [searchDisabled, setSearchDisabled] = useState(false)
     const [searchDates, setSearchDates] = useState({startDate: null, endDate: null})
+    const [data, setData] = useState('')
 
 
 
@@ -37,11 +42,20 @@ function POAdmin() {
         dispatch(UsersActions.get_Users())
         dispatch(POsActions.resetState())
         dispatch(POsActions.getPOSByPage(page))
+        dispatch(ItemsActions.getAllItems())
+        dispatch(POITEMsActions.getAllPOItems())
 
     }, [dispatch, page])
 
+
     const purchase_orders = useSelector(state => Object.values(state.purchase_orders))
     const user = useSelector(state => state.user)
+    const item = useSelector(state=> state.items)
+    // const poItems = useSelector(state => (Object.values(state.purchase_order_items)).filter(positem => positem.purchase_orderId === posId));
+    // console.log(poItems, 'sssssssssssssss')
+    // console.log(purchase_orders, 'AFTER VARIABLE PURCHASE ORDERS')
+    const poItems = useSelector(state => (Object.values(state.purchase_order_items)))
+    // console.log(poItems, 'ooooooooooooooooooooo')
 
     useEffect(()=> {
         if ((page+2) > purchase_orders[purchase_orders.length-1]) {
@@ -114,8 +128,63 @@ function POAdmin() {
 
     }
 
+
+    // const printThis = async (pos) => {
+    //      const id = pos.id;
+
+    //      const printPOItems = poItems.filter(positem => positem.purchase_orderId === id)
+    //     // console.log(printPOItems, 'pppppppppppppppp')
+    //     printPOItems.map(poitem => {
+    //         printWindow.document.write(`<div>Code: ${item[poitem.itemId].code}</div>`)
+    //         printWindow.document.write(`<div>Description: ${item[poitem.itemId].description}</div>`)
+    //         printWindow.document.write(`<div>Quantity: ${poitem.quantity}</div>`)
+    //     })
+    // }
+
+    const handlePrint = () => {
+
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+            printWindow.document.write('<html><head><title>Purchase Orders</title></head><body>');
+            printWindow.document.write('<h1>Purchase Orders</h1>');
+            printWindow.document.write('<ul>');
+
+            newPOs.forEach(pos => {
+                const id = pos.id;
+                printWindow.document.write(`<h3>Purchase Order ID: ${pos.id}</h3>`);
+                printWindow.document.write(`<div>Date Created: ${pos.createdAt}</div>`);
+                printWindow.document.write(`<div>Created By: ${user[pos.userId]?.employeeID}</div>`);
+                printWindow.document.write(`<table><thead><tr>`);
+                printWindow.document.write(`<th>Item Code</th><th>Description</th><th>Quantity</th></tr></thead><tbody>`);
+
+                const printPOItems = poItems.filter(positem => positem.purchase_orderId === id)
+                printPOItems.forEach(poitem => {
+                    printWindow.document.write(`<tr>`);
+                    printWindow.document.write(`<td>${item[poitem.itemId].code}</td>`)
+                    printWindow.document.write(`<td>${item[poitem.itemId].description}</td>`)
+                    printWindow.document.write(`<td>${poitem.quantity}</td>`)
+                    printWindow.document.write(`</tr>`);
+                })
+                printWindow.document.write(`</tbody></table>`);
+                printWindow.document.write('<div>-------------------------------</div>');
+                // const componentHtml = renderToString(PrintList());
+                // printWindow.document.write(componentHtml);
+            });
+
+
+            printWindow.document.write('</ul>');
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        } else {
+            alert('Popup blocked. Please enable popups to print the items.');
+        }
+
+    }
+
     return (
         <>
+
          {isSearching ? (
             <div id='isSearching'>Full List of Search Results</div>
         ) : searchDates.startDate && searchDates.endDate ? (
@@ -136,6 +205,7 @@ function POAdmin() {
              />
              <button className='searchClear' onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i></button>
              <button className='searchClear' onClick={()=>clearSearch()}><i className="fa-solid fa-broom"></i></button>
+             <button className='print' onClick={()=>handlePrint()}><i className="fa-solid fa-print"></i>{" "}Print</button>
 
         </div>
         <div id='filter'>
@@ -147,7 +217,7 @@ function POAdmin() {
                                     modalComponent={<SearchPOByDate onDateSubmit={handleSearchDate}/>}/></button>
             <button id={chooseFilterUserID} className='sidcButton' onClick={()=> {setFilter('userId'); setChooseOpenPO(false); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(false); setChooseUserID(true); setSearchDisabled(false)}}>Created By</button>
         </div>
-        
+            <div className='printContent'>
             <table className='po-table-admin'>
             <thead>
             <tr>
@@ -199,6 +269,7 @@ function POAdmin() {
              </tr>)}
              </tbody>
             </table>
+            </div>
         </>
     )
     }

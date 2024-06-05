@@ -49,13 +49,13 @@ def get_purchase_orders():
 @po_routes.route('/search')
 # @login_required
 def search_purchase_orders():
-    print("IN SEARCH PURCHASE ORDER")
+    # print("IN SEARCH PURCHASE ORDER")
     query = request.args.get('query')
     filter_type = request.args.get('filter')
     startDate_str = request.args.get('startDate')
     endDate_str = request.args.get('endDate')
 
-    print(query, filter_type, "IN BACKEND")
+    # print(query, filter_type, "IN BACKEND")
 
     if (filter_type=='receivedTrue'):
         purchase_orders = PurchaseOrder.query.filter(PurchaseOrder.received==True).all()

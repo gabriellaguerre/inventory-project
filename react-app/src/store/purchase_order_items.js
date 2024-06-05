@@ -1,10 +1,16 @@
 //------------------------CONSTANTS---------------------------
-const GET_PURCHASE_ORDER_ITEMS = 'request_items/GET_PURCHASE_ORDER_ITEMS'
-const CREATE_PO_ITEM = 'request_items/CREATE_PO_ITEM'
+const GET_PURCHASE_ORDER_ITEMS = 'purchase_order_items/GET_PURCHASE_ORDER_ITEMS'
+const GET_ALL_PURCHASE_ORDER_ITEMS = 'purchase_order_items/GET_ALL_PURCHASE_ORDER_ITEMS'
+const CREATE_PO_ITEM = 'purchase_order_items/CREATE_PO_ITEM'
 
 //------------------------------DISPATCH FXNS-----------------------------
 const get_po_items = (item) => ({
     type: GET_PURCHASE_ORDER_ITEMS,
+    payload: item
+})
+
+const get_all_po_items = (item) => ({
+    type: GET_ALL_PURCHASE_ORDER_ITEMS,
     payload: item
 })
 
@@ -21,6 +27,18 @@ export const getPOItems = (posId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json()
         dispatch(get_po_items(data))
+    }
+}
+
+export const getAllPOItems = () => async (dispatch) => {
+    console.log('IN GET ALL PO ITEMS')
+    const response = await fetch(`/api/purchase_order_items/`, {
+        headers: { 'Content-Type': 'application/json' }
+    })
+    console.log(response, 'RESPONSE')
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(get_all_po_items(data))
     }
 }
 
@@ -65,6 +83,9 @@ const initialState = {}
 export default function reducer(state = initialState, action) {
     const newState = { ...state }
     switch (action.type) {
+        case GET_ALL_PURCHASE_ORDER_ITEMS:
+            action.payload.purchase_order_items.forEach(purchase_order_item => newState[purchase_order_item.id] = purchase_order_item);
+            return newState;
         case GET_PURCHASE_ORDER_ITEMS:
             action.payload.purchase_order_items.forEach(purchase_order_item => newState[purchase_order_item.id] = purchase_order_item);
             return newState;

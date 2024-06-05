@@ -19,10 +19,22 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
+# ------------------------------GET ALL PURCHASE-ORDER ITEMS------------------------
+@purchase_order_items_routes.route('/')
+# @login_required
+def get_all_purchase_orders():
+    print('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrR')
+    purchase_order_items = PurchaseOrderItems.query.all()
+    # purchase_order_items = purchase_order.items
+    return  {'purchase_order_items': [purchase_order_item.to_dict() for purchase_order_item in purchase_order_items]}
+
+
+
 # ------------------------------GET PURCHASE-ORDER ITEMS------------------------
 @purchase_order_items_routes.route('/<int:purchaseOrderId>')
 # @login_required
 def get_items_of_a_purchase_order(purchaseOrderId):
+    print('ssssssssssssssssssssssssssssssss')
     purchase_order = PurchaseOrder.query.get(purchaseOrderId)
     purchase_order_items = purchase_order.items
     return {'purchase_order_items': [purchase_order_item.to_dict() for purchase_order_item in purchase_order_items]}

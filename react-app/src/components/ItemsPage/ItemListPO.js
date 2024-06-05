@@ -25,7 +25,7 @@ function ItemListPO({posId}) {
     const po = useSelector(state=>state.purchase_orders[posId])
     const item = useSelector(state=> state.items)
     const user = useSelector(state => state.user)
-
+    console.log(poItems, 'PO ITEMS IN ITEM LIST PO')
 
     const addPOItems = () => {
         dispatch(POsActions.editPO(posId))
