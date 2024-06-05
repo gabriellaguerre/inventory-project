@@ -55,7 +55,7 @@ function POAdmin() {
     // console.log(poItems, 'sssssssssssssss')
     // console.log(purchase_orders, 'AFTER VARIABLE PURCHASE ORDERS')
     const poItems = useSelector(state => (Object.values(state.purchase_order_items)))
-    console.log(poItems, 'ooooooooooooooooooooo')
+    // console.log(poItems, 'ooooooooooooooooooooo')
 
     useEffect(()=> {
         if ((page+2) > purchase_orders[purchase_orders.length-1]) {
@@ -127,16 +127,19 @@ function POAdmin() {
         }
 
     }
-    const printThis = async (pos) => {
-         const id = pos.id;
-         console.log(id, 'IN PRINT THIS ID')
-         dispatch(POITEMsActions.getPOItems(id))
 
-        console.log(poItems, 'pppppppppppppppp')
-        //  console.log(pos, 'IN PRINT THIS FUNCTION')
-        //  const poItem = poItems.filter(positem => positem.purchase_orderId === id)
-        //  console.log(poItem, 'PO ITEM IN PRINT THIS')
-    }
+
+    // const printThis = async (pos) => {
+    //      const id = pos.id;
+
+    //      const printPOItems = poItems.filter(positem => positem.purchase_orderId === id)
+    //     // console.log(printPOItems, 'pppppppppppppppp')
+    //     printPOItems.map(poitem => {
+    //         printWindow.document.write(`<div>Code: ${item[poitem.itemId].code}</div>`)
+    //         printWindow.document.write(`<div>Description: ${item[poitem.itemId].description}</div>`)
+    //         printWindow.document.write(`<div>Quantity: ${poitem.quantity}</div>`)
+    //     })
+    // }
 
     const handlePrint = () => {
 
@@ -147,10 +150,23 @@ function POAdmin() {
             printWindow.document.write('<ul>');
 
             newPOs.forEach(pos => {
-                printWindow.document.write(`<div>Purchase Order ID: ${pos.id}</div>`); // Adjust as per your item structure
+                const id = pos.id;
+                printWindow.document.write(`<h3>Purchase Order ID: ${pos.id}</h3>`);
                 printWindow.document.write(`<div>Date Created: ${pos.createdAt}</div>`);
                 printWindow.document.write(`<div>Created By: ${user[pos.userId]?.employeeID}</div>`);
-                printThis(pos);
+                printWindow.document.write(`<table><thead><tr>`);
+                printWindow.document.write(`<th>Item Code</th><th>Description</th><th>Quantity</th></tr></thead><tbody>`);
+
+                const printPOItems = poItems.filter(positem => positem.purchase_orderId === id)
+                printPOItems.forEach(poitem => {
+                    printWindow.document.write(`<tr>`);
+                    printWindow.document.write(`<td>${item[poitem.itemId].code}</td>`)
+                    printWindow.document.write(`<td>${item[poitem.itemId].description}</td>`)
+                    printWindow.document.write(`<td>${poitem.quantity}</td>`)
+                    printWindow.document.write(`</tr>`);
+                })
+                printWindow.document.write(`</tbody></table>`);
+                printWindow.document.write('<div>-------------------------------</div>');
                 // const componentHtml = renderToString(PrintList());
                 // printWindow.document.write(componentHtml);
             });
