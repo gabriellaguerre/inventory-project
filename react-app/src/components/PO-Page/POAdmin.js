@@ -146,8 +146,8 @@ function POAdmin() {
             <style>
             .sigImg {
                 width: 300px;
-                height: 100px;
-                filter: grayscale(100%) invert(100%);
+                height: 50px;
+
             }
             .poTable {
                 border-collapse: collapse;
@@ -177,6 +177,9 @@ function POAdmin() {
                 width: 50px;
                 text-align: center;
             }
+            .line {
+
+            }
             </style>
         `;
             printWindow.document.write(`<html><head><title>Purchase Orders</title> ${imageStyles}</head><body>`);
@@ -185,10 +188,11 @@ function POAdmin() {
 
             newPOs.forEach(pos => {
                 const id = pos.id;
+                const image = pos.image;
+                console.log(id, image, 'IMAGE')
                 printWindow.document.write(`<h3>Purchase Order ID: ${pos.id}</h3>`);
                 printWindow.document.write(`<div>Date Created: ${pos.createdAt}</div>`);
                 printWindow.document.write(`<div>Created By: ${user[pos.userId]?.employeeID}</div>`);
-                // printWindow.document.write(`<div><img class="sigImg" src="${pos.image}" alt="signature" /></div>`)
                 printWindow.document.write(`<table class="poTable"><thead><tr>`);
                 printWindow.document.write(`<th class="itemCodeCol">Item Code</th><th class="descriptionCol">Description</th><th class="quantityCol">Qty</th></tr></thead><tbody>`);
 
@@ -202,7 +206,8 @@ function POAdmin() {
                 })
 
                 printWindow.document.write(`</tbody></table>`);
-                printWindow.document.write('<div>-------------------------------</div>');
+                printWindow.document.write(`<div>Signed: <img class="sigImg" src="${pos.image}" alt="signature" /></div>`)
+                printWindow.document.write('<div class="line">==========================</div>');
                 // const componentHtml = renderToString(PrintList());
                 // printWindow.document.write(componentHtml);
             });
@@ -211,7 +216,11 @@ function POAdmin() {
             printWindow.document.write('</ul>');
             printWindow.document.write('</body></html>');
             printWindow.document.close();
-            printWindow.print();
+            // printWindow.print();
+            printWindow.onload = () => {
+                printWindow.print();
+            };
+
         } else {
             alert('Popup blocked. Please enable popups to print the items.');
         }
