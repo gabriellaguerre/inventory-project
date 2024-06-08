@@ -51,11 +51,8 @@ function POAdmin() {
     const purchase_orders = useSelector(state => Object.values(state.purchase_orders))
     const user = useSelector(state => state.user)
     const item = useSelector(state=> state.items)
-    // const poItems = useSelector(state => (Object.values(state.purchase_order_items)).filter(positem => positem.purchase_orderId === posId));
-    // console.log(poItems, 'sssssssssssssss')
-    // console.log(purchase_orders, 'AFTER VARIABLE PURCHASE ORDERS')
     const poItems = useSelector(state => (Object.values(state.purchase_order_items)))
-    // console.log(poItems, 'ooooooooooooooooooooo')
+
 
     useEffect(()=> {
         if ((page+2) > purchase_orders[purchase_orders.length-1]) {
@@ -145,17 +142,59 @@ function POAdmin() {
 
         const printWindow = window.open('', '_blank');
         if (printWindow) {
-            printWindow.document.write('<html><head><title>Purchase Orders</title></head><body>');
+            const imageStyles = `
+            <style>
+            .sigImg {
+                width: 300px;
+                height: 50px;
+
+            }
+            .poTable {
+                border-collapse: collapse;
+                margin: 25px 0;
+                font-size: 0.9em;
+                width: 700px;
+                overflow: hidden;
+            }
+            .poTable th, .poTable td {
+                border: 1px solid black;
+                padding: 8px;
+            }
+            .poTable th {
+                text-align: center;
+
+            }
+            .poTable td {
+                text-align: left;
+            }
+            .itemCodeCol {
+                width: 100px;
+            }
+            .descriptionCol {
+                width: 500px;
+            }
+            .quantityCol {
+                width: 50px;
+                text-align: center;
+            }
+            .line {
+
+            }
+            </style>
+        `;
+            printWindow.document.write(`<html><head><title>Purchase Orders</title> ${imageStyles}</head><body>`);
             printWindow.document.write('<h1>Purchase Orders</h1>');
             printWindow.document.write('<ul>');
 
             newPOs.forEach(pos => {
                 const id = pos.id;
+                const image = pos.image;
+                console.log(id, image, 'IMAGE')
                 printWindow.document.write(`<h3>Purchase Order ID: ${pos.id}</h3>`);
                 printWindow.document.write(`<div>Date Created: ${pos.createdAt}</div>`);
                 printWindow.document.write(`<div>Created By: ${user[pos.userId]?.employeeID}</div>`);
-                printWindow.document.write(`<table><thead><tr>`);
-                printWindow.document.write(`<th>Item Code</th><th>Description</th><th>Quantity</th></tr></thead><tbody>`);
+                printWindow.document.write(`<table class="poTable"><thead><tr>`);
+                printWindow.document.write(`<th class="itemCodeCol">Item Code</th><th class="descriptionCol">Description</th><th class="quantityCol">Qty</th></tr></thead><tbody>`);
 
                 const printPOItems = poItems.filter(positem => positem.purchase_orderId === id)
                 printPOItems.forEach(poitem => {
@@ -165,8 +204,10 @@ function POAdmin() {
                     printWindow.document.write(`<td>${poitem.quantity}</td>`)
                     printWindow.document.write(`</tr>`);
                 })
+
                 printWindow.document.write(`</tbody></table>`);
-                printWindow.document.write('<div>-------------------------------</div>');
+                printWindow.document.write(`<div>Signed: <img class="sigImg" src="${pos.image}" alt="signature" /></div>`)
+                printWindow.document.write('<div class="line">==========================</div>');
                 // const componentHtml = renderToString(PrintList());
                 // printWindow.document.write(componentHtml);
             });
@@ -175,7 +216,11 @@ function POAdmin() {
             printWindow.document.write('</ul>');
             printWindow.document.write('</body></html>');
             printWindow.document.close();
-            printWindow.print();
+            // printWindow.print();
+            printWindow.onload = () => {
+                printWindow.print();
+            };
+
         } else {
             alert('Popup blocked. Please enable popups to print the items.');
         }
@@ -203,8 +248,8 @@ function POAdmin() {
              disabled={searchDisabled}
              onChange={(e)=>setQuery(e.target.value)}
              />
-             <button className='searchClear' onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i></button>
-             <button className='searchClear' onClick={()=>clearSearch()}><i className="fa-solid fa-broom"></i></button>
+             <button className='searchClear' onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i>{" "}Search</button>
+             <button className='searchClear' onClick={()=>clearSearch()}><i className="fa-solid fa-broom"></i>{" "}Clear</button>
              <button className='print' onClick={()=>handlePrint()}><i className="fa-solid fa-print"></i>{" "}Print</button>
 
         </div>
