@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { renderToString } from 'react-dom/server';
 import * as POsActions from '../../store/purchase_orders';
 import * as UsersActions from '../../store/user';
 import * as ItemsActions from '../../store/items';
@@ -13,7 +12,6 @@ import NewPOForm from '../NewPOForm/NewPOForm.js';
 import NewItemForm from '../NewItemForm/NewItemForm.js'
 import NewSupplierForm from '../NewSupplierForm/NewSupplierForm'
 import SearchPOByDate from '../SearchPOByDate/SearchPOByDate.js'
-import PrintList from '../utils/PrintList.js'
 import './POAdmin.css';
 
 
@@ -34,7 +32,7 @@ function POAdmin() {
     const [chooseUserID, setChooseUserID] = useState(false)
     const [searchDisabled, setSearchDisabled] = useState(false)
     const [searchDates, setSearchDates] = useState({startDate: null, endDate: null})
-    const [data, setData] = useState('')
+
 
 
 
@@ -202,7 +200,7 @@ function POAdmin() {
             printWindow.document.write('</ul>');
             printWindow.document.write('</body></html>');
             printWindow.document.close();
-         
+
             printWindow.onload = () => {
                 printWindow.print();
             };
