@@ -126,18 +126,6 @@ function POAdmin() {
     }
 
 
-    // const printThis = async (pos) => {
-    //      const id = pos.id;
-
-    //      const printPOItems = poItems.filter(positem => positem.purchase_orderId === id)
-    //     // console.log(printPOItems, 'pppppppppppppppp')
-    //     printPOItems.map(poitem => {
-    //         printWindow.document.write(`<div>Code: ${item[poitem.itemId].code}</div>`)
-    //         printWindow.document.write(`<div>Description: ${item[poitem.itemId].description}</div>`)
-    //         printWindow.document.write(`<div>Quantity: ${poitem.quantity}</div>`)
-    //     })
-    // }
-
     const handlePrint = () => {
 
         const printWindow = window.open('', '_blank');
@@ -189,7 +177,6 @@ function POAdmin() {
             newPOs.forEach(pos => {
                 const id = pos.id;
                 const image = pos.image;
-                console.log(id, image, 'IMAGE')
                 printWindow.document.write(`<h3>Purchase Order ID: ${pos.id}</h3>`);
                 printWindow.document.write(`<div>Date Created: ${pos.createdAt}</div>`);
                 printWindow.document.write(`<div>Created By: ${user[pos.userId]?.employeeID}</div>`);
@@ -208,15 +195,14 @@ function POAdmin() {
                 printWindow.document.write(`</tbody></table>`);
                 printWindow.document.write(`<div>Signed: <img class="sigImg" src="${pos.image}" alt="signature" /></div>`)
                 printWindow.document.write('<div class="line">==========================</div>');
-                // const componentHtml = renderToString(PrintList());
-                // printWindow.document.write(componentHtml);
+
             });
 
 
             printWindow.document.write('</ul>');
             printWindow.document.write('</body></html>');
             printWindow.document.close();
-            // printWindow.print();
+         
             printWindow.onload = () => {
                 printWindow.print();
             };
