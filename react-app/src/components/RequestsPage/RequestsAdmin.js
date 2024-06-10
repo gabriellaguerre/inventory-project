@@ -39,7 +39,7 @@ function RequestsAdmin() {
         dispatch(RequestsActions.resetState())
         dispatch(RequestsActions.getRequestsByPage(page))
         dispatch(ItemsActions.getAllItems())
-        dispatch(ReqITEMsActions.getAllReqItems())
+        dispatch(ReqITEMsActions.getAllREQItems())
 
     }, [dispatch, page])
 
@@ -164,8 +164,8 @@ function RequestsAdmin() {
             }
             </style>
         `;
-            printWindow.document.write(`<html><head><title>Purchase Orders</title> ${imageStyles}</head><body>`);
-            printWindow.document.write('<h1>Purchase Orders</h1>');
+            printWindow.document.write(`<html><head><title>Request Orders</title> ${imageStyles}</head><body>`);
+            printWindow.document.write('<h1>Request Orders</h1>');
             printWindow.document.write('<ul>');
 
             newReqs.forEach(req => {
@@ -177,7 +177,7 @@ function RequestsAdmin() {
                 printWindow.document.write(`<table class="poTable"><thead><tr>`);
                 printWindow.document.write(`<th class="itemCodeCol">Item Code</th><th class="descriptionCol">Description</th><th class="quantityCol">Qty</th></tr></thead><tbody>`);
 
-                const printReqItems = reqItems.filter(reqitem => reqitem.purchase_orderId === id)
+                const printReqItems = reqItems.filter(reqitem => reqitem.requestId === id)
                 printReqItems.forEach(reqitem => {
                     printWindow.document.write(`<tr>`);
                     printWindow.document.write(`<td>${item[reqitem.itemId].code}</td>`)
