@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { renderToString } from 'react-dom/server';
 import * as POsActions from '../../store/purchase_orders';
 import * as UsersActions from '../../store/user';
 import * as ItemsActions from '../../store/items';
@@ -13,7 +12,6 @@ import NewPOForm from '../NewPOForm/NewPOForm.js';
 import NewItemForm from '../NewItemForm/NewItemForm.js'
 import NewSupplierForm from '../NewSupplierForm/NewSupplierForm'
 import SearchPOByDate from '../SearchPOByDate/SearchPOByDate.js'
-import PrintList from '../utils/PrintList.js'
 import './POAdmin.css';
 
 
@@ -34,7 +32,7 @@ function POAdmin() {
     const [chooseUserID, setChooseUserID] = useState(false)
     const [searchDisabled, setSearchDisabled] = useState(false)
     const [searchDates, setSearchDates] = useState({startDate: null, endDate: null})
-    const [data, setData] = useState('')
+
 
 
 
@@ -126,18 +124,6 @@ function POAdmin() {
     }
 
 
-    // const printThis = async (pos) => {
-    //      const id = pos.id;
-
-    //      const printPOItems = poItems.filter(positem => positem.purchase_orderId === id)
-    //     // console.log(printPOItems, 'pppppppppppppppp')
-    //     printPOItems.map(poitem => {
-    //         printWindow.document.write(`<div>Code: ${item[poitem.itemId].code}</div>`)
-    //         printWindow.document.write(`<div>Description: ${item[poitem.itemId].description}</div>`)
-    //         printWindow.document.write(`<div>Quantity: ${poitem.quantity}</div>`)
-    //     })
-    // }
-
     const handlePrint = () => {
 
         const printWindow = window.open('', '_blank');
@@ -189,7 +175,6 @@ function POAdmin() {
             newPOs.forEach(pos => {
                 const id = pos.id;
                 const image = pos.image;
-                console.log(id, image, 'IMAGE')
                 printWindow.document.write(`<h3>Purchase Order ID: ${pos.id}</h3>`);
                 printWindow.document.write(`<div>Date Created: ${pos.createdAt}</div>`);
                 printWindow.document.write(`<div>Created By: ${user[pos.userId]?.employeeID}</div>`);
@@ -208,15 +193,14 @@ function POAdmin() {
                 printWindow.document.write(`</tbody></table>`);
                 printWindow.document.write(`<div>Signed: <img class="sigImg" src="${pos.image}" alt="signature" /></div>`)
                 printWindow.document.write('<div class="line">==========================</div>');
-                // const componentHtml = renderToString(PrintList());
-                // printWindow.document.write(componentHtml);
+
             });
 
 
             printWindow.document.write('</ul>');
             printWindow.document.write('</body></html>');
             printWindow.document.close();
-            // printWindow.print();
+
             printWindow.onload = () => {
                 printWindow.print();
             };

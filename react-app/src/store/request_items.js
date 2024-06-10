@@ -1,6 +1,6 @@
 //------------------------CONSTANTS---------------------------
 const GET_REQUEST_ITEMS = 'request_items/GET_REQUEST_ITEMS'
-// const CREATE_REQ_ITEM = 'request_items/CREATE_REQ_ITEM'
+const GET_ALL_REQ_ITEMS = 'request_items/GET_ALL_REQ_ITEMS'
 
 //------------------------------DISPATCH FXNS-----------------------------
 const get_request_items = (item) => ({
@@ -8,10 +8,10 @@ const get_request_items = (item) => ({
     payload: item
 })
 
-// const create_request_item = (reqitem) => ({
-//     type: CREATE_REQ_ITEM,
-//     payload: reqitem
-// })
+const get_all_request_items = (item) => ({
+    type: GET_ALL_REQ_ITEMS,
+    payload: item
+})
 
 //-------------------------------THUNKS-----------------------------------------
 export const getRequestItems = (requestId) => async(dispatch) => {
@@ -24,6 +24,17 @@ export const getRequestItems = (requestId) => async(dispatch) => {
     }
 }
 
+export const getAllREQItems = () => async (dispatch) => {
+    const response = await fetch(`/api/request_items/`, {
+        headers: { 'Content-Type': 'application/json' }
+    })
+    console.log(response, 'RESPONSE')
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(get_all_request_items(data))
+    }
+}
+
 export const createRequestItem = (itemId, {quantity}) => async(dispatch) => {
 
     const response = await fetch(`/api/request_items/${itemId}`, {
@@ -33,7 +44,7 @@ export const createRequestItem = (itemId, {quantity}) => async(dispatch) => {
     })
     if (response.ok) {
         const data = await response.json()
-     
+
         if (data.errors) {
             return data.errors
         } else {
@@ -51,6 +62,9 @@ const initialState = {}
 export default function reducer (state = initialState, action) {
     const newState = {...state}
     switch(action.type) {
+        case GET_ALL_REQ_ITEMS:
+            action.payload.request_items.forEach(request_item => newState[request_item.id] = request_item);
+            return newState;
         case GET_REQUEST_ITEMS:
             action.payload.request_items.forEach(request_item => newState[request_item.id] = request_item);
             return newState;
