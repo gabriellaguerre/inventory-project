@@ -171,7 +171,7 @@ function RequestsAdmin() {
             newReqs.forEach(req => {
                 const id = req.id;
                 const image = req.image;
-                printWindow.document.write(`<h3>Purchase Order ID: ${req.id}</h3>`);
+                printWindow.document.write(`<h3>Request Order ID: ${req.id}</h3>`);
                 printWindow.document.write(`<div>Date Created: ${req.createdAt}</div>`);
                 printWindow.document.write(`<div>Created By: ${user[req.userId]?.employeeID}</div>`);
                 printWindow.document.write(`<table class="poTable"><thead><tr>`);
