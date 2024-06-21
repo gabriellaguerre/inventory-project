@@ -96,9 +96,9 @@ function ItemsAdmin({user}) {
              placeholder='Choose a filter and type your search'
              onChange={(e)=>setQuery(e.target.value)}
              />
-             <button className='searchClear' onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i></button>
-             <button className='searchClear' onClick={()=>clearSearch()}><i className="fa-solid fa-broom"></i></button>
-
+             <button className='searchClear' onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i>{" "}search</button>
+             <button className='searchClear' onClick={()=>clearSearch()}><i className="fa-solid fa-broom"></i>{" "}clear</button>
+             <button className='print' onClick={()=>handlePrint()}><i className="fa-solid fa-print"></i>{" "}Print</button>
         </div>
         <div id='filter'>
             Filter by: <button id={chooseFilterCode} className='cdtButton' onClick={()=> {setFilter('code'); setChooseCode(true); setChooseDesc(false); setChooseType(false)}}>Code</button>
