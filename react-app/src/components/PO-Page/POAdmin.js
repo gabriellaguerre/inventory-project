@@ -174,7 +174,7 @@ function POAdmin() {
 
             newPOs.forEach(pos => {
                 const id = pos.id;
-                const image = pos.image;
+                // const image = pos.image;
                 printWindow.document.write(`<h3>Purchase Order ID: ${pos.id}</h3>`);
                 printWindow.document.write(`<div>Date Created: ${pos.createdAt}</div>`);
                 printWindow.document.write(`<div>Created By: ${user[pos.userId]?.employeeID}</div>`);
@@ -235,7 +235,7 @@ function POAdmin() {
              <button className='searchClear' onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i>{" "}Search</button>
              <button className='searchClear' onClick={()=>clearSearch()}><i className="fa-solid fa-broom"></i>{" "}Clear</button>
              <button className='print' onClick={()=>handlePrint()}><i className="fa-solid fa-print"></i>{" "}Print</button>
-             <button className='print' onClick={()=>handlePrint()}><i className="fa-solid fa-print"></i>{" "}Print</button>
+
         </div>
         <div id='filter'>
             Filter by: <button id={chooseFilterOpenPO} className='sidcButton' onClick={()=> {setFilter('receivedFalse'); setChooseOpenPO(true); setChooseReceivedPO(false); setChooseID(false); setChooseRangeDate(false); setChooseUserID(false); setSearchDisabled(true)}}>Open Puchase Orders</button>
