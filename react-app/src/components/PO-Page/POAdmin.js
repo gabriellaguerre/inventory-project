@@ -174,7 +174,7 @@ function POAdmin() {
 
             newPOs.forEach(pos => {
                 const id = pos.id;
-                const image = pos.image;
+                // const image = pos.image;
                 printWindow.document.write(`<h3>Purchase Order ID: ${pos.id}</h3>`);
                 printWindow.document.write(`<div>Date Created: ${pos.createdAt}</div>`);
                 printWindow.document.write(`<div>Created By: ${user[pos.userId]?.employeeID}</div>`);
