@@ -59,11 +59,11 @@
     grid-row: 6/7;
 }
 
-#submitLogin {
+/* #submitLogin {
     position: relative;
     top: 7px;
 
-}
+} */
 
 .adminLogin {
     grid-row: 6/7;
@@ -74,6 +74,8 @@
 }
 
 #submitLogin {
+    position: relative;
+    bottom: 8px;
     background-color: rgb(137, 206, 206);
     width: 80px;
     height: 40px;
