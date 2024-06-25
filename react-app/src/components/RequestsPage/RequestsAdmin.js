@@ -170,7 +170,7 @@ function RequestsAdmin() {
 
             newReqs.forEach(req => {
                 const id = req.id;
-                const image = req.image;
+                // const image = req.image;
                 printWindow.document.write(`<h3>Request Order ID: ${req.id}</h3>`);
                 printWindow.document.write(`<div>Date Created: ${req.createdAt}</div>`);
                 printWindow.document.write(`<div>Created By: ${user[req.userId]?.employeeID}</div>`);
@@ -227,7 +227,7 @@ function RequestsAdmin() {
              disabled={searchDisabled}
              onChange={(e)=>setQuery(e.target.value)}
              />
-             <button className='searchClear' onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i>Search</button>
+             <button className='searchClear' onClick={()=>searchAction()}><i className="fa-solid fa-magnifying-glass"></i>{" "}Search</button>
              <button className='searchClear' onClick={()=>clearSearch()}><i className="fa-solid fa-broom"></i>{" "}Clear</button>
              <button className='print' onClick={()=>handlePrint()}><i className="fa-solid fa-print"></i>{" "}Print</button>
         </div>
