@@ -99,8 +99,8 @@ function SuppliersAdmin() {
                     placeholder='Choose a filter and type your search'
                     onChange={(e) => setQuery(e.target.value)}
                 />
-                <button className='searchClear' onClick={() => searchAction()}><i className="fa-solid fa-magnifying-glass"></i></button>
-                <button className='searchClear' onClick={() => clearSearch()}><i className="fa-solid fa-broom"></i></button>
+                <button className='searchClear' onClick={() => searchAction()}><i className="fa-solid fa-magnifying-glass"></i>{" "}Search</button>
+                <button className='searchClear' onClick={() => clearSearch()}><i className="fa-solid fa-broom"></i>{" "}Clear</button>
 
             </div>
             <div id='filter'>
