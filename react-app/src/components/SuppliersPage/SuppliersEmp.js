@@ -72,6 +72,89 @@ function SuppliersEmp() {
     const chooseFilterContact = 'search' + (chooseContact ? "Yes" : "No")
     const chooseFilterEmail = 'search' + (chooseEmail ? "Yes" : "No")
 
+    const handlePrint = () => {
+
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+            const imageStyles = `
+            <style>
+
+            .poTable {
+                border-collapse: collapse;
+                margin: 25px 0;
+                font-size: 0.9em;
+                width: 700px;
+                overflow: hidden;
+            }
+            .poTable th, .poTable td {
+                border: 1px solid black;
+                padding: 8px;
+            }
+            .poTable th {
+                text-align: center;
+
+            }
+            .poTable td {
+                text-align: left;
+            }
+            .name {
+                width: 100px;
+            }
+            .address {
+                width: 400px;
+            }
+            .contact {
+                width: 100px;
+                text-align: center;
+            }
+            .email {
+                 width: 50px;
+                 text-align: center;
+            }
+            .cell {
+                 width: 100px;
+                 text-align: center;
+            }
+            </style>
+        `;
+            printWindow.document.write(`<html><head><title>Suppliers</title> ${imageStyles}</head><body>`);
+            printWindow.document.write('<h1>Supplier List</h1>');
+            // printWindow.document.write('<h2>Supplier List Under Construction</h2>');
+            printWindow.document.write('<ul>');
+
+            printWindow.document.write(`<table class="poTable"><thead><tr>`);
+            printWindow.document.write(`<th class="name">Name</th><th class="address">Address</th><th class="contact">Contact</th><th class="email">Email</th><th class="cell">Cell</th></tr></thead><tbody>`);
+
+            newSuppliers.map(supplier => {
+                    printWindow.document.write(`<tr>`);
+                    printWindow.document.write(`<td>${supplier.name}</td>`)
+                    printWindow.document.write(`<td>${supplier.address}</td>`)
+                    printWindow.document.write(`<td>${supplier.contact}</td>`)
+                    printWindow.document.write(`<td>${supplier.email}</td>`)
+                    printWindow.document.write(`<td>${supplier.cell}</td>`)
+                    printWindow.document.write(`</tr>`);
+                })
+
+                printWindow.document.write(`</tbody></table>`);
+            //     printWindow.document.write(`<div>Signed: <img class="sigImg" src="${pos.image}" alt="signature" /></div>`)
+            //     printWindow.document.write('<div class="line">==========================</div>');
+
+            // });
+
+
+            printWindow.document.write('</ul>');
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+
+            printWindow.onload = () => {
+                printWindow.print();
+            };
+
+        } else {
+            alert('Popup blocked. Please enable popups to print the items.');
+        }
+
+    }
 
     return (
         <>
@@ -94,7 +177,7 @@ function SuppliersEmp() {
                 />
                 <button className='searchClear' onClick={() => searchAction()}><i className="fa-solid fa-magnifying-glass"></i>{" "}Search</button>
                 <button className='searchClear' onClick={() => clearSearch()}><i className="fa-solid fa-broom"></i>{" "}Clear</button>
-
+                <button className='print' onClick={()=>handlePrint()}><i className="fa-solid fa-print"></i>{" "}Print</button>
             </div>
             <div id='filter'>
                 Filter by: <button id={chooseFilterName} className='naceButton' onClick={() => { setFilter('name'); setChooseName(true); setChooseAddress(false); setChooseContact(false); setChooseEmail(false) }}>Name</button>
