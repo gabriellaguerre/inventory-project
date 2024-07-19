@@ -84,11 +84,7 @@ function SuppliersAdmin() {
         if (printWindow) {
             const imageStyles = `
             <style>
-            .sigImg {
-                width: 300px;
-                height: 50px;
 
-            }
             .poTable {
                 border-collapse: collapse;
                 margin: 25px 0;
@@ -107,28 +103,33 @@ function SuppliersAdmin() {
             .poTable td {
                 text-align: left;
             }
-            .itemCodeCol {
+            .name {
                 width: 100px;
             }
-            .descriptionCol {
-                width: 500px;
+            .address {
+                width: 400px;
             }
-            .quantityCol {
-                width: 50px;
+            .contact {
+                width: 100px;
                 text-align: center;
             }
-            .line {
-
+            .email {
+                 width: 50px;
+                 text-align: center;
+            }
+            .cell {
+                 width: 100px;
+                 text-align: center;
             }
             </style>
         `;
             printWindow.document.write(`<html><head><title>Suppliers</title> ${imageStyles}</head><body>`);
             printWindow.document.write('<h1>Supplier List</h1>');
-            printWindow.document.write('<h2>Supplier List Under Construction</h2>');
+            // printWindow.document.write('<h2>Supplier List Under Construction</h2>');
             printWindow.document.write('<ul>');
 
             printWindow.document.write(`<table class="poTable"><thead><tr>`);
-            printWindow.document.write(`<th class="itemCodeCol">Name</th><th class="descriptionCol">Address</th><th class="quantityCol">Contact</th><th class="descriptionCol">Email</th><th class="descriptionCol">Cell</th></tr></thead><tbody>`);
+            printWindow.document.write(`<th class="name">Name</th><th class="address">Address</th><th class="contact">Contact</th><th class="email">Email</th><th class="cell">Cell</th></tr></thead><tbody>`);
 
             newSuppliers.map(supplier => {
                     printWindow.document.write(`<tr>`);
