@@ -209,6 +209,8 @@ function ItemsAdmin({user}) {
                     buttonText=<span><i className="fa-solid fa-circle-plus"></i> New Supplier</span>
                     modalComponent={<NewSupplierForm />}/></button>
         {/* <button style={{width: 'auto', height: '15px', backgroundColor: 'white', border: 'none'}}></button> */}
+        <button className='items'>
+        <i className="fa-regular fa-eye"></i> Items</button>
         <button className='POs'>
         <NavLink to='/purchase_orders' id='POs'><i className="fa-regular fa-eye"></i> POs</NavLink></button>
        <button className='requests'>
