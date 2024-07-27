@@ -27,7 +27,7 @@ body {
     background-color:white;
 }
 
-.POs, .requests, .suppliers {
+.POs2, .requests2, .suppliers2 {
    border-radius: 15px 0 0 0;
    cursor: pointer;
     width: 125px;
@@ -38,7 +38,7 @@ body {
     background-color: orange;
 }
 
-.POs:hover, .requests:hover, .suppliers:hover {
+.POs2:hover, .requests2:hover, .suppliers2:hover {
     background-color: rgb(180, 180, 240);
  }
 

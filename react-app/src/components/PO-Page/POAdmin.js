@@ -263,8 +263,9 @@ function POAdmin() {
                         buttonText=<span><i className="fa-solid fa-circle-plus"></i> New Supplier</span>
                         modalComponent={<NewSupplierForm />}/></button>
 
-            <button className='items'>
+            <button className='items2'>
             <NavLink to='/items' id='POs'><i className="fa-regular fa-eye"></i> Items</NavLink></button>
+            <button className='POs'><i className="fa-regular fa-eye"></i> POs</button>
            <button className='requests'>
             <NavLink to='/requests' id='requests'><i className="fa-regular fa-eye"></i> Requests</NavLink></button>
             <button className='suppliers'>
