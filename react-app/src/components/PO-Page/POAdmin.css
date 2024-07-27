@@ -9,7 +9,7 @@ body {
     border-radius: 5px 5px 0 0;
     margin-left: auto;
     margin-right: auto;
-    max-width: 1000px;
+    max-width: 1050px;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
 }
@@ -27,15 +27,18 @@ body {
     background-color:white;
 }
 
-.POs, .requests, .suppliers {
+.items2, .requests, .suppliers {
    border-radius: 15px 0 0 0;
    cursor: pointer;
     width: 125px;
     border: 1px solid rgb(180, 180, 240);
 
 }
+.POs {
+    background-color: orange;
+}
 
-.POs:hover, .requests:hover, .suppliers:hover {
+.items2:hover, .requests:hover, .suppliers:hover {
   background-color: orange;
  }
 
