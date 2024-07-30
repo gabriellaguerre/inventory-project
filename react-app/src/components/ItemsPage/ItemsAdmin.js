@@ -209,12 +209,12 @@ function ItemsAdmin({user}) {
                     buttonText=<span><i className="fa-solid fa-circle-plus"></i> New Supplier</span>
                     modalComponent={<NewSupplierForm />}/></button>
         {/* <button style={{width: 'auto', height: '15px', backgroundColor: 'white', border: 'none'}}></button> */}
-        <button className='items'><i className="fa-regular fa-eye"></i> Items</button>
-        <button className='POs2'>
+        <button className='items1'><i className="fa-regular fa-eye"></i> Items</button>
+        <button className='POs1'>
         <NavLink to='/purchase_orders' id='POs'><i className="fa-regular fa-eye"></i> POs</NavLink></button>
-       <button className='requests2'>
+       <button className='requests1'>
         <NavLink to='/requests' id='requests'><i className="fa-regular fa-eye"></i> Requests</NavLink></button>
-        <button className='suppliers2'>
+        <button className='suppliers1'>
         <NavLink to='/suppliers' id='suppliers'><i className="fa-regular fa-eye"></i> Suppliers</NavLink></button>
         </td>
         </tr>
