@@ -265,10 +265,10 @@ function POAdmin() {
 
             <button className='items2'>
             <NavLink to='/items' id='POs'><i className="fa-regular fa-eye"></i> Items</NavLink></button>
-            <button className='POs'><i className="fa-regular fa-eye"></i> POs</button>
-           <button className='requests'>
+            <button className='POs2'><i className="fa-regular fa-eye"></i> POs</button>
+           <button className='requests2'>
             <NavLink to='/requests' id='requests'><i className="fa-regular fa-eye"></i> Requests</NavLink></button>
-            <button className='suppliers'>
+            <button className='suppliers2'>
             <NavLink to='/suppliers' id='suppliers'><i className="fa-regular fa-eye"></i> Suppliers</NavLink></button>
             </td>
             </tr>

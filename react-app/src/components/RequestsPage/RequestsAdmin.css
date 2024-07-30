@@ -9,7 +9,7 @@ body {
     border-radius: 5px 5px 0 0;
     margin-left: auto;
     margin-right: auto;
-    max-width: 1000px;
+    max-width: 1050px;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
 }
@@ -27,7 +27,7 @@ body {
     background-color:white;
 }
 
-.POs, .requests, .suppliers {
+.POs3, .items3, .suppliers3 {
    border-radius: 15px 0 0 0;
    cursor: pointer;
     width: 125px;
@@ -35,8 +35,15 @@ body {
 
 }
 
-.POs:hover, .requests:hover, .suppliers:hover {
-  background-color: orange;
+.requests3 {
+    background-color: orange;
+    border-radius: 15px 0 0 0;
+    cursor: pointer;
+     width: 125px;
+}
+
+.POs3:hover, .items3:hover, .suppliers3:hover {
+  background-color: rgb(180, 180, 240);
  }
 
 #POs, #requests, #suppliers {

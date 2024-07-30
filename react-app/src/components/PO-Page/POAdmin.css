@@ -27,19 +27,22 @@ body {
     background-color:white;
 }
 
-.items2, .requests, .suppliers {
+.items2, .requests2, .suppliers2 {
    border-radius: 15px 0 0 0;
    cursor: pointer;
     width: 125px;
     border: 1px solid rgb(180, 180, 240);
 
 }
-.POs {
+.POs2 {
     background-color: orange;
+    border-radius: 15px 0 0 0;
+    cursor: pointer;
+     width: 125px;
 }
 
-.items2:hover, .requests:hover, .suppliers:hover {
-  background-color: orange;
+.items2:hover, .requests2:hover, .suppliers2:hover {
+  background-color: rgb(180, 180, 240);
  }
 
 #POs, #requests, #suppliers {
