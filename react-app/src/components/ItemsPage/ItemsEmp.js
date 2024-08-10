@@ -192,11 +192,13 @@ function ItemsEmp() {
           <button id='poForm'><OpenModalButton
                     buttonText=<span><i className="fa-solid fa-circle-plus"></i> New PO</span>
                     modalComponent={<NewPOForm />}/></button>
-                    <button className='POs'>
+
+       <button className='items1e'><i className="fa-regular fa-eye"></i> Items</button>
+       <button className='POs1e'>
         <NavLink to='/purchase_orders' id='POs'><i className="fa-regular fa-eye"></i> POs</NavLink></button>
-       <button className='requests'>
+       <button className='requests1e'>
         <NavLink to='/requests' id='requests'><i className="fa-regular fa-eye"></i> Requests</NavLink></button>
-        <button className='suppliers'>
+        <button className='suppliers1e'>
         <NavLink to='/suppliers' id='suppliers'><i className="fa-regular fa-eye"></i> Suppliers</NavLink></button>
         </td>
         </tr>
