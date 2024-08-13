@@ -249,11 +249,12 @@ function POEmp() {
                             <button id='poForm'><OpenModalButton
                                 buttonText=<span><i className="fa-solid fa-circle-plus"></i> New PO</span>
                                 modalComponent={<NewPOForm />} /></button>
-                            <button className='POs'>
+                            <button className='items5'>
                                 <NavLink to='/items' id='items'><i className="fa-regular fa-eye"></i> Items</NavLink></button>
-                            <button className='requests'>
+                            <button className='POs5'><i className="fa-regular fa-eye"></i> POs</button>
+                            <button className='requests5'>
                                 <NavLink to='/requests' id='requests'><i className="fa-regular fa-eye"></i> Requests</NavLink></button>
-                            <button className='suppliers'>
+                            <button className='suppliers5'>
                                 <NavLink to='/suppliers' id='suppliers'><i className="fa-regular fa-eye"></i> Suppliers</NavLink></button>
                         </td>
                     </tr>

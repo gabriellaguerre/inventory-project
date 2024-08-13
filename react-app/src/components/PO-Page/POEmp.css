@@ -22,7 +22,7 @@
     background-color:white;
 }
 
-.POs, .requests, .suppliers {
+.items5, .requests5, .suppliers5 {
    border-radius: 15px 0 0 0;
    cursor: pointer;
     width: 125px;
@@ -30,7 +30,14 @@
 
 }
 
-.POs:hover, .requests:hover, .suppliers:hover {
+.POs5 {
+    background-color: orange;
+    border-radius: 15px 0 0 0;
+    cursor: pointer;
+     width: 125px;
+}
+
+.items5:hover, .requests5:hover, .suppliers5:hover {
   background-color: orange;
  }
 
