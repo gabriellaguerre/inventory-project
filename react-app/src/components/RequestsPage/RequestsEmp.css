@@ -27,15 +27,21 @@ body {
     background-color:white;
 }
 
-.POs, .items, .suppliers {
+.POs7, .items7, .suppliers7 {
    border-radius: 15px 0 0 0;
    cursor: pointer;
     width: 125px;
     border: 1px solid rgb(180, 180, 240);
 
 }
+.requests7 {
+    background-color: orange;
+    border-radius: 15px 0 0 0;
+    cursor: pointer;
+     width: 125px;
+}
 
-.POs:hover, .items:hover, .suppliers:hover {
+.POs7:hover, .items7:hover, .suppliers7:hover {
   background-color: orange;
  }
 
