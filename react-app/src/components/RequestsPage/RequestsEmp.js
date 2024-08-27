@@ -246,11 +246,12 @@ function RequestsEmp() {
                             <button id='poForm'><OpenModalButton
                                 buttonText=<span><i className="fa-solid fa-circle-plus"></i> New PO</span>
                                 modalComponent={<NewPOForm />} /></button>
-                            <button className='POs'>
+                            <button className='items7'>
                                 <NavLink to='/items' id='items'><i className="fa-regular fa-eye"></i> Items</NavLink></button>
-                            <button className='POs'>
+                            <button className='POs7'>
                                 <NavLink to='/purchase_orders' id='POs'><i className="fa-regular fa-eye"></i> POs</NavLink></button>
-                            <button className='suppliers'>
+                            <button className='requests7'><i className="fa-regular fa-eye"></i> Requests</button>
+                            <button className='suppliers7'>
                                 <NavLink to='/suppliers' id='suppliers'><i className="fa-regular fa-eye"></i> Suppliers</NavLink></button>
                         </td>
                     </tr>
