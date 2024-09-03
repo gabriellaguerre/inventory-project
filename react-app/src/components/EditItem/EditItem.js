@@ -27,7 +27,7 @@ function EditItem({itemId}) {
 
     useEffect(() => {
 
-        if (quantity && !+quantity) {
+        if (quantity < 0 && !+quantity) {
           let errors = ['Not a valid Quantity']
           setErrors(errors)
           setDisabled(true)
@@ -51,7 +51,7 @@ function EditItem({itemId}) {
             setErrors(errors)
             setDisabled(true)
         } else {
-           
+
             const item = {code, description, item_type, unit_cost:sanitizedString, quantity, manufacturer};
             const data = await dispatch(ItemsActions.editItem(item, itemId))
             if (data) {
