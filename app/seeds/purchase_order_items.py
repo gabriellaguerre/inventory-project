@@ -8,13 +8,23 @@ from sqlalchemy.sql import text
 
 def seed_purchase_order_items():
     pos1 = PurchaseOrder.query.filter(PurchaseOrder.id == 1).first()
+
     quantity1 = PurchaseOrderItems(quantity = 6)
     quantity1.item = Item.query.filter(Item.id == 1).first()
     pos1.items.append(quantity1)
 
+    price1 = PurchaseOrderItems(price = 5.99)
+    price1.item = Item.query.filter(Item.id == 1).first()
+    pos1.items.append(price1)
+
+#///////////////////////////////////////////////////////////////////////////////////////
     quantity2 = PurchaseOrderItems(quantity = 2)
     quantity2.item = Item.query.filter(Item.id == 2).first()
     pos1.items.append(quantity2)
+
+    price2 = PurchaseOrderItems(price = 2.25)
+    price2.item = Item.query.filter(Item.id == 2).first()
+    pos1.items.append(price2)
 
     # po1 = PurchaseOrderItems(id =1, purchase_orderId = 1, itemId = 1, quantity = 6)
     # po2 = PurchaseOrderItems(id =2, purchase_orderId = 1, itemId = 2, quantity = 2)
