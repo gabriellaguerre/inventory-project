@@ -34,7 +34,7 @@ def get_all_purchase_orders():
 @purchase_order_items_routes.route('/<int:purchaseOrderId>')
 # @login_required
 def get_items_of_a_purchase_order(purchaseOrderId):
-   
+
     purchase_order = PurchaseOrder.query.get(purchaseOrderId)
     purchase_order_items = purchase_order.items
     return {'purchase_order_items': [purchase_order_item.to_dict() for purchase_order_item in purchase_order_items]}

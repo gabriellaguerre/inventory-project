@@ -278,6 +278,7 @@ function POAdmin() {
                 <th>Date Created</th>
                 <th>Created By</th>
                 <th>View Purchase Order</th>
+                <th>Edit PO Price-Qty</th>
             </tr>
             </thead>
             <tbody>
@@ -296,6 +297,7 @@ function POAdmin() {
              <OpenModalButton
                   buttonText=<div><i className="fa-regular fa-eye"></i></div>
                   modalComponent={<ItemListPO posId={pos.id}/>}/></div></td>
+            <td>under construction</td>
              </tr>)}
              </tbody>
             </table>
