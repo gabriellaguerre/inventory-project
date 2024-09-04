@@ -17,6 +17,9 @@ function EditItemListPO({posId}) {
     const [quantity1, setQuantity1] = useState(this_poitemList[0].quantity)
     const [quantity2, setQuantity2] = useState(this_poitemList[1]?.quantity)
     const [quantity3, setQuantity3] = useState(this_poitemList[2]?.quantity)
+    const [price1, setPrice1] = useState(this_poitemList[0].price)
+    const [price2, setPrice2] = useState(this_poitemList[1].price)
+    const [price3, setPrice3] = useState(this_poitemList[2].price)
     const [errors, setErrors] = useState([])
     const [disabled, setDisabled] = useState(false)
 
@@ -84,7 +87,8 @@ function EditItemListPO({posId}) {
             <tr className='labels'>
             <th>Item Code</th>
             <th>Description</th>
-            <th>Quantity</th>
+            <th>Qty</th>
+            <th>Price</th>
             </tr>
           </thead>
             <tbody>
@@ -93,43 +97,72 @@ function EditItemListPO({posId}) {
             <td>{thisItem1?.description}</td>
             <td>
             <input
+                className='quantity'
                 value={quantity1}
                 placeholder='enter item quantity'
                 onChange={e => setQuantity1(e.target.value)}>
             </input>
             </td>
-            </tr>
-            <tr>
-            <td>{thisItem2?.code}</td>
-            <td>{thisItem2?.description}</td>
             <td>
-            {thisItem2 ? (
-                 <input
-                 value={quantity2}
-                 placeholder='enter item quantity'
-                 onChange={e => setQuantity2(e.target.value)}>
-             </input>
-            ):(
-                <></>
-            )}
+            <input
+                className='price'
+                value={price1}
+                // placeholder='price'
+                onChange={e => setPrice1(e.target.value)}>
+            </input>
             </td>
             </tr>
             <tr>
-            <td>{thisItem3?.code}</td>
-            <td>{thisItem3?.description}</td>
+            {thisItem2 ? (
+            <>
+            <td>{thisItem2?.code}</td>
+            <td>{thisItem2?.description}</td>
             <td>
-            {thisItem3 ? (
                  <input
-                 value={quantity3}
+                className='quantity'
+                 value={quantity2}
                  placeholder='enter item quantity'
-                 onChange={e => setQuantity3(e.target.value)}>
-             </input>
+                 onChange={e => setQuantity2(e.target.value)}>
+             </input></td>
+               <td>
+               <input
+                   className='price'
+                   value={price2}
+                //    placeholder='price'
+                   onChange={e => setPrice2(e.target.value)}>
+               </input></td>
+               </>
             ):(
                 <></>
             )}
 
-            </td>
             </tr>
+            {thisItem3 ? (
+            <>
+            <tr>
+            <td>{thisItem3?.code}</td>
+            <td>{thisItem3?.description}</td>
+            <td>
+                 <input
+                 className='quantity'
+                 value={quantity3}
+                 placeholder='enter item quantity'
+                 onChange={e => setQuantity3(e.target.value)}>
+             </input></td>
+             <td>
+               <input
+               className='price'
+                   value={price3}
+                //    placeholder='price'
+                   onChange={e => setPrice3(e.target.value)}>
+               </input></td>
+             </tr>
+             </>
+
+            ):(
+                <></>
+            )}
+
           </tbody>
         </table>
          <div className='editPOSubmit'>

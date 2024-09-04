@@ -44,7 +44,8 @@ function ItemListPO({posId}) {
                 <tr className='labels'>
                 <th>Item Code</th>
                 <th>Description</th>
-                <th>Quantity</th>
+                <th>Qty</th>
+                <th>Price</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,6 +54,7 @@ function ItemListPO({posId}) {
                 <td className='name'>{item[poitem.itemId]?.code}</td>
                 <td className='description'>{item[poitem.itemId]?.description}</td>
                 <td>{poitem.quantity}</td>
+                <td>${poitem.price}</td>
                 </tr>)}
                 </tbody>
             </table>

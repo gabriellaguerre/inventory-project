@@ -1,7 +1,7 @@
 .editpoformmodalContainer {
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 700px;
   height: auto;
   border-radius: 30px;
   background-color: rgb(70, 70, 95);
@@ -98,4 +98,8 @@ color:  rgb(180, 180, 240);
 
 .editPOSubmit {
   text-align: center;
+}
+
+.price, .quantity {
+  width: 60px;
 }
