@@ -85,6 +85,7 @@ def edit_purchase_order_item(poId, itemId):
     purchase_order_item_form['csrf_token'].data = request.cookies['csrf_token']
     if purchase_order_item_form.validate_on_submit():
          quantity = purchase_order_item_form.data['quantity']
+         price = purchase+order_item_form.data['price']
 
          po = PurchaseOrder.query.filter(PurchaseOrder.id == poId).first()
 
@@ -92,6 +93,7 @@ def edit_purchase_order_item(poId, itemId):
              if(poitem.itemId==itemId and poitem.purchase_orderId==poId):
                  thispo = poitem
                  thispo.quantity = quantity
+                 thispo.price = price
                  db.session.commit()
 
 
