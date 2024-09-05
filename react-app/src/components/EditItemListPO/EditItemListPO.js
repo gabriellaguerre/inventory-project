@@ -5,6 +5,7 @@ import * as PurchaseOrderItemsActions from '../../store/purchase_order_items'
 import './EditItemListPO.css'
 
 function EditItemListPO({posId}) {
+    console.log("HELLO")
    const dispatch = useDispatch();
    const {closeModal} = useModal();
 
@@ -45,30 +46,43 @@ function EditItemListPO({posId}) {
         e.preventDefault()
 
         let poId = this_poitemList[0].purchase_orderId;
-        if (itemId1 && +quantity1 && itemId2 && +quantity2 && itemId3 && +quantity3) {
-            let itemId = itemId1
-            let quantity = quantity1
-            let price = price1
-            await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity, price}))
-            .then(async ()=> {itemId = itemId2; quantity = quantity2; price = price2; await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity, price})) })
-           .then(async ()=> {itemId = itemId3; quantity = quantity3; price = price3; await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity, price})) })
-        //    .then(dispatch(ItemsActions.getAllItems()))
-           .then(closeModal())
-        } else if (itemId1 && +quantity1 && itemId2 && +quantity2) {
-            let itemId = itemId1
-            let quantity = quantity1
-            await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity}))
-            .then(async ()=> {itemId = itemId2; quantity = quantity2; await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity}))})
-        //    .then(dispatch(ItemsActions.getAllItems()))
-           .then(closeModal())
-        } else if (itemId1 && +quantity1 ) {
-            let itemId = itemId1
-            let quantity = quantity1
-            await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity}))
-            // .then(dispatch(POsActions.getPOS()))
-            // .then(dispatch(ItemsActions.getAllItems()))
-            .then(closeModal())
+        // console.log(poId, 'POID IN ON SUBMIT OF EDITITEMLISTPO')
+        let items = [{itemId: itemId1, quantity: quantity1, price: price1},
+                     {itemId: itemId2, quantity: quantity2, price: price2},
+                     {itemId: itemId3, quantity: quantity3, price: price3}
+                  ]
+
+        items = items.filter(item => item.itemId && +item.quantity);
+        for (const { itemId, quantity, price } of items) {
+            await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, { quantity, price }));
         }
+        closeModal()
+        // if (itemId1 && +quantity1 && itemId2 && +quantity2 && itemId3 && +quantity3) {
+        //     let itemId = itemId1
+        //     let quantity = quantity1
+        //     let price = price1
+        //     await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity, price}))
+        //     .then(async ()=> {itemId = itemId2; quantity = quantity2; price = price2; await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity, price})) })
+        //    .then(async ()=> {itemId = itemId3; quantity = quantity3; price = price3; await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity, price})) })
+        // //    .then(dispatch(ItemsActions.getAllItems()))
+        //    .then(closeModal())
+        // } else if (itemId1 && +quantity1 && itemId2 && +quantity2) {
+        //     let itemId = itemId1
+        //     let quantity = quantity1
+        //     let price = price1
+        //     await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity, price}))
+        //     .then(async ()=> {itemId = itemId2; quantity = quantity2; await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity, price}))})
+        // //    .then(dispatch(ItemsActions.getAllItems()))
+        //    .then(closeModal())
+        // } else if (itemId1 && +quantity1 ) {
+        //     let itemId = itemId1
+        //     let quantity = quantity1
+        //     let price = price1
+        //     await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity, price}))
+        //     // .then(dispatch(POsActions.getPOS()))
+        //     // .then(dispatch(ItemsActions.getAllItems()))
+        //     .then(closeModal())
+        // }
     }
 
     return (
