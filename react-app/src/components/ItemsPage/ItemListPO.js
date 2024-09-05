@@ -29,7 +29,7 @@ function ItemListPO({posId}) {
 
     const addPOItems = () => {
         dispatch(POsActions.editPO(posId))
-        poItems.forEach(poItem => dispatch(ItemsActions.poeditItem(poItem.itemId, poItem.quantity)))
+        poItems.forEach(poItem => dispatch(ItemsActions.poeditItem(poItem.itemId, poItem.quantity, poItem.price)))
     }
 
     return (

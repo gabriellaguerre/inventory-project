@@ -155,8 +155,8 @@ export const searchItems = ({query, filter}) => async(dispatch) => {
     }
 }
 
-export const poeditItem = (itemId, quantity) => async(dispatch) => {
-    const response = await fetch(`/api/items/po_edit/${itemId}/${quantity}`, {
+export const poeditItem = (itemId, quantity, price) => async(dispatch) => {
+    const response = await fetch(`/api/items/po_edit/${itemId}/${quantity}/${price}`, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'}
     })

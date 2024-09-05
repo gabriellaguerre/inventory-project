@@ -18,8 +18,8 @@ function EditItemListPO({posId}) {
     const [quantity2, setQuantity2] = useState(this_poitemList[1]?.quantity)
     const [quantity3, setQuantity3] = useState(this_poitemList[2]?.quantity)
     const [price1, setPrice1] = useState(this_poitemList[0].price)
-    const [price2, setPrice2] = useState(this_poitemList[1].price)
-    const [price3, setPrice3] = useState(this_poitemList[2].price)
+    const [price2, setPrice2] = useState(this_poitemList[1]?.price)
+    const [price3, setPrice3] = useState(this_poitemList[2]?.price)
     const [errors, setErrors] = useState([])
     const [disabled, setDisabled] = useState(false)
 
@@ -48,9 +48,10 @@ function EditItemListPO({posId}) {
         if (itemId1 && +quantity1 && itemId2 && +quantity2 && itemId3 && +quantity3) {
             let itemId = itemId1
             let quantity = quantity1
-            await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity}))
-            .then(async ()=> {itemId = itemId2; quantity = quantity2; await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity})) })
-           .then(async ()=> {itemId = itemId3; quantity = quantity3; await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity})) })
+            let price = price1
+            await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity, price}))
+            .then(async ()=> {itemId = itemId2; quantity = quantity2; price = price2; await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity, price})) })
+           .then(async ()=> {itemId = itemId3; quantity = quantity3; price = price3; await dispatch(PurchaseOrderItemsActions.editPOItem(poId, itemId, {quantity, price})) })
         //    .then(dispatch(ItemsActions.getAllItems()))
            .then(closeModal())
         } else if (itemId1 && +quantity1 && itemId2 && +quantity2) {
