@@ -63,7 +63,7 @@ def search_items():
         filter_condition = filter_column.ilike(f'%{query}%')
 
     items = Item.query.filter(and_(filter_condition, Item.deleted == False)).all()
-    
+
 
     return {'items': [item.to_dict() for item in items], 'total_pages': 'total_pages'}
 
@@ -102,12 +102,16 @@ def create_item():
     return {'errors':validation_errors_to_error_messages(item_form.errors)}
 
 #------------------------------EDIT ITEMS OF A PO (RECEIVE PO)------------------------
-@item_routes.route('/po_edit/<int:itemId>/<int:quantity>', methods=['PUT'])
+@item_routes.route('/po_edit/<int:itemId>/<int:quantity>/<int:price>', methods=['PUT'])
 # @login_required
-def edit_quantity_of_an_item(itemId, quantity):
+def edit_quantity_of_an_item(itemId, quantity, price):
+
 
     item = Item.query.get(itemId)
+    value1 = item.quantity*item.unit_cost
+    value2 = quantity*price
     item.quantity = item.quantity + quantity
+    item.unit_cost = (value1+value2)/item.quantity
     item.total_value = item.quantity*item.unit_cost
     item.updatedAt = datetime.now()
 

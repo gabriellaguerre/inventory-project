@@ -61,12 +61,12 @@ export const createPOItem = (itemId, {quantity}) => async (dispatch) => {
     }
 }
 
-export const editPOItem = (poId, itemId, { quantity }) => async (dispatch) => {
+export const editPOItem = (poId, itemId, { quantity, price }) => async (dispatch) => {
 
     const response = await fetch(`/api/purchase_order_items/${poId}/${itemId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ quantity })
+        body: JSON.stringify({ quantity, price })
     })
     if (response.ok) {
         // const data = await response.json()
