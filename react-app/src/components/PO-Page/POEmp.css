@@ -96,3 +96,7 @@
     text-align: center;
     line-height: 30px;
 }
+
+.posid, .poview {
+    text-align: center;
+}
