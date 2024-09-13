@@ -274,10 +274,10 @@ function POEmp() {
                             ) : (
                                 <td><div id='open'>open</div></td>
                             )}
-                            <td>{pos.id}</td>
+                            <td className='posid'>{pos.id}</td>
                             <td>{pos.createdAt}</td>
                             <td>{user[pos.userId]?.employeeID}</td>
-                            <td>
+                            <td className='poview'>
                                 <div className='poView'>
                                 <OpenModalButton
                                     buttonText=<div><i className="fa-regular fa-eye"></i></div>
